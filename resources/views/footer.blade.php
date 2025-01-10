@@ -188,6 +188,8 @@
 <!--<script src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/module_51600793541_icon-with-text.min.js"></script>-->
 <script src="{{ url('assets/js/module_51600793540_pricing.min.js'); }}"></script>
 <script src="{{ url('assets/js/slick.min.js'); }}"></script>
+<script src="{{ url('assets/js/script.js'); }}"></script>
+
 <script>
    $(document).ready(function(){
       $('.logo-slide-row').slick({

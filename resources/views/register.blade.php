@@ -2,7 +2,7 @@
 @section("contentbox")
 <!-- https://colorlib.com/etc/regform/colorlib-regform-8/ -->
 <link rel="stylesheet" href="{{ url('assets/css/module_51600883929_slider.min.css'); }}"></link>
-
+<link rel="stylesheet" href="{{ url('assets/_hcms/fonts/material-icon/css/material-design-iconic-font.min.css'); }}">
 <style>
 /* @extend display-flex; */
 display-flex, .display-flex, .display-flex-center {
@@ -313,6 +313,11 @@ input[type=checkbox]:not(old):checked + label > span:before {
 @media screen and (max-width: 480px) {
   .signup-content {
     padding: 50px 25px; } }
+
+    .errorMessage{
+      color:red;
+      margin-left:10px;
+    }
 </style>
 
 <main class="body-container-wrapper">
@@ -327,10 +332,16 @@ input[type=checkbox]:not(old):checked + label > span:before {
                         <section class="signup">
                             <div class="container">
                                 <div class="signup-content">
-                                    <form method="POST" id="signup-form" class="signup-form">
+                                    <form id="signup-form" class="signup-form" method="POST" action="register" onsubmit="return validateMe()">
                                         <h2 class="form-title">Create account</h2>
-                                        <div class="form-group">
-                                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                                        
+                                        <div class="form-group row">
+                                          <div class="col">
+                                            <input type="text" class="form-input" name="fname" id="fname" placeholder="First Name"/>
+                                          </div>
+                                          <div class="col">
+                                            <input type="text" class="form-input" name="lname" id="lname" placeholder="Last Name"/>
+                                          </div>
                                         </div>
                                         <div class="form-group">
                                             <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
@@ -340,14 +351,16 @@ input[type=checkbox]:not(old):checked + label > span:before {
                                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
+                                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Confirm password"/>
                                         </div>
                                         <div class="form-group">
                                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                                             <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                                         </div>
                                         <div class="form-group">
-                                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                                        <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>    
+                                        <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                                            <span class="errorMessage"></span>
                                         </div>
                                     </form>
                                     <p class="loginhere">
@@ -367,5 +380,204 @@ input[type=checkbox]:not(old):checked + label > span:before {
 </main>
 @endsection
 @push("js")
-<script></script>
+<script>
+$(function(){
+  $(".toggle-password").click(function() {
+    $(this).toggleClass("zmdi-eye zmdi-eye-off");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  });
+});
+
+function validateMedd() {
+    var fname = $("#fname").val();
+    var lname = $("#lname").val();
+    var email = $("#email").val();
+    var password = $("#password").val();
+    var re_password = $("#re_password").val();
+    var agreeTerm = $("#agree-term").is(":checked");
+
+    // Clear previous error messages
+    $(".errorMessage").html("");
+
+    // Validate First Name
+    if (!isRealValue(fname)) {
+        $(".errorMessage").html("Please enter your first name.");
+        $("#fname").keyup(function() {
+            $(".errorMessage").html("");
+        });
+        return false;
+    }
+
+    // Validate Last Name
+    if (!isRealValue(lname)) {
+        $(".errorMessage").html("Please enter your last name.");
+        $("#lname").keyup(function() {
+            $(".errorMessage").html("");
+        });
+        return false;
+    }
+
+    // Validate Email
+    if (!isRealValue(email)) {
+        $(".errorMessage").html("Please enter your email.");
+        $("#email").keyup(function() {
+            $(".errorMessage").html("");
+        });
+        return false;
+    } else if (!validateEmail(email)) {
+        $(".errorMessage").html("Please enter a valid email.");
+        $("#email").keyup(function() {
+            $(".errorMessage").html("");
+        });
+        return false;
+    }
+
+    // Validate Password
+    if (!isRealValue(password)) {
+        $(".errorMessage").html("Please enter the password.");
+        $("#password").keyup(function() {
+            $(".errorMessage").html("");
+        });
+        return false;
+    }
+
+    // Validate Confirm Password
+    if (!isRealValue(re_password)) {
+        $(".errorMessage").html("Please enter the confirm password.");
+        $("#re_password").keyup(function() {
+            $(".errorMessage").html("");
+        });
+        return false;
+    } else if (password !== re_password) {
+        $(".errorMessage").html("Confirm password does not match.");
+        $("#re_password").keyup(function() {
+            $(".errorMessage").html("");
+        });
+        return false;
+    }
+
+    // Validate Terms of Service Checkbox
+    if (!agreeTerm) {
+        $(".errorMessage").html("You must agree to the Terms of Service.");
+        $("#agree-term").change(function() {
+            if ($(this).is(":checked")) {
+                $(".errorMessage").html("");
+            }
+        });
+        return false;
+    }
+
+    return true;
+}
+
+function validateMe() {
+  var fname = $("#fname").val();
+  var lname = $("#lname").val();
+  var fnameObj = validateName(fname);
+  var lnameObj = validateName(lname);
+
+  var email = $("#email").val();
+  var password = $("#password").val();
+  var re_password = $("#re_password").val();
+  var psswdValidObj = validatePassword(password);
+  var cpsswdValidObj = validatePassword(re_password);
+  var psswdErr = psswdValidObj.err;
+  var psswdMsg = psswdValidObj.msg;
+  var cpsswdErr = cpsswdValidObj.err;
+  var cpsswdMsg = cpsswdValidObj.msg;
+
+  var agreeTerm = $("#agree-term").is(":checked");
+
+  // Clear previous error messages
+  $(".errorMessage").html("");
+
+  if (!isRealValue(fname)) {
+    $(".errorMessage").html("Please enter your first name.");
+    $("#fname").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (isRealValue(fname) && fnameObj.err == 1) {
+    $(".errorMessage").html(fnameObj.msg);
+    $("#fname").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (!isRealValue(lname)) {
+    $(".errorMessage").html("Please enter your last name.");
+    $("#lname").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (isRealValue(lname) && lnameObj.err == 1) {
+    $(".errorMessage").html(lnameObj.msg);
+    $("#lname").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (!isRealValue(email)) {
+    $(".errorMessage").html("Please enter your email.");
+    $("#email").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (isRealValue(email) && !validateEmail(email)) {
+    $(".errorMessage").html("Please enter a valid email.");
+    $("#email").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (!isRealValue(password)) {
+    $(".errorMessage").html("Please enter the password.");
+    $("#password").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (isRealValue(password) && psswdErr == 1) {
+    $(".errorMessage").html(psswdMsg);
+    $("#password").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (!isRealValue(re_password)) {
+    $(".errorMessage").html("Please enter the confirm password.");
+    $("#re_password").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (isRealValue(re_password) && cpsswdErr == 1) {
+    $(".errorMessage").html(cpsswdMsg);
+    $("#re_password").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (isRealValue(password) && isRealValue(re_password) && password !== re_password) {
+    $(".errorMessage").html("Confirm password does not match.");
+    $("#re_password").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (!agreeTerm) {
+      // Validate Terms of Service Checkbox
+      $(".errorMessage").html("You must agree to the Terms of Service.");
+      $("#agree-term").change(function() {
+          if ($(this).is(":checked")) {
+              $(".errorMessage").html("");
+          }
+      });
+      return false;
+  }else {
+    //CSRFTOKEN
+    //callajax(requrl, jsondata, cb)
+    return true; // Allow form submission if all validations pass.
+  }
+}
+
+
+</script>
 @endpush

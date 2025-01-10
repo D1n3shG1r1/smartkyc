@@ -63,6 +63,8 @@
       <link rel="stylesheet" href="{{ url('assets/css/module_79685541057_new-global-header.min.css'); }}">
       <link rel="stylesheet" href="{{ url('assets/css/slick.css'); }}"></link>
       <link rel="stylesheet" href="{{ url('assets/css/LanguageSwitcher.css'); }}"></link>
+      <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css'); }}"></link>
+      <link rel="stylesheet" href="{{ url('assets/css/bootstrap-icons.css'); }}"></link>
       
       <style type="text/css">
          @media (min-width: 1200px) {
@@ -988,7 +990,10 @@
          }
       </style>
 
-      
+         <script>
+            var CSRFTOKEN = "{{ csrf_token() }}";
+            var SERVICEURL = "{{ url('') }}";
+         </script>
       <script src="{{ url('assets/js/jquery-3.6.0.min.js'); }}"></script>
       <script src="{{ url('assets/js/aos.min.js'); }}"></script>
      

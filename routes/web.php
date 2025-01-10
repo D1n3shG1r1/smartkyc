@@ -30,6 +30,8 @@ Route::get('/services',[Services::class, 'services']);
 Route::get('/faq',[Faq::class, 'faq']);
 Route::get('/pricing',[Pricing::class, 'pricing']);
 Route::get('/register',[Admin::class, 'register']);
+Route::post('/register',[Admin::class, 'register']);
+
 Route::get('/login',[Admin::class, 'login']);
 
 
