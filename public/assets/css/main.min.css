@@ -4370,3 +4370,8 @@ a.offerGetStartLik:hover{
 	color:#ffd61f;
 	text-decoration: underline;
 }
+
+.btn:focus {
+    outline: none; /* Removes the default outline */
+    box-shadow: none !important; /* Ensures no box shadow */
+}

@@ -369,16 +369,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
                             <div class="container">
                                 <div class="signup-content">
                                     <form id="signup-form" class="signup-form">
-                                        <h2 class="form-title">Create account</h2>
-                                        
-                                        <div class="form-group row">
-                                          <div class="col">
-                                            <input type="text" class="form-input" name="fname" id="fname" placeholder="First Name"/>
-                                          </div>
-                                          <div class="col">
-                                            <input type="text" class="form-input" name="lname" id="lname" placeholder="Last Name"/>
-                                          </div>
-                                        </div>
+                                        <h2 class="form-title">Log In</h2>
                                         <div class="form-group">
                                             <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
                                         </div>
@@ -387,20 +378,13 @@ input[type=checkbox]:not(old):checked + label > span:before {
                                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Confirm password"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="agree_term" id="agree_term" class="agree-term" />
-                                            <label for="agree_term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                                        </div>
-                                        <div class="form-group">
                                           <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>    
-                                          <button id="signup-button" class="btn btn-primary form-submit signup-button" type="button" onclick="validateMe(this);" data-txt="Register" data-loadingtxt="Registering...">Register</button> 
+                                          <button id="signup-button" class="btn btn-primary form-submit signup-button" type="button" onclick="validateMe(this);" data-txt="Login" data-loadingtxt="Logging In...">Log In</button> 
                                           <span class="errorMessage"></span>
                                         </div>
                                     </form>
                                     <p class="loginhere">
-                                        Have already an account ? <a href="{{ url('login') }}" class="loginhere-link">Login here</a>
+                                        Not have an account ? <a href="{{ url('register') }}" class="loginhere-link">Register here</a>
                                     </p>
                                 </div>
                             </div>
@@ -430,59 +414,14 @@ $(function(){
 });
 
 function validateMe(elm) {
-  var fname = $("#fname").val();
-  var lname = $("#lname").val();
-  var fnameObj = validateName(fname);
-  var lnameObj = validateName(lname);
-  
   var email = $("#email").val();
   var password = $("#password").val();
-  var re_password = $("#re_password").val();
-  var psswdValidObj = validatePassword(password);
-  var cpsswdValidObj = validatePassword(re_password);
-  var psswdErr = psswdValidObj.err;
-  var psswdMsg = psswdValidObj.msg;
-  var cpsswdErr = cpsswdValidObj.err;
-  var cpsswdMsg = cpsswdValidObj.msg;
-
-  var agreeTerm = $("#agree_term").is(":checked");
   
   // Clear previous error messages
   $(".errorMessage").html("");
   $(".errorMessage").removeClass("success");
   
-
-  if (!isRealValue(fname)) {
-    $(".errorMessage").html("Please enter your first name.");
-    $("#fname").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (isRealValue(fname) && fnameObj.err == 1) {
-    $(".errorMessage").html(fnameObj.msg);
-    $("#fname").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (!isRealValue(lname)) {
-    $(".errorMessage").html("Please enter your last name.");
-    $("#lname").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (isRealValue(lname) && lnameObj.err == 1) {
-    $(".errorMessage").html(lnameObj.msg);
-    $("#lname").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (!isRealValue(email)) {
-    $(".errorMessage").html("Please enter your email.");
-    $("#email").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (isRealValue(email) && !validateEmail(email)) {
+  if (isRealValue(email) && !validateEmail(email)) {
     $(".errorMessage").html("Please enter a valid email.");
     $("#email").on("keyup", function () {
       $(".errorMessage").html("");
@@ -494,42 +433,7 @@ function validateMe(elm) {
       $(".errorMessage").html("");
     });
     return false;
-  } else if (isRealValue(password) && psswdErr == 1) {
-    $(".errorMessage").html(psswdMsg);
-    $("#password").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (!isRealValue(re_password)) {
-    $(".errorMessage").html("Please enter the confirm password.");
-    $("#re_password").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (isRealValue(re_password) && cpsswdErr == 1) {
-    $(".errorMessage").html(cpsswdMsg);
-    $("#re_password").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (isRealValue(password) && isRealValue(re_password) && password !== re_password) {
-    $(".errorMessage").html("Confirm password does not match.");
-    $("#re_password").on("keyup", function () {
-      $(".errorMessage").html("");
-    });
-    return false;
-  } else if (!agreeTerm) {
-      // Validate Terms of Service Checkbox
-      $(".errorMessage").html("You must agree to the Terms of Service.");
-      $("#agree_term").change(function() {
-          if ($(this).is(":checked")) {
-              $(".errorMessage").html("");
-          }
-      });
-      return false;
   }else {
-    
-
     var elmId = $(elm).attr("id");
     
     $(elm).attr("disabled",true);
@@ -537,33 +441,26 @@ function validateMe(elm) {
     var loadingTxt = $(elm).attr("data-loadingtxt");
     showLoader(elmId,loadingTxt); 
 
-    var requrl = 'register';
+    var requrl = 'login';
     var postData = {
       "_token":CSRFTOKEN,
-      "fname":fname,
-      "lname":lname,
       "email":email,
-      "password":password,
-      "re_password":re_password,
-      "agree_term":agreeTerm
+      "password":password
     };
     
     callajax(requrl, postData, function(resp){
-        
-        $(elm).removeAttr("disabled");
-        hideLoader(elmId,orgTxt);
-        
-        $(".errorMessage").html(resp.M);
-
-        if(resp.C == 100){
-          $(".errorMessage").addClass("success");
-          setTimeout(function(){
-            window.location.href = "login";
-          }, 1000);
-        }else{
-          $(".errorMessage").removeClass("success");
-        }
-
+      
+      $(".errorMessage").html(resp.M);
+      $(elm).removeAttr("disabled");
+      hideLoader(elmId,orgTxt);
+      
+      if(resp.C == 100){
+        $(".errorMessage").addClass("success");
+        window.location.href="admin/dashboard";
+      }else{
+        $(".errorMessage").removeClass("success");
+      }
+  
     });
     
   }

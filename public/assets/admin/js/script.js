@@ -124,12 +124,12 @@ function showToast(err,msg){
 	
 	if(err > 0){
 		//error
-    $("#toastMessage").removeClass("successMessage");
-    $("#toastMessage").addClass("errorMessage");
+    $("#toastMessage").removeClass("alert-success");
+    $("#toastMessage").addClass("alert-danger");
   }else{
 		//success
-    $("#toastMessage").removeClass("errorMessage");
-    $("#toastMessage").addClass("successMessage");
+    $("#toastMessage").removeClass("alert-danger");
+    $("#toastMessage").addClass("alert-success");
 	}
 
   $("#toastMessage .toastMessageContent").html(msg);
@@ -238,7 +238,6 @@ function validateName(name) {
   const minLength = 2;
   const maxLength = 50;
   const validCharacters = /^[A-Za-z\s]+$/; // Only letters and spaces
-
   var msg = "Name is valid.";
   var err = 0;
   

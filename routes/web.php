@@ -6,7 +6,11 @@ use App\Http\Controllers\Howitworks;
 use App\Http\Controllers\Services;
 use App\Http\Controllers\Faq;
 use App\Http\Controllers\Pricing;
-use App\Http\Controllers\Admin;
+use App\Http\Controllers\Register;
+use App\Http\Controllers\Admin\Dashboard;
+use App\Http\Controllers\Admin\Profile;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,9 +33,15 @@ Route::get('/how-it-works',[Howitworks::class, 'howitworks']);
 Route::get('/services',[Services::class, 'services']);
 Route::get('/faq',[Faq::class, 'faq']);
 Route::get('/pricing',[Pricing::class, 'pricing']);
-Route::get('/register',[Admin::class, 'register']);
-Route::post('/register',[Admin::class, 'register']);
+Route::get('/login',[Register::class, 'login']);
+Route::post('/login',[Register::class, 'login']);
+Route::get('/register',[Register::class, 'register']);
+Route::post('/register',[Register::class, 'register']);
 
-Route::get('/login',[Admin::class, 'login']);
 
+Route::prefix('admin')->name('admin.')->group(function () {    
+    Route::get('/dashboard',[Dashboard::class, 'dashboard']);
+    Route::get('/myprofile',[Profile::class, 'myprofile']);
+    
+});
 

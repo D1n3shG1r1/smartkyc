@@ -1,0 +1,35 @@
+/*------------------------------------------------------------------
+    File Name: custom.css
+-------------------------------------------------------------------*/
+
+/** ADD YOUR AWESOME CODES HERE **/
+
+.logoblack{height: 42px;}
+
+.hideMe{display:none;}
+
+.form-input {
+    width: 100%;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    padding: 17px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+    color: #222;
+}
+
+.profile-btn-box{
+    text-align: right;
+}
+
+.alert {
+    display: none;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}

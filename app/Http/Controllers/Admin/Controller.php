@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -14,10 +14,11 @@ class Controller extends BaseController
 
     function __construct(){
         
-        //$tmpAdminName = $this->getSession('adminName');
-        //$tmpAdminEmail = $this->getSession('adminEmail');
-
-        //view()->share('LOGINUSER',array("name" => $tmpAdminName, "email" => $tmpAdminEmail));
+        $tmpAdminFName = $this->getSession('adminFName');
+        $tmpAdminLName = $this->getSession('adminLName');
+        $tmpAdminEmail = $this->getSession('adminEmail');
+        
+        view()->share('LOGINUSER',array("fname" => $tmpAdminFName, "lname" => $tmpAdminLName,"email" => $tmpAdminEmail));
         
     }
 

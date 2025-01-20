@@ -158,7 +158,7 @@
                               <!--[if lte IE 8]>
                               <div id="hs-cta-ie-element"></div>
                               <![endif]-->
-                              <a href="javascript:void(0);" class="signInLink" target="_blank" rel="noopener">Login</a>
+                              <a href="{{url('login')}}" class="signInLink" >Login</a>
                            </span>
                         </span>
                         <!-- end HubSpot Call-to-Action Code -->

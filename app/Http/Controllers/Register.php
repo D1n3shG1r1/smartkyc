@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Admin_model;
 
-class Admin extends Controller
+class Register extends Controller
 {
     //login
     //registeration
@@ -14,11 +14,64 @@ class Admin extends Controller
     //buy plan
     //upload verify document
     //reports
-
+    
+    var $ADMINID = 0;
+    
     function __construct(){   
         parent::__construct();
+        $this->ADMINID = $this->getSession('adminId');
     }
     
+    function login(Request $request){
+        if($request->isMethod('post')) {
+            $email = $request->input("email");
+            $password = $request->input("password");
+            $token = $request->input("_token");
+
+            $password = md5($password);
+
+            $adminObj = Admin_model::where('email', $email)->where('password', $password)->first()->toArray();
+				
+            if (!empty($adminObj)){
+                $adminId = $adminObj["id"];
+                if ($adminId > 0) {
+                    
+                    $adminFName = $adminObj["fname"];
+                    $adminLName = $adminObj["lname"];
+                    $adminEmail = $adminObj["email"];
+                    
+                    $this->setSession('adminFName', $adminFName);
+                    $this->setSession('adminLName', $adminLName);
+                    $this->setSession('adminEmail', $adminEmail);
+                    $this->setSession('adminId', $adminId);
+                
+                    $response = array("C" => 100, "R" => array("adminIdd" => $adminId), "M" => "Login successful! Redirecting...");
+                }else{
+                    $response = array("C" => 101, "R" => array(), "M" => "Invalid email or password. Please try again.");
+                }   
+            
+            }else{
+                $response = array("C" => 101, "R" => array(), "M" => "Invalid email or password. Please try again.");
+            }
+            
+            return response()->json($response); die;
+
+        }else{
+
+            if ($this->ADMINID > 0) {
+                //redirect to dashboard
+                return Redirect::to(url('dashboard'));
+            }else{
+                $data = array();
+                $data["pageTitle"] = "Login";
+                return View("login",$data);
+            }
+
+        }
+        
+    }
+    
+
     function register(Request $request){
         if($request->isMethod('post')) {
             
@@ -27,11 +80,10 @@ class Admin extends Controller
             $email = $request->input("email");
             $password = $request->input("password");
             $repassword = $request->input("re_password");
-            $agreeterm = $request->input("agree-term");
+            $agreeterm = $request->input("agree_term");
             $token = $request->input("_token");
 
             $password = md5($password);
-            
             
             //check for email existance
             $isEmailExist = $this->emailExist($email);
@@ -48,7 +100,7 @@ class Admin extends Controller
                 $response = array(
                     "C" => 102,
                     "R" => $postBackData,
-                    "M" => "error: The entered email is already associated with us."
+                    "M" => "The entered email is already associated with us."
                 );
         
                 return response()->json($response); die;
@@ -79,7 +131,7 @@ class Admin extends Controller
                 $response = array(
                     "C" => $saved ? 100 : 101,
                     "R" => $postBackData,
-                    "M" => $saved ? "success" : "error"
+                    "M" => $saved ? "Your account has been successfully registered." : "Something went wrong. Please try again."
                 );
         
                 return response()->json($response); die;
@@ -103,4 +155,7 @@ class Admin extends Controller
         }
     }
 
+    function logout(Request $request){
+
+    }
 }
