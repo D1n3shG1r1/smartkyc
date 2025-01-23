@@ -28,7 +28,9 @@
                         <form class="profile_contant">
                             <div class="form-group row">
                                 <div class="col">
-                                    <input type="text" class="form-input" name="fname" id="fname" placeholder="First Name" value="{{$user['fname']}}">
+                                    
+                                <input type="hidden" class="form-input" name="adminId" id="adminId" value="{{$user['id']}}">
+                                <input type="text" class="form-input" name="fname" id="fname" placeholder="First Name" value="{{$user['fname']}}">
                                 </div>
                                 <div class="col">
                                 <input type="text" class="form-input" name="lname" id="lname" placeholder="Last Name" value="{{$user['lname']}}">
@@ -108,6 +110,7 @@ function validateForm() {
     const isValidWebsite = (value) => /^(https?:\/\/)?([\w.-]+)\.([a-z\.]{2,6})([\/\w .-]*)*\/?$/.test(value);
 
     // Validate each field
+    var adminId = $("#adminId").val();
     var fname = $("#fname").val();
     var lname = $("#lname").val();
     var address_1 = $("#address_1").val();
@@ -126,151 +129,145 @@ function validateForm() {
     const validCharacters = /^[A-Za-z0-9\s]+$/; // Only letters, numbers and spaces
     //!validCharacters.test(name)
   
-    
-    Last name is required.
-    Address line 1 is required.
-    Address line 2 is required.
-    Website must be a valid URL.
-    Company name is required.
-    Phone number must be valid (e.g., +123456789).
     if (!isRealValue(fname)) {
-        $(".errorMessage").html("First name is required.");
-        $("#fname").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "First name is required.";
+        showToast(err,msg);
         return false;
     } else if (isRealValue(fname) && fnameObj.err == 1) {
-        $(".errorMessage").html(fnameObj.msg);
-        $("#fname").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = fnameObj.msg;
+        showToast(err,msg);
         return false;
     } else if (!isRealValue(lname)) {
-        $(".errorMessage").html("Last name is required.");
-        $("#lname").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Last name is required.";
+        showToast(err,msg);
         return false;
     } else if (isRealValue(lname) && lnameObj.err == 1) {
-        $(".errorMessage").html(lnameObj.msg);
-        $("#lname").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = lnameObj.msg;
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(address_1)){
-        $(".errorMessage").html("Address line 1 is required.");
-        $("#address_1").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Address line 1 is required.";
+        showToast(err,msg);
+        return false;
+    }else if(isRealValue(address_1) && !validCharacters.test(address_1)){
+        var err = 1;
+        var msg = "Only letters, numbers and spaces are allowed.";
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(address_2)){
-        $(".errorMessage").html("Address line 2 is required.");
-        $("#address_2").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Address line 2 is required.";
+        showToast(err,msg);
+        return false;
+    }else if(isRealValue(address_2) && !validCharacters.test(address_2)){
+        var err = 1;
+        var msg = "Only letters, numbers and spaces are allowed.";
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(city)){
-        $(".errorMessage").html("City is required.");
-        $("#city").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "City is required.";
+        showToast(err,msg);
+        return false;
+    }else if(isRealValue(city) && !validCharacters.test(city)){
+        var err = 1;
+        var msg = "Only letters, numbers and spaces are allowed.";
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(state)){
-        $(".errorMessage").html("State is required.");
-        $("#state").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "State is required.";
+        showToast(err,msg);
+        return false;
+    }else if(isRealValue(state) && !validCharacters.test(state)){
+        var err = 1;
+        var msg = "Only letters, numbers and spaces are allowed.";
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(country)){
-        $(".errorMessage").html("Country i required.");
-        $("#country").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Country is required.";
+        showToast(err,msg);
+        return false;
+    }else if(isRealValue(country) && !validCharacters.test(country)){
+        var err = 1;
+        var msg = "Only letters, numbers and spaces are allowed.";
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(zipcode)){
-        $(".errorMessage").html("Zipcode is required.");
-        $("#zipcode").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Zipcode is required.";
+        showToast(err,msg);
         return false;
     }else if(isRealValue(zipcode) && !isValidZipCode(zipcode)){
-        $(".errorMessage").html("Zip code must be valid (e.g., 12345 or 12345-6789).");
-        $("#zipcode").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Zip code must be valid (e.g., 12345 or 12345-6789).";
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(company)){
-        $(".errorMessage").html("Company name is required.");
-        $("#company").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Company is required.";
+        showToast(err,msg);
+        return false;
+    }else if(isRealValue(company) && !validCharacters.test(company)){
+        var err = 1;
+        var msg = "Only letters, numbers and spaces are allowed.";
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(website)){
-        $(".errorMessage").html("Website must be a valid URL.");
-        $("#website").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Website must be a valid URL.";
+        showToast(err,msg);
         return false;
     }else if(isRealValue(website) && !isValidWebsite(website)){
-        $(".errorMessage").html("Website must be a valid URL.");
-        $("#website").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Website must be a valid URL.";
+        showToast(err,msg);
         return false;
     }else if(!isRealValue(phone)){
-        $(".errorMessage").html("Enter phone");
-        $("#phone").on("keyup", function () {
-        $(".errorMessage").html("");
-        });
+        var err = 1;
+        var msg = "Phone number is required.";
+        showToast(err,msg);
+        return false;
+    }else if(isRealValue(phone) && !validatePhone(phone)){
+        var err = 1;
+        var msg = "Phone number must be valid (e.g., +123456789).";
+        showToast(err,msg);
         return false;
     }else{
-
+        var requrl = "admin/saveprofile";
+        var postdata = {
+            "adminId":adminId,
+            "fname":fname,
+            "lname":lname,
+            "address_1":address_1,
+            "address_2":address_2,
+            "city":city,
+            "state":state,
+            "country":country,
+            "zipcode":zipcode,
+            "company":company,
+            "website":website,
+            "phone":phone
+        };
+        callajax(requrl, postdata, function(resp){
+            $(".errorMessage").html(resp.M);
+            var err = 1;
+            if(resp.C == 100){
+                err = 0;
+            }
+            
+            var msg = resp.M;
+            showToast(err,msg);
+            
+        });
     }
 
-    return false;
-    if (!isRequired(fields.firstname)) {
-        errors.firstname = "First name is required.";
-    }
-
-    if (!isRequired(fields.lastname)) {
-        errors.lastname = "Last name is required.";
-    }
-
-    if (!isRequired(fields.address1)) {
-        errors.address1 = "Address line 1 is required.";
-    }
-
-    // Address2 is optional, so no validation
-
-    if (!isRequired(fields.city)) {
-        errors.city = "City is required.";
-    }
-    City is required. State is required. Country is required.
-    if (!isRequired(fields.state)) {
-        errors.state = "State is required.";
-    }
-
-    if (!isRequired(fields.country)) {
-        errors.country = "Country is required.";
-    }
-
-    if (!isValidZipCode(fields.zipcode)) {
-        errors.zipcode = "Zip code must be valid (e.g., 12345 or 12345-6789).";
-    }
-    
-    if (fields.website && !isValidWebsite(fields.website)) {
-        errors.website = "Website must be a valid URL.";
-    }
-    
-    if (!isRequired(fields.companyName)) {
-        errors.companyName = "Company name is required.";
-    }
-
-    if (!isValidPhone(fields.phone)) {
-        errors.phone = "Phone number must be valid (e.g., +123456789).";
-    }
-
-    return errors;
 }
 
 

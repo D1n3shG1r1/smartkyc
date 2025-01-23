@@ -43,19 +43,6 @@
          
       @endif
       
-      
-         <script>
-            var CSRFTOKEN = "{{ csrf_token() }}";
-            var SERVICEURL = "{{ url('') }}";
-         </script>
-      
-
-      @if(request()->is('admin/*'))
-         <script src="{{ url('/assets/admin/js/script.js') }}"></script>
-      @else
-      <script src="{{ url('assets/js/jquery-3.6.0.min.js'); }}"></script>   
-      <script src="{{ url('assets/js/aos.min.js'); }}"></script>
-      @endif
       <!--
       <link rel="canonical" href="{{ url('/'); }}">
       <link rel="apple-touch-icon" href="https://inspexion.com/hubfs/0.Charte%20graphique/App.jpg">
@@ -88,11 +75,16 @@
       @endif
       
       @stack("js")
-      
+      <script>
+         var CSRFTOKEN = "{{ csrf_token() }}";
+         var SERVICEURL = "{{ url('') }}";
+      </script>
+      <script src="{{ url('assets/js/jquery-3.6.0.min.js'); }}"></script>   
+     
       @if(request()->is('admin/*'))
          
          <!-- jQuery -->
-         <script src="{{ url('/assets/admin/js/jquery.min.js') }}"></script>
+         <!--<script src="{{ url('/assets/admin/js/jquery.min.js') }}"></script>-->
          <script src="{{ url('/assets/admin/js/popper.min.js') }}"></script>
          <script src="{{ url('/assets/admin/js/bootstrap.min.js') }}"></script>
          <!-- wow animation -->
@@ -114,9 +106,8 @@
          <!-- custom js -->
          <script src="{{ url('/assets/admin/js/custom.js') }}"></script>
          <script src="{{ url('/assets/admin/js/chart_custom_style2.js') }}"></script>
-         <script src="{{ url('/assets/admin/js/custom.js') }}"></script>
          @else
-         
+         <script src="{{ url('assets/js/aos.min.js'); }}"></script>  
       @endif
       
    </body>

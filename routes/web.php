@@ -9,6 +9,7 @@ use App\Http\Controllers\Pricing;
 use App\Http\Controllers\Register;
 use App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Admin\Profile;
+use App\Http\Controllers\Admin\Documents;
 
 
 /*
@@ -42,6 +43,7 @@ Route::post('/register',[Register::class, 'register']);
 Route::prefix('admin')->name('admin.')->group(function () {    
     Route::get('/dashboard',[Dashboard::class, 'dashboard']);
     Route::get('/myprofile',[Profile::class, 'myprofile']);
+    Route::post('/saveprofile',[Profile::class, 'saveprofile']);
+    Route::get('/uploaddocument',[Documents::class, 'uploaddocument']);
     
 });
-

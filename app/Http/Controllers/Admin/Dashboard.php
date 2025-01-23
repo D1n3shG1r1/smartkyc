@@ -27,13 +27,4 @@ class Dashboard extends Controller
         }
     }
 
-    function profile(Request $request){
-        if($this->ADMINID > 0){
-
-        }else{
-            //redirect to login
-            return Redirect::to(url('login'));
-        }
-    }
-
 }

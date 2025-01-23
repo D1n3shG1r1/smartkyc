@@ -93,7 +93,12 @@ function callajax(requrl, jsondata, cb){
 		type:"post",
 		dataType:"json",
 		success:function(resp){
-			return cb(resp);
+			if(resp.C == 1004){
+        window.location.href = SERVICEURL; 
+      }else{
+        return cb(resp);
+      }
+      
 		},
 		error:function(p1,p2,p3){
 			
@@ -121,7 +126,7 @@ function printLog(arg){
 }
 
 function showToast(err,msg){
-	
+	alert(msg);
 	if(err > 0){
 		//error
     $("#toastMessage").removeClass("alert-success");
@@ -132,11 +137,11 @@ function showToast(err,msg){
     $("#toastMessage").addClass("alert-success");
 	}
 
-  $("#toastMessage .toastMessageContent").html(msg);
+  $("#toastMessage").html(msg);
   $("#toastMessage").show();
   setTimeout(function(){
     $("#toastMessage").hide("slow");
-  }, 3000);
+  }, 5000);
   
 
 	//alert(msg);

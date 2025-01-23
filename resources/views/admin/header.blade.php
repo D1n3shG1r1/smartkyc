@@ -12,7 +12,9 @@
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="images/layout_img/user_img.jpg" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user.png')}}';"/></div>
+                        <div class="user_img">
+                        <a href="javascript:void(0);" class="profilePhotoCamera"><i class="fa fa-camera" style="font-size: 15px;"></i><span style="font-size: 11px;line-height: 14px;">Change Profile Photo</span></a>   
+                        <img class="img-responsive" src="images/layout_img/user_img.jpg" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user.png')}}';"/></div>
                         <div class="user_info">
                         <h6>{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</h6>
                            <p><span class="online_animation"></span> Online</p>
