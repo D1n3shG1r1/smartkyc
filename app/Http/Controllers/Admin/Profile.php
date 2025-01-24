@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Admin_model;
 
 class Profile extends Controller
@@ -32,6 +33,69 @@ class Profile extends Controller
             //redirect to login
             return Redirect::to(url('login'));
         }
+    }
+
+    function saveprofilephoto(Request $request){
+        if($this->ADMINID > 0){
+            $adminId = $this->ADMINID;
+            //$adminId = $request->input("adminId");
+            $base64Image = $request->input("imgData");
+            
+            // Strip off the base64 prefix
+            $imageData = explode(',', $base64Image);
+            $imageData = $imageData[1];
+            $imageName = 'pp-'.$adminId.'.jpg'; 
+            // Decode the base64 string into an image
+            $decodedImage = base64_decode($imageData);
+
+            /*
+            // Store the image in the public folder (or any other location you prefer)
+            $path = public_path('uploads/images/' . $imageName);
+            file_put_contents($path, $decodedImage);
+            */
+
+            /*
+            // Store the image in the storage/app directory (private)
+            $adminDirPath = storage_path('app/'.$adminId);
+            create_local_folder($adminDirPath);
+            create_local_folder($adminDirPath.'/assets/');
+            create_local_folder($adminDirPath.'/assets/images/');
+
+            $path = $adminDirPath.'/assets/images/'. $imageName;
+            Storage::disk('local')->put($path, $decodedImage);  // Stores it in storage/app/images
+            */
+
+            // Define the dynamic path for storing the image
+            $adminDirPath = 'users/' . $adminId . '/assets/images/';  // Use 'users/{adminId}/assets/images'
+            
+            // Ensure the directory structure exists
+            Storage::disk('local')->makeDirectory($adminDirPath);  // Laravel will create any missing directories
+            
+            // Store the image in the appropriate folder
+            Storage::disk('local')->put($adminDirPath . $imageName, $decodedImage);  // Save the image
+            
+            // Return the relative path of the image for further processing
+            $path = $adminDirPath . $imageName;
+
+
+            $postBackData["path"] = $path;
+            $postBackData["success"] = 1;
+
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "Your profile photo has been updated successfully."
+            );
+        }else{
+            $postBackData = array();
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die;
     }
 
     function saveprofile(Request $request){

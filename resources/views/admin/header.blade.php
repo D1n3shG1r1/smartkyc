@@ -13,14 +13,16 @@
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
                         <div class="user_img">
-                        <a href="javascript:void(0);" class="profilePhotoCamera"><i class="fa fa-camera" style="font-size: 15px;"></i><span style="font-size: 11px;line-height: 14px;">Change Profile Photo</span></a>   
-                        <img class="img-responsive" src="images/layout_img/user_img.jpg" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user.png')}}';"/></div>
+                        <a href="javascript:void(0);" class="profilePhotoCamera" data-fileElm="ProfilePhotoFile" onclick="editProfilePhoto(this)"><i class="fa fa-camera" style="font-size: 15px;"></i><span style="font-size: 11px;line-height: 14px;">Change Profile Photo</span></a>   
+                        <img class="profilephotoimg img-responsive" src="images/layout_img/user_img.jpg" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user.png')}}';"/></div>
                         <div class="user_info">
                         <h6>{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</h6>
                            <p><span class="online_animation"></span> Online</p>
                         </div>
                      </div>
-                  </div>
+                  </div> 
+                  <input type="file" id="ProfilePhotoFile" accept="image/*" style="display: none;" onchange="ppDailog()">
+                  
                </div>
                <div class="sidebar_blog_2">
                   <h4>General</h4>
@@ -111,7 +113,7 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="images/layout_img/user_img.jpg" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="images/layout_img/user_img.jpg" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="{{url('/admin/myprofile')}}">My Profile</a>
                                        <a class="dropdown-item" href="{{url('/admin/settings')}}">Settings</a>

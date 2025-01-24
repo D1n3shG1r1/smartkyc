@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\Howitworks;
 use App\Http\Controllers\Services;
@@ -10,7 +11,6 @@ use App\Http\Controllers\Register;
 use App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Admin\Profile;
 use App\Http\Controllers\Admin\Documents;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +44,24 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard',[Dashboard::class, 'dashboard']);
     Route::get('/myprofile',[Profile::class, 'myprofile']);
     Route::post('/saveprofile',[Profile::class, 'saveprofile']);
+    Route::post('/saveprofilephoto',[Profile::class, 'saveprofilephoto']);
+    
     Route::get('/uploaddocument',[Documents::class, 'uploaddocument']);
     
 });
+
+
+
+Route::get('/image/{adminId}/{filename}', function ($adminId, $filename) {
+    // Build the path to the image
+    $path = storage_path('app/users/' . $adminId . '/assets/images/' . $filename);
+    
+    // Check if the file exists
+    if (file_exists($path)) {
+        // Return the image as a response
+        return response()->file($path);
+    }
+    
+    // If the file doesn't exist, return a 404 response
+    abort(404, 'Image not found.');
+})->name('image.display');

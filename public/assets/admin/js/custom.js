@@ -537,3 +537,96 @@ function validateName(name) {
 
   return {"err":err,"msg":msg};
 }
+
+function editProfilePhoto(elm){
+  const fileInputId = $(elm).attr("data-fileelm");
+  console.log(fileInputId);
+  $("#"+fileInputId).trigger("click");
+}
+
+function ppDailog(){
+  const imageInput = document.getElementById('ProfilePhotoFile');
+  const file = imageInput.files[0];
+
+  // Validate file type (only allow jpg, jpeg, or png)
+  if (!file) {
+      var err = 1;
+      var msg = "No file selected!";
+      showToast(err,msg);
+      return;
+  }
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  if (!allowedTypes.includes(file.type)) {
+      var err = 1;
+      var msg = "Please upload a valid image file (JPG, JPEG, or PNG).";
+      showToast(err,msg);
+      return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      var err = 1;
+      var msg = "File size should not exceed 5MB.";
+      showToast(err,msg);
+      return;
+  }
+
+  // Create an image object to load the selected file
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+      img.src = e.target.result;
+  };
+
+  reader.readAsDataURL(file);
+
+  // Once the image is loaded, resize it
+  img.onload = function() {
+      // Create a canvas element for resizing
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Resize the image to 500x500 pixels
+      const width = 500;
+      const height = 500;
+      canvas.width = width;
+      canvas.height = height;
+
+      // Draw the resized image onto the canvas
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Convert the canvas image back to a data URL
+      const resizedImage = canvas.toDataURL('image/jpeg'); // You can also use 'image/png' here if needed
+
+      // Display the resized image as a preview
+      //$(".profilephotoimg").attr("src",resizedImage);
+      //const imagePreviewDiv = document.getElementById('imagePreview');
+      //imagePreviewDiv.innerHTML = `<img src="${resizedImage}" alt="Resized Image" width="200">`;
+
+      const adminId = $("#adminId").val();
+      const requrl = "admin/saveprofilephoto";
+      const postdata = {
+          "adminId":adminId,
+          "imgData":resizedImage
+      };
+      callajax(requrl, postdata, function(resp){
+          $(".errorMessage").html(resp.M);
+          var err = 1;
+          if(resp.C == 100){
+              err = 0;
+              var imgPath = resp.R.path;
+              
+              const imagePath = resp.R.path;  // The path you received from the server
+              //const adminId = 123;  // The adminId (you can dynamically fetch this from the user session or context)
+
+              const imageUrl = `/image/${adminId}/${imagePath.split('/').pop()}`; 
+              $(".profilephotoimg").attr("src",imageUrl);
+          }
+          
+          var msg = resp.M;
+          showToast(err,msg);
+          
+      });
+
+  };
+}

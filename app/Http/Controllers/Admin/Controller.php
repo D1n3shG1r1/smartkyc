@@ -14,11 +14,12 @@ class Controller extends BaseController
 
     function __construct(){
         
+        $tmpAdminId = $this->getSession('adminId');
         $tmpAdminFName = $this->getSession('adminFName');
         $tmpAdminLName = $this->getSession('adminLName');
         $tmpAdminEmail = $this->getSession('adminEmail');
         
-        view()->share('LOGINUSER',array("fname" => $tmpAdminFName, "lname" => $tmpAdminLName,"email" => $tmpAdminEmail));
+        view()->share('LOGINUSER',array("adminId" => $tmpAdminId, "fname" => $tmpAdminFName, "lname" => $tmpAdminLName,"email" => $tmpAdminEmail));
         
     }
 

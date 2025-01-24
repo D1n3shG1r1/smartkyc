@@ -63,6 +63,7 @@
    
       @if(request()->is('admin/*'))
          @include("admin.header")
+      <input type="hidden" id="adminId" value="{{$LOGINUSER['adminId']}}" />
       @else
          @include("header")
       @endif

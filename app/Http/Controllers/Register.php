@@ -45,7 +45,7 @@ class Register extends Controller
                     $this->setSession('adminEmail', $adminEmail);
                     $this->setSession('adminId', $adminId);
                 
-                    $response = array("C" => 100, "R" => array("adminIdd" => $adminId), "M" => "Login successful! Redirecting...");
+                    $response = array("C" => 100, "R" => array("adminId" => $adminId), "M" => "Login successful! Redirecting...");
                 }else{
                     $response = array("C" => 101, "R" => array(), "M" => "Invalid email or password. Please try again.");
                 }   
