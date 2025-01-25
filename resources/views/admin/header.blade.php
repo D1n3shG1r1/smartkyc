@@ -14,7 +14,7 @@
                      <div class="user_profle_side">
                         <div class="user_img">
                         <a href="javascript:void(0);" class="profilePhotoCamera" data-fileElm="ProfilePhotoFile" onclick="editProfilePhoto(this)"><i class="fa fa-camera" style="font-size: 15px;"></i><span style="font-size: 11px;line-height: 14px;">Change Profile Photo</span></a>   
-                        <img class="profilephotoimg img-responsive" src="images/layout_img/user_img.jpg" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user.png')}}';"/></div>
+                        <img class="profilephotoimg img-responsive" src="<?php echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user.png')}}';"/></div>
                         <div class="user_info">
                         <h6>{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</h6>
                            <p><span class="online_animation"></span> Online</p>
@@ -45,7 +45,7 @@
                      
                      <li><a href="{{url('/admin/mynotes')}}"><i class="fa fa-file-o orange_color"></i> <span>My Notes</span></a></li>
                      
-                     <li><a href="{{url('/admin/uploaddocument')}}"><i class="fa fa-upload orange_color"></i> <span>Upload Documents</span></a></li>
+                     <li><a href="{{url('/admin/myapplications')}}"><i class="fa fa-upload orange_color"></i> <span>My Applications</span></a></li>
                      <!--
                      <li>
                         <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
@@ -113,7 +113,7 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="images/layout_img/user_img.jpg" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="<?php echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="{{url('/admin/myprofile')}}">My Profile</a>
                                        <a class="dropdown-item" href="{{url('/admin/settings')}}">Settings</a>

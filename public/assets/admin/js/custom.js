@@ -614,13 +614,8 @@ function ppDailog(){
           var err = 1;
           if(resp.C == 100){
               err = 0;
-              var imgPath = resp.R.path;
-              
-              const imagePath = resp.R.path;  // The path you received from the server
-              //const adminId = 123;  // The adminId (you can dynamically fetch this from the user session or context)
-
-              const imageUrl = `/image/${adminId}/${imagePath.split('/').pop()}`; 
-              $(".profilephotoimg").attr("src",imageUrl);
+              var imagePath = resp.R.path;
+              $(".profilephotoimg").attr("src",resizedImage);
           }
           
           var msg = resp.M;

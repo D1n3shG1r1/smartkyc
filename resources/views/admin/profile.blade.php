@@ -99,7 +99,6 @@
 @endsection
 @push("js")
 <script>
-
 function validateForm() {
     const errors = {};
 

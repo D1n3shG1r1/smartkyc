@@ -64,13 +64,17 @@
       @if(request()->is('admin/*'))
          @include("admin.header")
       <input type="hidden" id="adminId" value="{{$LOGINUSER['adminId']}}" />
-      @else
+      @elseif(request()->is('portal/*'))
+         @include("portal.header")
+      @else 
          @include("header")
       @endif
       @yield("contentbox")
       
       @if(request()->is('admin/*'))
          @include("admin.footer")
+      @elseif(request()->is('portal/*'))
+         @include("portal.footer")
       @else
          @include("footer")
       @endif

@@ -202,4 +202,17 @@ use Illuminate\Support\Facades\Auth;
         }
     }
 
+    if(!function_exists('userImagesPath')){
+        function userImagesPath($adminId){
+            return 'users/' . $adminId . '/assets/images/';
+        }
+    }
+
+    if(!function_exists('userImagesDisplayPath')){
+        function userImagesDisplayPath($adminId,$image){
+            return 'image/' . $adminId .'/'. $image ;
+        }
+    }
+
+
 ?>

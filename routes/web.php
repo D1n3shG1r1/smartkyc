@@ -8,6 +8,7 @@ use App\Http\Controllers\Services;
 use App\Http\Controllers\Faq;
 use App\Http\Controllers\Pricing;
 use App\Http\Controllers\Register;
+use App\Http\Controllers\Customerportal;
 use App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Admin\Profile;
 use App\Http\Controllers\Admin\Documents;
@@ -50,7 +51,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     
 });
 
-
+Route::prefix('portal')->name('portal.')->group(function () {
+    //Customerportal
+    Route::get('/login',[Customerportal::class, 'index']);
+    Route::post('/login',[Customerportal::class, 'login']);
+    Route::get('/application',[Customerportal::class, 'application']);
+    Route::post('/submitapplication',[Customerportal::class, 'submitapplication']);
+});
 
 Route::get('/image/{adminId}/{filename}', function ($adminId, $filename) {
     // Build the path to the image

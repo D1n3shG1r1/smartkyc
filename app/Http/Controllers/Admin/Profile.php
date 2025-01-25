@@ -48,34 +48,20 @@ class Profile extends Controller
             // Decode the base64 string into an image
             $decodedImage = base64_decode($imageData);
 
-            /*
-            // Store the image in the public folder (or any other location you prefer)
-            $path = public_path('uploads/images/' . $imageName);
-            file_put_contents($path, $decodedImage);
-            */
-
-            /*
-            // Store the image in the storage/app directory (private)
-            $adminDirPath = storage_path('app/'.$adminId);
-            create_local_folder($adminDirPath);
-            create_local_folder($adminDirPath.'/assets/');
-            create_local_folder($adminDirPath.'/assets/images/');
-
-            $path = $adminDirPath.'/assets/images/'. $imageName;
-            Storage::disk('local')->put($path, $decodedImage);  // Stores it in storage/app/images
-            */
-
             // Define the dynamic path for storing the image
-            $adminDirPath = 'users/' . $adminId . '/assets/images/';  // Use 'users/{adminId}/assets/images'
+            //$adminDirPath = 'users/' . $adminId . '/assets/images/';  // Use 'users/{adminId}/assets/images'
+            $adminDirPath = userImagesPath($adminId);
             
             // Ensure the directory structure exists
-            Storage::disk('local')->makeDirectory($adminDirPath);  // Laravel will create any missing directories
+            // Laravel will create any missing directories
+            Storage::disk('local')->makeDirectory($adminDirPath);
             
             // Store the image in the appropriate folder
             Storage::disk('local')->put($adminDirPath . $imageName, $decodedImage);  // Save the image
             
             // Return the relative path of the image for further processing
-            $path = $adminDirPath . $imageName;
+            //$path = $adminDirPath . $imageName;
+            $path = userImagesDisplayPath($adminId,$imageName);
 
 
             $postBackData["path"] = $path;
