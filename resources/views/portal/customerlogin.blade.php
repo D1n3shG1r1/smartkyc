@@ -1,73 +1,252 @@
 @extends("app")
 @section("contentbox")
-<div class="container my-5">
-    <div class="card shadow">
-        <div class="card-body">
-            <h3 class="card-title text-center">Document Verification Form</h3>
-            <p class="text-center">Please provide the following information for document verification.</p>
-            <form>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+<div class="full_container">
+    <div class="container">
+        <div class="center verticle_center full_height">
+            <div class="login_section">
+                <div class="logo_login">
+                    <div class="center">
+                        <img width="210" id="company-logo" src="{{ url('aassets/portal/images/login_image.jpg'); }}" alt="Company Logo" onError="showCompanyName()"/>
+                        <div id="company-name" class="company-name lobster-regular">Company Name</div>
                     </div>
                 </div>
+                <div class="login_form">
+                    <form>
+                    <input type="hidden" id="adminId" value="{{$adminId}}">   
+                    <input type="hidden" id="portalId" value="{{$portalId}}">   
+                    <fieldset>
+                        <div class="field">
+                            <label class="label_field">Email Address</label>
+                            <input id="email" type="email" name="email" placeholder="E-mail" onblur="checkEmail();" />
+                        </div>
+                        
+                        <div class="field">
+                            <label class="label_field">First Name</label>
+                            <input id="fname" type="text" name="fname" placeholder="First Name" />
+                        </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="example@domain.com">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="000-000-0000">
-                    </div>
-                </div>
+                        <div class="field">
+                            <label class="label_field">Last Name</label>
+                            <input id="lname" type="text" name="lname" placeholder="Last Name" />
+                        </div>
+                        
+                        <div id="optInputBox" class="field hideMe">
+                            <label class="label_field">OTP</label>
+                            <input type="text" id="otp" placeholder="Enter OTP" maxlength="6">
+                        </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="documentType" class="form-label">Document Type</label>
-                        <select class="form-select" id="documentType">
-                            <option selected>Please Select</option>
-                            <option value="1">Passport</option>
-                            <option value="2">Driver's License</option>
-                            <option value="3">ID Card</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="documentNumber" class="form-label">Document Number</label>
-                        <input type="text" class="form-control" id="documentNumber" placeholder="Document Number">
-                    </div>
+                        <div id="sendOtpButtonBox" class="field margin_0">
+                            <label class="label_field hidden">hidden label</label>
+                            <button type="button" class="btn cur-p btn-primary sendotpBtn" onclick="sendOtp();">Send OTP</button>
+                        </div>
+                        
+                        <div id="resendotpBox" class="field hideMe">
+                              <label class="label_field hidden">hidden label</label>
+                              <label class="form-check-label"><a class="forgot" href="javascript:void(0);" onclick="changeEmail();">Change Email</a></label>
+                              <a class="forgot" href="javascript:void(0);" onclick="resendOtp();">Resend OTP?</a>
+                        </div>
+                        
+                        <div id="verifyBttnBox" class="field margin_0 hideMe">
+                            <label class="label_field hidden">hidden label</label>
+                            <button type="button" class="btn cur-p btn-primary verifyEmailBtn" onclick="verifyEmail();">Verify</button>
+                        </div>
+                    </fieldset>
+                    </form>
                 </div>
-
-                <div class="mb-3">
-                    <label for="uploadDocument" class="form-label">Upload Document</label>
-                    <div class="border rounded p-3 text-center">
-                        <label for="uploadDocument" class="form-label d-block">
-                            <i class="bi bi-cloud-upload display-4"></i>
-                            <p>Browse Files</p>
-                            <input class="form-control d-none" type="file" id="uploadDocument">
-                        </label>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="comments" class="form-label">Additional Comments</label>
-                    <textarea class="form-control" id="comments" rows="3" placeholder="Enter any additional comments here..."></textarea>
-                </div>
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 @endsection
 @push("js")
-<script></script>
+<!-- Include jQuery first -->
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+
+<!-- Include the Inputmask plugin -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6-beta.29/inputmask.min.js"></script>-->
+
+<script>
+
+    function showCompanyName() {
+      // Hide the image and show the company name if the image fails to load
+      document.getElementById('company-logo').style.display = 'none';
+      document.getElementById('company-name').style.display = 'block';
+    }
+    
+    function checkEmail() {
+        const adminId = $("#adminId").val();
+        const portalId = $("#portalId").val();
+        const email = $("#email").val();
+
+        if (!isRealValue(email)) {
+            return false;
+        } else if (!validateEmail(email)) {
+            return false;
+        } else {
+            const requrl = "portal/checkemail";
+            const postdata = {
+                "adminId": adminId,
+                "portalId": portalId,
+                "email": email
+            };
+
+            callajax(requrl, postdata, function (resp) {
+                if (resp.C == 100) {
+                    const tmpFname = resp.R.fname;
+                    const tmpLname = resp.R.lname;
+                    if (isRealValue(tmpFname) && isRealValue(tmpLname)) {
+                        $("#fname").val(tmpFname);
+                        $("#lname").val(tmpLname);  // Corrected: set #lname instead of #fname
+                    }
+                } else {
+                    $("#fname").val("");
+                    $("#lname").val("");  // Corrected: set #lname to empty
+                }
+            });
+        }
+    }
+
+    function sendOtp() {
+        
+        var adminId = $("#adminId").val();
+        var portalId = $("#portalId").val();
+
+        var email = $("#email").val();
+        var fname = $("#fname").val();
+        var lname = $("#lname").val();
+        var fnameObj = validateName(fname);
+        var lnameObj = validateName(lname);
+
+        var fnameerr = fnameObj.err;
+        var fnamemsg = fnameObj.msg;
+        var lnameerr = lnameObj.err;
+        var lnamemsg = lnameObj.msg;
+
+        if (!isRealValue(email)) {
+            var err = 1;
+            var msg = "Please enter your email.";
+            showToast(err, msg);
+            return false;
+        } else if (!validateEmail(email)) {
+            var err = 1;
+            var msg = "Please enter valid email.";
+            showToast(err, msg);
+            return false;
+        } else if (!isRealValue(fname)) {
+            var err = 1;
+            var msg = "Please enter your first name.";
+            showToast(err, msg);
+            return false;
+        } else if (fnameerr == 1) {
+            var err = 1;
+            var msg = fnamemsg;
+            showToast(err, msg);
+            return false;
+        } else if (lnameerr == 1) {
+            var err = 1;
+            var msg = lnamemsg;
+            showToast(err, msg);
+            return false;
+        } else {
+            $("#email").attr("readonly", true);
+            const requrl = "portal/sendotp";
+            const postdata = {
+                "adminId": adminId,
+                "portalId": portalId,
+                "email": email,
+                "fname": fname,
+                "lname": lname
+            };
+
+            callajax(requrl, postdata, function (resp) {
+                if (resp.C == 100) {
+                    var err = 0;
+                    var msg = "OTP is sent to your email.";
+                    showToast(err, msg);
+
+                    $("#sendOtpButtonBox").addClass("hideMe");
+                    $("#optInputBox").removeClass("hideMe");
+                    $("#resendotpBox").removeClass("hideMe");
+                    $("#verifyBttnBox").removeClass("hideMe");
+                } else {
+                    $("#email").removeAttr("readonly");
+
+                    var err = 1;
+                    var msg = "Something went wrong please try again.";
+                    showToast(err, msg);
+                }
+            });
+        }
+    }
+    
+    function changeEmail(){
+        $("#sendOtpButtonBox").removeClass("hideMe");
+        $("#optInputBox").addClass("hideMe");
+        $("#otp").val("");
+        $("#resendotpBox").addClass("hideMe");
+        $("#verifyBttnBox").addClass("hideMe");
+        
+        $("#email").removeAttr("readonly");
+    }
+    
+    function resendOtp(){
+        sendOtp();
+    }    
+    
+    function verifyEmail(){
+        
+        var adminId = $("#adminId").val();
+        var portalId = $("#portalId").val();
+        var email = $("#email").val();
+        var otp = $("#otp").val();
+        
+        if (!isRealValue(email)) {
+            var err = 1;
+            var msg = "Please enter your email.";
+            showToast(err, msg);
+            return false;
+        }else if (!validateEmail(email)) {
+            var err = 1;
+            var msg = "Please enter valid email.";
+            showToast(err, msg);
+            return false;
+        }else if (!isRealValue(otp)) {
+            var err = 1;
+            var msg = "Please enter an otp.";
+            showToast(err, msg);
+            return false;
+        }else if (otp.length < 6 || otp.length > 6) {
+            var err = 1;
+            var msg = "Please enter the valid otp.";
+            showToast(err, msg);
+            return false;
+        }else{
+            
+            const requrl = "portal/login";
+            const postdata = {
+                "adminId": adminId,
+                "portalId": portalId,
+                "email": email,
+                "otp": otp
+            };
+
+            callajax(requrl, postdata, function (resp) {
+                if (resp.C == 100) {
+                    var err = 0;
+                    var msg = "Your account is verified successfully";
+                    showToast(err, msg);
+
+                    window.location.href = "{{url('portal/dashboard')}}";
+                
+                } else {
+                    $("#email").removeAttr("readonly");
+                    var err = 1;
+                    var msg = resp.R;
+                    showToast(err, msg);
+                }
+            });
+        }
+    }
+
+</script>
 @endpush

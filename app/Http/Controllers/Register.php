@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin_model;
+use App\Models\Customerportal_model;
 
 class Register extends Controller
 {
@@ -120,6 +121,15 @@ class Register extends Controller
                 $adminObj->updateDateTime = $updateDateTime;
                 
                 $saved = $adminObj->save();
+
+                if($saved){
+                    //create customer portal
+                    $portalObj = new Customerportal_model();
+                    $portalObj->adminId = $adminObj->id;
+                    $portalObj->portalEnable = 1; //
+                    $portalObj->portalId = sha1($adminObj->id); 
+                    $portalsaved = $portalObj->save();
+                }
 
                 $postBackData = array();
 

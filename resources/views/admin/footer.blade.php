@@ -10,4 +10,4 @@
         </div>
     </div>
 </div>
-<div id="toastMessage" class="alert alert-danger" role="alert">This is a danger alert—check it out!</div>
+

@@ -14,10 +14,21 @@ class Controller extends BaseController
 
     function __construct(){
         
-        //$tmpAdminName = $this->getSession('adminName');
-        //$tmpAdminEmail = $this->getSession('adminEmail');
+        $adminId = $this->getSession('adminId');
+        $portalId = $this->getSession('portalId');
+        $customerId = $this->getSession('customerId');
+        $customerEmail= $this->getSession('customerEmail');
+        $customerFname = $this->getSession('customerFname');
+        $customerLname = $this->getSession('customerLname');
 
-        //view()->share('LOGINUSER',array("name" => $tmpAdminName, "email" => $tmpAdminEmail));
+        view()->share('LOGINUSER',array(
+            "adminId" => $adminId,
+            "portalId" => $portalId,
+            "customerId" => $customerId,
+            "customerEmail" => $customerEmail,
+            "customerFname" => $customerFname,
+            "customerLname" => $customerLname
+        ));
         
     }
 

@@ -53,9 +53,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::prefix('portal')->name('portal.')->group(function () {
     //Customerportal
-    Route::get('/login',[Customerportal::class, 'index']);
+    Route::get('/portallogin/{portalId}',[Customerportal::class, 'index']);
+    Route::post('/checkemail',[Customerportal::class, 'checkEmail']);
+    Route::post('/sendotp',[Customerportal::class, 'sendloginotp']);
     Route::post('/login',[Customerportal::class, 'login']);
-    Route::get('/application',[Customerportal::class, 'application']);
+    Route::get('/dashboard',[Customerportal::class, 'dashboard']);
+    Route::get('/newapplication',[Customerportal::class, 'newapplication']);
     Route::post('/submitapplication',[Customerportal::class, 'submitapplication']);
 });
 

@@ -87,7 +87,8 @@ function getUserLocale(cb){
 
 function callajax(requrl, jsondata, cb){
 	var requestUrl = SERVICEURL+"/"+requrl;
-	$.ajax({
+	jsondata["_token"] = CSRFTOKEN;
+  $.ajax({
 		url:requestUrl,
 		data:jsondata,
 		type:"post",
@@ -132,7 +133,7 @@ function showToast(err,msg){
     $("#toastMessage").addClass("successMessage");
 	}
 
-  $("#toastMessage .toastMessageContent").html(msg);
+  $("#toastMessage").html(msg);
   $("#toastMessage").show();
   setTimeout(function(){
     $("#toastMessage").hide("slow");
