@@ -86,3 +86,7 @@
     cursor: pointer;
     font-weight: 300;
 }
+
+.required{
+    color:#dc3545;
+}

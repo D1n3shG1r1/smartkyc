@@ -11,6 +11,14 @@ use App\Models\Applications_model;
 
 class Customerportal extends Controller
 {
+
+    var $CUSTOMERID = 0;
+    
+    function __construct(){   
+        parent::__construct();
+        $this->CUSTOMERID = $this->getSession('customerId');
+    }
+
     function index($portalId){
         if (!$portalId) {
             // Return a 404 response if no portalId is provided
@@ -219,40 +227,76 @@ class Customerportal extends Controller
 
     
     function dashboard(){
-        //list applications
-        $adminId = $this->getSession('adminId');
-        $portalId = $this->getSession('portalId');
-        $customerId = $this->getSession('customerId');
-        $customerEmail= $this->getSession('customerEmail');
-        $customerFname = $this->getSession('customerFname');
-        $customerLname = $this->getSession('customerLname');
-
-        $applcations = array();
-
-        $applicationsObj = Applications_model::where("adminId",$adminId)->where("portalId",$portalId)->where("customerId",$customerId)->first();
         
-        if($applicationsObj){
-            $applcations = $applicationsObj->toArray();
+        if($this->CUSTOMERID > 0){
+            //list applications
+            $adminId = $this->getSession('adminId');
+            $portalId = $this->getSession('portalId');
+            $customerId = $this->getSession('customerId');
+            $customerEmail= $this->getSession('customerEmail');
+            $customerFname = $this->getSession('customerFname');
+            $customerLname = $this->getSession('customerLname');
+
+            $applcations = array();
+
+            $applicationsObj = Applications_model::where("adminId",$adminId)->where("portalId",$portalId)->where("customerId",$customerId)->first();
+            
+            if($applicationsObj){
+                $applcations = $applicationsObj->toArray();
+            }
+            
+
+            $data = [
+                'pageTitle' => 'Dashboard',
+                'applcations' => $applcations
+                //'adminId' => $adminId,
+                //'portalId' => $portalId
+            ];
+        
+            return View('portal.dashboard', $data);
+        }else{
+            //redirect to login
+            $portalId = $this->getSession('portalId');    
+            return Redirect::to(url('/portallogin/'.$portalId));
         }
-        
 
-        $data = [
-            'pageTitle' => 'Dashboard',
-            'applcations' => $applcations
-            //'adminId' => $adminId,
-            //'portalId' => $portalId
-        ];
-    
-        return View('portal.dashboard', $data);
     }
     
     function newapplication(Request $request){
-        $adminId = 123546;
-        $data = array();
-        $data["pageTitle"] = "New Application";
-        $data["adminId"] = $adminId;
-        return View("portal.applicationform",$data);
-        
+        if($this->CUSTOMERID > 0){
+            $adminId = $this->getSession('adminId');
+            $portalId = $this->getSession('portalId');
+            $customerId = $this->getSession('customerId');
+            
+            $customerObj = Customers_model::select("fname","lname","email","phone")
+            ->where("adminId",$adminId)
+            ->where("portalId",$portalId)
+            ->where("id",$customerId)
+            ->first()->toArray();
+
+            $data = array();
+            $data["pageTitle"] = "New Application";
+            $data["adminId"] = $adminId;
+            $data["portalId"] = $portalId;
+            $data["customerId"] = $customerId;
+            $data["fname"] = $customerObj["fname"]; 
+            $data["lname"] = $customerObj["lname"];
+            $data["email"] = $customerObj["email"];
+            $data["phone"] = $customerObj["phone"];
+
+            if($customerObj["fname"] == '' || $customerObj["fname"] == null || $customerObj["lname"] == '' || $customerObj["lname"] == null || $customerObj["email"] == '' || $customerObj["email"] == null || $customerObj["phone"] == '' || $customerObj["phone"] == null){
+                $data["incompleteProfile"] = 1;
+            }else{
+                $data["incompleteProfile"] = 0;
+            }
+
+            return View("portal.applicationform",$data);
+
+        }else{
+            //redirect to login
+            $portalId = $this->getSession('portalId');    
+            return Redirect::to(url('/portallogin/'.$portalId));
+        }
     }
     
     function submitapplication(Request $request){
