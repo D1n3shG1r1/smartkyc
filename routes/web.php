@@ -57,6 +57,7 @@ Route::prefix('portal')->name('portal.')->group(function () {
     Route::post('/checkemail',[Customerportal::class, 'checkEmail']);
     Route::post('/sendotp',[Customerportal::class, 'sendloginotp']);
     Route::post('/login',[Customerportal::class, 'login']);
+    Route::get('/myprofile',[Customerportal::class, 'myprofile']);
     Route::get('/dashboard',[Customerportal::class, 'dashboard']);
     Route::get('/newapplication',[Customerportal::class, 'newapplication']);
     Route::post('/submitapplication',[Customerportal::class, 'submitapplication']);

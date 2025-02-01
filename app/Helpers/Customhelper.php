@@ -208,6 +208,12 @@ use Illuminate\Support\Facades\Auth;
         }
     }
 
+    if(!function_exists('customerDocumentsPath')){
+        function customerDocumentsPath($adminId){
+            return 'users/' . $adminId . '/assets/customers/documents/';
+        }
+    }
+
     if(!function_exists('userImagesDisplayPath')){
         function userImagesDisplayPath($adminId,$image){
             return 'image/' . $adminId .'/'. $image ;

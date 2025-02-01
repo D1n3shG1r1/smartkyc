@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Customerportal_model;
 use App\Models\Customers_model;
 use App\Models\Applications_model;
+use App\Models\ApplicationDocuments_model;
 
 class Customerportal extends Controller
 {
@@ -164,7 +165,7 @@ class Customerportal extends Controller
     }
 
     function sendOtpEmail($otpData){
-
+        //send email functionality
     }
     
     function login(Request $request){
@@ -300,6 +301,141 @@ class Customerportal extends Controller
     }
     
     function submitapplication(Request $request){
+        
+        if($this->CUSTOMERID > 0){
+        
+            $applicationId = db_randnumber(); 
+            $documentId = db_randnumber();
+            $createDateTime = date("Y-m-d H:i:s");
+            $updateDateTime = date("Y-m-d H:i:s");
+            
+            $adminId = $request->input("adminId");
+            $portalId = $request->input("portalId");
+            $customerId = $request->input("customerId");
+            $firstName = $request->input("firstName");
+            $lastName = $request->input("lastName");
+            $email = $request->input("email");
+            $phone = $request->input("phone");
+            $title = $request->input("title");
+            $documentType = $request->input("documentType");
+            $documentNumber = $request->input("documentNumber");
+            $description = $request->input("description");
+            $comments = $request->input("comments");
+            $base64Image = $request->input("base64Input");
+            
+            
+            $applicationObj = new Applications_model();
+            $documentObj = new ApplicationDocuments_model();
 
+            //ApplicationDocuments_model
+            //Applications_model
+            //$applicationId = db_randnumber(); 
+            //$documentId = db_randnumber();
+
+            $applicationObj->id = $applicationId;
+            $applicationObj->adminId = $adminId;
+            $applicationObj->portalId = $portalId;
+            $applicationObj->customerId = $customerId;
+            $applicationObj->title = $title;
+            $applicationObj->description = $description;
+            $applicationObj->documentType = $documentType;
+            $applicationObj->documentNo = $documentNumber;
+            $applicationObj->comment = $comments;
+            $applicationObj->status = 11;
+            $applicationObj->createDateTime = $createDateTime;
+            $applicationObj->updateDateTime = $updateDateTime;
+            $appSaved = $applicationObj->save();
+
+            if($appSaved){
+                
+                $documentObj->id = $documentId;
+                $documentObj->adminId = $adminId;
+                $documentObj->portalId =  $portalId;
+                $documentObj->applicationId = $applicationId;
+                $documentSaved = $documentObj->save();
+
+                // Strip off the base64 prefix
+                $imageData = explode(';base64,', $base64Image);
+                $imageDataPart1 = $imageData[0];
+                $imageDataPart1Arr = explode('/', $imageDataPart1);
+                $fileExt = $imageDataPart1Arr[1];
+                $imageData = $imageData[1];
+                $imageName = $documentId.'.'.$fileExt; 
+                // Decode the base64 string into an image
+                $decodedImage = base64_decode($imageData);
+
+                // Define the dynamic path for storing the image
+                $adminDirPath = customerDocumentsPath($adminId);
+                
+                // Ensure the directory structure exists
+                // Laravel will create any missing directories
+                Storage::disk('local')->makeDirectory($adminDirPath);
+                
+                // Store the image in the appropriate folder
+                Storage::disk('local')->put($adminDirPath . $imageName, $decodedImage);  // Save the image
+                
+                // Return the relative path of the image for further processing
+                //$path = $adminDirPath . $imageName;
+                $path = userImagesDisplayPath($adminId,$imageName);
+
+                $postBackData = array();
+                $postBackData["success"] = 1;
+
+                $response = array(
+                    "C" => 100,
+                    "R" => $postBackData,
+                    "M" => "Your application is submitted successfully."
+                );
+            
+            }else{
+                $postBackData = array();
+                $postBackData["success"] = 0;
+
+                $response = array(
+                    "C" => 101,
+                    "R" => $postBackData,
+                    "M" => "Something went wrong. please try again."
+                );
+            }
+            
+        }else{
+            $postBackData = array();
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die;
+    
     }
+
+    function myapplications(Request $request){
+        echo "my applications"; die;
+    }
+
+    function myprofile(Request $request){
+        
+        if($this->CUSTOMERID > 0){
+            $customerId = $this->CUSTOMERID; 
+            $custmoerObj = Customers_model::select("id", "email", "fname", "lname", "phone", "city", "state", "country", "zipcode", "address_1", "address_2", "company", "website")
+            ->where("id", $customerId)
+            ->first();
+            
+            $customerArr = array();
+            if($custmoerObj){
+                $customerArr = $custmoerObj->toArray();
+            }
+
+            $data = array();
+            $data["pageTitle"] = "My Profile";
+            $data["user"] = $customerArr;
+            return View("portal.profile",$data);
+        }else{
+            //redirect to login
+            return Redirect::to(url('login'));
+        }
+    }
+
 }
