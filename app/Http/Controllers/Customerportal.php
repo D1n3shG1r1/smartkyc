@@ -36,6 +36,7 @@ class Customerportal extends Controller
         }
     
         // If portal exists, proceed with additional data
+        $this->setSession('portalId', $portalId);
         $adminId = $portalObj["adminId"];
         
         // Prepare data to send to the view
@@ -436,6 +437,72 @@ class Customerportal extends Controller
             //redirect to login
             return Redirect::to(url('login'));
         }
+    }
+
+    function saveprofile(Request $request){
+        if($this->CUSTOMERID > 0){
+            $customerId = $this->CUSTOMERID; 
+        
+            $fname = $request->input("fname");
+            $lname = $request->input("lname");
+            $address_1 = $request->input("address_1");
+            $address_2 = $request->input("address_2");
+            $city = $request->input("city");
+            $state = $request->input("state");
+            $country = $request->input("country");
+            $zipcode = $request->input("zipcode");
+            $company = $request->input("company");
+            $website = $request->input("website");
+            $phone = $request->input("phone");
+           
+            if(!$company){$company = "";}
+            if(!$website){$website = "";}
+
+            $updateArr = array(
+                "fname" => $fname,
+                "lname" => $lname,
+                "phone" => $phone,
+                "city" => $city,
+                "state" => $state,
+                "country" => $country,
+                "zipcode" => $zipcode,
+                "address_1" => $address_1,
+                "address_2" => $address_2,
+                "company" => $company,
+                "website" => $website
+            );
+            
+            $custmoerObj = Customers_model::where("id", $customerId)->update($updateArr);
+            $postBackData = $updateArr;
+            $postBackData["success"] = 1;
+
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "Your profile is updated successfully."
+            );
+        }else{
+            $postBackData = array();
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die;
+    }
+
+    function logout(Request $request){
+        $portalId = $this->getSession('portalId');
+        $this->removeSession('adminId');
+        $this->removeSession('customerId');
+        $this->removeSession('customerEmail');
+        $this->removeSession('customerFname');
+        $this->removeSession('customerLname');
+        
+        //redirect to login
+        return Redirect::to(url("portal/login/$portalId"));
     }
 
 }

@@ -125,25 +125,25 @@ function showToast(err,msg){
 	
 	if(err > 0){
 		//error
-    $("#toastMessage").removeClass("successMessage");
-    $("#toastMessage").addClass("errorMessage");
+    $("#toastMessage").removeClass("alert-success");
+    $("#toastMessage").addClass("alert-danger");
   }else{
 		//success
-    $("#toastMessage").removeClass("errorMessage");
-    $("#toastMessage").addClass("successMessage");
+    $("#toastMessage").removeClass("alert-danger");
+    $("#toastMessage").addClass("alert-success");
 	}
 
   $("#toastMessage").html(msg);
   $("#toastMessage").show();
   setTimeout(function(){
     $("#toastMessage").hide("slow");
-  }, 3000);
+  }, 5000);
   
 
 	//alert(msg);
 	//printLog(msg);
 
-}	
+}
 
 function uniqueId(){
 	var x = new Date();

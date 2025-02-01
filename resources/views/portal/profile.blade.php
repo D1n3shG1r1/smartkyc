@@ -26,60 +26,71 @@
                     <div class="col-lg-12">
                         <div class="full dis_flex center_text">
                         <form class="profile_contant">
-                            <div class="form-group row">
-                                <div class="col">
-                                    
-                                <input type="hidden" class="form-input" name="adminId" id="adminId" value="{{$user['id']}}">
-                                <input type="text" class="form-input" name="fname" id="fname" placeholder="First Name" value="{{$user['fname']}}">
+                            <div class="form-group row mb-3">
+                                <div class="col-md-6">
+                                    <input type="hidden" class="form-input" name="adminId" id="adminId" value="{{$user['id']}}">
+                                    <label for="fname" class="form-label">First Name<span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="fname" id="fname" placeholder="First Name" value="{{$user['fname']}}">
                                 </div>
-                                <div class="col">
-                                <input type="text" class="form-input" name="lname" id="lname" placeholder="Last Name" value="{{$user['lname']}}">
+                                <div class="col-md-6">
+                                    <label for="lname" class="form-label">Last Name<span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="lname" id="lname" placeholder="Last Name" value="{{$user['lname']}}">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col">
+                            <div class="form-group row mb-3">
+                                <div class="col-md-6">
+                                    <label for="address_1" class="form-label">Address 1<span class="required">*</span></label>
                                     <input type="text" class="form-input" name="address_1" id="address_1" placeholder="Address 1" value="{{$user['address_1']}}">
                                 </div>
-                                <div class="col">
-                                <input type="text" class="form-input" name="address_2" id="address_2" placeholder="Address 2" value="{{$user['address_2']}}">
+                                <div class="col-md-6">
+                                    <label for="address_2" class="form-label">Address 2<span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="address_2" id="address_2" placeholder="Address 2" value="{{$user['address_2']}}">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col">
+                            <div class="form-group row mb-3">
+                                <div class="col-md-6">
+                                    <label for="city" class="form-label">City<span class="required">*</span></label>
                                     <input type="text" class="form-input" name="city" id="city" placeholder="City" value="{{$user['city']}}">
                                 </div>
-                                <div class="col">
-                                <input type="text" class="form-input" name="state" id="state" placeholder="Province/State" value="{{$user['state']}}">
+                                <div class="col-md-6">
+                                    <label for="state" class="form-label">Province/State<span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="state" id="state" placeholder="Province/State" value="{{$user['state']}}">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col">
+                            <div class="form-group row mb-3">
+                                <div class="col-md-6">
+                                    <label for="country" class="form-label">Country<span class="required">*</span></label>
                                     <input type="text" class="form-input" name="country" id="country" placeholder="Country" value="{{$user['country']}}">
                                 </div>
-                                <div class="col">
-                                <input type="text" class="form-input" name="zipcode" id="zipcode" placeholder="Zipcode" value="{{$user['zipcode']}}">
+                                <div class="col-md-6">
+                                    <label for="zipcode" class="form-label">Zipcode<span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="zipcode" id="zipcode" placeholder="Zipcode" value="{{$user['zipcode']}}">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col">
+                            <div class="form-group row mb-3">
+                                <div class="col-md-6">
+                                    <label for="company" class="form-label">Company</label>
                                     <input type="text" class="form-input" name="company" id="company" placeholder="Company (Optional)" value="{{$user['company']}}">
                                 </div>
-                                <div class="col">
-                                <input type="text" class="form-input" name="website" id="website" placeholder="Website (Optional)" value="{{$user['website']}}">
+                                <div class="col-md-6">
+                                    <label for="website" class="form-label">Website</label>
+                                    <input type="text" class="form-input" name="website" id="website" placeholder="Website (Optional)" value="{{$user['website']}}">
                                 </div>
                                 
                             </div>
-                            <div class="form-group row">
-                                <div class="col">
+                            <div class="form-group row mb-3">
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email<span class="required">*</span></label>
                                     <input type="email" class="form-input" name="email" id="email" placeholder="Email" value="{{$user['email']}}" readonly>
                                 </div>
-                                <div class="col">
-                                <input type="text" class="form-input" name="phone" id="phone" placeholder="Phone" value="{{$user['phone']}}">
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone<span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="phone" id="phone" placeholder="Phone" value="{{$user['phone']}}">
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col profile-btn-box">
+                            <div class="form-group row mb-3">
+                                <div class="col-md-12 profile-btn-box">
                                     <button type="button" class="btn cur-p btn-outline-primary">Cancel</button>
                                     <button type="button" class="btn cur-p btn-primary" data-txt="Save" data-loadingtxt="Saving..." onclick="validateForm();">Save</button>
                                 </div>

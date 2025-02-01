@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Admin_model;
 use App\Models\Customerportal_model;
@@ -58,10 +58,10 @@ class Register extends Controller
             return response()->json($response); die;
 
         }else{
-
+            //echo $this->ADMINID; die;
             if ($this->ADMINID > 0) {
                 //redirect to dashboard
-                return Redirect::to(url('dashboard'));
+                return Redirect::to(url('admin/dashboard'));
             }else{
                 $data = array();
                 $data["pageTitle"] = "Login";

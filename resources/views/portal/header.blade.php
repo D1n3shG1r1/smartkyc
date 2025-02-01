@@ -27,7 +27,7 @@
                         <!--
                         <div class="user_img">
                         <a href="javascript:void(0);" class="profilePhotoCamera" data-fileElm="ProfilePhotoFile" onclick="editProfilePhoto(this)"><i class="fa fa-camera" style="font-size: 15px;"></i><span style="font-size: 11px;line-height: 14px;">Change Profile Photo</span></a>   
-                        <img class="profilephotoimg img-responsive" src="<?php echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user.png')}}';"/></div>
+                        <img class="profilephotoimg img-responsive" src="<?php /*echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))*/?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user.png')}}';"/></div>
                         -->
                         <div class="user_info">
                         <h6>{{$LOGINUSER["customerFname"]." ".$LOGINUSER["customerLname"]}}</h6>
@@ -44,11 +44,11 @@
                <div class="sidebar_blog_2">
                   <h4>Applicant</h4>
                   <ul class="list-unstyled components">
-                    <li><a href="{{url('/portal/dashboard')}}"><i class="fa fa-dashboard orange_color"></i> <span>Dashboard</span></a></li>
-                    <li><a href="{{url('/portal/myprofile')}}"><i class="fa fa-user orange_color"></i> <span>My Profile</span></a></li>
-                    <li><a href="{{url('/portal/myapplications')}}"><i class="fa fa-file-text-o orange_color"></i> <span>My Applications</span></a></li>
-                    <li><a href="{{url('/portal/newapplication')}}"><i class="fa fa-upload orange_color"></i> <span>Upload Documents</span></a></li>
-                    <li><a href="{{url('/portal/signout')}}"><i class="fa fa-sign-out orange_color"></i> <span>Logout</span></a></li>
+                    <li><a href="{{url('/portal/dashboard')}}"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a></li>
+                    <li><a href="{{url('/portal/myapplications')}}"><i class="fa fa-file-text-o yellow_color"></i> <span>My Applications</span></a></li>
+                    <li><a href="{{url('/portal/newapplication')}}"><i class="fa fa-upload yellow_color"></i> <span>Upload Documents</span></a></li>
+                    <li><a href="{{url('/portal/myprofile')}}"><i class="fa fa-user yellow_color"></i> <span>My Profile</span></a></li>
+                    <li><a href="{{url('/portal/logout')}}"><i class="fa fa-sign-out yellow_color"></i> <span>Logout</span></a></li>
                   </ul>
                </div>
             </nav>
@@ -72,11 +72,10 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="<?php echo url(userImagesDisplayPath($LOGINUSER["customerId"],"pp-".$LOGINUSER["customerId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["customerFname"]." ".$LOGINUSER["customerLname"]}}</span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="<?php /*echo url(userImagesDisplayPath($LOGINUSER["customerId"],"pp-".$LOGINUSER["customerId"].".jpg"))*/?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["customerFname"]." ".$LOGINUSER["customerLname"]}}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="{{url('/portal/myprofile')}}">My Profile</a>
-                                       <a class="dropdown-item" href="{{url('/portal/settings')}}">Settings</a>
-                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                       <a class="dropdown-item" href="{{url('/portal/logout')}}"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
                                     </div>
                                  </li>
                               </ul>

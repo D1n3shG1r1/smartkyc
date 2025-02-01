@@ -76,7 +76,7 @@
          var SERVICEURL = "{{ url('') }}";
       </script>
       <script src="{{ url('assets/js/jquery-3.6.0.min.js'); }}"></script>   
-      <script src="{{ url('/assets/js/bootstrap.min.js') }}"></script>
+      <!--<script src="{{ url('/assets/js/bootstrap.min.js') }}"></script>-->
       @if(request()->is('admin/*'))
          
          <!-- jQuery -->
@@ -102,6 +102,32 @@
          <!-- custom js -->
          <script src="{{ url('/assets/admin/js/custom.js') }}"></script>
          <script src="{{ url('/assets/admin/js/chart_custom_style2.js') }}"></script>
+         @elseif(request()->is('portal/*'))
+         
+         <!-- jQuery -->
+         <!--<script src="{{ url('/assets/portal/js/jquery.min.js') }}"></script>-->
+         <script src="{{ url('/assets/portal/js/popper.min.js') }}"></script>
+         <script src="{{ url('/assets/portal/js/bootstrap.min.js') }}"></script>
+         <!-- wow animation -->
+         <script src="{{ url('/assets/portal/js/animate.js') }}"></script>
+         <!-- select country -->
+         <script src="{{ url('/assets/portal/js/bootstrap-select.js') }}"></script>
+         <!-- owl carousel -->
+         <script src="{{ url('/assets/portal/js/owl.carousel.js') }}"></script> 
+         <!-- chart js -->
+         <script src="{{ url('/assets/portal/js/Chart.min.js') }}"></script>
+         <script src="{{ url('/assets/portal/js/Chart.bundle.min.js') }}"></script>
+         <script src="{{ url('/assets/portal/js/utils.js') }}"></script>
+         <script src="{{ url('/assets/portal/js/analyser.js') }}"></script>
+         <!-- nice scrollbar -->
+         <script src="{{ url('/assets/portal/js/perfect-scrollbar.min.js') }}"></script>
+         <script>
+            var ps = new PerfectScrollbar('#sidebar');
+         </script>
+         <!-- custom js -->
+         <script src="{{ url('/assets/portal/js/custom.js') }}"></script>
+         <script src="{{ url('/assets/portal/js/chart_custom_style2.js') }}"></script>
+
          @else
          <script src="{{ url('assets/js/script.js'); }}"></script>
          <script src="{{ url('assets/js/aos.min.js'); }}"></script>  

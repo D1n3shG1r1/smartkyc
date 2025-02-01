@@ -42,8 +42,8 @@ class Controller extends BaseController
         return $session->get($key);
     }
 
-    function removeSession(){
+    function removeSession($key){
         $session = new Session_N();
-        $session->remove('adminId');
+        $session->remove($key);
     }
 }

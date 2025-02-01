@@ -82,22 +82,22 @@ incompleteProfile
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="firstName" class="form-label">First Name<span class="required">*</span></label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" value="{{$fname}}">
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" value="{{$fname}}" readonly>
                     </div>   
                     <div class="col-md-6">
                         <label for="lastName" class="form-label">Last Name<span class="required">*</span></label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="{{$lname}}">
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="{{$lname}}" readonly>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email<span class="required">*</span></label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="{{$email}}">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="{{$email}}" readonly>
                     </div>
                     <div class="col-md-6">
                         <label for="phone" class="form-label">Phone Number<span class="required">*</span></label>
-                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="000-000-0000" value="{{$phone}}">
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="000-000-0000" value="{{$phone}}" readonly>
                     </div>
                 </div>
  
@@ -159,7 +159,7 @@ incompleteProfile
                     @else
                         <button type="button" class="btn cur-p btn-primary submitApplBtn" onclick="submitForm();">Submit</button>
                     @endif
-                    <button type="button" class="btn cur-p btn-primary submitApplBtn" onclick="submitForm();">Submit</button>
+                    
                 </div>
             
             </form>
