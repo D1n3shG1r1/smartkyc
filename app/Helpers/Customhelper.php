@@ -220,5 +220,25 @@ use Illuminate\Support\Facades\Auth;
         }
     }
 
+    if(!function_exists('verificationStatusTxt')){
+        function verificationStatusTxt($flag){
+            
+            $vrfstatus[1] = "Verified as Authentic";
+            $vrfstatus[2] = "Document Failed Verification";
+            $vrfstatus[3] = "Document is Expired";
+            $vrfstatus[4] = "Document Under Review";
+            $vrfstatus[5] = "Further Action Required";
+            $vrfstatus[6] = "Verification Incomplete (Pending Information)";
+            $vrfstatus[7] = "Document is Fraudulent";
+            $vrfstatus[8] = "Unable to Verify (Issuing Authority Unreachable)";
+            $vrfstatus[9] = "Document Requires Manual Review";
+            $vrfstatus[10] = "Document Verified with Discrepancies";
+            $vrfstatus[11] = "Verification in Progress";
+            
+            return $vrfstatus[$flag];
+        }
+    }
+    
+
 
 ?>

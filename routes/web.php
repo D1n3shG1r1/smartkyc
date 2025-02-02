@@ -60,6 +60,8 @@ Route::prefix('portal')->name('portal.')->group(function () {
     Route::get('/myprofile',[Customerportal::class, 'myprofile']);
     Route::post('/saveprofile',[Customerportal::class, 'saveprofile']);
     Route::get('/dashboard',[Customerportal::class, 'dashboard']);
+    Route::get('/myapplications',[Customerportal::class, 'myapplications']);
+    Route::get('/application/{Id}',[Customerportal::class, 'application']);
     Route::get('/newapplication',[Customerportal::class, 'newapplication']);
     Route::post('/submitapplication',[Customerportal::class, 'submitapplication']);
     Route::get('/logout',[Customerportal::class, 'logout']);

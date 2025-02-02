@@ -51,9 +51,11 @@ class Customerportal extends Controller
     
     function checkEmail(Request $request){ 
         $portalId = $request->input('portalId');
-        $adminId = $request->input('adminId');
+        //$adminId = $request->input('adminId');
         $email = $request->input('email');
     
+        $portalObj = Customerportal_model::where("portalId", $portalId)->first()->toArray();
+        $adminId = $portalObj['adminId'];
         // Fetch the customer object based on the provided parameters
         $custmoerObj = Customers_model::select("email", "fname", "lname")
             ->where("adminId", $adminId)
@@ -87,7 +89,7 @@ class Customerportal extends Controller
     
     function sendloginotp(Request $request){
         $portalId = $request->input('portalId');
-        $adminId = $request->input('adminId');
+        //$adminId = $request->input('adminId');
         $email = $request->input('email');
         $fname = $request->input('fname');
         $lname = $request->input('lname');
@@ -96,6 +98,9 @@ class Customerportal extends Controller
         $createDateTime = date("Y-m-d H:i:s");
         $updateDateTime = date("Y-m-d H:i:s");
     
+        $portalObj = Customerportal_model::where("portalId", $portalId)->first()->toArray();
+        $adminId = $portalObj['adminId'];
+
         // Fetch the customer object based on the portalId and email
         $custmoerObj = Customers_model::where("portalid", $portalId)->where("email", $email)->first();
     
@@ -171,10 +176,13 @@ class Customerportal extends Controller
     
     function login(Request $request){
         $portalId = $request->input('portalId');
-        $adminId = $request->input('adminId');
+        //$adminId = $request->input('adminId');
         $email = $request->input('email');
         $otp = $request->input('otp');
         
+        $portalObj = Customerportal_model::where("portalId", $portalId)->first()->toArray();
+        $adminId = $portalObj['adminId'];
+
         $custmoerObj = Customers_model::where("adminId", $adminId)->where("portalid", $portalId)->where("email", $email)->first();
 
         if($custmoerObj){
@@ -190,7 +198,7 @@ class Customerportal extends Controller
                 $customerFname = $custmoerObj["fname"];
                 $customerLname = $custmoerObj["lname"];
                 
-                $this->setSession('adminId', $adminId);
+                //$this->setSession('adminId', $adminId);
                 $this->setSession('portalId', $portalId);
                 $this->setSession('customerId', $customerId);
                 $this->setSession('customerEmail', $customerEmail);
@@ -232,7 +240,7 @@ class Customerportal extends Controller
         
         if($this->CUSTOMERID > 0){
             //list applications
-            $adminId = $this->getSession('adminId');
+            //$adminId = $this->getSession('adminId');
             $portalId = $this->getSession('portalId');
             $customerId = $this->getSession('customerId');
             $customerEmail= $this->getSession('customerEmail');
@@ -241,7 +249,7 @@ class Customerportal extends Controller
 
             $applcations = array();
 
-            $applicationsObj = Applications_model::where("adminId",$adminId)->where("portalId",$portalId)->where("customerId",$customerId)->first();
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->first();
             
             if($applicationsObj){
                 $applcations = $applicationsObj->toArray();
@@ -266,19 +274,18 @@ class Customerportal extends Controller
     
     function newapplication(Request $request){
         if($this->CUSTOMERID > 0){
-            $adminId = $this->getSession('adminId');
+            //$adminId = $this->getSession('adminId');
             $portalId = $this->getSession('portalId');
             $customerId = $this->getSession('customerId');
             
             $customerObj = Customers_model::select("fname","lname","email","phone")
-            ->where("adminId",$adminId)
             ->where("portalId",$portalId)
             ->where("id",$customerId)
             ->first()->toArray();
 
             $data = array();
             $data["pageTitle"] = "New Application";
-            $data["adminId"] = $adminId;
+            //$data["adminId"] = $adminId;
             $data["portalId"] = $portalId;
             $data["customerId"] = $customerId;
             $data["fname"] = $customerObj["fname"]; 
@@ -310,7 +317,7 @@ class Customerportal extends Controller
             $createDateTime = date("Y-m-d H:i:s");
             $updateDateTime = date("Y-m-d H:i:s");
             
-            $adminId = $request->input("adminId");
+            //$adminId = $request->input("adminId");
             $portalId = $request->input("portalId");
             $customerId = $request->input("customerId");
             $firstName = $request->input("firstName");
@@ -324,14 +331,13 @@ class Customerportal extends Controller
             $comments = $request->input("comments");
             $base64Image = $request->input("base64Input");
             
-            
+            if(!$comments){$comments = '';}
             $applicationObj = new Applications_model();
             $documentObj = new ApplicationDocuments_model();
 
-            //ApplicationDocuments_model
-            //Applications_model
-            //$applicationId = db_randnumber(); 
-            //$documentId = db_randnumber();
+            //get adminId by portalId
+            $portalObj = Customerportal_model::where("portalId", $portalId)->first()->toArray();
+            $adminId = $portalObj["adminId"];
 
             $applicationObj->id = $applicationId;
             $applicationObj->adminId = $adminId;
@@ -413,7 +419,54 @@ class Customerportal extends Controller
     }
 
     function myapplications(Request $request){
-        echo "my applications"; die;
+        
+        if($this->CUSTOMERID > 0){
+            //list applications
+            $portalId = $this->getSession('portalId');
+            $customerId = $this->getSession('customerId');
+            //$customerEmail= $this->getSession('customerEmail');
+            //$customerFname = $this->getSession('customerFname');
+            //$customerLname = $this->getSession('customerLname');
+
+            $applications = array();
+
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->get();
+            
+            if($applicationsObj){
+                $applications = $applicationsObj->toArray();
+            
+                foreach($applications as &$row){
+                    $row["statusTxt"] = verificationStatusTxt($row["status"]);
+                }
+            }
+            
+            $data = [
+                'pageTitle' => 'My Applications',
+                'applications' => $applications
+            ];
+            
+            return View('portal.myapplications', $data);
+        }else{
+            //redirect to login
+            $portalId = $this->getSession('portalId');    
+            return Redirect::to(url('/portallogin/'.$portalId));
+        }
+    }
+
+    function application($Id){
+        if($this->CUSTOMERID > 0){
+            $application = array();
+            $data = [
+                'pageTitle' => 'Application',
+                'application' => $application
+            ];
+            
+            return View('portal.myapplications', $data);
+        }else{
+            //redirect to login
+            $portalId = $this->getSession('portalId');    
+            return Redirect::to(url('/portallogin/'.$portalId));
+        }
     }
 
     function myprofile(Request $request){

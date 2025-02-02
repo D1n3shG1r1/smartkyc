@@ -75,7 +75,6 @@ incompleteProfile
             </div>
             <!-- Form -->
             <form class="full graph_head" id="documentForm">  
-                <input type="hidden" class="form-control" id="adminId" name="adminId" value="{{$adminId}}">
                 <input type="hidden" class="form-control" id="portalId" name="portalId" value="{{$portalId}}">
                 <input type="hidden" class="form-control" id="customerId" name="customerId" value="{{$customerId}}">
                 
@@ -208,7 +207,7 @@ function uploadFiles() {
             
             const img = document.createElement('img');
             img.src = e.target.result;
-
+            img.width = '200';
             filePreviewDiv.appendChild(img);
 
             // Add delete button
@@ -266,31 +265,11 @@ function uploadFiles() {
         }
     }
     
-    /*
-    // Prepare FormData and send it to the server (this part remains unchanged)
-    const formData = new FormData();
-    for (const file of files) {
-        formData.append('files[]', file);
-    }
-
-    fetch('YOUR_SERVER_UPLOAD_ENDPOINT', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Files uploaded successfully!');
-    })
-    .catch(error => {
-        alert('Upload failed, please try again.');
-        console.error(error);
-    });
-    */
 }
 
 
     function submitForm(){
-        var adminId = $("#adminId").val();
+        
         var portalId = $("#portalId").val();
         var customerId = $("#customerId").val();
 
@@ -356,7 +335,6 @@ function uploadFiles() {
 
             const requrl = "portal/submitapplication";
             const postdata = {
-                "adminId": adminId,
                 "portalId": portalId,
                 "customerId":customerId,
                 "firstName":firstName,
