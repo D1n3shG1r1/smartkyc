@@ -209,8 +209,8 @@ use Illuminate\Support\Facades\Auth;
     }
 
     if(!function_exists('customerDocumentsPath')){
-        function customerDocumentsPath($adminId){
-            return 'users/' . $adminId . '/assets/customers/documents/';
+        function customerDocumentsPath($adminId,$customerId,$applicationId){
+            return 'users/' . $adminId . '/assets/customers/'.$customerId.'/applications/'.$applicationId.'/documents/';
         }
     }
 
@@ -239,6 +239,25 @@ use Illuminate\Support\Facades\Auth;
         }
     }
     
+    if(!function_exists('getFileMimeType')){
+        function getFileMimeType($file){
+            $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
+            // Define a simple MIME type map
+            $mimeTypes = [
+                'jpeg' => 'image/jpeg',
+                'jpg'  => 'image/jpeg',
+                'png'  => 'image/png',
+                'pdf'  => 'application/pdf',
+                'txt'  => 'text/plain',
+                // Add more MIME types here as needed
+            ];
+
+            // Check if the file extension is in the map
+            $mimeType = isset($mimeTypes[$extension]) ? $mimeTypes[$extension] : 'application/octet-stream';
+
+            return $mimeType;
+        }
+    }
 
 ?>

@@ -90,3 +90,19 @@
 .required{
     color:#dc3545;
 }
+
+.documentBlock{
+    border: 1px dashed #007bff;
+    width: 100px;
+    height: 112px;
+    margin: auto;
+    border-radius: 0px;
+    /* text-align: center; */
+    padding: 5px 5px 5px 5px;
+}
+
+.documentBlock .fa.fa-file-image-o{
+    font-size: 64px;
+    margin-bottom: 3px;
+    color: #007bff;
+}

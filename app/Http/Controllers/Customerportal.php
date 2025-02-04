@@ -247,18 +247,20 @@ class Customerportal extends Controller
             $customerFname = $this->getSession('customerFname');
             $customerLname = $this->getSession('customerLname');
 
-            $applcations = array();
+            $applications = array();
 
-            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->first();
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->get();
             
             if($applicationsObj){
-                $applcations = $applicationsObj->toArray();
+                $applications = $applicationsObj->toArray();
+                foreach($applications as &$row){
+                    $row["statusTxt"] = verificationStatusTxt($row["status"]);
+                }
             }
-            
-
+        
             $data = [
                 'pageTitle' => 'Dashboard',
-                'applcations' => $applcations
+                'applications' => $applications
                 //'adminId' => $adminId,
                 //'portalId' => $portalId
             ];
@@ -355,11 +357,6 @@ class Customerportal extends Controller
 
             if($appSaved){
                 
-                $documentObj->id = $documentId;
-                $documentObj->adminId = $adminId;
-                $documentObj->portalId =  $portalId;
-                $documentObj->applicationId = $applicationId;
-                $documentSaved = $documentObj->save();
 
                 // Strip off the base64 prefix
                 $imageData = explode(';base64,', $base64Image);
@@ -372,9 +369,10 @@ class Customerportal extends Controller
                 $decodedImage = base64_decode($imageData);
 
                 // Define the dynamic path for storing the image
-                $adminDirPath = customerDocumentsPath($adminId);
-                
+                //$adminDirPath = customerDocumentsPath($adminId);
+                $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
                 // Ensure the directory structure exists
+
                 // Laravel will create any missing directories
                 Storage::disk('local')->makeDirectory($adminDirPath);
                 
@@ -383,8 +381,16 @@ class Customerportal extends Controller
                 
                 // Return the relative path of the image for further processing
                 //$path = $adminDirPath . $imageName;
-                $path = userImagesDisplayPath($adminId,$imageName);
+                //$path = userImagesDisplayPath($adminId,$imageName);
 
+                
+                $documentObj->id = $documentId;
+                $documentObj->adminId = $adminId;
+                $documentObj->portalId =  $portalId;
+                $documentObj->applicationId = $applicationId;
+                $documentObj->fileName = $imageName;
+                $documentSaved = $documentObj->save();
+                
                 $postBackData = array();
                 $postBackData["success"] = 1;
 
@@ -429,7 +435,6 @@ class Customerportal extends Controller
             //$customerLname = $this->getSession('customerLname');
 
             $applications = array();
-
             $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->get();
             
             if($applicationsObj){
@@ -454,14 +459,57 @@ class Customerportal extends Controller
     }
 
     function application($Id){
-        if($this->CUSTOMERID > 0){
-            $application = array();
+        if($this->CUSTOMERID > 0 && $Id){
+            
+            ///$Id
+            $applicationId = $Id;
+            $portalId = $this->getSession('portalId');
+            $customerId = $this->getSession('customerId');
+            
+            $applicationObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->where("id",$Id)->first();
+
+            if($applicationObj){
+                $application = $applicationObj->toArray();     
+                $application["statusTxt"] = verificationStatusTxt($application["status"]);
+                
+                //get application documents
+                $documentsObj = ApplicationDocuments_model::where("portalId",$portalId)->where("applicationId",$Id)->get();
+
+                if($documentsObj){
+                    $documents = $documentsObj->toArray();
+                
+                    foreach($documents as &$document){
+                        
+                        $adminId = $document['adminId'];
+                        $fileName = $document['fileName'];
+                        $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
+                        $filePath = $adminDirPath.$fileName;
+                        $document['filePath'] = $filePath;
+                        $document['mimeType'] = getFileMimeType($filePath);
+                        
+                        unset($document['id']);
+                        unset($document['adminId']);
+                        unset($document['portalId']);
+                        unset($document['applicationId']);
+                        unset($document['fileName']);
+                    }
+                
+                }else{
+                    $documents = array();
+                }
+                
+            }else{
+                $application = array();
+            }
+            $application["documents"] = $documents;
             $data = [
                 'pageTitle' => 'Application',
                 'application' => $application
             ];
             
-            return View('portal.myapplications', $data);
+            //echo "<pre>"; print_r($data); die;
+
+            return View('portal.applicationdetails', $data);
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    

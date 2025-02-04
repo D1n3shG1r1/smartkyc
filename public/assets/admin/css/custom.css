@@ -50,3 +50,14 @@
     opacity: 1;
     color: #fff;
 }
+
+.btn-copy-link {
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #007bff;
+}
+
+.required {
+    color: #dc3545;
+}

@@ -26,7 +26,7 @@ class Profile extends Controller
             
             //echo '<pre>'; print_r($adminObj); die;
             $data = array();
-            $data["pageTitle"] = "Profile";
+            $data["pageTitle"] = "My Profile";
             $data["user"] = $adminObj;
             return View("admin.profile",$data);
         }else{

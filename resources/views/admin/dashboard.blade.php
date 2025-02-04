@@ -6,6 +6,19 @@
         <div class="col-md-12">
             <div class="page_title">
                 <h2>Dashboard</h2>
+                
+                <span style="padding: 5px 0px 0px 0px;">
+                    <label>Applicant Portal:</label>
+                    <input class="blue1_color btn btn-copy-link" style="margin-left: 5px;width: 650px;" type="text" id="portalLink" value="{{$applicantPortalLink}}" readonly="">
+
+                    <button type="button" class="btn btn-outline-primary" onclick="copyLink();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
+                        </svg>
+                        Copy Link
+                    </button>
+                </span>
+                
             </div>
         </div>
         </div>
@@ -355,5 +368,21 @@
 </div>
 @endsection
 @push("js")
-<script></script>
+<script>
+     function copyLink() {
+            // Get the text field containing the link
+            var link = document.getElementById("portalLink");
+
+            // Select the text field
+            link.select();
+            link.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            document.execCommand("copy");
+
+            var err = 0;
+            var msg = "Link copied to clipboard: " + link.value;
+            showToast(err,msg);
+        }
+</script>
 @endpush

@@ -18,8 +18,10 @@ class Dashboard extends Controller
     function dashboard(Request $request){
         
         if($this->ADMINID > 0){
+            $portalId = sha1($this->ADMINID);
             $data = array();
             $data["pageTitle"] = "Dashboard";
+            $data["applicantPortalLink"] = url("portal/login/".$portalId);
             return View("admin.dashboard",$data);
         }else{
             //redirect to login

@@ -17,6 +17,7 @@
 
       @if(request()->is('admin/*'))
          <link rel="stylesheet" href="{{ url('assets/admin/css/bootstrap.min.css'); }}">
+         <link rel="stylesheet" href="{{ url('assets/admin/css/bootstrap-icons.css'); }}"></link>
          <link rel="stylesheet" href="{{ url('assets/admin/css/style.css'); }}">
          <link rel="stylesheet" href="{{ url('assets/admin/css/responsive.css'); }}">
          
