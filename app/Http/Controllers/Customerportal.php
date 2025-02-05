@@ -350,7 +350,9 @@ class Customerportal extends Controller
             $applicationObj->documentType = $documentType;
             $applicationObj->documentNo = $documentNumber;
             $applicationObj->comment = $comments;
-            $applicationObj->status = 11;
+            $applicationObj->verificationOutcome = 1;
+            $applicationObj->discrepancies = 0;
+            $applicationObj->verificationStatus = "pending";
             $applicationObj->createDateTime = $createDateTime;
             $applicationObj->updateDateTime = $updateDateTime;
             $appSaved = $applicationObj->save();
@@ -470,7 +472,7 @@ class Customerportal extends Controller
 
             if($applicationObj){
                 $application = $applicationObj->toArray();     
-                $application["statusTxt"] = verificationStatusTxt($application["status"]);
+                $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
                 
                 //get application documents
                 $documentsObj = ApplicationDocuments_model::where("portalId",$portalId)->where("applicationId",$Id)->get();

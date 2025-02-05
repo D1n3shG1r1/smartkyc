@@ -9,8 +9,8 @@ $description = ucwords($application["description"]);
 $documentType = ucwords($application["documentType"]);
 $documentNo = $application["documentNo"];
 $comment = ucwords($application["comment"]);
-$status = $application["status"];
-$statusTxt = ucwords($application["statusTxt"]);
+$verificationStatus = $application["verificationStatus"];
+$verificationOutcomeTxt = ucwords($application["verificationOutcomeTxt"]);
 $documents = $application["documents"];
 
 @endphp
@@ -74,7 +74,7 @@ $documents = $application["documents"];
             <div class="full graph_head">
                 <div class="heading1 margin_0">
                     <h2>Ref:{{$id}}</h2>
-                    <h2>Status:{{$statusTxt}}</h2>
+                    <h2>Status:{{$verificationStatus}}</h2>
                     <h2>Discrepancies Found:</h2>
                 </div>
             </div>

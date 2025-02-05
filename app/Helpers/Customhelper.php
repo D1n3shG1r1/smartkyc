@@ -223,7 +223,7 @@ use Illuminate\Support\Facades\Auth;
     if(!function_exists('verificationStatusTxt')){
         function verificationStatusTxt($flag){
             
-            $vrfstatus[1] = "Verified as Authentic";
+            $vrfstatus[1] = "Verification in Progress";
             $vrfstatus[2] = "Document Failed Verification";
             $vrfstatus[3] = "Document is Expired";
             $vrfstatus[4] = "Document Under Review";
@@ -233,7 +233,7 @@ use Illuminate\Support\Facades\Auth;
             $vrfstatus[8] = "Unable to Verify (Issuing Authority Unreachable)";
             $vrfstatus[9] = "Document Requires Manual Review";
             $vrfstatus[10] = "Document Verified with Discrepancies";
-            $vrfstatus[11] = "Verification in Progress";
+            $vrfstatus[11] = "Verified as Authentic";
             
             return $vrfstatus[$flag];
         }
@@ -260,4 +260,45 @@ use Illuminate\Support\Facades\Auth;
         }
     }
 
+    if(!function_exists('verificationStatusOptions')){
+        function verificationStatusOptions(){
+            //verification outcome
+            $vrfstatus[1] = "Verification in Progress";
+            $vrfstatus[2] = "Document Failed Verification";
+            $vrfstatus[3] = "Document is Expired";
+            $vrfstatus[4] = "Document Under Review";
+            $vrfstatus[5] = "Further Action Required";
+            $vrfstatus[6] = "Verification Incomplete (Pending Information)";
+            $vrfstatus[7] = "Document is Fraudulent";
+            $vrfstatus[8] = "Unable to Verify (Issuing Authority Unreachable)";
+            $vrfstatus[9] = "Document Requires Manual Review";
+            $vrfstatus[10] = "Document Verified with Discrepancies";
+            $vrfstatus[11] = "Verified as Authentic";
+            
+            return $vrfstatus;
+        }
+    }
+
+    if(!function_exists('DiscrepanciesOptions')){
+        function DiscrepanciesOptions(){
+            
+            $options[1] = "No Discrepancies Found";
+            $options[2] = "Invalid Document Number";
+            $options[3] = "Document Expired";
+            $options[4] = "Mismatch in Applicant Name";
+            $options[5] = "Issuing Authority Not Found";
+            $options[6] = "Date Discrepancy (e.g., issue date does not match records)";
+            $options[7] = "Incomplete Information Provided";
+            $options[8] = "Document Not Registered with Issuing Authority";
+            $options[9] = "Document Tampered or Altered";
+            $options[10] = "Unrecognized Document Format";
+            $options[11] = "Inconsistent Data with Authority Records";
+            $options[12] = "Duplicate Document Found";
+            $options[13] = "Verification Process Incomplete (Further Information Required)";
+            $options[14] = "Fraudulent Document Detected";
+            $options[15] = "Other";
+            
+            return $options;
+        }
+    }
 ?>

@@ -7,7 +7,7 @@
             <div class="page_title">
                 <h2>Dashboard</h2>
                 
-                <span style="padding: 5px 0px 0px 0px;">
+                <span class="portalLinkContainer alert alert-primary">
                     <label>Applicant Portal:</label>
                     <input class="blue1_color btn btn-copy-link" style="margin-left: 5px;width: 650px;" type="text" id="portalLink" value="{{$applicantPortalLink}}" readonly="">
 
@@ -17,8 +17,9 @@
                         </svg>
                         Copy Link
                     </button>
+                    <label>Copy the link above and share it with your customers to upload the documents for verification.</label>
                 </span>
-                
+    
             </div>
         </div>
         </div>

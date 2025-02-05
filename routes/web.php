@@ -12,6 +12,7 @@ use App\Http\Controllers\Customerportal;
 use App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Admin\Profile;
 use App\Http\Controllers\Admin\Documents;
+use App\Http\Controllers\Admin\Applications;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,9 +47,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/myprofile',[Profile::class, 'myprofile']);
     Route::post('/saveprofile',[Profile::class, 'saveprofile']);
     Route::post('/saveprofilephoto',[Profile::class, 'saveprofilephoto']);
-    
     Route::get('/uploaddocument',[Documents::class, 'uploaddocument']);
-    
+    Route::get('/myapplications',[Applications::class, 'myApplications']);
+    Route::get('/application/{Id}',[Applications::class, 'application']);
 });
 
 Route::prefix('portal')->name('portal.')->group(function () {
