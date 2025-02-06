@@ -249,12 +249,12 @@ class Customerportal extends Controller
 
             $applications = array();
 
-            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->get();
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->paginate(1);
             
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();
-                foreach($applications as &$row){
-                    $row["statusTxt"] = verificationStatusTxt($row["status"]);
+                foreach($applications["data"] as &$row){
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
                 }
             }
         
@@ -437,14 +437,15 @@ class Customerportal extends Controller
             //$customerLname = $this->getSession('customerLname');
 
             $applications = array();
-            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->get();
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->paginate(1);
             
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();
             
-                foreach($applications as &$row){
-                    $row["statusTxt"] = verificationStatusTxt($row["status"]);
+                foreach($applications["data"] as &$row){
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
                 }
+                
             }
             
             $data = [
@@ -506,7 +507,9 @@ class Customerportal extends Controller
             $application["documents"] = $documents;
             $data = [
                 'pageTitle' => 'Application',
-                'application' => $application
+                'application' => $application,
+                'verificationOutcomeOptions' => verificationStatusOptions(),
+                'DiscrepanciesOptions' => DiscrepanciesOptions()
             ];
             
             //echo "<pre>"; print_r($data); die;

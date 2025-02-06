@@ -36,7 +36,7 @@
 
                      <li><a href="{{url('/admin/myapplications')}}"><i class="fa fa-upload orange_color"></i> <span>My Applications</span></a></li>
                      
-                     <li><a href="{{url('/admin/package')}}"><i class="fa fa-briefcase blue1_color"></i> <span>My Package</span></a></li>
+                     <li><a href="{{url('/admin/mypackage')}}"><i class="fa fa-briefcase blue1_color"></i> <span>My Package</span></a></li>
                      <!--
                      <li><a href="{{url('/admin/settings')}}"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
                      -->

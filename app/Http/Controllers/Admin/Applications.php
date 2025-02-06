@@ -24,13 +24,13 @@ class Applications extends Controller
             $adminId = $this->ADMINID;
             $portalId = sha1($this->ADMINID);
             $applications = array();
-            $applicationsObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->get();
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->paginate(1);
             
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();
-            
-                foreach($applications as &$row){
-                    $row["statusTxt"] = verificationStatusTxt($row["status"]);
+               
+                foreach($applications["data"] as &$row){
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
                 }
             }
 
@@ -112,7 +112,7 @@ class Applications extends Controller
                 'DiscrepanciesOptions' => DiscrepanciesOptions()
             ];
 
-
+            
             //echo "<pre>"; print_r($data); die;
 
             return View('admin.applicationdetails', $data);
@@ -121,5 +121,53 @@ class Applications extends Controller
             $portalId = $this->getSession('portalId');    
             return Redirect::to(url('/portallogin/'.$portalId));
         }
+    }
+
+    function updateApplicationStatus(Request $request){
+        
+        if($this->ADMINID > 0){
+            
+            $adminId = $this->ADMINID;
+            $portalId = sha1($adminId);
+
+            $applicationId = $request->input("applicationId");
+            $verificationStatus = $request->input("verificationStatus");
+            $verificationMethod = $request->input("verificationMethod");
+            $verificationOutcome = $request->input("verificationOutcome");
+            $discrepancies = $request->input("discrepancies");
+            $specifyDiscrepancy = $request->input("specifyDiscrepancy");
+            if(!$specifyDiscrepancy || $specifyDiscrepancy == null){
+                $specifyDiscrepancy = "";
+            }
+            $updateDateTime = date("Y-m-d H:i:s");
+            $updateArr = array(
+                "verificationOutcome" => $verificationOutcome,
+                "discrepancies" => $discrepancies,
+                "specifyDiscrepancy" => $specifyDiscrepancy,
+                "verificationStatus" => $verificationStatus,
+                "verificationMethod" => $verificationMethod,
+                "updateDateTime" => $updateDateTime
+            );
+
+            $applicationObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->where("id",$applicationId)->update($updateArr);
+            
+            $postBackData["success"] = 1;
+
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "Application status has been updated successfully."
+            );
+        }else{
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die;
     }
 }

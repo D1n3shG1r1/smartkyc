@@ -1,3 +1,6 @@
+@php
+$applicationsData = $applications["data"];
+@endphp
 @extends("app")
 @section("contentbox")
 <div class="container-fluid">
@@ -23,7 +26,7 @@
                             <th>Doc Title</th>
                             <th>Doc Type</th>
                             <th>Doc Number</th>
-                            <th>Verification Status</th>
+                            <th>Status</th>
                             <th>Date</th>
                             <th>Action</th>
                         </tr>
@@ -31,8 +34,8 @@
                     <tbody>
                     <?php
                     //echo "<pre>"; print_r($applications); die;
-                        if(!empty($applications)){
-                            foreach($applications as $k => $row){
+                        if(!empty($applicationsData)){
+                            foreach($applicationsData as $k => $row){
                     
                                 $id = $row["id"];
                                 $adminId = $row["adminId"];
@@ -43,8 +46,7 @@
                                 $documentType = $row["documentType"];
                                 $documentNo = $row["documentNo"];
                                 $comment = $row["comment"];
-                                $status = $row["status"];
-                                $statusTxt = $row["statusTxt"];
+                                $verificationStatus = $row["verificationStatus"];
                                 $createDateTime = $row["createDateTime"];
                                 $updateDateTime = $row["updateDateTime"];
                                 
@@ -59,7 +61,7 @@
                             <td>{{ucwords($title)}}</td>
                             <td>{{ucwords($documentType)}}</td>
                             <td>{{$documentNo}}</td>
-                            <td>{{ucwords($statusTxt)}}</td>
+                            <td>{{ucwords($verificationStatus)}}</td>
                             <td>{{$createDate}}</td>
                             <td><a href="{{url('portal/application/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
                         </tr>
@@ -70,6 +72,44 @@
                     </tbody>
                 </table>
                 </div>
+                <div class="btn-group mr-2 pagination button_section button_style2">
+                @php
+          
+                    $prevLink = $applications["links"][0]["url"]; //prevbutton url
+                    $nextLink = $applications["links"][count($applications["links"]) - 1]["url"]; //nextbutton url
+                    $activePageNum = "";
+                    foreach($applications["links"] as $linkRw){
+                        if($linkRw["active"] == 1){
+                        $activePageNum = $linkRw["label"];
+                        }
+                    }  
+
+                    if($prevLink != ""){
+                        $prevurl = $prevLink;
+                        $prevHref = 'href='.$prevurl;
+                        $prevdisable = "";
+                    }else{
+                        $prevHref = "";
+                        $prevdisable = "disabled";
+                    }
+
+                    if($nextLink != ""){
+                        $nexturl = $nextLink;
+                        $nextHref = 'href='.$nexturl;
+                        $nextdisable = "";
+                    }else{
+                        $nextHref = "";
+                        $nextdisable = "disabled";
+                    }
+                    
+                    @endphp    
+         
+                <a class="btn paginate_button previous {{$prevdisable}}" {{$prevHref}} aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="-1" id="DataTables_Table_0_previous"><i class="fa fa-angle-double-left"></i></a>
+            
+                <a class="btn active paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">{{$activePageNum}}</a>
+            
+                <a class="btn paginate_button next {{$nextdisable}}" {{$nextHref}}  aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="-1" id="DataTables_Table_0_next"><i class="fa fa-angle-double-right"></i></a>    
+            </div>
             </div>
         </div>
         </div>

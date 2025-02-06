@@ -1,5 +1,5 @@
 @php
-
+/*
 $id = $application["id"];
 $adminId = $application["adminId"];
 $portalId = $application["portalId"];
@@ -12,6 +12,29 @@ $comment = ucwords($application["comment"]);
 $verificationStatus = $application["verificationStatus"];
 $verificationOutcomeTxt = ucwords($application["verificationOutcomeTxt"]);
 $documents = $application["documents"];
+*/
+$id = $application["id"];
+$adminId = $application["adminId"];
+$portalId = $application["portalId"];
+$customerId = $application["customerId"];
+$title = ucwords($application["title"]);
+$description = ucwords($application["description"]);
+$documentType = ucwords($application["documentType"]);
+$documentNo = $application["documentNo"];
+$comment = ucwords($application["comment"]);
+$createDateTime = $application["createDateTime"];
+$submitDate = date("M d, Y", strtotime($createDateTime));
+
+$verificationStatus = $application["verificationStatus"];
+$verificationMethod = $application["verificationMethod"];
+$verificationOutcome = $application["verificationOutcome"];
+$verificationOutcomeTxt = ucwords($application["verificationOutcomeTxt"]);
+$discrepancies = $application["discrepancies"];
+$specifyDiscrepancy = $application["specifyDiscrepancy"];
+
+$documents = $application["documents"];
+//$customer = $application["customerDetails"];
+
 
 @endphp
 @extends("app")
@@ -71,12 +94,27 @@ $documents = $application["documents"];
         <div class="col-md-12">
         <div class="white_shd full margin_bottom_30">
             
-            <div class="full graph_head">
-                <div class="heading1 margin_0">
-                    <h2>Ref:{{$id}}</h2>
-                    <h2>Status:{{$verificationStatus}}</h2>
-                    <h2>Discrepancies Found:</h2>
+        <div class="full graph_head">
+                <form class="full graph_head">
+                <div class="row mb-3">
+                    <div class="col-md-6 heading1 margin_0 pdr-20 borderright-1">
+                        <div>
+                            <h6>Info</h6>
+                            <div class="mb-3">
+                                <label class="col-md-6 form-label">Application-Id:</label><label class="col-md-6 form-label">{{$id}}</label>
+                                <label class="col-md-6 form-label">Submitted On:</label><label class="col-md-6 form-label">{{$submitDate}}</label>
+                                <label class="col-md-6 form-label">Status:</label><label class="col-md-6 form-label">{{ucwords($verificationStatus)}}</label>
+                                <label class="col-md-6 form-label">Verification Outcome:</label><label class="col-md-6 form-label">{{$verificationOutcomeTxt}}</label>
+                                <label class="col-md-6 form-label">Discrepancies Found:</label>{{$DiscrepanciesOptions[$discrepancies]}}<label class="col-md-6 form-label"></label>
+                            </div>
+                        </div>
+                                            
+                    </div>
+                    <div class="col-md-6 heading1 margin_0 pdl-20">
+                           
+                    </div>
                 </div>
+                </form>
             </div>
             <!-- Form -->
             <form class="full graph_head" id="documentForm">  

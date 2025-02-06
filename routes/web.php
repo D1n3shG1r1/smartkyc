@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Admin\Profile;
 use App\Http\Controllers\Admin\Documents;
 use App\Http\Controllers\Admin\Applications;
+use App\Http\Controllers\Admin\Package;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/uploaddocument',[Documents::class, 'uploaddocument']);
     Route::get('/myapplications',[Applications::class, 'myApplications']);
     Route::get('/application/{Id}',[Applications::class, 'application']);
+    Route::post('/updateApplicationStatus',[Applications::class, 'updateApplicationStatus']);
+    Route::get('/mypackage',[Package::class, 'plans']);
 });
 
 Route::prefix('portal')->name('portal.')->group(function () {

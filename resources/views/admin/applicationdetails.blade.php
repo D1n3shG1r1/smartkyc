@@ -9,9 +9,16 @@ $description = ucwords($application["description"]);
 $documentType = ucwords($application["documentType"]);
 $documentNo = $application["documentNo"];
 $comment = ucwords($application["comment"]);
+$createDateTime = $application["createDateTime"];
+$submitDate = date("M d, Y", strtotime($createDateTime));
+
 $verificationStatus = $application["verificationStatus"];
+$verificationMethod = $application["verificationMethod"];
 $verificationOutcome = $application["verificationOutcome"];
 $verificationOutcomeTxt = ucwords($application["verificationOutcomeTxt"]);
+$discrepancies = $application["discrepancies"];
+$specifyDiscrepancy = $application["specifyDiscrepancy"];
+
 $documents = $application["documents"];
 $customer = $application["customerDetails"];
 
@@ -81,9 +88,10 @@ $customer = $application["customerDetails"];
                             <h6>Info</h6>
                             <div class="mb-3">
                                 <label class="col-md-6 form-label">Application-Id:</label><label class="col-md-6 form-label">{{$id}}</label>
+                                <label class="col-md-6 form-label">Submitted On:</label><label class="col-md-6 form-label">{{$submitDate}}</label>
                                 <label class="col-md-6 form-label">Status:</label><label class="col-md-6 form-label">{{ucwords($verificationStatus)}}</label>
                                 <label class="col-md-6 form-label">Verification Outcome:</label><label class="col-md-6 form-label">{{$verificationOutcomeTxt}}</label>
-                                <label class="col-md-6 form-label">Discrepancies Found:</label><label class="col-md-6 form-label"></label>
+                                <label class="col-md-6 form-label">Discrepancies Found:</label>{{$DiscrepanciesOptions[$discrepancies]}}<label class="col-md-6 form-label"></label>
                             </div>
                         </div>
                         <div>
@@ -95,25 +103,40 @@ $customer = $application["customerDetails"];
                         </div>                    
                     </div>
                     <div class="col-md-6 heading1 margin_0 pdl-20">
+                        <input type="hidden" id="applicationId" value="{{$id}}" />
+                        <input type="hidden" id="portalId" value="{{$portalId}}" />
+                        
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <h6>Status</h6>
+                                @php
+                                    $statusOptions = ['verified' => '', 'not verified' => '', 'pending' => ''];
+                                    if (array_key_exists($verificationStatus, $statusOptions)) {
+                                        $statusOptions[$verificationStatus] = 'selected';
+                                    }
+                                @endphp
                                 <select class="form-select form-control" id="documentStatus" name="documentStatus">
                                     <option value="">--Select Status--</option>
-                                    <option value="verified">Verified</option>
-                                    <option value="not verified">Not Verified</option>
-                                    <option value="pending">Pending</option>
+                                    <option value="verified" {{ $statusOptions['verified'] }}>Verified</option>
+                                    <option value="not verified" {{ $statusOptions['not verified'] }}>Not Verified</option>
+                                    <option value="pending" {{ $statusOptions['pending'] }}>Pending</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <h6>Verification Method</h6>
+                                @php
+                                $methodOptions = ['automated system check' => '', 'manual review' => '', 'contact with issuing authority' => ''];
+                                    if (array_key_exists($verificationMethod, $methodOptions)) {
+                                        $methodOptions[$verificationMethod] = 'selected';
+                                    }
+                                @endphp
                                 <select class="form-select form-control" id="verificationMethod" name="verificationMethod">
                                     <option value="">--Select Verification Method--</option>
-                                    <option value="automated system check">Automated System Check</option>
-                                    <option value="manual review">Manual Review</option>
-                                    <option value="contact with issuing authority">Contact with Issuing Authority</option>
+                                    <option value="automated system check" {{ $methodOptions['automated system check'] }}>Automated System Check</option>
+                                    <option value="manual review" {{ $methodOptions['manual review'] }}>Manual Review</option>
+                                    <option value="contact with issuing authority" {{ $methodOptions['contact with issuing authority'] }}>Contact with Issuing Authority</option>
                                 </select>
                             </div>
                         </div>
@@ -123,8 +146,12 @@ $customer = $application["customerDetails"];
                                 <h6>Verification Outcome</h6>
                                 <select class="form-select form-control" id="verificationOutcome" name="verificationOutcome">
                                 @php
-                                foreach($verificationOutcomeOptions as $k => $vrfyOutOpt){
-                                    $opt = '<option value="'.$k.'">'.$vrfyOutOpt.'</option>';   
+                                foreach($verificationOutcomeOptions as $k => $vrfyOutOpt) {
+                                    $selected = ''; // Reset $selected for each option
+                                    if($verificationOutcome == $k) {
+                                        $selected = "selected";
+                                    }
+                                    $opt = '<option value="'.$k.'" '.$selected.'>'.$vrfyOutOpt.'</option>';   
                                     echo $opt;
                                 }
                                 @endphp
@@ -137,8 +164,14 @@ $customer = $application["customerDetails"];
                                 <select class="form-select form-control" id="discrepancies" name="discrepancies" onchange="discrepancyOnchange(this);">
                                 <option value="">--Select Discrepancy--</option>
                                 @php
+                                
                                 foreach($DiscrepanciesOptions as $kk => $dspOpt){
-                                    $opt = '<option value="'.$kk.'">'.$dspOpt.'</option>';   
+                                    $selected = ''; // Reset $selected for each option
+                                    if($discrepancies == $kk) {
+                                        $selected = "selected";
+                                    }
+                                    
+                                    $opt = '<option value="'.$kk.'" '.$selected.'>'.$dspOpt.'</option>';   
                                     echo $opt;
                                 }
                                 @endphp
@@ -148,7 +181,7 @@ $customer = $application["customerDetails"];
                         <div id="specifyDiscrepancyBox" class="row mb-3 hideMe">
                             <div class="col-md-12">
                                 <h6>Specify</h6>
-                                <textarea class="form-control" id="specifyDiscrepancy" name="specifyDiscrepancy" style="resize:none;" rows="3" placeholder="Specify the discrepancy details..." maxlength="160" oninput="updateCharacterCount()"></textarea>
+                                <textarea class="form-control" id="specifyDiscrepancy" name="specifyDiscrepancy" style="resize:none;" rows="3" placeholder="Specify the discrepancy details..." maxlength="160" oninput="updateCharacterCount()">{{$specifyDiscrepancy}}</textarea>
                                 <p class="text-align-right">Remaining characters: <span id="remainingChars">160</span></p>
                             </div>
                         </div>
@@ -271,14 +304,32 @@ $customer = $application["customerDetails"];
     }
 
     function updateStatus(){
-        
+
+        var applicationId = $("#applicationId").val();
+        var portalId = $("#portalId").val();
         var documentStatus = $("#documentStatus").val();
         var verificationMethod = $("#verificationMethod").val();
         var vrfOutcome = $("#verificationOutcome").val();
         var discrepancies = $("#discrepancies").val();
         //discrepancies = parseInt(discrepancies);
         var specifyDiscrepancy = $("#specifyDiscrepancy").val();
-        if(!isRealValue(discrepancies)){
+        
+        if(!isRealValue(documentStatus)){
+            var err = 1;
+            var msg = "Please select the status.";
+            showToast(err,msg);
+            return false;
+        }else if(documentStatus == 'verified' && !isRealValue(verificationMethod)){
+            var err = 1;
+            var msg = "Please select the verification method.";
+            showToast(err,msg);
+            return false;
+        }else if(!isRealValue(vrfOutcome)){
+            var err = 1;
+            var msg = "Please select the verification outcome.";
+            showToast(err,msg);
+            return false;
+        }else if(!isRealValue(discrepancies)){
             var err = 1;
             var msg = "Please select the discrepancy option.";
             showToast(err,msg);
@@ -296,14 +347,25 @@ $customer = $application["customerDetails"];
         }else{
             var requrl = "admin/updateApplicationStatus";
             var postdata = {
-                "documentStatus":documentStatus,
+                "applicationId":applicationId,
+                "verificationStatus":documentStatus,
+                "verificationMethod":verificationMethod,
+                "verificationOutcome":vrfOutcome,
                 "discrepancies":discrepancies,
                 "specifyDiscrepancy":specifyDiscrepancy
             };
             
-            console.log(postdata);
-            return false;
             callajax(requrl, postdata, function(resp){
+                if(resp.C == 100){
+                    var err = 0;
+                    var msg = "Application status has been updated successfully.";
+                    showToast(err,msg);        
+                }else{
+                    var err = 1;
+                    var msg = resp.M;
+                    showToast(err,msg);
+                }
+                
             });
         }
         
