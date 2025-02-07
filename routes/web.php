@@ -54,6 +54,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/updateApplicationStatus',[Applications::class, 'updateApplicationStatus']);
     Route::get('/mypackage',[Package::class, 'plans']);
     Route::get('/buy/{package}',[Package::class, 'buy']);
+
+    Route::get('/payment/callback',[Package::class, 'payment']);
 });
 
 Route::prefix('portal')->name('portal.')->group(function () {

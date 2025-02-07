@@ -301,4 +301,82 @@ use Illuminate\Support\Facades\Auth;
             return $options;
         }
     }
+
+
+    
+    if(!function_exists('makeCurlRequest')){
+
+        function makeCurlRequest($url, $method = 'GET', $headers = [], $data = null, $returnAsArray = false) {
+            /**
+             * cURL Helper Function
+             * 
+             * This function allows you to make flexible cURL requests by passing different parameters.
+             *
+             * @param string $url The URL to make the request to
+             * @param string $method The HTTP method (GET, POST, PUT, DELETE, etc.)
+             * @param array $headers (optional) The headers to send with the request
+             * @param array|string $data (optional) The data to send in the request (for POST/PUT)
+             * @param bool $returnAsArray (optional) Whether to return the response as an array (default: false)
+             * @return mixed The response of the cURL request (string or array depending on $returnAsArray)
+            */
+        
+            $ch = curl_init();
+
+            // Set the URL and other necessary options
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // To get the response as a string
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects (if any)
+            
+            // If the method is POST, PUT, DELETE, etc., set the appropriate options
+            switch (strtoupper($method)) {
+                case 'POST':
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    if ($data) {
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data)); // For form-encoded data
+                    }
+                    break;
+                case 'PUT':
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                    if ($data) {
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+                    }
+                    break;
+                case 'DELETE':
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                    if ($data) {
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+                    }
+                    break;
+                // Add more methods if needed
+            }
+
+            // Add any custom headers
+            if (!empty($headers)) {
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            }
+
+            // Execute the cURL request
+            $response = curl_exec($ch);
+
+            // Handle errors
+            if (curl_errno($ch)) {
+                echo 'Curl error: ' . curl_error($ch);
+                return false;
+            }
+
+            // Get the HTTP status code
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+            // Close the cURL resource
+            curl_close($ch);
+
+            // If you want to return the response as an array (useful for JSON responses)
+            if ($returnAsArray && $httpCode == 200) {
+                return json_decode($response, true);
+            }
+
+            return $response; // Return the response as string if not expecting JSON
+        }
+    }
+
 ?>

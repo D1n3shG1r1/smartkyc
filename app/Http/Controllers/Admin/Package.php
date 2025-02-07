@@ -42,70 +42,56 @@ class Package extends Controller
             //echo "<pre>"; print_r($packageNames); die;
 
             if(in_array($package, $packageNames)){
+
+                //get package amount
+
+                //get admin name, email
+
+                $bodyContent = array();
+                $bodyContent["amount"] = 1000; //in kobo (100-kobo = 1-Naira)
+                $bodyContent["email"] = "dinesh@example.com";
+                $bodyContent["currency"] = "NGN";
+                $bodyContent["reference"] = db_randnumber();
+                $bodyContent["callback_url"] = url("admin/payment/callback");
+                $bodyContent["channels"] = ["card"];
+
+                $bodyContentJson = json_encode($bodyContent);
+
+
                 $SECRET_KEY = "sk_test_6f5c37e50bc827af2a06a0916288ac127c7c88d5";
                 $SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
-                $url = "https://api.paystack.co/transaction/initialize";
                 
-                //$fields = [
-                //    'email' => "customer@email.com",
-                //    'amount' => "20000",
-                //    'callback_url' => "https://hello.pstk.xyz/callback",
-                //    'metadata' => ["cancel_action" => "https://your-cancel-url.com"]
-                //];
+                //initiate transaction
+                $endpoint = "https://api.paystack.co/transaction/initialize";
                 
+                $debug = 0;
+                if($debug == 1){
+                    $debugStrFlag = "2>&1";    
+                }else{
+                    $debugStrFlag = "";
+                }
                 
-                $fields = [
-                  'email' => "customer@email.com",
-                  'amount' => "20000",
-                  'callback_url' => url("/paymentsuccess"),
-                  'metadata' => ["cancel_action" => url("/paymentcancel")]
-                ];
-              
-                $fields_string = http_build_query($fields);
-                //echo $fields_string; die;
-
-                //Test Secret Key
-                //sk_test_6f5c37e50bc827af2a06a0916288ac127c7c88d5
-
-
-                //Test Public Key
-                //pk_test_9c9f2bbcba370e2ecd8abbe9a19a5beb74777833
-                
-                /*
-                //open connection
-                $ch = curl_init();
-                
-                //set the url, number of POST vars, POST data
-                curl_setopt($ch,CURLOPT_URL, $url);
-                curl_setopt($ch,CURLOPT_POST, true);
-                curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                  "Authorization: Bearer $SECRET_KEY",
-                  "Cache-Control: no-cache",
-                ));
-                
-                //So that curl_exec returns the contents of the cURL; rather than echoing it
-                curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
-                
-                //execute post
-                //dd($ch); die;
-                $result = curl_exec($ch);
-                */
-                //phpinfo(); die;
-                $curlCmd = "curl --location 'https://api.paystack.co/transaction/initialize' \
-                --header 'Authorization: Bearer sk_test_48f9c1d23041e406b620438391c682afbe66cfbb' \
+                /* 
+                $curlCmd = "curl --location '$endpoint' \
+                --header 'Authorization: Bearer $SECRET_KEY' \
                 --header 'Content-Type: application/json' \
-                --data-raw '{\"email\": \"customer@email.com\", \"amount\": 500000}' 2>&1";
+                --data-raw '{\"email\": \"customer@email.com\", \"amount\": 500000}' $debugStrFlag";
+                */
+                
+                $curlCmd = "curl --location '$endpoint' \
+                --header 'Authorization: Bearer $SECRET_KEY' \
+                --header 'Content-Type: application/json' \
+                --data-raw '$bodyContentJson' $debugStrFlag";
+                
+
                 exec($curlCmd, $result);
-
-
-
+                
                 echo $curlCmd;
                 echo "<br>";
                 // Debug output
-                var_dump($result);
-                //echo 'result:<pre>'; print_r($result);
-                
+                //var_dump($result);
+                echo 'result:<pre>'; print_r($result);
+                //http://local.smartkyc.com/payment/callback?trxref=1738946263646175&reference=1738946263646175
             }else{
                 //invalid package
                 echo "invalid package"; die;
@@ -118,5 +104,9 @@ class Package extends Controller
             //redirect to login
             return Redirect::to(url('login'));
         }
+    }
+
+    function payment(Request $request){
+        dd($request);
     }
 }
