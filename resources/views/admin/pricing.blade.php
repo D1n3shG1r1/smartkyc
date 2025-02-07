@@ -41,7 +41,7 @@
                                     </div>
                                     </div>
                                     <div class="price_table_bottom">
-                                    <div class="center"><a class="main_bt" href="#">Buy Now</a></div>
+                                    <div class="center"><a class="main_bt" href="{{url('admin/buy/package-basic')}}">Buy Now</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                     </div>
                                     </div>
                                     <div class="price_table_bottom">
-                                    <div class="center"><a class="main_bt" href="#">Buy Now</a></div>
+                                    <div class="center"><a class="main_bt" href="{{url('admin/buy/package-business')}}">Buy Now</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                     </div>
                                     </div>
                                     <div class="price_table_bottom">
-                                    <div class="center"><a class="main_bt" href="#">Buy Now</a></div>
+                                    <div class="center"><a class="main_bt" href="{{url('admin/buy/package-enterprise')}}">Buy Now</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                                     </div>
                                     </div>
                                     <div class="price_table_bottom">
-                                    <div class="center"><a class="main_bt" href="#">Buy Now</a></div>
+                                    <div class="center"><a class="main_bt" href="{{url('admin/buy/package-payasyougo')}}">Buy Now</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -150,4 +150,5 @@
 
 @endsection
 @push("js")
+<script src="https://js.paystack.co/v2/inline.js">
 @endpush

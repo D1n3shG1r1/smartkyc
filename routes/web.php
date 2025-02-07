@@ -53,6 +53,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/application/{Id}',[Applications::class, 'application']);
     Route::post('/updateApplicationStatus',[Applications::class, 'updateApplicationStatus']);
     Route::get('/mypackage',[Package::class, 'plans']);
+    Route::get('/buy/{package}',[Package::class, 'buy']);
 });
 
 Route::prefix('portal')->name('portal.')->group(function () {
