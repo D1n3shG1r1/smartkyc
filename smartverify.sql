@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 02, 2025 at 04:28 PM
+-- Generation Time: Feb 07, 2025 at 01:15 PM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `applicationdocuments` (
   `adminId` bigint NOT NULL,
   `portalId` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `applicationId` bigint NOT NULL,
+  `fileName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -74,9 +75,12 @@ CREATE TABLE IF NOT EXISTS `applicationdocuments` (
 -- Dumping data for table `applicationdocuments`
 --
 
-INSERT INTO `applicationdocuments` (`id`, `adminId`, `portalId`, `applicationId`) VALUES
-(1738407691491744, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 173840769134398),
-(1738502233757201, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738502233605948);
+INSERT INTO `applicationdocuments` (`id`, `adminId`, `portalId`, `applicationId`, `fileName`) VALUES
+(1738407691491744, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 173840769134398, ''),
+(1738502233757201, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738502233605948, ''),
+(1738587847977139, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738587847368632, ''),
+(1738677043291602, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738677043241884, ''),
+(1738677481727972, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738677481138786, '1738677481727972.jpeg');
 
 -- --------------------------------------------------------
 
@@ -95,7 +99,11 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `documentType` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `documentNo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) NOT NULL COMMENT '1-Verified as Authentic,\r\n2-Document Failed Verification,\r\n3-Document is Expired,\r\n4-Document Under Review,\r\n5-Further Action Required,\r\n6-Verification Incomplete (Pending Information),\r\n7-Document is Fraudulent,\r\n8-Unable to Verify (Issuing Authority Unreachable),\r\n9-Document Requires Manual Review,\r\n10-Document Verified with Discrepancies,\r\n11-Verification in Progress\r\n',
+  `verificationOutcome` tinyint NOT NULL DEFAULT '1' COMMENT '1-Verification in Progress,\r\n2-Document Failed Verification,\r\n3-Document is Expired,\r\n4-Document Under Review,\r\n5-Further Action Required,\r\n6-Verification Incomplete (Pending Information),\r\n7-Document is Fraudulent,\r\n8-Unable to Verify (Issuing Authority Unreachable),\r\n9-Document Requires Manual Review,\r\n10-Document Verified with Discrepancies,\r\n11-Verified as Authentic\r\n',
+  `discrepancies` tinyint NOT NULL DEFAULT '0' COMMENT '1-"No Discrepancies Found",\r\n2-"Invalid Document Number",\r\n3-"Document Expired",\r\n4-"Mismatch in Applicant Name",\r\n5-"Issuing Authority Not Found",\r\n6-"Date Discrepancy (e.g., issue date does not match records)",\r\n7-"Incomplete Information Provided",\r\n8-"Document Not Registered with Issuing Authority",\r\n9-"Document Tampered or Altered",\r\n10-"Unrecognized Document Format",\r\n11-"Inconsistent Data with Authority Records",\r\n12-"Duplicate Document Found",\r\n13-"Verification Process Incomplete (Further Information Required)",\r\n14-"Fraudulent Document Detected",\r\n15-"Other"',
+  `specifyDiscrepancy` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `verificationStatus` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending' COMMENT 'verified, not verified, pending',
+  `verificationMethod` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'automated system check, manual review, contact with issuing authority',
   `createDateTime` datetime NOT NULL,
   `updateDateTime` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -105,9 +113,12 @@ CREATE TABLE IF NOT EXISTS `applications` (
 -- Dumping data for table `applications`
 --
 
-INSERT INTO `applications` (`id`, `adminId`, `portalId`, `customerId`, `title`, `description`, `documentType`, `documentNo`, `comment`, `status`, `createDateTime`, `updateDateTime`) VALUES
-(173840769134398, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738224845466766, 'Driving License', 'Learner driving license', 'driving_license', 'INDDLCH00123', 'Learner Driving License Application', 11, '2025-02-01 11:01:31', '2025-02-01 11:01:31'),
-(1738502233605948, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738224845466766, 'passport', 'Indian Passport', 'passport', 'pp123456789', '', 11, '2025-02-02 13:17:13', '2025-02-02 13:17:13');
+INSERT INTO `applications` (`id`, `adminId`, `portalId`, `customerId`, `title`, `description`, `documentType`, `documentNo`, `comment`, `verificationOutcome`, `discrepancies`, `specifyDiscrepancy`, `verificationStatus`, `verificationMethod`, `createDateTime`, `updateDateTime`) VALUES
+(173840769134398, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738224845466766, 'Driving License', 'Learner driving license', 'driving_license', 'INDDLCH00123', 'Learner Driving License Application', 1, 0, '', 'pending', '', '2025-02-01 11:01:31', '2025-02-01 11:01:31'),
+(1738502233605948, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738224845466766, 'passport', 'Indian Passport', 'passport', 'pp123456789', '', 1, 0, '', 'pending', '', '2025-02-02 13:17:13', '2025-02-02 13:17:13'),
+(1738587847368632, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738224845466766, 'xyz', 'description', 'driving_license', '12355ddsdsd', 'test comment', 1, 0, '', 'pending', '', '2025-02-03 13:04:07', '2025-02-03 13:04:07'),
+(1738677043241884, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738224845466766, 'Test Document', 'Test Document description', 'passport', 'pp123456', 'Test pp', 1, 0, '', 'pending', '', '2025-02-04 13:50:43', '2025-02-04 13:50:43'),
+(1738677481138786, 1736615183114993, '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1738224845466766, 'test1313', 'test1313', 'passport', '12546bnmnb', '12546bnmnb', 11, 1, '', 'verified', 'contact with issuing authority', '2025-02-04 13:58:01', '2025-02-06 09:45:43');
 
 -- --------------------------------------------------------
 
@@ -166,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
 
 INSERT INTO `customers` (`id`, `email`, `otp`, `otpSentDateTime`, `portalID`, `adminId`, `createDateTime`, `updateDateTime`, `fname`, `lname`, `phone`, `address_1`, `address_2`, `city`, `state`, `country`, `zipcode`, `company`, `website`) VALUES
 (1738224734542251, 'customer@examle.com', 851699, '2025-01-30 08:12:14', '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1736615183114993, '2025-01-30 08:12:14', '2025-01-30 08:12:14', 'John', 'Deo', '', '', '', '', '', '', '', '', ''),
-(1738224845466766, 'customer@example.com', 262096, '2025-02-02 13:06:59', '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1736615183114993, '2025-01-30 08:14:05', '2025-02-02 13:06:59', 'John', 'Deo', '1234567890', '1005', 'sector11', 'Chandigarh', 'Chandigarh', 'India', '12345', '', '');
+(1738224845466766, 'customer@example.com', 574102, '2025-02-06 14:03:23', '1f7eb1d132dd059422ead7d5660301a21db9d2eb', 1736615183114993, '2025-01-30 08:14:05', '2025-02-06 14:03:23', 'John', 'Deo', '1234567890', '1005', 'sector11', 'Chandigarh', 'Chandigarh', 'India', '12345', '', '');
 
 -- --------------------------------------------------------
 
