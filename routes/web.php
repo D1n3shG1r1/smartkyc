@@ -56,6 +56,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/buy/{package}',[Package::class, 'buy']);
 
     Route::get('/payment/callback',[Package::class, 'payment']);
+    Route::get('/payment/cancel',[Package::class, 'cancel']);
 });
 
 Route::prefix('portal')->name('portal.')->group(function () {

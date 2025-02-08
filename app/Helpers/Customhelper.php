@@ -326,13 +326,14 @@ use Illuminate\Support\Facades\Auth;
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // To get the response as a string
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects (if any)
-            
+           
             // If the method is POST, PUT, DELETE, etc., set the appropriate options
             switch (strtoupper($method)) {
                 case 'POST':
                     curl_setopt($ch, CURLOPT_POST, true);
                     if ($data) {
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data)); // For form-encoded data
+                        //curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data)); // For form-encoded data
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
                     }
                     break;
                 case 'PUT':
@@ -355,6 +356,10 @@ use Illuminate\Support\Facades\Auth;
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             }
 
+            // Disable SSL Verification (For Testing Only)
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            
             // Execute the cURL request
             $response = curl_exec($ch);
 
