@@ -14,6 +14,8 @@ class Controller extends BaseController
 
     function __construct(){
         
+        getSetClientTimezone(get_client_ip());
+
         $adminId = $this->getSession('adminId');
         $portalId = $this->getSession('portalId');
         $customerId = $this->getSession('customerId');

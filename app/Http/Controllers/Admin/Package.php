@@ -48,23 +48,7 @@ class Package extends Controller
                 
                 $createDateTime = date("Y-m-d H:i:s");
                 $updateDateTime = date("Y-m-d H:i:s"); 
-                //Package_model::
-                Package_model::upsert(
-                    [
-                        [
-                            'adminId' => $adminId,
-                            'package' => $package,
-                            'active' => 0,
-                            'starton' => null,
-                            'expireon' => null,
-                            'expired' => 1,
-                            'createDateTime' =>  $createDateTime, 
-                            'updateDateTime' => $updateDateTime
-                        ],
-                    ],
-                    ['adminId'], // Unique column
-                    ['package'] // Columns to update if duplicate email exists
-                );
+                
                 //initiate transaction
                 //get package amount from config
                 $packageAmount = config('custom.packagePricing.'.$package);
@@ -214,6 +198,7 @@ class Package extends Controller
     
         $endpoint = "https://api.paystack.co/transaction/verify/1739081877345892";
         $endpoint = "https://api.paystack.co/transaction/verify/1739086270975738";
+        $endpoint = "https://api.paystack.co/transaction/verify/1739291094205871";
         
         //verify transaction
         $method = 'GET';
@@ -228,62 +213,88 @@ class Package extends Controller
 
         $result = makeCurlRequest($endpoint, $method, $headers, $bodyContent, $returnAsArray);
         $verifyResult = json_decode($result, true);        
-        //echo "<pre>"; print_r($verifyResult); die;
+        echo "<pre>"; print_r($verifyResult); die;
         if($verifyResult["status"] == 1){
             $verifyData = $verifyResult["data"];
             $status = $verifyData["status"]; //success
-            $gatewayTransId = $verifyData["id"];
-            $referenceId = $verifyData["reference"];
-            $amount = $verifyData["amount"];
-            $currency = $verifyData["currency"];
-            $paid_at = $verifyData["paid_at"];
-            $metadata = $verifyData["metadata"];
-            $adminId = $metadata["adminId"];
-            $transactionId = $metadata["transactionId"];
-            $package = $metadata["package"];
-            $cancel_action = $metadata["cancel_action"];
             
-            $createDateTime = date("Y-m-d H:i:s");
-            $updateDateTime = date("Y-m-d H:i:s");
+            if($status == "success"){
+                //payment success
+                $gatewayTransId = $verifyData["id"];
+                $referenceId = $verifyData["reference"];
+                $amount = $verifyData["amount"];
+                $currency = $verifyData["currency"];
+                $paid_at = $verifyData["paid_at"];
+                $metadata = $verifyData["metadata"];
+                $adminId = $metadata["adminId"];
+                $transactionId = $metadata["transactionId"];
+                $package = $metadata["package"];
+                $cancel_action = $metadata["cancel_action"];
+                
+                $createDateTime = date("Y-m-d H:i:s");
+                $updateDateTime = date("Y-m-d H:i:s");
 
-            //save transaction
-            /*
-            $date = new DateTime('2025-02-09T07:31:58.000Z'); // Create DateTime object
-            $date->setTimezone(new DateTimeZone('Asia/Kolkata')); // Set your desired timezone
+                //save transaction
+                $timezone = Carbon::now()->timezoneName;
+                $paidAt = Carbon::parse($paid_at)
+                    ->setTimezone($timezone)
+                    ->format('Y-m-d H:i:s');
 
-            // Format the date as needed
-            $formattedDate = $date->format('Y-m-d H:i:s'); // Example format
-            echo "formattedDate:".$formattedDate; die;
-            */
+                //packagepayments//
+                $row = Packagepayments_model::where("id", $transactionId)->where("adminId", $adminId)->first();
+                if($row){
+                    $row = $row->toArray();
+                    //invalid link or link is expired
+                }else{
+                    //save transaction
+                    $paymentObj = new Packagepayments_model();
+                    $paymentObj->id = $transactionId;
+                    $paymentObj->gatewayTransId = $gatewayTransId;
+                    $paymentObj->transactionId = $transactionId;
+                    $paymentObj->adminId = $adminId;
+                    $paymentObj->package = $package;
+                    $paymentObj->amount = $amount;
+                    $paymentObj->currency = $currency;
+                    $paymentObj->status = $status;
+                    $paymentObj->payment = 'y';
+                    $paymentObj->paid_at = $paidAt;
+                    $paymentObj->gatewayResponse =  json_encode($verifyResult);
+                    $paymentObj->createDateTime = $createDateTime;
+                    $paymentObj->updateDateTime = $updateDateTime;
+                    $paymentSave = $paymentObj->save();    
+                
+                    if($paymentSave){
+                        
+                        //update package
+                        $newDateTime = Carbon::now()->addMonth();
+                        $startOn = date("Y-m-d");
+                        $expireOn = date("Y-m-d", strtotime($newDateTime));
+                        
+                        Package_model::upsert(
+                            [
+                                [
+                                    'adminId' => $adminId,
+                                    'package' => $package,
+                                    'active' => 1,
+                                    'starton' => $startOn,
+                                    'expireon' => $expireOn,
+                                    'expired' => 0,
+                                    'createDateTime' =>  $createDateTime, 
+                                    'updateDateTime' => $updateDateTime
+                                ],
+                            ],
+                            ['adminId'], // Unique column
+                            ['package','active', 'starton', 'expireon', 'expired', 'updateDateTime'] // Columns to update if duplicate email exists
+                        );
+                        
+                    }
+                }
+            }else{
+                //payment abandoned or failed
+            }
             
-
-            $paidAt = Carbon::parse($paid_at)
-                ->setTimezone('Asia/Kolkata')
-                ->format('Y-m-d H:i:s');
-
-            //echo "formattedDate:".$paidAt; die;
-            
-            //packagepayments//
-            $paymentObj = new Packagepayments_model();
-            $paymentObj->id = $transactionId;
-            $paymentObj->gatewayTransId = $gatewayTransId;
-            $paymentObj->transactionId = $transactionId;
-            $paymentObj->adminId = $adminId;
-            $paymentObj->package = $package;
-            $paymentObj->amount = $amount;
-            $paymentObj->currency = $currency;
-            $paymentObj->status = $status;
-            $paymentObj->payment = 'y';
-            $paymentObj->paid_at = $paidAt;
-            $paymentObj->gatewayResponse =  json_encode($verifyResult);
-            $paymentObj->createDateTime = $createDateTime;
-            $paymentObj->updateDateTime = $updateDateTime;
-            $paymentObj->save();
-
-
-
         }else{
-
+            //payment failed
         }
     }
 

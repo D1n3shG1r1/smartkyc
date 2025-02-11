@@ -13,6 +13,8 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     function __construct(){
+
+        getSetClientTimezone(get_client_ip());
         
         $tmpAdminId = $this->getSession('adminId');
         $tmpAdminFName = $this->getSession('adminFName');
