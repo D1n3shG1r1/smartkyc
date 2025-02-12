@@ -1,3 +1,18 @@
+@php
+if(!empty($currentPackage)){
+    $package = $currentPackage["package"];
+    $starton = $currentPackage["starton"];
+    $expireon = $currentPackage["expireon"];
+    $expired = $currentPackage["expired"];
+    $active = $currentPackage["active"];
+}else{
+    $package = "";
+    $starton = "";
+    $expireon = "";
+    $expired = 1;
+    $active = 0;
+}
+@endphp
 @extends("app")
 @section("contentbox")
 <div class="midde_cont">
@@ -6,6 +21,25 @@
             <div class="col-md-12">
                 <div class="page_title">
                     <h2>My Package</h2>
+                    <span>
+                        <button type="button" class="status btn btn-success blue1_bg btn-xs">  {{ config('custom.packageName.' . $package) }}</button>
+                        
+                        @php 
+                        if($expired == 1 || $active == 0){
+                        @endphp    
+                            <button type="button" class="status btn btn-fail btn-xs">Inactive</button>
+                        @php
+                        }else{
+                        @endphp
+                        
+                        <button type="button" class="status btn btn-success btn-xs">Active</button>
+                        @php
+                        }
+                        @endphp
+                    </span>
+                    <span>Expires on:<h2>{{$expireon}}</h2></span>
+    
+    
                 </div>
             </div>
         </div>
@@ -150,5 +184,4 @@
 
 @endsection
 @push("js")
-<script src="https://js.paystack.co/v2/inline.js">
 @endpush
