@@ -7,7 +7,7 @@
                 <div class="logo_login">
                     <div class="center">
                         <img width="210" id="company-logo" src="{{ url('aassets/portal/images/login_image.jpg'); }}" alt="Company Logo" onError="showCompanyName()"/>
-                        <div id="company-name" class="company-name lobster-regular">Company Name</div>
+                        <div id="company-name" class="company-name lobster-regular">Smart Verification Portal</div>
                     </div>
                 </div>
                 <div class="login_form">

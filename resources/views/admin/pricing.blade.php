@@ -1,12 +1,21 @@
 @php
 if(!empty($currentPackage)){
     $package = $currentPackage["package"];
+    $packageName = $currentPackage["packageName"];
     $starton = $currentPackage["starton"];
     $expireon = $currentPackage["expireon"];
     $expired = $currentPackage["expired"];
     $active = $currentPackage["active"];
+    /*
+    $package $expired $active
+    "package-basic"
+    "package-business"
+    "package-enterprise"
+    "package-payasyougo"
+    */
 }else{
     $package = "";
+    $packageName = "";
     $starton = "";
     $expireon = "";
     $expired = 1;
@@ -21,25 +30,13 @@ if(!empty($currentPackage)){
             <div class="col-md-12">
                 <div class="page_title">
                     <h2>My Package</h2>
-                    <span>
-                        <button type="button" class="status btn btn-success blue1_bg btn-xs">  {{ config('custom.packageName.' . $package) }}</button>
-                        
-                        @php 
-                        if($expired == 1 || $active == 0){
-                        @endphp    
-                            <button type="button" class="status btn btn-fail btn-xs">Inactive</button>
-                        @php
-                        }else{
-                        @endphp
-                        
-                        <button type="button" class="status btn btn-success btn-xs">Active</button>
-                        @php
-                        }
-                        @endphp
+                    <span class="currentPackageSpan">
+                        Current Package: {{$packageName}}
                     </span>
-                    <span>Expires on:<h2>{{$expireon}}</h2></span>
-    
-    
+                    <span class="currentPackageSpan">
+                        Status: @php if($expired == 1 || $active == 0){ echo "Inactive"; }else{ echo "Active"; } @endphp
+                    </span>
+                    <span class="currentPackageSpan">Expires on: {{date("M d, Y", strtotime($expireon))}}</span>    
                 </div>
             </div>
         </div>
@@ -54,6 +51,37 @@ if(!empty($currentPackage)){
                     </div>
                     <div class="full price_table padding_infor_info">
                         <div class="row">
+                            <!-- column price --> 
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="table_price full">
+                                <div class="inner_table_price">
+                                    <div class="price_table_head yellow_bg">
+                                    <h2>Pay-As-You-Go</h2>
+                                    </div>
+                                    <div class="price_table_inner">
+                                    <div class="cont_table_price_blog">
+                                        <p class="yellow_color">₦ <span class="price_no">9,000</span> per Document</p>
+                                    </div>
+                                    <div class="cont_table_price">
+                                        <ul>
+                                            <li><a href="#">Are you an occasional user? Who need to verify documents on a case-by-case basis. Then this is the option for you!</a></li>
+                                            <li><i class="fa fa-check"></i><a href="#">Cost ₦9,000 per document</a></li>
+                                            <li><i class="fa fa-check"></i><a href="#">Processing time: 1-3 business days</a></li>
+                                            <li><i class="fa fa-check"></i><a href="#">Real-time tracking</a></li>
+                                            <li><i class="fa fa-check"></i><a href="#">Full verification report</a></li>
+                                        </ul>
+                                    </div>
+                                    </div>
+                                    <div class="price_table_bottom">
+                                    <div class="center">
+                                        
+                                    <a class="main_bt" href="{{url('admin/buy/package-payasyougo')}}">Get Quote</a></div>
+                                    
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end column price -->
                         <!-- column price --> 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="table_price full">
@@ -75,7 +103,19 @@ if(!empty($currentPackage)){
                                     </div>
                                     </div>
                                     <div class="price_table_bottom">
-                                    <div class="center"><a class="main_bt" href="{{url('admin/buy/package-basic')}}">Buy Now</a></div>
+                                    <div class="center">
+                                    @php
+                                        if($package == "package-basic" && $expired == 0 && $active == 1) {
+                                    @endphp
+                                            <a class="main_bt disabled" href="javascript:void(0);" disabled>Buy Now</a>
+                                    @php
+                                        } else {
+                                    @endphp
+                                            <a class="main_bt" href="{{ url('admin/buy/package-basic') }}">Buy Now</a>
+                                    @php
+                                        }
+                                    @endphp
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +130,7 @@ if(!empty($currentPackage)){
                                     </div>
                                     <div class="price_table_inner">
                                     <div class="cont_table_price_blog">
-                                        <p class="green_color">₦ <span class="price_no">4,50,000</span> Monthly</p>
+                                        <p class="green_color">₦ <span class="price_no">450,000</span> Monthly</p>
                                     </div>
                                     <div class="cont_table_price">
                                         <ul>
@@ -106,7 +146,18 @@ if(!empty($currentPackage)){
                                     </div>
                                     </div>
                                     <div class="price_table_bottom">
-                                    <div class="center"><a class="main_bt" href="{{url('admin/buy/package-business')}}">Buy Now</a></div>
+                                    <div class="center">
+                                    @php
+                                    if($package == "package-business" && $expired == 0 && $active == 1){
+                                    @endphp
+                                    <a class="main_bt disabled" href="javascript:void(0);" disabled>Buy Now</a>
+                                    @php
+                                    }else{
+                                    @endphp
+                                    <a class="main_bt" href="{{url('admin/buy/package-business')}}">Buy Now</a></div>
+                                    @php
+                                    }
+                                    @endphp
                                     </div>
                                 </div>
                             </div>
@@ -139,35 +190,20 @@ if(!empty($currentPackage)){
                                     </div>
                                     </div>
                                     <div class="price_table_bottom">
-                                    <div class="center"><a class="main_bt" href="{{url('admin/buy/package-enterprise')}}">Buy Now</a></div>
+                                    <div class="center">
+                                    @php
+                                    if($package == "package-enterprise" && $expired == 0 && $active == 1){
+                                    @endphp
+                                        <a class="main_bt disabled" href="javascript:void(0);" disabled>Buy Now</a>
+                                    @php
+                                    }else{
+                                    @endphp    
+                                        <a class="main_bt" href="{{url('admin/buy/package-enterprise')}}">Buy Now</a>
+                                    @php
+                                    }
+                                    @endphp
+                                        
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end column price -->
-                        <!-- column price --> 
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                            <div class="table_price full">
-                                <div class="inner_table_price">
-                                    <div class="price_table_head yellow_bg">
-                                    <h2>Pay-As-You-Go</h2>
-                                    </div>
-                                    <div class="price_table_inner">
-                                    <div class="cont_table_price_blog">
-                                        <p class="yellow_color">₦ <span class="price_no">9,000</span> per Document</p>
-                                    </div>
-                                    <div class="cont_table_price">
-                                        <ul>
-                                            <li><a href="#">Are you an occasional user? Who need to verify documents on a case-by-case basis. Then this is the option for you!</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Cost ₦9,000 per document</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Processing time: 1-3 business days</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Real-time tracking</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Full verification report</a></li>
-                                        </ul>
-                                    </div>
-                                    </div>
-                                    <div class="price_table_bottom">
-                                    <div class="center"><a class="main_bt" href="{{url('admin/buy/package-payasyougo')}}">Buy Now</a></div>
                                     </div>
                                 </div>
                             </div>

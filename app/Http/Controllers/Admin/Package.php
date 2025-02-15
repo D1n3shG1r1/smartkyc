@@ -29,6 +29,8 @@ class Package extends Controller
             $packageRow = Package_model::where("adminId", $adminId)->first();
             if($packageRow){
                 $packageRow = $packageRow->toArray();
+                $packageName = config('custom.packageName.'.$packageRow['package']);
+                $packageRow["packageName"] = $packageName;
             }else{
                 $packageRow = array();   
             }
@@ -64,7 +66,7 @@ class Package extends Controller
 
                 //get paystack credentials
                 $SECRET_KEY = config('custom.paystack.secretkey');
-
+                $SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
                 $FName = $this->getSession('adminFName');
                 $LName = $this->getSession('adminLName');
                 $email = $this->getSession('adminEmail');
@@ -204,7 +206,8 @@ class Package extends Controller
             
             $this->removeSession('transactionRef');
             
-            $SECRET_KEY = config('custom.paystack.secretkey');
+            //$SECRET_KEY = config('custom.paystack.secretkey');
+            $SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
             $endpoint = config('custom.paystack.transVerify') . $reference;
         
             //$endpoint = "https://api.paystack.co/transaction/verify/1739081877345892";
