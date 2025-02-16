@@ -211,6 +211,68 @@
     border-radius: 50px;
 }
 
+.currentPackageRow {
+    padding-top: 5px;
+    font-size: 14px;
+}
+
 .currentPackageSpan{
     display: block;
+}
+
+.main_bt.disabled {
+    background-color: #f8f8f8;
+    color: #898989;
+    border: 1px solid;
+    border-color: #ddd;
+    cursor: default;
+}
+
+.main_bt.disabled:hover {
+    background-color: #f8f8f8;
+    color: #898989;
+    border: 1px solid;
+    border-color: #ddd;
+    cursor: default;
+}
+
+.discount-ribbon{
+    position: absolute;
+    top: 10px;
+    left: -1px;
+    background-color: #1ed085;
+    color: white;
+    padding: 0px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    transform: rotate(-45deg);
+    z-index: 1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/*
+.discount-ribbon::before,
+.discount-ribbon::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+}
+
+.discount-ribbon::before {
+  top: -10px;
+  left: -10px;
+  transform: rotate(45deg);
+}
+
+.discount-ribbon::after {
+  top: -10px;
+  right: -10px;
+  transform: rotate(45deg);
+}
+*/
+
+.regenerate-otp-btn .fa.fa-refresh{
+    margin-right: 5px;
 }

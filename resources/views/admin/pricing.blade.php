@@ -30,6 +30,7 @@ if(!empty($currentPackage)){
             <div class="col-md-12">
                 <div class="page_title">
                     <h2>My Package</h2>
+                    <p class="currentPackageRow">
                     <span class="currentPackageSpan">
                         Current Package: {{$packageName}}
                     </span>
@@ -37,6 +38,7 @@ if(!empty($currentPackage)){
                         Status: @php if($expired == 1 || $active == 0){ echo "Inactive"; }else{ echo "Active"; } @endphp
                     </span>
                     <span class="currentPackageSpan">Expires on: {{date("M d, Y", strtotime($expireon))}}</span>    
+                    </p>
                 </div>
             </div>
         </div>
@@ -56,6 +58,13 @@ if(!empty($currentPackage)){
                             <div class="table_price full">
                                 <div class="inner_table_price">
                                     <div class="price_table_head yellow_bg">
+                                    @php
+                                    if($package == "package-payasyougo" && $expired == 0 && $active == 1) {
+                                    @endphp
+                                    <div class="discount-ribbon">Active</div>
+                                    @php
+                                    }
+                                    @endphp
                                     <h2>Pay-As-You-Go</h2>
                                     </div>
                                     <div class="price_table_inner">
@@ -87,6 +96,13 @@ if(!empty($currentPackage)){
                             <div class="table_price full">
                                 <div class="inner_table_price">
                                     <div class="price_table_head blue1_bg">
+                                    @php
+                                    if($package == "package-basic" && $expired == 0 && $active == 1) {
+                                    @endphp
+                                    <div class="discount-ribbon">Active</div>
+                                    @php
+                                    }
+                                    @endphp
                                     <h2>Basic</h2>
                                     </div>
                                     <div class="price_table_inner">
@@ -126,6 +142,13 @@ if(!empty($currentPackage)){
                             <div class="table_price full">
                                 <div class="inner_table_price">
                                     <div class="price_table_head green_bg">
+                                    @php
+                                    if($package == "package-business" && $expired == 0 && $active == 1) {
+                                    @endphp
+                                    <div class="discount-ribbon">Active</div>
+                                    @php
+                                    }
+                                    @endphp
                                     <h2>Business</h2>
                                     </div>
                                     <div class="price_table_inner">
@@ -168,6 +191,13 @@ if(!empty($currentPackage)){
                             <div class="table_price full">
                                 <div class="inner_table_price">
                                     <div class="price_table_head red_bg">
+                                    @php
+                                    if($package == "package-enterprise" && $expired == 0 && $active == 1) {
+                                    @endphp
+                                    <div class="discount-ribbon">Active</div>
+                                    @php
+                                    }
+                                    @endphp
                                     <h2>Enterprise</h2>
                                     </div>
                                     <div class="price_table_inner">

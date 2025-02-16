@@ -249,7 +249,7 @@ class Customerportal extends Controller
 
             $applications = array();
 
-            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->paginate(1);
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->orderBy('createDateTime', 'desc')->paginate(10);
             
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();

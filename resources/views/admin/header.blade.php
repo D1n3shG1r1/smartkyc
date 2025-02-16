@@ -34,7 +34,9 @@
                      <li><a href="{{url('/admin/mynotes')}}"><i class="fa fa-file-o orange_color"></i> <span>My Notes</span></a></li>
                      -->
 
-                     <li><a href="{{url('/admin/myapplications')}}"><i class="fa fa-upload orange_color"></i> <span>My Applications</span></a></li>
+                     <li><a href="{{url('/admin/myapplications')}}"><i class="fa fa-file-text-o orange_color"></i> <span>My Applications</span></a></li>
+                     
+                     <li><a href="{{url('/admin/myapplicants')}}"><i class="fa fa-group orange_color"></i> <span>My Applicants</span></a></li>
                      
                      <li><a href="{{url('/admin/mypackage')}}"><i class="fa fa-briefcase blue1_color"></i> <span>My Package</span></a></li>
                      <!--
@@ -60,15 +62,17 @@
                            <div class="icon_info">
                               <ul>
                                  <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                                 <!--
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
                                  <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                                 -->
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
                                     <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="<?php echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="{{url('/admin/myprofile')}}">My Profile</a>
-                                       <a class="dropdown-item" href="{{url('/admin/settings')}}">Settings</a>
+                                       <!--<a class="dropdown-item" href="{{url('/admin/settings')}}">Settings</a>-->
                                        <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
                                     </div>
                                  </li>

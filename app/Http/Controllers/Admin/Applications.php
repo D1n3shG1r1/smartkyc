@@ -24,7 +24,7 @@ class Applications extends Controller
             $adminId = $this->ADMINID;
             $portalId = sha1($this->ADMINID);
             $applications = array();
-            $applicationsObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->paginate(1);
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->orderBy('createDateTime', 'desc')->paginate(10);
             
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();
@@ -169,5 +169,89 @@ class Applications extends Controller
         }
 
         return response()->json($response); die;
+    }
+
+    function myApplicants(Request $request){
+        
+        if($this->ADMINID > 0){
+            $adminId = $this->ADMINID;
+            $portalId = sha1($this->ADMINID);
+            
+            $email = $request->input("email"); 
+
+            $customers = array();
+            $customersQuery = Customers_model::select("id", "email", "otp", "fname", "lname", "phone")->where("adminId", $adminId);
+
+            // Add dynamic filters based on your conditions (like email or fname)
+            if (!empty($email)) {
+                $customersQuery->where('email', $email);
+            }
+
+            $customersObj = $customersQuery->paginate(10);
+
+            if($customersObj){
+                $customers = $customersObj->toArray();
+            }
+
+            //echo "<pre>"; print_r($customers); die;
+            $data = [
+                'pageTitle' => 'My Applicants',
+                'customers' => $customers
+            ];
+            
+            return View('admin.myapplicants', $data);
+
+        }else{
+            //redirect to login
+            return Redirect::to(url('login'));
+        }
+    }
+
+    function generateotp(Request $request){
+        
+        if($this->ADMINID > 0){
+            
+            $adminId = $this->ADMINID;
+            $portalId = sha1($adminId);
+            $Id = $request->input("id");
+            $updateDateTime = date("Y-m-d H:i:s");
+            $otp = genOtp();
+            
+            $updateArr = array("otp" => $otp, "otpSentDateTime" => $updateDateTime, "updateDateTime" => $updateDateTime);
+            
+            $updated = Customers_model::where("adminId",$adminId)->where("id",$Id)->update($updateArr);
+
+            $postBackData = array();
+            if($updated){
+                $postBackData["success"] = 1;
+                $postBackData["id"] = $Id;
+                $postBackData["otp"] = $otp;
+
+                $response = array(
+                    "C" => 100,
+                    "R" => $postBackData,
+                    "M" => "OTP has been updated successfully."
+                );
+            }else{
+                $postBackData["success"] = 0;
+                
+                $response = array(
+                    "C" => 101,
+                    "R" => $postBackData,
+                    "M" => "Try again."
+                );
+            }
+            
+        }else{
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die;       
     }
 }

@@ -49,6 +49,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/saveprofile',[Profile::class, 'saveprofile']);
     Route::post('/saveprofilephoto',[Profile::class, 'saveprofilephoto']);
     Route::get('/uploaddocument',[Documents::class, 'uploaddocument']);
+    
+    Route::get('/myapplicants',[Applications::class, 'myApplicants']);
+    Route::post('/generateotp',[Applications::class, 'generateotp']);
     Route::get('/myapplications',[Applications::class, 'myApplications']);
     Route::get('/application/{Id}',[Applications::class, 'application']);
     Route::post('/updateApplicationStatus',[Applications::class, 'updateApplicationStatus']);
