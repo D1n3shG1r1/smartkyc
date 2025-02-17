@@ -184,7 +184,8 @@
             callajax(requrl, postdata, function (resp) {
                 if (resp.C == 100) {
                     var err = 0;
-                    var msg = "OTP is sent to your email.";
+                    //var msg = "OTP is sent to your email.";
+                    var msg = "Contact your administrator to get the OTP.";
                     showToast(err, msg);
 
                     $("#sendOtpButtonBox").addClass("hideMe");

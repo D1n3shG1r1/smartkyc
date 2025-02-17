@@ -1,8 +1,8 @@
             <!-- footer -->
             <div class="container-fluid">
                 <div class="footer">
-                <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
-                    Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+                <p>Copyright © {{date("Y")}}. All rights reserved.<br><br>
+                    Powered by: SMART VERIFY</a>
                 </p>
                 </div>
             </div>

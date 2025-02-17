@@ -198,6 +198,19 @@ class Customerportal extends Controller
                 $customerFname = $custmoerObj["fname"];
                 $customerLname = $custmoerObj["lname"];
                 
+                //update otp for security reason
+                $otp = genOtp();
+                $otpSentDateTime = date("Y-m-d H:i:s");
+                $updateDateTime = date("Y-m-d H:i:s");
+            
+                $updateArr = array(
+                    "otp" => $otp,
+                    "otpSentDateTime" => $otpSentDateTime,
+                    "updateDateTime" => $updateDateTime
+                );
+        
+                $saved = Customers_model::where("portalid", $portalId)->where("email", $email)->update($updateArr);
+                
                 //$this->setSession('adminId', $adminId);
                 $this->setSession('portalId', $portalId);
                 $this->setSession('customerId', $customerId);

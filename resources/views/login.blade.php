@@ -378,8 +378,8 @@ input[type=checkbox]:not(old):checked + label > span:before {
                                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                                         </div>
                                         <div class="form-group">
-                                          <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>    
-                                          <button id="signup-button" class="btn btn-primary form-submit signup-button" type="button" onclick="validateMe(this);" data-txt="Login" data-loadingtxt="Logging In...">Log In</button> 
+                                          <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>
+                                          <button id="signup-button" type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onclick="validateMe(this);" data-txt="Login" data-loadingtxt="Logging In...">Log In</button>    
                                           <span class="errorMessage"></span>
                                         </div>
                                     </form>

@@ -71,13 +71,14 @@
       <link rel="alternate" hreflang="en" href="{{ url('/'); }}">
       <link rel="alternate" hreflang="fr" href="{{ url('/'); }}">
       -->
-      @stack("js")
       <script>
          var CSRFTOKEN = "{{ csrf_token() }}";
          var SERVICEURL = "{{ url('') }}";
       </script>
       <script src="{{ url('assets/js/jquery-3.6.0.min.js'); }}"></script>   
-      <!--<script src="{{ url('/assets/js/bootstrap.min.js') }}"></script>-->
+     
+      @stack("js")
+       <!--<script src="{{ url('/assets/js/bootstrap.min.js') }}"></script>-->
       @if(request()->is('admin/*'))
          
          <!-- jQuery -->

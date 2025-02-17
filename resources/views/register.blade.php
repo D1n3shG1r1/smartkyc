@@ -395,7 +395,10 @@ input[type=checkbox]:not(old):checked + label > span:before {
                                         </div>
                                         <div class="form-group">
                                           <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>    
-                                          <button id="signup-button" class="btn btn-primary form-submit signup-button" type="button" onclick="validateMe(this);" data-txt="Register" data-loadingtxt="Registering...">Register</button> 
+                                          
+                                          <button id="signup-button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" type="button" onclick="validateMe(this);" data-txt="Register" data-loadingtxt="Registering...">Register</button> 
+                                          <!--<button id="signup-button" class="btn btn-primary form-submit signup-button" type="button" onclick="validateMe(this);" data-txt="Register" data-loadingtxt="Registering...">Register</button> -->
+
                                           <span class="errorMessage"></span>
                                         </div>
                                     </form>

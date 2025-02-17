@@ -238,7 +238,7 @@ class Applications extends Controller
                 $response = array(
                     "C" => 101,
                     "R" => $postBackData,
-                    "M" => "Try again."
+                    "M" => "Please try again."
                 );
             }
             
