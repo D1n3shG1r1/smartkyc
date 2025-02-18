@@ -86,7 +86,7 @@
     padding: 5px 5px 5px 5px;
 }
 
-.documentBlock .fa.fa-file-image-o{
+.documentBlock .fa.fa-file-image-o, .documentBlock .fa.fa-file-pdf-o{
     font-size: 64px;
     margin-bottom: 3px;
     color: #007bff;
@@ -275,4 +275,40 @@
 
 .regenerate-otp-btn .fa.fa-refresh{
     margin-right: 5px;
+}
+
+.custom-modal {
+    padding-right: 17px;
+    display: block;
+}
+
+.fullwidth{
+    width:100% !important;
+}
+
+.align-right{
+    text-align: right;
+}
+
+.searchForm{
+    display: inline-flex;
+}
+
+.searchInput {
+    border-right: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.searchButton {
+    color: #898989;
+    border-left: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    width: 40px;
+    cursor:pointer;
+}
+
+.searchButton .fa.fa-search{
+    color: #898989;
 }

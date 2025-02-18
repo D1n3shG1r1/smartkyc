@@ -8,6 +8,7 @@ use App\Models\Admin_model;
 use App\Models\Customers_model;
 use App\Models\Applications_model;
 use App\Models\ApplicationDocuments_model;
+use App\Models\Package_model;
 
 class Applications extends Controller
 {
@@ -57,13 +58,55 @@ class Applications extends Controller
             $portalId = sha1($this->ADMINID);
             $applicationId = $Id;
             
+
+            //get current package and profile details
+            $adminObj = Admin_model::select("fname", "lname", "address_1", "address_2", "city", "state", "country", "zipcode", "phone", "email", "company", "website")->where("id", $adminId)->first();            
+            $adminData = $adminObj->toArray();
+            
+            if (
+                empty($adminData["fname"]) ||
+                empty($adminData["lname"]) ||
+                empty($adminData["email"]) ||
+                empty($adminData["phone"]) ||
+                empty($adminData["address_1"]) ||
+                empty($adminData["address_2"]) ||
+                empty($adminData["city"]) ||
+                empty($adminData["state"]) ||
+                empty($adminData["country"]) ||
+                empty($adminData["zipcode"]) ||
+                empty($adminData["company"]) ||
+                empty($adminData["website"])
+            ) {
+                $incompleteProfile = 1;
+            } else {
+                $incompleteProfile = 0;
+            }
+            
+
+            //echo "incompleteProfile:".$incompleteProfile; die;
+            //get current package
+            $packageRow = Package_model::where("adminId", $adminId)->first();
+            $hasPackage = 0;
+            if($packageRow){
+                
+                $packageRow = $packageRow->toArray();
+                
+                if($packageRow["active"] == 0 || $packageRow["expired"] == 1){
+                    $hasPackage = 0;
+                }else{
+                    $hasPackage = 1;
+                }
+            
+            }else{
+                $hasPackage = 0;
+            }
+            
             $applicationObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->where("id",$Id)->first();
 
             if($applicationObj){
                 $application = $applicationObj->toArray();     
                 $customerId = $application["customerId"];
                 $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
-                
                 
                 //get applicant details
                 $customerObj = Customers_model::select("id","fname","lname","email")->where("adminId",$adminId)->where("id",$customerId)->first();
@@ -109,10 +152,11 @@ class Applications extends Controller
                 'pageTitle' => 'Application',
                 'application' => $application,
                 'verificationOutcomeOptions' => verificationStatusOptions(),
-                'DiscrepanciesOptions' => DiscrepanciesOptions()
+                'DiscrepanciesOptions' => DiscrepanciesOptions(),
+                'incompleteProfile' => $incompleteProfile,
+                'hasPackage' => $hasPackage,
             ];
 
-            
             //echo "<pre>"; print_r($data); die;
 
             return View('admin.applicationdetails', $data);

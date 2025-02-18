@@ -22,6 +22,12 @@ $specifyDiscrepancy = $application["specifyDiscrepancy"];
 $documents = $application["documents"];
 $customer = $application["customerDetails"];
 
+$discrepanciesTxt = "";
+if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
+    $discrepanciesTxt = $DiscrepanciesOptions[$discrepancies];
+}
+
+
 @endphp
 @extends("app")
 @section("contentbox")
@@ -91,7 +97,7 @@ $customer = $application["customerDetails"];
                                 <label class="col-md-6 form-label">Submitted On:</label><label class="col-md-6 form-label">{{$submitDate}}</label>
                                 <label class="col-md-6 form-label">Status:</label><label class="col-md-6 form-label">{{ucwords($verificationStatus)}}</label>
                                 <label class="col-md-6 form-label">Verification Outcome:</label><label class="col-md-6 form-label">{{$verificationOutcomeTxt}}</label>
-                                <label class="col-md-6 form-label">Discrepancies Found:</label>{{$DiscrepanciesOptions[$discrepancies]}}<label class="col-md-6 form-label"></label>
+                                <label class="col-md-6 form-label">Discrepancies Found:</label>{{$discrepanciesTxt}}<label class="col-md-6 form-label"></label>
                             </div>
                         </div>
                         <div>

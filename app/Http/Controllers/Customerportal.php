@@ -365,6 +365,7 @@ class Customerportal extends Controller
             $applicationObj->comment = $comments;
             $applicationObj->verificationOutcome = 1;
             $applicationObj->discrepancies = 0;
+            $applicationObj->specifyDiscrepancy = '';
             $applicationObj->verificationStatus = "pending";
             $applicationObj->createDateTime = $createDateTime;
             $applicationObj->updateDateTime = $updateDateTime;
@@ -450,7 +451,7 @@ class Customerportal extends Controller
             //$customerLname = $this->getSession('customerLname');
 
             $applications = array();
-            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->paginate(1);
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->orderBy('createDateTime', 'desc')->paginate(10);
             
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();

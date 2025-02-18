@@ -60,6 +60,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/payment/callback',[Package::class, 'payment']);
     Route::get('/payment/cancel',[Package::class, 'cancel']);
+    Route::post('/savequote',[Package::class, 'savequote']);
+    
 });
 
 Route::prefix('portal')->name('portal.')->group(function () {

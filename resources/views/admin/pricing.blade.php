@@ -84,7 +84,7 @@ if(!empty($currentPackage)){
                                     <div class="price_table_bottom">
                                     <div class="center">
                                         
-                                    <a class="main_bt" href="{{url('admin/buy/package-payasyougo')}}">Get Quote</a></div>
+                                    <a class="main_bt" href="javascript:void(0);" data-toggle="modal" data-target="#QuoteModal">Get Quote</a></div>
                                     
                                 </div>
                                 </div>
@@ -248,6 +248,30 @@ if(!empty($currentPackage)){
     </div>
 </div>
 
+<div class="modal fade" id="QuoteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Request a Quote</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <textarea id="messageInput" rows="10" class="form-control" style="resize: none;" placeholder="Enter your message"></textarea>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="sendQuote();">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push("js")
+<script>
+function sendQuote(){
+    var message = $("#messageInput").val();
+}
+</script>
 @endpush

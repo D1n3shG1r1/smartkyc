@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Models\Package_model;
+use App\Models\Admin_model;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -21,7 +23,48 @@ class Controller extends BaseController
         $tmpAdminLName = $this->getSession('adminLName');
         $tmpAdminEmail = $this->getSession('adminEmail');
         
-        view()->share('LOGINUSER',array("adminId" => $tmpAdminId, "fname" => $tmpAdminFName, "lname" => $tmpAdminLName,"email" => $tmpAdminEmail));
+
+        //get current package and profile details
+        $adminObj = Admin_model::select("fname", "lname", "address_1", "address_2", "city", "state", "country", "zipcode", "phone", "email", "company", "website")->where("id", $tmpAdminId)->first();            
+        $adminData = $adminObj->toArray();
+        
+        if (
+            empty($adminData["fname"]) ||
+            empty($adminData["lname"]) ||
+            empty($adminData["email"]) ||
+            empty($adminData["phone"]) ||
+            empty($adminData["address_1"]) ||
+            empty($adminData["address_2"]) ||
+            empty($adminData["city"]) ||
+            empty($adminData["state"]) ||
+            empty($adminData["country"]) ||
+            empty($adminData["zipcode"]) ||
+            empty($adminData["company"]) ||
+            empty($adminData["website"])
+        ) {
+            $incompleteProfile = 1;
+        } else {
+            $incompleteProfile = 0;
+        }
+        
+
+        $packageRow = Package_model::where("adminId", $tmpAdminId)->first();
+        $hasPackage = 0;
+        if($packageRow){
+            
+            $packageRow = $packageRow->toArray();
+            
+            if($packageRow["active"] == 0 || $packageRow["expired"] == 1){
+                $hasPackage = 0;
+            }else{
+                $hasPackage = 1;
+            }
+        
+        }else{
+            $hasPackage = 0;
+        }
+        
+        view()->share('LOGINUSER',array("adminId" => $tmpAdminId, "fname" => $tmpAdminFName, "lname" => $tmpAdminLName,"email" => $tmpAdminEmail,"hasPackage" => $hasPackage, "incompleteProfile" => $incompleteProfile));
         
     }
 

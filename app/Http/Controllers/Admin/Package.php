@@ -367,4 +367,8 @@ class Package extends Controller
         
         return View("admin.paymentfail",$data);
     }
+
+    function savequote(Request $request){
+        $message = $request->input("message");
+    }
 }

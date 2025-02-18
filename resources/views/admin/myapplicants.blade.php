@@ -34,7 +34,17 @@ $customersData = $customers["data"];
         <div class="col-md-12">
         <div class="white_shd full margin_bottom_30">
             <div class="full graph_head">
-                <div class="heading1 margin_0"><h2>Applications List</h2></div>
+                <div class="heading1 margin_0 row fullwidth">
+                    <div class="col-md-6">
+                        <h2>Applicants List</h2>
+                    </div>
+                    <div class="col-md-6 align-right">
+                        <form class="searchForm" method="get" >
+                            <input type="email" name="email" class="form-control searchInput" placeholder="Enter email to search">
+                            <button type="submit" class="form-control searchButton"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="table_section padding_infor_info">
                 <div class="table-responsive-sm">
