@@ -7,9 +7,11 @@ use App\Models\Admin_model;
 use App\Models\Packagepayments_model;
 use App\Models\Package_model;
 use Carbon\Carbon;
+use App\Traits\SmtpConfigTrait;
 
 class Package extends Controller
 {
+    use SmtpConfigTrait;
     var $ADMINID = 0;
     
     function __construct(){   
@@ -19,6 +21,7 @@ class Package extends Controller
 
     function plans(Request $request){
         if($this->ADMINID > 0){
+            
             $adminId = $this->ADMINID;
             $adminObj = Admin_model::where('id', $adminId)->first()->toArray();
             
@@ -283,7 +286,9 @@ class Package extends Controller
                             $newDateTime = Carbon::now()->addMonth();
                             $startOn = date("Y-m-d");
                             $expireOn = date("Y-m-d", strtotime($newDateTime));
-                            
+                            $packageLimitArr = config('custom.packageLimit');
+                            $documentLimit = $packageLimitArr[$package];
+                            $documentVerified = 0;
                             Package_model::upsert(
                                 [
                                     [
@@ -293,12 +298,14 @@ class Package extends Controller
                                         'starton' => $startOn,
                                         'expireon' => $expireOn,
                                         'expired' => 0,
+                                        'documentsVerifyLimit' => $documentLimit,
+                                        'documentsVerified' => $documentVerified,
                                         'createDateTime' =>  $createDateTime, 
                                         'updateDateTime' => $updateDateTime
                                     ],
                                 ],
                                 ['adminId'], // Unique column
-                                ['package','active', 'starton', 'expireon', 'expired', 'updateDateTime'] // Columns to update if duplicate email exists
+                                ['package','active', 'starton', 'expireon', 'expired', 'documentsVerifyLimit', 'documentsVerified', 'updateDateTime'] // Columns to update if duplicate email exists
                             );
                             
                         }
@@ -364,11 +371,95 @@ class Package extends Controller
     function cancel(Request $request){
         $data = array();
         $data["pageTitle"] = "Payment Failed";
-        
         return View("admin.paymentfail",$data);
     }
 
     function savequote(Request $request){
+        
         $message = $request->input("message");
+
+        if($this->ADMINID > 0){
+            
+            $adminId = $this->ADMINID;
+            $adminEmail = $this->getSession('adminEmail');
+            $adminFName = $this->getSession('adminFName');
+            $adminLName = $this->getSession('adminLName');
+            $fullName = $adminFName.' '.$adminLName;
+            //Email
+            $toEmail = "support@smartverify.com.ng";
+            $toName = "Can Namho"; //;
+            $subject = "'Pay As You Go' Plan - Quotation Request";
+            $templateBlade = "emails.payasgorequest";
+            
+            $smtpDetails = array();
+            $smtpDetails['host'] = "sandbox.smtp.mailtrap.io"; //$smtpData["host"];
+            $smtpDetails['port'] = 587; //$smtpData["port"];;
+            $smtpDetails['username'] = "60986f24c10f85";//$smtpData["username"];
+            $smtpDetails['password'] = "d3c808d42dee70";//$smtpData["password"];
+            $smtpDetails['encryption'] = "";
+            $smtpDetails['from_email'] = "support@smartverify.com.ng"; //$smtpData["fromemail"];
+            $smtpDetails['from_name'] = "smartverify"; //$smtpData["fromname"];
+            $smtpDetails['replyTo_email'] = "support@smartverify.com.ng";//$smtpData["replytoemail"];
+            $smtpDetails['replyTo_name'] = "smartverify";//$smtpData["replytoname"];
+        
+            $recipient = ['name' => $toName, 'email' => $toEmail];
+            
+            //$templateBlade = "newsletter-email-templates.subscribe-newsletter-template";
+            
+            $bladeData = [
+                'name' => $toName,
+                'customerName' => $fullName,
+                'customerEmail' => $adminEmail,
+                'packageName' => 'Pay as You Go',
+                'additionalMessage' => 'hello' //$message 
+            ];
+            
+            $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
+
+            dd($result);
+
+            /*
+            $data["name"] = "Can Namho";
+            $data["customerName"] = "Dinesh Kumar";
+            $data["customerEmail"] = "dinesh@example.com";
+            $data["packageName"] = "Pay as You Go"; 
+            $data["additionalMessage"] = 'The "Pay As You Go" plan offers flexible pricing based on your usage. You will be charged at a rate of $0.10 per unit consumed. There are no upfront fees or commitments. Billing is done monthly, and charges will be based on your actual consumption during the billing cycle.';
+            return View("emails.payasgorequest",$data);
+            */
+
+            /*
+            $postBackData = array();
+            if($updated){
+                $postBackData["success"] = 1;
+                $postBackData["id"] = $Id;
+                $postBackData["otp"] = $otp;
+
+                $response = array(
+                    "C" => 100,
+                    "R" => $postBackData,
+                    "M" => "OTP has been updated successfully."
+                );
+            }else{
+                $postBackData["success"] = 0;
+                
+                $response = array(
+                    "C" => 101,
+                    "R" => $postBackData,
+                    "M" => "Please try again."
+                );
+            }
+            */
+        }else{
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die;       
+        
     }
 }

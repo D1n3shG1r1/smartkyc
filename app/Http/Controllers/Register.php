@@ -131,6 +131,8 @@ class Register extends Controller
                     $portalsaved = $portalObj->save();
                 }
 
+                
+
                 $postBackData = array();
 
                 $postBackData["fname"] = $fname;

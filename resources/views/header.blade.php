@@ -135,20 +135,6 @@
                               <a href="{{url('/faq')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">FAQ</a><span class="submenu-plus"><i></i></span>
                            </li>
                            
-                           <li class="hs-menu-item hs-menu-depth-1" role="none">
-                              <a href="javascript:void(0);" aria-haspopup="true" aria-expanded="false" role="menuitem">Contact us</a><span class="submenu-plus"><i></i></span>
-                           </li>
-
-                           <!--- Ref
-                            <li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none">
-                              <a href="javascript:void(0);" aria-haspopup="true" aria-expanded="false" role="menuitem">FAQ</a><span class="submenu-plus"><i></i></span>
-                              <ul role="menu" class="hs-menu-children-wrapper">
-                                 <li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:void(0);" role="menuitem">About Inspexion</a></li>
-                                 <li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:void(0);" role="menuitem">Industry News</a></li>
-                                 <li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:void(0);" role="menuitem">Customer Stories</a></li>
-                              </ul>
-                           </li>
-                           --->
                         </ul>
                      </div>
                      <span id="hs_cos_wrapper_header_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta">

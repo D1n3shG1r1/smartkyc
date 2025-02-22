@@ -258,7 +258,8 @@ if(!empty($currentPackage)){
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <textarea id="messageInput" rows="10" class="form-control" style="resize: none;" placeholder="Enter your message"></textarea>
+                <textarea id="messageInput" maxlength="320" rows="10" class="form-control" style="resize: none;" placeholder="Enter your message" oninput="updateCharacterCount()"></textarea>
+                <p class="text-align-right">Remaining characters: <span id="remainingChars">320</span></p>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -270,8 +271,52 @@ if(!empty($currentPackage)){
 @endsection
 @push("js")
 <script>
+
+function updateCharacterCount() {
+    var textarea = document.getElementById("messageInput");
+    var remainingChars = document.getElementById("remainingChars");
+    var maxLength = textarea.getAttribute("maxlength");
+    var currentLength = textarea.value.length;
+
+    var charsLeft = maxLength - currentLength;
+    remainingChars.textContent = charsLeft;
+
+    if (charsLeft <= 0) {
+        remainingChars.style.color = "red";
+    } else {
+        remainingChars.style.color = "black";
+    }
+}
+
 function sendQuote(){
+    
     var message = $("#messageInput").val();
+    
+    //showToast(err,msg)
+    //showLoader(elmId,loadingTxt)
+    //hideLoader(elmId,orgTxt)
+    if(!isRealValue(message)){
+        var err = 1;
+        var msg = "Please type your message.";
+        showToast(err,msg);
+        return false;
+    }
+    
+    if(message.length > 320){
+        var err = 1;
+        var msg = "Your message cannot exceed 320 characters.";
+        showToast(err,msg);
+        return false;
+    }
+
+    var requrl = "admin/savequote";
+    var jsondata = {
+        "message":message
+    };
+    
+    callajax(requrl, jsondata, function(resp){
+        
+    });
 }
 </script>
 @endpush

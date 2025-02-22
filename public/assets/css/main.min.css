@@ -4375,3 +4375,8 @@ a.offerGetStartLik:hover{
     outline: none; /* Removes the default outline */
     box-shadow: none !important; /* Ensures no box shadow */
 }
+
+.container-fluid.body-container{
+	padding-left:0;
+	padding-right:0;
+}

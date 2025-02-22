@@ -70,16 +70,19 @@
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <div class="full counter_section margin_bottom_30 red_bg">
+            <div style="padding-bottom: 7px;" class="full counter_section margin_bottom_30 red_bg">
                 <div class="couter_icon">
                     <div> 
-                    <i class="fa fa-comments-o"></i>
+                    <i class="fa fa-database"></i>
                     </div>
                 </div>
                 <div class="counter_no">
                     <div>
-                    <p class="total_no">{{$pendingApplications}}</p>
-                    <p class="head_couter">Pending Applications</p>
+                    <p class="total_no">{{$packageDetails['documentsVerified'].'/'.$packageDetails['documentsVerifyLimit']}}</p>
+                    <p style="font-size: 0.80rem;" class="head_couter">Verification Limit
+                        <br>
+                        Package: {{$packageDetails['packageName']}}
+                    </p>
                     </div>
                 </div>
             </div>

@@ -186,7 +186,9 @@ function uploadFiles() {
 
     // Check if files are selected
     if (files.length === 0) {
-        alert('Please select a file to upload!');
+        var err = 1;
+        var msg = "Please select a file to upload!";
+        showToast(err,msg);
         return;
     }
 
