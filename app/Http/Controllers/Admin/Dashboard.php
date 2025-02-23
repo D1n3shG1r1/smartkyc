@@ -52,22 +52,6 @@ class Dashboard extends Controller
                 $packageDetails["documentsVerified"] = 0;
             }
             
-            /*
-            Array
-            (
-                [adminId] => 1736615183114993
-                [package] => package-basic
-                [active] => 1
-                [starton] => 2025-02-22
-                [expireon] => 2025-03-22
-                [expired] => 0
-                [documentsVerifyLimit] => 5
-                [documentsVerified] => 0
-                [createDateTime] => 2025-02-12 16:08:33
-                [updateDateTime] => 2025-02-22 06:56:41
-            )
-            */
-
             //$applicationsData
             $applications = array();
 

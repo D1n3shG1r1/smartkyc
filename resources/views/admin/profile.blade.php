@@ -93,7 +93,7 @@
                                     <div class="form-group row mb-3">
                                         <div class="col-md-12 profile-btn-box">
                                             <button type="button" class="btn cur-p btn-outline-primary">Cancel</button>
-                                            <button type="button" class="btn cur-p btn-primary" data-txt="Save" data-loadingtxt="Saving..." onclick="validateForm();">Save</button>
+                                            <button type="button" id="saveBtn" class="btn cur-p btn-primary" data-txt="Save" data-loadingtxt="Saving..." onclick="validateForm(this);">Save</button>
                                         </div>
                                     </div>
                                 </form>    
@@ -111,7 +111,7 @@
 @endsection
 @push("js")
 <script>
-function validateForm() {
+function validateForm(elm) {
     const errors = {};
 
     // Helper functions for validation
@@ -251,6 +251,13 @@ function validateForm() {
         showToast(err,msg);
         return false;
     }else{
+        
+        var elmId = $(elm).attr("id");
+        $(elm).attr("disabled",true);
+        var orgTxt = $(elm).attr("data-txt");
+        var loadingTxt = $(elm).attr("data-loadingtxt");
+        showLoader(elmId,loadingTxt); 
+        
         var requrl = "admin/saveprofile";
         var postdata = {
             "adminId":adminId,
@@ -267,6 +274,10 @@ function validateForm() {
             "phone":phone
         };
         callajax(requrl, postdata, function(resp){
+
+            $(elm).removeAttr("disabled");
+            hideLoader(elmId,orgTxt);
+
             $(".errorMessage").html(resp.M);
             var err = 1;
             if(resp.C == 100){

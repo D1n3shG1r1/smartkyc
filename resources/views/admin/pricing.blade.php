@@ -263,7 +263,7 @@ if(!empty($currentPackage)){
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="sendQuote();">Send</button>
+                <button type="button" id="sendQtBtn" class="btn btn-primary" data-txt="Request" data-loadingtxt="Requesting..." onclick="sendQuote(this);">Send</button>
             </div>
         </div>
     </div>
@@ -288,13 +288,11 @@ function updateCharacterCount() {
     }
 }
 
-function sendQuote(){
-    
+function sendQuote(elm){
+    var myModal = new bootstrap.Modal(document.getElementById('QuoteModal'));
+
     var message = $("#messageInput").val();
     
-    //showToast(err,msg)
-    //showLoader(elmId,loadingTxt)
-    //hideLoader(elmId,orgTxt)
     if(!isRealValue(message)){
         var err = 1;
         var msg = "Please type your message.";
@@ -309,13 +307,33 @@ function sendQuote(){
         return false;
     }
 
+    var elmId = $(elm).attr("id");
+    $(elm).attr("disabled",true);
+    var orgTxt = $(elm).attr("data-txt");
+    var loadingTxt = $(elm).attr("data-loadingtxt");
+    showLoader(elmId,loadingTxt); 
+
     var requrl = "admin/savequote";
     var jsondata = {
         "message":message
     };
     
     callajax(requrl, jsondata, function(resp){
+        $(elm).removeAttr("disabled");
+        hideLoader(elmId,orgTxt);
         
+        $("#messageInput").val("");
+        myModal.hide();
+
+        if(resp.C == 100){
+            var err = 0;
+            var msg = "Your request has been submitted. We will contact you shortly.";
+            showToast(err,msg);    
+        }else{
+            var err = 1;
+            var msg = "Your session has expired. Please log in again to continue.";
+            showToast(err,msg);    
+        }
     });
 }
 </script>

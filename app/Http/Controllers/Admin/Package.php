@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Admin_model;
 use App\Models\Packagepayments_model;
 use App\Models\Package_model;
@@ -394,17 +393,15 @@ class Package extends Controller
             $smtpDetails = array();
             $smtpDetails['host'] = "sandbox.smtp.mailtrap.io"; //$smtpData["host"];
             $smtpDetails['port'] = 587; //$smtpData["port"];;
-            $smtpDetails['username'] = "60986f24c10f85";//$smtpData["username"];
-            $smtpDetails['password'] = "d3c808d42dee70";//$smtpData["password"];
+            $smtpDetails['username'] = "91fb4abff4f79b";//$smtpData["username"];
+            $smtpDetails['password'] = "33231ac212a6a7";//$smtpData["password"];
             $smtpDetails['encryption'] = "";
             $smtpDetails['from_email'] = "support@smartverify.com.ng"; //$smtpData["fromemail"];
-            $smtpDetails['from_name'] = "smartverify"; //$smtpData["fromname"];
+            $smtpDetails['from_name'] = "Smart Verify"; //$smtpData["fromname"];
             $smtpDetails['replyTo_email'] = "support@smartverify.com.ng";//$smtpData["replytoemail"];
-            $smtpDetails['replyTo_name'] = "smartverify";//$smtpData["replytoname"];
+            $smtpDetails['replyTo_name'] = "Smart Verify";//$smtpData["replytoname"];
         
             $recipient = ['name' => $toName, 'email' => $toEmail];
-            
-            //$templateBlade = "newsletter-email-templates.subscribe-newsletter-template";
             
             $bladeData = [
                 'name' => $toName,
@@ -416,39 +413,17 @@ class Package extends Controller
             
             $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
 
-            dd($result);
-
-            /*
-            $data["name"] = "Can Namho";
-            $data["customerName"] = "Dinesh Kumar";
-            $data["customerEmail"] = "dinesh@example.com";
-            $data["packageName"] = "Pay as You Go"; 
-            $data["additionalMessage"] = 'The "Pay As You Go" plan offers flexible pricing based on your usage. You will be charged at a rate of $0.10 per unit consumed. There are no upfront fees or commitments. Billing is done monthly, and charges will be based on your actual consumption during the billing cycle.';
-            return View("emails.payasgorequest",$data);
-            */
-
-            /*
+            //dd($result);
+            
             $postBackData = array();
-            if($updated){
-                $postBackData["success"] = 1;
-                $postBackData["id"] = $Id;
-                $postBackData["otp"] = $otp;
-
-                $response = array(
-                    "C" => 100,
-                    "R" => $postBackData,
-                    "M" => "OTP has been updated successfully."
-                );
-            }else{
-                $postBackData["success"] = 0;
-                
-                $response = array(
-                    "C" => 101,
-                    "R" => $postBackData,
-                    "M" => "Please try again."
-                );
-            }
-            */
+            $postBackData["success"] = 1;
+            
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "Your request has been submitted. We will contact you shortly."
+            );
+            
         }else{
             $postBackData = array();
             $postBackData["success"] = 0;

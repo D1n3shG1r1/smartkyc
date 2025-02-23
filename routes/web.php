@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\Profile;
 use App\Http\Controllers\Admin\Documents;
 use App\Http\Controllers\Admin\Applications;
 use App\Http\Controllers\Admin\Package;
+use App\Http\Controllers\Admin\Admin;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +63,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/payment/callback',[Package::class, 'payment']);
     Route::get('/payment/cancel',[Package::class, 'cancel']);
     Route::post('/savequote',[Package::class, 'savequote']);
+
+    Route::get('/signout',[Admin::class, 'signout']);
+   
+    
+    Route::get('/sysadmlogin',[Admin::class, 'login']);
+    Route::post('/sysadmlogin',[Admin::class, 'loginprocess']);
+    Route::get('/admin-dashboard',[Admin::class, 'dashboard']);
     
 });
 

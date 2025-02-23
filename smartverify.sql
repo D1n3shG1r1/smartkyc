@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Feb 22, 2025 at 05:25 PM
--- Server version: 9.1.0
--- PHP Version: 8.3.14
+-- Host: localhost:3306
+-- Generation Time: Feb 23, 2025 at 04:44 PM
+-- Server version: 8.0.41-0ubuntu0.22.04.1
+-- PHP Version: 8.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,8 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE IF NOT EXISTS `admin` (
+CREATE TABLE `admin` (
   `id` bigint NOT NULL,
   `fname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `lname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -44,8 +43,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `email` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `createDateTime` datetime NOT NULL,
-  `updateDateTime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `updateDateTime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -61,10 +59,9 @@ INSERT INTO `admin` (`id`, `fname`, `lname`, `address_1`, `address_2`, `city`, `
 -- Table structure for table `adminpackage`
 --
 
-DROP TABLE IF EXISTS `adminpackage`;
-CREATE TABLE IF NOT EXISTS `adminpackage` (
+CREATE TABLE `adminpackage` (
   `adminId` bigint NOT NULL,
-  `package` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'package name',
+  `package` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'package name',
   `active` tinyint(1) NOT NULL,
   `starton` date DEFAULT NULL,
   `expireon` date DEFAULT NULL,
@@ -72,8 +69,7 @@ CREATE TABLE IF NOT EXISTS `adminpackage` (
   `documentsVerifyLimit` int NOT NULL DEFAULT '0',
   `documentsVerified` int NOT NULL DEFAULT '0',
   `createDateTime` datetime NOT NULL,
-  `updateDateTime` datetime NOT NULL,
-  PRIMARY KEY (`adminId`)
+  `updateDateTime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -89,14 +85,12 @@ INSERT INTO `adminpackage` (`adminId`, `package`, `active`, `starton`, `expireon
 -- Table structure for table `applicationdocuments`
 --
 
-DROP TABLE IF EXISTS `applicationdocuments`;
-CREATE TABLE IF NOT EXISTS `applicationdocuments` (
+CREATE TABLE `applicationdocuments` (
   `id` bigint NOT NULL,
   `adminId` bigint NOT NULL,
-  `portalId` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `portalId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `applicationId` bigint NOT NULL,
-  `fileName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `fileName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -117,11 +111,10 @@ INSERT INTO `applicationdocuments` (`id`, `adminId`, `portalId`, `applicationId`
 -- Table structure for table `applications`
 --
 
-DROP TABLE IF EXISTS `applications`;
-CREATE TABLE IF NOT EXISTS `applications` (
+CREATE TABLE `applications` (
   `id` bigint NOT NULL,
   `adminId` bigint NOT NULL,
-  `portalId` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `portalId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `customerId` bigint NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -134,8 +127,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `verificationStatus` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending' COMMENT 'verified, not verified, pending',
   `verificationMethod` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'automated system check, manual review, contact with issuing authority',
   `createDateTime` datetime NOT NULL,
-  `updateDateTime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `updateDateTime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -156,12 +148,10 @@ INSERT INTO `applications` (`id`, `adminId`, `portalId`, `customerId`, `title`, 
 -- Table structure for table `customerportal`
 --
 
-DROP TABLE IF EXISTS `customerportal`;
-CREATE TABLE IF NOT EXISTS `customerportal` (
+CREATE TABLE `customerportal` (
   `adminId` bigint NOT NULL,
   `portalEnable` tinyint NOT NULL,
-  `portalId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`adminId`)
+  `portalId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -177,8 +167,7 @@ INSERT INTO `customerportal` (`adminId`, `portalEnable`, `portalId`) VALUES
 -- Table structure for table `customers`
 --
 
-DROP TABLE IF EXISTS `customers`;
-CREATE TABLE IF NOT EXISTS `customers` (
+CREATE TABLE `customers` (
   `id` bigint NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `otp` int NOT NULL,
@@ -189,16 +178,15 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `updateDateTime` datetime NOT NULL,
   `fname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `lname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address_1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address_2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `zipcode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `company` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `website` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address_1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `zipcode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `website` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -215,11 +203,9 @@ INSERT INTO `customers` (`id`, `email`, `otp`, `otpSentDateTime`, `portalID`, `a
 -- Table structure for table `documents`
 --
 
-DROP TABLE IF EXISTS `documents`;
-CREATE TABLE IF NOT EXISTS `documents` (
+CREATE TABLE `documents` (
   `id` bigint NOT NULL,
-  `adminId` bigint NOT NULL,
-  PRIMARY KEY (`id`)
+  `adminId` bigint NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -228,8 +214,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
 -- Table structure for table `packagepayments`
 --
 
-DROP TABLE IF EXISTS `packagepayments`;
-CREATE TABLE IF NOT EXISTS `packagepayments` (
+CREATE TABLE `packagepayments` (
   `id` bigint NOT NULL,
   `gatewayTransId` bigint DEFAULT NULL,
   `transactionId` bigint DEFAULT NULL,
@@ -242,8 +227,7 @@ CREATE TABLE IF NOT EXISTS `packagepayments` (
   `paid_at` datetime DEFAULT NULL,
   `gatewayResponse` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `createDateTime` datetime DEFAULT NULL,
-  `updateDateTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `updateDateTime` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -261,17 +245,17 @@ INSERT INTO `packagepayments` (`id`, `gatewayTransId`, `transactionId`, `adminId
 -- Table structure for table `superadmin`
 --
 
-DROP TABLE IF EXISTS `superadmin`;
-CREATE TABLE IF NOT EXISTS `superadmin` (
+CREATE TABLE `superadmin` (
   `id` int NOT NULL,
-  `fname` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lname` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fname` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lname` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `otp` int NOT NULL,
   `otpExpired` int NOT NULL,
   `otpSentDateTime` datetime NOT NULL,
-  `paystack` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `smtp` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `paystack` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `smtp` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `createDateTime` datetime NOT NULL,
   `updateDateTime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -280,8 +264,67 @@ CREATE TABLE IF NOT EXISTS `superadmin` (
 -- Dumping data for table `superadmin`
 --
 
-INSERT INTO `superadmin` (`id`, `fname`, `lname`, `email`, `otp`, `otpExpired`, `otpSentDateTime`, `paystack`, `smtp`, `createDateTime`, `updateDateTime`) VALUES
-(1, 'john', 'deo', 'admin@example.com', 0, 0, '2025-02-22 11:28:41', '{\"secretkey\":\"xxxxxxxxx1234567890\",\"publickey\":\"xxxxxxxxx1234567890\"}', '{\"host\":\"\", \"port\":\"\", \"username\":\"\", \"password\":\"\", \"encryption\":\"\", \"from_email\":\"\", \"from_name\":\"\" \"replyTo_email\":\"\", \"replyTo_name\":\"\"}', '2025-02-22 11:28:41', '2025-02-22 11:28:41');
+INSERT INTO `superadmin` (`id`, `fname`, `lname`, `email`, `password`, `otp`, `otpExpired`, `otpSentDateTime`, `paystack`, `smtp`, `createDateTime`, `updateDateTime`) VALUES
+(1, 'john', 'deo', 'admin@example.com', 'd033e22ae348aeb5660fc2140aec35850c4da997', 0, 0, '2025-02-22 11:28:41', '{\"secretkey\":\"xxxxxxxxx1234567890\",\"publickey\":\"xxxxxxxxx1234567890\"}', '{\"host\":\"\", \"port\":\"\", \"username\":\"\", \"password\":\"\", \"encryption\":\"\", \"from_email\":\"\", \"from_name\":\"\" \"replyTo_email\":\"\", \"replyTo_name\":\"\"}', '2025-02-22 11:28:41', '2025-02-22 11:28:41');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpackage`
+--
+ALTER TABLE `adminpackage`
+  ADD PRIMARY KEY (`adminId`);
+
+--
+-- Indexes for table `applicationdocuments`
+--
+ALTER TABLE `applicationdocuments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `applications`
+--
+ALTER TABLE `applications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customerportal`
+--
+ALTER TABLE `customerportal`
+  ADD PRIMARY KEY (`adminId`);
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `documents`
+--
+ALTER TABLE `documents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `packagepayments`
+--
+ALTER TABLE `packagepayments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `superadmin`
+--
+ALTER TABLE `superadmin`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
