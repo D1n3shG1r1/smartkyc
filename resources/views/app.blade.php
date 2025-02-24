@@ -4,7 +4,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       
       <title>SmartVerify | {{$pageTitle}}</title>
-      <link rel="shortcut icon" href="{{ url('assets/img/cropped-walls-black-fav-270x270.jpg'); }}">
+      <link rel="shortcut icon" href="{{ url('assets/img/smartverify-32x32.png'); }}">
       
       <!--
       <meta name="description" content="Compare inspection quotes quickly with the largest network of inspection professionals worldwide. Access over 165,000 quality control experts today">

@@ -29,7 +29,7 @@
                <div class="sidebar_blog_2">
                   <h4>System Administrator</h4>
                   <ul class="list-unstyled components">
-                     <li><a href="{{url('/admin/admin-dashboard')}}"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a></li>
+                     <!--<li><a href="{{url('/admin/admin-dashboard')}}"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a></li>-->
                      <li><a href="{{url('/admin/admin-myprofile')}}"><i class="fa fa-user yellow_color"></i> <span>My Profile</span></a></li>
                      
                      <li><a href="{{url('/admin/admin-customers')}}"><i class="fa fa-group yellow_color"></i> <span>My Customers</span></a></li>
@@ -122,13 +122,16 @@
                                  <li>
                                     <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="<?php echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</span></a>
                                     <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="{{url('/admin/myprofile')}}">My Profile</a>
+                                       
                                        @php
                                        if($LOGINUSER["systemAdmin"] > 0){
                                        @endphp
+                                       <a class="dropdown-item" href="{{url('/admin/admin-profile')}}">My Profile</a>
                                        <a class="dropdown-item" href="{{url('/admin/admin-settings')}}">Settings</a>
-                                       @php } @endphp
-                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                       @php } else{ @endphp
+                                          <a class="dropdown-item" href="{{url('/admin/myprofile')}}">My Profile</a>
+                                          @php } @endphp
+                                       <a class="dropdown-item" href="{{url('/admin/signout')}}"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
                                     </div>
                                  </li>
                               </ul>

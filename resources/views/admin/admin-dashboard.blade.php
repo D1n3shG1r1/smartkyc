@@ -1,18 +1,5 @@
 @extends("app")
 @section("contentbox")
-
-<style>
-/*.fa-naira-sign {
-    --fa: "\e1f6";
-    --fa--fa: "\e1f6\e1f6";
-}*/
-/*.fa-naira-sign {
-    content: "\20A6";
-}
-*/
-
-.fa-naira-sign:before{content:"\e1f6"}
-</style>
 <div class="midde_cont">
     <div class="container-fluid">
         <div class="row column_title">

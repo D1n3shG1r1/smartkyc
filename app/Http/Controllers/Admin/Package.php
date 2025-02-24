@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Admin_model;
+use App\Models\SuperAdmin_model;
 use App\Models\Packagepayments_model;
 use App\Models\Package_model;
 use Carbon\Carbon;
@@ -63,12 +64,12 @@ class Package extends Controller
                 //get package amount from config
                 $packageAmount = config('custom.packagePricing.'.$package);
                 
-                //$endpoint = "https://api.paystack.co/transaction/initialize";
                 $endpoint = config('custom.paystack.transInitialize');
 
                 //get paystack credentials
-                $SECRET_KEY = config('custom.paystack.secretkey');
-                $SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
+                $keys = $this->getPaystackKeys();
+                $SECRET_KEY = $keys["secretkey"];     
+                
                 $FName = $this->getSession('adminFName');
                 $LName = $this->getSession('adminLName');
                 $email = $this->getSession('adminEmail');
@@ -209,10 +210,9 @@ class Package extends Controller
             $this->removeSession('transactionRef');
             
             //$SECRET_KEY = config('custom.paystack.secretkey');
-            $SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
+            $keys = $this->getPaystackKeys();
+            $SECRET_KEY = $keys["secretkey"];
             $endpoint = config('custom.paystack.transVerify') . $reference;
-        
-            //$endpoint = "https://api.paystack.co/transaction/verify/1739081877345892";
             
             //verify transaction
             $method = 'GET';
@@ -384,45 +384,64 @@ class Package extends Controller
             $adminFName = $this->getSession('adminFName');
             $adminLName = $this->getSession('adminLName');
             $fullName = $adminFName.' '.$adminLName;
+            
+            
             //Email
-            $toEmail = "support@smartverify.com.ng";
-            $toName = "Can Namho"; //;
-            $subject = "'Pay As You Go' Plan - Quotation Request";
-            $templateBlade = "emails.payasgorequest";
-            
-            $smtpDetails = array();
-            $smtpDetails['host'] = "sandbox.smtp.mailtrap.io"; //$smtpData["host"];
-            $smtpDetails['port'] = 587; //$smtpData["port"];;
-            $smtpDetails['username'] = "91fb4abff4f79b";//$smtpData["username"];
-            $smtpDetails['password'] = "33231ac212a6a7";//$smtpData["password"];
-            $smtpDetails['encryption'] = "";
-            $smtpDetails['from_email'] = "support@smartverify.com.ng"; //$smtpData["fromemail"];
-            $smtpDetails['from_name'] = "Smart Verify"; //$smtpData["fromname"];
-            $smtpDetails['replyTo_email'] = "support@smartverify.com.ng";//$smtpData["replytoemail"];
-            $smtpDetails['replyTo_name'] = "Smart Verify";//$smtpData["replytoname"];
-        
-            $recipient = ['name' => $toName, 'email' => $toEmail];
-            
-            $bladeData = [
-                'name' => $toName,
-                'customerName' => $fullName,
-                'customerEmail' => $adminEmail,
-                'packageName' => 'Pay as You Go',
-                'additionalMessage' => 'hello' //$message 
-            ];
-            
-            $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
+            $smptData = $this->getSysAdminSmtp();
+            if(!empty($smptData)){
+                $toFname = $smptData["fname"];
+                $toLname = $smptData["lname"];
+                $toName = ucwords($toFname." ".$toLname); //;
+                $toEmail = $smptData["email"];
+                $smtpDetails = json_decode($smptData["smtp"], true);
+                
+                $subject = "'Pay As You Go' Plan - Quotation Request";
+                $templateBlade = "emails.payasgorequest";
+                
+                /*$smtpDetails = array();
+                $smtpDetails['host'] = "sandbox.smtp.mailtrap.io"; //$smtpData["host"];
+                $smtpDetails['port'] = 587; //$smtpData["port"];;
+                $smtpDetails['username'] = "91fb4abff4f79b";//$smtpData["username"];
+                $smtpDetails['password'] = "33231ac212a6a7";//$smtpData["password"];
+                $smtpDetails['encryption'] = "";
+                $smtpDetails['from_email'] = "support@smartverify.com.ng"; //$smtpData["fromemail"];
+                $smtpDetails['from_name'] = "Smart Verify"; //$smtpData["fromname"];
+                $smtpDetails['replyTo_email'] = "support@smartverify.com.ng";//$smtpData["replytoemail"];
+                $smtpDetails['replyTo_name'] = "Smart Verify";//$smtpData["replytoname"];
+                */
+                $recipient = ['name' => $toName, 'email' => $toEmail];
+                
+                $bladeData = [
+                    'name' => $toName,
+                    'customerName' => $fullName,
+                    'customerEmail' => $adminEmail,
+                    'packageName' => 'Pay as You Go',
+                    'additionalMessage' => 'hello' //$message 
+                ];
+                
+                $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
 
-            //dd($result);
-            
-            $postBackData = array();
-            $postBackData["success"] = 1;
-            
-            $response = array(
-                "C" => 100,
-                "R" => $postBackData,
-                "M" => "Your request has been submitted. We will contact you shortly."
-            );
+                //dd($result);
+                
+                $postBackData = array();
+                $postBackData["success"] = 1;
+                
+                $response = array(
+                    "C" => 100,
+                    "R" => $postBackData,
+                    "M" => "Your request has been submitted. We will contact you shortly."
+                );
+
+            }else{
+                $postBackData = array();
+                $postBackData["success"] = 0;
+                
+                $response = array(
+                    "C" => 101,
+                    "R" => $postBackData,
+                    "M" => "The SMTP settings have not been configured yet. Please contact the administrator for assistance."
+                );
+            }
             
         }else{
             $postBackData = array();
@@ -435,6 +454,27 @@ class Package extends Controller
         }
 
         return response()->json($response); die;       
+        
+    }
+    
+    function getSysAdminSmtp(){
+        $rowObj = SuperAdmin_model::select("fname", "lname", "email", "smtp")->first();
+        if($rowObj){
+            $row = $rowObj->toArray();
+            return $row;
+        }else{
+            return array();
+        }
+    }
+
+    function getPaystackKeys(){
+        $rowObj = SuperAdmin_model::select("paystack")->first();
+        if($rowObj){
+            $row = $rowObj->toArray();
+            return json_decode($row["paystack"], true);
+        }else{
+            return array("secretkey" => "", "publickey" => "");
+        }
         
     }
 }

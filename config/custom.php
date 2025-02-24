@@ -27,6 +27,7 @@ return [
         "secretkey" => "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb",
         "transInitialize" => "https://api.paystack.co/transaction/initialize",
         "transVerify" => "https://api.paystack.co/transaction/verify/",
-        "transFetch" => "https://api.paystack.co/transaction/"
+        "transFetch" => "https://api.paystack.co/transaction/",
+        "paySessTime" => "https://api.paystack.co/integration/payment_session_timeout"
     )
 ];

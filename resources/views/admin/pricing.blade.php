@@ -152,35 +152,36 @@ if(!empty($currentPackage)){
                                     <h2>Business</h2>
                                     </div>
                                     <div class="price_table_inner">
-                                    <div class="cont_table_price_blog">
-                                        <p class="green_color">₦ <span class="price_no">450,000</span> Monthly</p>
-                                    </div>
-                                    <div class="cont_table_price">
-                                        <ul>
-                                            <li><a href="#">Medium to large businesses with higher verification needs.</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Verify up to 100 documents per month</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Cost: ₦4,500 per document</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Processing time: 1-3 business days</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">API integration for automated verification</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Bulk upload capability</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Customizable reporting features</a></li>
-                                            <li><i class="fa fa-check"></i><a href="#">Priority support</a></li>
-                                        </ul>
-                                    </div>
+                                        <div class="cont_table_price_blog">
+                                            <p class="green_color">₦ <span class="price_no">450,000</span> Monthly</p>
+                                        </div>
+                                        <div class="cont_table_price">
+                                            <ul>
+                                                <li><a href="#">Medium to large businesses with higher verification needs.</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Verify up to 100 documents per month</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Cost: ₦4,500 per document</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Processing time: 1-3 business days</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">API integration for automated verification</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Bulk upload capability</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Customizable reporting features</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Priority support</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="price_table_bottom">
-                                    <div class="center">
-                                    @php
-                                    if($package == "package-business" && $expired == 0 && $active == 1){
-                                    @endphp
-                                    <a class="main_bt disabled" href="javascript:void(0);" disabled>Buy Now</a>
-                                    @php
-                                    }else{
-                                    @endphp
-                                    <a class="main_bt" href="{{url('admin/buy/package-business')}}">Buy Now</a></div>
-                                    @php
-                                    }
-                                    @endphp
+                                        <div class="center">
+                                        @php
+                                        if($package == "package-business" && $expired == 0 && $active == 1){
+                                        @endphp
+                                        <a class="main_bt disabled" href="javascript:void(0);" disabled>Buy Now</a>
+                                        @php
+                                        }else{
+                                        @endphp
+                                        <a class="main_bt" href="{{url('admin/buy/package-business')}}">Buy Now</a>
+                                        @php
+                                        }
+                                        @endphp
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -329,6 +330,10 @@ function sendQuote(elm){
             var err = 0;
             var msg = "Your request has been submitted. We will contact you shortly.";
             showToast(err,msg);    
+        }else if(resp.C == 101){
+            var err = 1;
+            var msg = "The SMTP settings have not been configured yet. Please contact the administrator for assistance.";
+            showToast(err,msg);
         }else{
             var err = 1;
             var msg = "Your session has expired. Please log in again to continue.";

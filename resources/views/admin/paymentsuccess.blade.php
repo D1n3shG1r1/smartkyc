@@ -36,4 +36,11 @@
 </div>
 @endsection
 @push("js")
+<script>
+    $(function(){
+        setTimeout(function(){
+            window.location.href = '{{ url("admin/mypackage") }}';
+        }, 3000);
+    });
+</script>
 @endpush
