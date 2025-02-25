@@ -195,6 +195,27 @@ class Applications extends Controller
 
             $applicationObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->where("id",$applicationId)->update($updateArr);
             
+            //update verified count in adminpackage table
+            $packageRow = Package_model::where("adminId", $adminId)->first();
+            // Get the current documentsVerified and the limit
+            $documentsVerified = $packageRow->documentsVerified + 1;
+            $documentsVerifyLimit = $packageRow->documentsVerified;
+
+            // Prepare data to update
+            $updateData = [
+                'documentsVerified' => $documentsVerified,
+            ];
+
+            // If the documentsVerified count exceeds the limit, deactivate and mark expired
+            if ($documentsVerified >= $documentsVerifyLimit) {
+                $updateData['active'] = 0;
+                $updateData['expired'] = 1;
+            }
+
+            // Update the record
+            $packageRow->update($updateData);
+            
+
             $postBackData["success"] = 1;
 
             $response = array(

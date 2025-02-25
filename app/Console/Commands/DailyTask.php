@@ -1,34 +1,36 @@
 <?php
 
 namespace App\Console\Commands;
-
+use App\Models\Package_model;
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
 class DailyTask extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'app:daily-task';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Run a task daily for checking package expiry';
+    protected $signature = 'mycronjob:run';
+    protected $description = 'Update expired packages to inactive';
 
     /**
      * Execute the console command.
      */
+    
     public function handle()
     {
-        // Place your task logic here
-        // For example, sending an email:
-        // Mail::to('example@example.com')->send(new DailyEmail());
+        // Get current date
+        $currentDate = Carbon::today(); // This will get the current date without time part
 
-        $this->info('Daily task executed successfully!');
+        // Find packages where expireon date equals today's date
+        $expiredPackages = Package_model::whereDate('expireon', $currentDate)->get();
+
+        // Update the fields for each expired package
+        foreach ($expiredPackages as $package) {
+            $package->update([
+                'active' => 0,
+                'expired' => 1,
+            ]);
+        }
+
+        // Log output (optional for debugging)
+        $this->info("Updated " . $expiredPackages->count() . " packages as expired.");
     }
 }

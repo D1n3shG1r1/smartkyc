@@ -27,6 +27,8 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
     $discrepanciesTxt = $DiscrepanciesOptions[$discrepancies];
 }
 
+$hasPackage = $LOGINUSER["hasPackage"];
+$incompleteProfile = $LOGINUSER["incompleteProfile"];
 
 @endphp
 @extends("app")
@@ -311,6 +313,17 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
 
     function updateStatus(){
 
+        <?php 
+        if($hasPackage == 0 || $incompleteProfile == 1){
+        ?> 
+        
+        var err = 1;
+        var msg = "It seems like you have not completed your profile, you haven't purchased the package, or your package may have expired.";
+        showToast(err,msg);
+
+        <?php 
+        }else{
+        ?>
         var applicationId = $("#applicationId").val();
         var portalId = $("#portalId").val();
         var documentStatus = $("#documentStatus").val();
@@ -375,6 +388,9 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
             });
         }
         
+        <?php 
+        }
+        ?>
     }
 </script>
 @endpush
