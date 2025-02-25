@@ -76,6 +76,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/admin-settings',[Admin::class, 'settings']);
     Route::post('/savepaymentsettings',[Admin::class, 'savepaymentsettings']);
     Route::post('/saveemailsettings',[Admin::class, 'saveemailsettings']);
+    Route::get('/admin-myprofile',[Admin::class, 'myprofile']);
+    Route::post('/updatemyprofile',[Admin::class, 'updatemyprofile']);
+    Route::post('/updatepassword',[Admin::class, 'updatepassword']);
     
 });
 

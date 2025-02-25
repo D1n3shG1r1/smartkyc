@@ -6,15 +6,6 @@
       <title>SmartVerify | {{$pageTitle}}</title>
       <link rel="shortcut icon" href="{{ url('assets/img/smartverify-32x32.png'); }}">
       
-      <!--
-      <meta name="description" content="Compare inspection quotes quickly with the largest network of inspection professionals worldwide. Access over 165,000 quality control experts today">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta property="og:description" content="Compare inspection quotes quickly with the largest network of inspection professionals worldwide. Access over 165,000 quality control experts today">
-      <meta property="og:title" content="Global Inspection Marketplace | Worldwide Network of Inspectors">
-      <meta name="twitter:description" content="Compare inspection quotes quickly with the largest network of inspection professionals worldwide. Access over 165,000 quality control experts today">
-      <meta name="twitter:title" content="Global Inspection Marketplace | Worldwide Network of Inspectors">
-      -->
-
       @if(request()->is('admin/*'))
          <link rel="stylesheet" href="{{ url('assets/admin/css/bootstrap.min.css'); }}">
          <link rel="stylesheet" href="{{ url('assets/admin/css/bootstrap-icons.css'); }}"></link>
@@ -57,20 +48,6 @@
          
       @endif
       
-      <!--
-      <link rel="canonical" href="{{ url('/'); }}">
-      <link rel="apple-touch-icon" href="https://inspexion.com/hubfs/0.Charte%20graphique/App.jpg">
-      <meta name="facebook-domain-verification" content="iymegdh2v7fh0hja7u4fjbxadmhvew">
-      <meta property="og:image" content="https://inspexion.com/hubfs/The%20Worlds%20Largest%20Inspection%20Marketplace.png">
-      <meta property="og:image:width" content="300">
-      <meta property="og:image:height" content="175">
-      <meta name="twitter:image" content="https://inspexion.com/hubfs/The%20Worlds%20Largest%20Inspection%20Marketplace.png">
-      <meta property="og:url" content="{{ url('/'); }}">
-      <meta name="twitter:card" content="summary_large_image">
-      <meta http-equiv="content-language" content="en">
-      <link rel="alternate" hreflang="en" href="{{ url('/'); }}">
-      <link rel="alternate" hreflang="fr" href="{{ url('/'); }}">
-      -->
       <script>
          var CSRFTOKEN = "{{ csrf_token() }}";
          var SERVICEURL = "{{ url('') }}";
@@ -99,7 +76,11 @@
          <!-- nice scrollbar -->
          <script src="{{ url('/assets/admin/js/perfect-scrollbar.min.js') }}"></script>
          <script>
-            var ps = new PerfectScrollbar('#sidebar');
+            $(function(){
+               setTimeout(function(){
+                  var ps = new PerfectScrollbar('#sidebar');
+               },500);
+            });
          </script>
          <!-- custom js -->
          <script src="{{ url('/assets/admin/js/custom.js') }}"></script>
@@ -124,7 +105,11 @@
          <!-- nice scrollbar -->
          <script src="{{ url('/assets/portal/js/perfect-scrollbar.min.js') }}"></script>
          <script>
-            var ps = new PerfectScrollbar('#sidebar');
+            $(function(){
+               setTimeout(function(){
+                  var ps = new PerfectScrollbar('#sidebar');
+               },500);
+            });
          </script>
          <!-- custom js -->
          <script src="{{ url('/assets/portal/js/custom.js') }}"></script>

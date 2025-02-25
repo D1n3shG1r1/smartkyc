@@ -10,6 +10,7 @@ use App\Models\Package_model;
 use App\Models\Packagepayments_model;
 use App\Models\SuperAdmin_model;
 use App\Traits\SmtpConfigTrait;
+use Carbon\Carbon;
 
 class Admin extends Controller
 {
@@ -73,7 +74,7 @@ class Admin extends Controller
 
     function dashboard(Request $request){
         if($this->ADMINID > 0){
-            /*
+            
             $adminId = $this->ADMINID;
 
             $totalcustomers = Admin_model::count();
@@ -86,22 +87,215 @@ class Admin extends Controller
 
             //echo $totalcustomers.", ".$amountTotal; die;
 
+            //get weekly sales
+            // Get the current date
+            $currentDate = Carbon::now();
+
+            // Get the start of the week (last 7 days from now)
+            $startOfWeek = $currentDate->copy()->startOfWeek(); // Start of the current week (Sunday)
+            $endOfWeek = $currentDate->copy()->endOfWeek(); // End of the current week (Saturday)
+
+            // Query the sales data for the last week
+            $weeklySales = Packagepayments_model::where("status","success")->where("payment","y")->whereBetween('createDateTime', [$startOfWeek, $endOfWeek])->get();
+            if($weeklySales){
+                $weeklySales = $weeklySales->toArray();
+            }
+            
+            // Prepare an array for sales data by day of the week (Sunday to Saturday)
+            $salesByDay = [
+                'Sunday' => 0,
+                'Monday' => 0,
+                'Tuesday' => 0,
+                'Wednesday' => 0,
+                'Thursday' => 0,
+                'Friday' => 0,
+                'Saturday' => 0,
+            ];
+
+            // Group sales by day of the week
+            foreach ($weeklySales as $sale) {
+                $dayOfWeek = Carbon::parse($sale["createDateTime"])->format('l'); // Get the day of the week (e.g., Sunday)
+                
+                if($sale["amount"] > 0){
+                    // Convert the sale amount from Kobo to Naira
+                    $amountInNaira = $sale["amount"] / 100;  // Divide by 100 to convert Kobo to Naira    
+                }else{
+                    $amountInNaira = 0;
+                }
+                
+                $salesByDay[$dayOfWeek] += $amountInNaira;
+            }
+
+            // Prepare data for the chart
+            $salesChartData = [
+                'labels' => array_keys($salesByDay), // Days of the week
+                'values' => array_values($salesByDay), // Corresponding sales amounts
+            ];
+
+
+            //weekly customers
+            // Fetch weekly registered users data
+            $weeklyUsers = Admin_model::whereBetween('createDateTime', [$startOfWeek, $endOfWeek])
+            ->get();
+            
+            if($weeklyUsers){
+                $weeklyUsers = $weeklyUsers->toArray();
+            }
+            
+            //echo "<pre>"; print_r($weeklyUsers); die;
+            // Prepare an array for user registrations by day of the week (Sunday to Saturday)
+            $registrationsByDay = [
+                'Sunday' => 0,
+                'Monday' => 0,
+                'Tuesday' => 0,
+                'Wednesday' => 0,
+                'Thursday' => 0,
+                'Friday' => 0,
+                'Saturday' => 0,
+            ];
+
+            // Group user registrations by day of the week
+            foreach ($weeklyUsers as $user) {
+                // Get the day of the week for the current user registration
+                $dayOfWeek = Carbon::parse($user["createDateTime"])->format('l'); // Get the day of the week (e.g., Sunday)
+                
+                // Increment the count for the corresponding day
+                $registrationsByDay[$dayOfWeek]++;
+            }
+
+            // Prepare data for the chart
+            $customersChartData = [
+                'labels' => array_keys($registrationsByDay), // Days of the week
+                'values' => array_values($registrationsByDay), // Number of users registered each day
+            ];
+
             $data = array();
             $data["pageTitle"] = "Dashboard";
             $data["totalcustomers"] = $totalcustomers;
             $data["totalrevenue"] = $revenue;
-            
+            $data["salesChartData"] = $salesChartData;
+            $data["customersChartData"] = $customersChartData;
+
+            //echo "<pre>"; print_r($data); die;
+
             return View("admin.admin-dashboard",$data);
-            */
-            return Redirect::to(url('/admin/admin-customers'));
+            
+            //return Redirect::to(url('/admin/admin-customers'));
         }else{
             //redirect to login
             return Redirect::to(url('login'));
         }
     }
 
-    function profile(Request $request){
+    function myprofile(Request $request){
+        if($this->ADMINID > 0){
+            $adminId = $this->ADMINID;
+            
+            $row = SuperAdmin_model::select("fname","lname","email")->where("id",$adminId)->first()->toArray();
+            
+            $data = array();
+            $data["pageTitle"] = "My Profile";
+            $data["user"] = $row;
+            $data["currentemail"] = $this->getSession('adminEmail');
+            return View("admin.admin-myprofile",$data);
+        
+        }else{
+            //redirect to login
+            return Redirect::to(url('login'));
+        }
+    }
 
+    function updatemyprofile(Request $request){
+        if($this->ADMINID > 0){
+            
+            $adminId = $this->ADMINID;
+            $fname = $request->input("fname");
+            $lname = $request->input("lname");
+            $email = $request->input("email");
+            
+            $fname = strtolower($fname);
+            $lname = strtolower($lname);
+            $email = strtolower($email);
+
+            $updateData = array();
+            $updateData["fname"] = $fname; 
+            $updateData["lname"] = $lname; 
+            
+            if($email != strtolower($this->getSession('adminEmail'))){
+                //update new email
+                $updateData["email"] = $email;
+            }
+            
+            
+            $update = SuperAdmin_model::where("id", $adminId)->update($updateData);    
+            
+            $this->removeSession('adminFName');
+            $this->removeSession('adminLName');
+            $this->removeSession('adminEmail');
+            $this->removeSession('adminId');
+            $this->removeSession('systemAdmin');
+            
+            $postBackData = array();
+            $postBackData["success"] = 1;
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "Your basic details have been successfully updated."
+            );
+        
+        }else{
+        
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "Your session has expired. Please log in again to continue."
+            );
+        }
+
+        return response()->json($response); die;
+
+    }
+
+    function updatepassword(Request $request){
+        if($this->ADMINID > 0){
+            
+            $adminId = $this->ADMINID;
+            $newpassword = $request->input("newpassword");
+            $newpassword = sha1($newpassword);
+
+            $updateData = array();
+            $updateData["password"] = $newpassword; 
+            
+            $update = SuperAdmin_model::where("id", $adminId)->update($updateData);    
+            
+            $this->removeSession('adminFName');
+            $this->removeSession('adminLName');
+            $this->removeSession('adminEmail');
+            $this->removeSession('adminId');
+            $this->removeSession('systemAdmin');
+            
+            $postBackData = array();
+            $postBackData["success"] = 1;
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "Your password has been changed."
+            );
+        
+        }else{
+        
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "Your session has expired. Please log in again to continue."
+            );
+        }
+
+        return response()->json($response); die;
     }
 
     function customers(Request $request){
