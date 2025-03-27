@@ -35,7 +35,7 @@
                 <div class="logo_login">
                     <div class="center">
                         <img width="210" id="company-logo" src="{{ url('aassets/portal/images/companylogo.jpg'); }}" alt="Company Logo" onError="showCompanyName()"/>
-                        <div id="company-name" class="company-name lobster-regular">Company Name</div>
+                        <div id="company-name" class="company-name lobster-regular">Smart Verification</div>
                     </div>
                 </div>
                 <div class="login_form">
@@ -65,13 +65,13 @@
 
                         <div id="sendOtpButtonBox" class="field margin_0">
                             <label class="label_field hidden">hidden label</label>
-                            <button type="button" class="btn cur-p btn-primary sendotpBtn" onclick="sendOtp();">Send OTP</button>
+                            <button type="button" class="btn cur-p btn-primary sendotpBtn" onclick="sendOtp();">Login</button>
                         </div>
                         
                         <div id="resendotpBox" class="field hideMe">
                               <label class="label_field hidden">hidden label</label>
-                              <label class="form-check-label"><a class="forgot" href="javascript:void(0);" onclick="changeEmail();">Change Email</a></label>
-                              <a class="forgot" href="javascript:void(0);" onclick="resendOtp();">Resend OTP?</a>
+                              <label class="form-check-label"><a class="forgot" href="javascript:void(0);" onclick="changeEmail();">Change Email?</a></label>
+                              <!--<a class="forgot" href="javascript:void(0);" onclick="resendOtp();">Resend OTP?</a>-->
                         </div>
                         
                         <div id="verifyBttnBox" class="field margin_0 hideMe">

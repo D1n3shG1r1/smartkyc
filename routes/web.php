@@ -8,6 +8,7 @@ use App\Http\Controllers\Services;
 use App\Http\Controllers\Faq;
 use App\Http\Controllers\Pricing;
 use App\Http\Controllers\Register;
+use App\Http\Controllers\Terms;
 use App\Http\Controllers\Customerportal;
 use App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Admin\Profile;
@@ -43,6 +44,8 @@ Route::get('/login',[Register::class, 'login']);
 Route::post('/login',[Register::class, 'login']);
 Route::get('/register',[Register::class, 'register']);
 Route::post('/register',[Register::class, 'register']);
+Route::get('/termsofservice',[Terms::class, 'termsofservice']);
+Route::get('/privacypolicy',[Terms::class, 'privacypolicy']);
 
 
 Route::prefix('admin')->name('admin.')->group(function () {    

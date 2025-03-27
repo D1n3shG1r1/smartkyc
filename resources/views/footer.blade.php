@@ -66,8 +66,13 @@
                   <p><span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="menu"></span></p>
                   <div id="hs_menu_wrapper_footer_main_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="default" data-menu-id="51449774528" aria-label="Navigation Menu">
                      <ul role="menu">
-                        <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:void(0);" role="menuitem">Contact: support@smartverify.com.ng</a></li>
-                        <!--<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/')}}" role="menuitem">Terms and conditions</a></li>-->
+                        
+                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/how-it-works')}}" role="menuitem">How It Works</a></li>
+                     
+                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/faq')}}" role="menuitem">FAQ</a></li>
+                     
+                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:void(0);" role="menuitem">Contact: support@smartverify.com.ng</a></li>
+                        
                      </ul>
                   </div>
                   <p></p>

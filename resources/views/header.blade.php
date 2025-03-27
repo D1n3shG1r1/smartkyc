@@ -116,35 +116,39 @@
                <div class="header-main__menu-nav-container">
                   <div class="header-main__menu-nav-wrapper">
                      <div id="hs_menu_wrapper_header_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="default" data-menu-id="71900462320" aria-label="Navigation Menu">
-                        <ul role="menu">
+                        <ul role="menu" >
                             
                             <li class="hs-menu-item hs-menu-depth-1" role="none">
-                              <a href="{{url('/about-us')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">About us</a><span class="submenu-plus"><i></i></span>
+                              <a href="{{url('/about-us')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">About us</a>
+                              <!--<span class="submenu-plus"><i></i></span>-->
                            </li>
 
                            <li class="hs-menu-item hs-menu-depth-1" role="none">
-                              <a href="{{url('/services')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">Services</a><span class="submenu-plus"><i></i></span>
+                              <a href="{{url('/services')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">Services</a>
+                              <!--<span class="submenu-plus"><i></i></span>-->
                            </li>
-                           <li class="hs-menu-item hs-menu-depth-1" role="none">
-                              <a href="{{url('/how-it-works')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">How It Works</a><span class="submenu-plus"><i></i></span>
+                           <li style="display:none" class="hs-menu-item hs-menu-depth-1" role="none">
+                              <a href="{{url('/how-it-works')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">How It Works</a>
+                              <!--<span class="submenu-plus"><i></i></span>-->
                            </li>
                            
                            <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/pricing')}}" role="menuitem">Pricing</a></li>
                            
-                           <li class="hs-menu-item hs-menu-depth-1" role="none">
-                              <a href="{{url('/faq')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">FAQ</a><span class="submenu-plus"><i></i></span>
+                           <li style="display:none" class="hs-menu-item hs-menu-depth-1" role="none">
+                              <a href="{{url('/faq')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">FAQ</a>
+                              <!--<span class="submenu-plus"><i></i></span>-->
                            </li>
                            
                         </ul>
                      </div>
-                     <span id="hs_cos_wrapper_header_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
+                     <span id="hs_cos_wrapper_header_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="margin-left: 10px;" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
                         <!--HubSpot Call-to-Action Code -->
                         <span class="hs-cta-wrapper" id="hs-cta-wrapper-902b98e9-f415-4605-8c9d-dc69f148a396">
                            <span class="hs-cta-node hs-cta-902b98e9-f415-4605-8c9d-dc69f148a396" id="hs-cta-902b98e9-f415-4605-8c9d-dc69f148a396">
                               <!--[if lte IE 8]>
                               <div id="hs-cta-ie-element"></div>
                               <![endif]-->
-                              <a href="{{url('login')}}" class="signInLink" >Login</a>
+                              <a href="{{url('login')}}" class="signInLink hs-cta-img btn btn-primary btn-sm actionButtonPrimary" >Login</a>
                            </span>
                         </span>
                         <!-- end HubSpot Call-to-Action Code -->
@@ -156,7 +160,7 @@
                               <!--[if lte IE 8]>
                               <div id="hs-cta-ie-element"></div>
                               <![endif]-->
-                              <a href="{{url('register')}}" class="signUpLink">Create your account</a>
+                              <a href="{{url('register')}}" class="signUpLink hs-cta-img btn btn-primary btn-sm actionButtonPrimary">Create your account</a>
                            </span>
                         </span>
                         <!-- end HubSpot Call-to-Action Code -->

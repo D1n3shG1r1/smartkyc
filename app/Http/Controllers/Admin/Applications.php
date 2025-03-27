@@ -32,6 +32,9 @@ class Applications extends Controller
                
                 foreach($applications["data"] as &$row){
                     $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+
+                    $customer = Customers_model::select("fname", "lname")->where("id", $row["customerId"])->first();
+                    $row["customerName"] = ucwords($customer["fname"] . " " . $customer["lname"]);
                 }
             }
 
@@ -71,9 +74,7 @@ class Applications extends Controller
                 empty($adminData["address_1"]) ||
                 empty($adminData["address_2"]) ||
                 empty($adminData["city"]) ||
-                empty($adminData["state"]) ||
                 empty($adminData["country"]) ||
-                empty($adminData["zipcode"]) ||
                 empty($adminData["company"]) ||
                 empty($adminData["website"])
             ) {

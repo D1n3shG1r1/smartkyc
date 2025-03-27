@@ -89,13 +89,13 @@ h2 {
 .clear {
   clear: both; }
 
-body {
+/*body {
   font-size: 14px;
   line-height: 1.8;
   color: #222;
   font-weight: 400;
   font-family: 'Montserrat';
-  background-image: url("<?php echo url('assets/img/people-2.jpg'); ?>");
+  background-image: url("<?php //echo url('assets/img/people-2.jpg'); ?>");
   background-repeat: no-repeat;
   background-size: cover;
   -moz-background-size: cover;
@@ -103,7 +103,8 @@ body {
   -o-background-size: cover;
   -ms-background-size: cover;
   background-position: center center;
-  padding: 115px 0; }
+  padding: 115px 0; 
+}*/
 
 .container {
   width: 660px;
@@ -354,6 +355,15 @@ input[type=checkbox]:not(old):checked + label > span:before {
     --bs-spinner-height: 1rem;
     --bs-spinner-border-width: 0.1em;
   }
+
+  .banner--dnd_area-module-1 {
+    position: relative;
+    padding: 13% 0 13% 0;
+    background-image: url(<?php echo url('assets/img/people-4.jpg'); ?>);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+  }
 </style>
 
 <main class="body-container-wrapper">
@@ -362,36 +372,45 @@ input[type=checkbox]:not(old):checked + label > span:before {
             <div class="row-fluid">
                 <div class="span12 widget-span widget-type-cell " style="" data-widget-type="cell" data-x="0" data-w="12">
 
-                    <!--- form --->    
-                    <div class="main">
 
-                        <section class="signup">
-                            <div class="container">
-                                <div class="signup-content">
+                <div class="row-fluid-wrapper row-depth-1 row-number-1 dnd_area-row-0-vertical-alignment dnd_area-row-0-force-full-width-section dnd-section dnd_area-row-0-padding">
+                  <div class="row-fluid ">
+                      <div class="span12 widget-span widget-type-custom_widget dnd_area-module-1-vertical-alignment dnd_area-module-1-hidden dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+                          <div id="" class="banner lazy banner--dnd_area-module-1  text-center" data-ll-status="entered">
+                            
+                            <!--- form --->    
+                            <div class="main">
+
+                              <section class="signup">
+                                <div class="container">
+                                  <div class="signup-content">
                                     <form id="signup-form" class="signup-form">
-                                        <h2 class="form-title">Log In</h2>
-                                        <div class="form-group">
-                                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
-                                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                                        </div>
-                                        <div class="form-group">
-                                          <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>
-                                          <button id="signup-button" type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onclick="validateMe(this);" data-txt="Login" data-loadingtxt="Logging In...">Log In</button>    
-                                          <span class="errorMessage"></span>
-                                        </div>
+                                      <h2 class="form-title">Log In</h2>
+                                      <div class="form-group">
+                                          <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                                      </div>
+                                      <div class="form-group">
+                                          <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                                          <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                                      </div>
+                                      <div class="form-group">
+                                        <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>
+                                        <button id="signup-button" type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onclick="validateMe(this);" data-txt="Login" data-loadingtxt="Logging In...">Log In</button>    
+                                        <span class="errorMessage"></span>
+                                      </div>
                                     </form>
                                     <p class="loginhere">
                                         Not have an account ? <a href="{{ url('register') }}" class="loginhere-link">Register here</a>
                                     </p>
+                                  </div>
                                 </div>
+                              </section>
                             </div>
-                        </section>
-
+                            <!--- form --->
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <!--- form --->
 
                 </div>
             </div>

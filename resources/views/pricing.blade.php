@@ -212,10 +212,86 @@
                         <!--end row-wrapper -->
                         <div class="row-fluid-wrapper row-depth-1 row-number-25 dnd-row">
                            <div class="row-fluid price_new">
-                              <div class="span3 widget-span widget-type-custom_widget widget_1660219145722-hidden dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="0" data-w="3" data-aos="fade-up" data-aos-delay="0">
+                           
+                           <div class="span3 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="9" data-w="3" data-aos="fade-up" data-aos-delay="600">
+                                 <div id="hs_cos_wrapper_module_1660305748518" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+                                    <div class="pricing-item pric_lp pricing-item--module_1660305748518 text-center " id="">
+                                       <h3 class="pricing-item__name">Pay-As-You-Go</h3>
+                                       <h3 class="pricing-item__name pricing-item__price">₦ 9,000 per Document</h3>
+                                       <div class="pricing-item__inner-content">
+                                          <p><small></small></p>
+                                          <div>
+                                             <p style="text-align: left;">Are you an occasional user? Who need to verify documents on a case-by-case basis.<br>Then this is the option for you!</p>
+                                          </div>
+                                          <ul class="no-list">
+                                             <li>
+                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check1" role="img">
+                                                   <title id="check1">Feature</title>
+                                                   <g id="check1_layer">
+                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                                                   </g>
+                                                </svg>
+                                                <span>
+                                                Cost ₦9,000 per document
+                                                </span>
+                                             </li>
+                                             <li>
+                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check2" role="img">
+                                                   <title id="check2">Feature</title>
+                                                   <g id="check2_layer">
+                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                                                   </g>
+                                                </svg>
+                                                <span>
+                                                Processing time: 1-3 business days
+                                                </span>
+                                             </li>
+                                             <li>
+                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check3" role="img">
+                                                   <title id="check3">Feature</title>
+                                                   <g id="check3_layer">
+                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                                                   </g>
+                                                </svg>
+                                                <span>
+                                                Real-time tracking
+                                                </span>
+                                             </li>
+                                             <li>
+                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check4" role="img">
+                                                   <title id="check4">Feature</title>
+                                                   <g id="check4_layer">
+                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                                                   </g>
+                                                </svg>
+                                                <span>
+                                                Full verification report
+                                                </span>
+                                             </li>
+                                          </ul>
+                                          <span id="hs_cos_wrapper_module_1660305748518_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
+                                             <!--HubSpot Call-to-Action Code -->
+                                             <span class="hs-cta-wrapper" id="hs-cta-wrapper-0afaf010-1deb-4ce8-8464-2f765991e0ca">
+                                                <span class="hs-cta-node hs-cta-0afaf010-1deb-4ce8-8464-2f765991e0ca" id="hs-cta-0afaf010-1deb-4ce8-8464-2f765991e0ca">
+                                                   <!--[if lte IE 8]>
+                                                   <div id="hs-cta-ie-element"></div>
+                                                   <![endif]--><a class="offerGetStartLik" href="{{url('/register')}}">Get Started</a>
+                                                </span>
+                                             </span>
+                                             <!-- end HubSpot Call-to-Action Code -->
+                                          </span>
+                                          <p><small></small></p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!--end widget-span -->
+                           
+                           <div class="span3 widget-span widget-type-custom_widget widget_1660219145722-hidden dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="0" data-w="3" data-aos="fade-up" data-aos-delay="0">
                                  <div id="hs_cos_wrapper_widget_1660219145722" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                                     <div class="pricing-item pric_lp pricing-item--widget_1660219145722 text-center " id="">
-                                       <h3 class="pricing-item__name">Basic<br> Package</h3>
+                                       <h3 class="pricing-item__name">Basic</h3>
+                                       <h3 class="pricing-item__name pricing-item__price">₦ 37,500 Monthly</h3>
                                        <div class="pricing-item__inner-content">
                                           <p><small></small></p>
                                           <div>
@@ -265,7 +341,7 @@
                                                 <span class="hs-cta-node hs-cta-702a6aed-b52a-48a5-96a1-74ab85c289d4" id="hs-cta-702a6aed-b52a-48a5-96a1-74ab85c289d4">
                                                    <!--[if lte IE 8]>
                                                    <div id="hs-cta-ie-element"></div>
-                                                   <![endif]--><a class="offerGetStartLik" href="javascript:void(0)">Get Started</a>
+                                                   <![endif]--><a class="offerGetStartLik" href="{{url('/register')}}">Get Started</a>
                                                 </span>
                                              </span>
                                              <!-- end HubSpot Call-to-Action Code -->
@@ -279,7 +355,8 @@
                               <div class="span3 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="3" data-w="3" data-aos="fade-up" data-aos-delay="200">
                                  <div id="hs_cos_wrapper_module_1660223857177" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                                     <div class="pricing-item pric_lp pricing-item--module_1660223857177 text-center " id="">
-                                       <h3 class="pricing-item__name">Business <br>Package</h3>
+                                       <h3 class="pricing-item__name">Business</h3>
+                                       <h3 class="pricing-item__name pricing-item__price">₦ 450,000 Monthly</h3>
                                        <div class="pricing-item__inner-content">
                                           <p><small></small></p>
                                           <div>
@@ -372,7 +449,7 @@
                                                 <span class="hs-cta-node hs-cta-49216580-8885-46b5-a9e7-78d609229321" id="hs-cta-49216580-8885-46b5-a9e7-78d609229321">
                                                    <!--[if lte IE 8]>
                                                    <div id="hs-cta-ie-element"></div>
-                                                   <![endif]--><a class="offerGetStartLik" href="javascript:void(0)">Get Started</a>
+                                                   <![endif]--><a class="offerGetStartLik" href="{{url('/register')}}">Get Started</a>
                                                 </span>
                                              </span>
                                              <!-- end HubSpot Call-to-Action Code -->
@@ -391,7 +468,8 @@
                                           <span style="color:rgba(255, 255, 255, 1.0);background:rgba(255, 96, 0, 1.0);font-size:10px">Enterprise <br>Package</span> 
                                        </div>
                                        -->
-                                       <h3 class="pricing-item__name">Enterprise<br>Package</h3>
+                                       <h3 class="pricing-item__name">Enterprise</h3>
+                                       <h3 class="pricing-item__name pricing-item__price">Enterprise</h3>
                                        <div class="pricing-item__inner-content">
                                           <p><small></small></p>
                                           <div>
@@ -508,7 +586,7 @@
                                                 <span class="hs-cta-node hs-cta-12b6f2fb-baa8-43bd-b47f-91f7bc5119aa" id="hs-cta-12b6f2fb-baa8-43bd-b47f-91f7bc5119aa">
                                                    <!--[if lte IE 8]>
                                                    <div id="hs-cta-ie-element"></div>
-                                                   <![endif]--><a class="offerGetStartLik" href="javascript:void(0)">Get Started</a>
+                                                   <![endif]--><a class="offerGetStartLik" href="{{url('/register')}}">Get Started</a>
                                                 </span>
                                              </span>
                                              <!-- end HubSpot Call-to-Action Code -->
@@ -519,78 +597,7 @@
                                  </div>
                               </div>
                               <!--end widget-span -->
-                              <div class="span3 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="9" data-w="3" data-aos="fade-up" data-aos-delay="600">
-                                 <div id="hs_cos_wrapper_module_1660305748518" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
-                                    <div class="pricing-item pric_lp pricing-item--module_1660305748518 text-center " id="">
-                                       <h3 class="pricing-item__name">Pay-As-You-Go <br>Option</h3>
-                                       <div class="pricing-item__inner-content">
-                                          <p><small></small></p>
-                                          <div>
-                                             <p style="text-align: left;">Are you an occasional user? Who need to verify documents on a case-by-case basis.<br>Then this is the option for you!</p>
-                                          </div>
-                                          <ul class="no-list">
-                                             <li>
-                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check1" role="img">
-                                                   <title id="check1">Feature</title>
-                                                   <g id="check1_layer">
-                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                   </g>
-                                                </svg>
-                                                <span>
-                                                Cost ₦9,000 per document
-                                                </span>
-                                             </li>
-                                             <li>
-                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check2" role="img">
-                                                   <title id="check2">Feature</title>
-                                                   <g id="check2_layer">
-                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                   </g>
-                                                </svg>
-                                                <span>
-                                                Processing time: 1-3 business days
-                                                </span>
-                                             </li>
-                                             <li>
-                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check3" role="img">
-                                                   <title id="check3">Feature</title>
-                                                   <g id="check3_layer">
-                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                   </g>
-                                                </svg>
-                                                <span>
-                                                Real-time tracking
-                                                </span>
-                                             </li>
-                                             <li>
-                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check4" role="img">
-                                                   <title id="check4">Feature</title>
-                                                   <g id="check4_layer">
-                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                   </g>
-                                                </svg>
-                                                <span>
-                                                Full verification report
-                                                </span>
-                                             </li>
-                                          </ul>
-                                          <span id="hs_cos_wrapper_module_1660305748518_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
-                                             <!--HubSpot Call-to-Action Code -->
-                                             <span class="hs-cta-wrapper" id="hs-cta-wrapper-0afaf010-1deb-4ce8-8464-2f765991e0ca">
-                                                <span class="hs-cta-node hs-cta-0afaf010-1deb-4ce8-8464-2f765991e0ca" id="hs-cta-0afaf010-1deb-4ce8-8464-2f765991e0ca">
-                                                   <!--[if lte IE 8]>
-                                                   <div id="hs-cta-ie-element"></div>
-                                                   <![endif]--><a class="offerGetStartLik" href="javascript:void(0)">Get Started</a>
-                                                </span>
-                                             </span>
-                                             <!-- end HubSpot Call-to-Action Code -->
-                                          </span>
-                                          <p><small></small></p>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <!--end widget-span -->
+                              
                               
                            </div>
                            <!--end row-->

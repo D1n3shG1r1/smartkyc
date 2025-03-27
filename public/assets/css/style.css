@@ -201,7 +201,8 @@
     }
     }
     .top-bar--mobile {
-    padding: 0 15px;
+        display:none;
+        padding: 0 15px;
     }
 
 
@@ -311,6 +312,20 @@
     }
     .pricing-item--widget_1660219145722 *:not(.button) {
     color: #444;
+    }
+    
+    .pricing-item--widget_1660219145722 .pricing-item__name.pricing-item__price,
+    .pricing-item--module_1660223857177 .pricing-item__name.pricing-item__price,
+    .pricing-item--module_1660223878845 .pricing-item__name.pricing-item__price,
+    .pricing-item--module_1660305748518 .pricing-item__name.pricing-item__price
+    {
+        color: #002E5B;
+        background: #ffffff;
+        font-size: 17px;
+        padding: 0 !important;
+    }
+    .pricing-item--module_1660223878845 .pricing-item__name.pricing-item__price{
+        color: #ffffff;
     }
     .pricing-item--widget_1660219145722 .pricing-item__name {
     color: #ffffff;

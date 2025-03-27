@@ -1,5 +1,16 @@
 @extends("app")
 @section("contentbox")
+<style>
+.banner--dnd_area-module-1 {
+   position: relative;
+   padding: 13% 0 13% 0;
+   background-image: url(<?php echo url('assets/img/people-4.jpg'); ?>);
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center bottom;
+}
+</style>
+
 <main class="body-container-wrapper">
    <div class="container-fluid body-container">
       <div class="row-fluid-wrapper">
@@ -12,7 +23,7 @@
                            <div class="row-fluid ">
                               <div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
                                  <div id="hs_cos_wrapper_widget_1666102567238" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
-                                    <div id="" class="banner lazy banner--widget_1666102567238 darkbg text-left" data-ll-status="entered">
+                                    <div id="" class="banner lazy banner--dnd_area-module-1 banner--widget_1666102567238 darkbg text-left" data-ll-status="entered">
                                        <div class="content-wrapper">
                                           <div class="banner__inner fx-fade-up">
                                              <h1 style="text-align: left;">Compare <span style="color: #ffd61f;" class="blink_me">live</span> inspection quotes <span style="color: #ffd61f;">quickly <span style="color: #fafafa;">with the</span> largest network <span style="color: #ffffff;">of inspection professionals</span>.</span></h1>
@@ -22,8 +33,9 @@
                                                    <!--HubSpot Call-to-Action Code -->
                                                    <span class="hs-cta-wrapper" id="hs-cta-wrapper-5302598a-72e4-4520-98e2-98e4a5e83cfa">
                                                       <span class="hs-cta-node hs-cta-5302598a-72e4-4520-98e2-98e4a5e83cfa" id="hs-cta-5302598a-72e4-4520-98e2-98e4a5e83cfa">
+
                                                          <!--[if lte IE 8]>
-                                             <div id="hs-cta-ie-element"></div><![endif]--><button type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary">Get Started</button></span></span>
+                                             <div id="hs-cta-ie-element"></div><![endif]--><button type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onClick="getStarted();">Get Started</button></span></span>
                                              <!-- end HubSpot Call-to-Action Code --> &nbsp; &nbsp;&nbsp;</span><!--HubSpot Call-to-Action Code -->
                                              
                                              <!-- end HubSpot Call-to-Action Code --></p>
@@ -148,7 +160,7 @@
                                              <!--[if lte IE 8]>
                                              <div id="hs-cta-ie-element"></div>
                                              <![endif]-->
-                                             <button type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary">Getting Started with SmartVerify</button>
+                                             <button type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onClick="getStarted();">Getting Started with SmartVerify</button>
                                           </span>
                                        </span>
                                        <!-- end HubSpot Call-to-Action Code -->
@@ -600,7 +612,7 @@
                                           <span class="hs-cta-node hs-cta-8daa49e6-7ff4-42f4-b684-59ed066625c3" id="hs-cta-8daa49e6-7ff4-42f4-b684-59ed066625c3">
                                              <!--[if lte IE 8]>
                                              <div id="hs-cta-ie-element"></div>
-                                             <![endif]--><a href="javascript:void(0);" class="doYouNeedInspBtn">Start Verifying Vendors Now ?</a>
+                                             <![endif]--><a href="javascript:void(0);" onclick="getStarted();" class="doYouNeedInspBtn">Start Verifying Vendors Now ?</a>
                                           </span>
                                        </span>
                                        <!-- end HubSpot Call-to-Action Code -->
@@ -779,5 +791,9 @@
 </main>
 @endsection
 @push("js")
-<script></script>
+<script>
+   function getStarted(){
+      window.location.href='<?php echo url("register"); ?>';
+   }
+</script>
 @endpush

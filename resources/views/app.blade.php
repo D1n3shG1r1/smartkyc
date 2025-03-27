@@ -4,8 +4,8 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       
       <title>SmartVerify | {{$pageTitle}}</title>
-      <link rel="shortcut icon" href="{{ url('assets/img/cropped-walls-black-fav-270x270.jpg'); }}">
-      
+      <link rel="shortcut icon" href="{{ url('assets/img/smartverify-32x32.png'); }}">
+
       <!--
       <meta name="description" content="Compare inspection quotes quickly with the largest network of inspection professionals worldwide. Access over 165,000 quality control experts today">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,7 +99,13 @@
          <!-- nice scrollbar -->
          <script src="{{ url('/assets/admin/js/perfect-scrollbar.min.js') }}"></script>
          <script>
-            var ps = new PerfectScrollbar('#sidebar');
+            
+            $(function(){
+               setTimeout(function(){
+                  var ps = new PerfectScrollbar('#sidebar');
+               },500);
+            });
+         
          </script>
          <!-- custom js -->
          <script src="{{ url('/assets/admin/js/custom.js') }}"></script>

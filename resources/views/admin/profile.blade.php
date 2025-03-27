@@ -54,36 +54,35 @@
                                             <input type="text" class="form-input" name="city" id="city" placeholder="City" value="{{$user['city']}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="state" class="form-label">State<span class="required">*</span></label>
-                                            <input type="text" class="form-input" name="state" id="state" placeholder="Province/State" value="{{$user['state']}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row mb-3">
-                                        <div class="col-md-6">
                                             <label for="country" class="form-label">Country<span class="required">*</span></label>
                                             <input type="text" class="form-input" name="country" id="country" placeholder="Country" value="{{$user['country']}}">
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="zipcode" class="form-label">Zipcode<span class="required">*</span></label>
-                                            <input type="text" class="form-input" name="zipcode" id="zipcode" placeholder="Zipcode" value="{{$user['zipcode']}}">
-                                        </div>
+                                        <!--<div class="col-md-6">
+                                            <label for="state" class="form-label">State<span class="required">*</span></label>
+                                            <input type="text" class="form-input" name="state" id="state" placeholder="Province/State" value="{{$user['state']}}">
+                                        </div>-->
                                     </div>
                                     <div class="form-group row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="zipcode" class="form-label">Zipcode<span class="requiredd">(Optional)</span></label>
+                                            <input type="text" class="form-input" name="zipcode" id="zipcode" placeholder="Zipcode" value="{{$user['zipcode']}}">
+                                        </div>
                                         <div class="col-md-6">
                                             <label for="company" class="form-label">Company<span class="required">*</span></label>
                                             <input type="text" class="form-input" name="company" id="company" placeholder="Company" value="{{$user['company']}}">
                                         </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
                                         <div class="col-md-6">
                                             <label for="website" class="form-label">Website<span class="required">*</span></label>
                                             <input type="text" class="form-input" name="website" id="website" placeholder="Website" value="{{$user['website']}}">
                                         </div>
-                                        
-                                    </div>
-                                    <div class="form-group row mb-3">
                                         <div class="col-md-6">
                                             <label for="email" class="form-label">Email<span class="required">*</span></label>
                                             <input type="email" class="form-input" name="email" id="email" placeholder="Email" value="{{$user['email']}}" readonly>
                                         </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
                                         <div class="col-md-6">
                                             <label for="phone" class="form-label">Phone<span class="required">*</span></label>
                                             <input type="text" class="form-input" name="phone" id="phone" placeholder="Phone" value="{{$user['phone']}}">
@@ -127,7 +126,7 @@ function validateForm(elm) {
     var address_1 = $("#address_1").val();
     var address_2 = $("#address_2").val();
     var city = $("#city").val();
-    var state = $("#state").val();
+    //var state = $("#state").val();
     var country = $("#country").val();
     var zipcode = $("#zipcode").val();
     var company = $("#company").val();
@@ -190,7 +189,7 @@ function validateForm(elm) {
         var msg = "Only letters, numbers and spaces are allowed.";
         showToast(err,msg);
         return false;
-    }else if(!isRealValue(state)){
+    }/*else if(!isRealValue(state)){
         var err = 1;
         var msg = "State is required.";
         showToast(err,msg);
@@ -200,7 +199,7 @@ function validateForm(elm) {
         var msg = "Only letters, numbers and spaces are allowed.";
         showToast(err,msg);
         return false;
-    }else if(!isRealValue(country)){
+    }*/else if(!isRealValue(country)){
         var err = 1;
         var msg = "Country is required.";
         showToast(err,msg);
@@ -210,12 +209,12 @@ function validateForm(elm) {
         var msg = "Only letters, numbers and spaces are allowed.";
         showToast(err,msg);
         return false;
-    }else if(!isRealValue(zipcode)){
+    }/*else if(!isRealValue(zipcode)){
         var err = 1;
         var msg = "Zipcode is required.";
         showToast(err,msg);
         return false;
-    }else if(isRealValue(zipcode) && !isValidZipCode(zipcode)){
+    }*/else if(isRealValue(zipcode) && !isValidZipCode(zipcode)){
         var err = 1;
         var msg = "Zip code must be valid (e.g., 12345 or 12345-6789).";
         showToast(err,msg);
@@ -266,7 +265,7 @@ function validateForm(elm) {
             "address_1":address_1,
             "address_2":address_2,
             "city":city,
-            "state":state,
+            /*"state":state,*/
             "country":country,
             "zipcode":zipcode,
             "company":company,

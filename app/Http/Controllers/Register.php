@@ -31,7 +31,7 @@ class Register extends Controller
 
             $password = md5($password);
 
-            $adminObj = Admin_model::where('email', $email)->where('password', $password)->first()->toArray();
+            $adminObj = Admin_model::where('email', $email)->where('password', $password)->first();
 				
             if (!empty($adminObj)){
                 $adminId = $adminObj["id"];
@@ -118,6 +118,15 @@ class Register extends Controller
                 $adminObj->lname = $lname;
                 $adminObj->email = $email;
                 $adminObj->password = $password;
+                $adminObj->address_1 = '';
+                $adminObj->address_2 = '';
+                $adminObj->city = '';
+                $adminObj->state = '';
+                $adminObj->country = '';
+                $adminObj->zipcode = '';
+                $adminObj->phone = '';
+                $adminObj->company = '';
+                $adminObj->website = '';
                 $adminObj->createDateTime = $currentDateTime;
                 $adminObj->updateDateTime = $updateDateTime;
                 

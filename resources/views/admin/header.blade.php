@@ -72,7 +72,7 @@
                   <h4>Admin</h4>
                   <ul class="list-unstyled components">
                      <li><a href="{{url('/admin/dashboard')}}"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a></li>
-                     <li><a href="{{url('/admin/myprofile')}}"><i class="fa fa-user orange_color"></i> <span>My Profile</span></a></li>
+                     <li><a href="{{url('/admin/myprofile')}}"><i class="fa fa-user yellow_color"></i> <span>My Profile</span></a></li>
                      
                      <li><a href="{{url('/admin/myapplications')}}"><i class="fa fa-file-text-o yellow_color"></i> <span>My Applications</span></a></li>
                      
@@ -128,7 +128,7 @@
                                        @endphp
                                        <a class="dropdown-item" href="{{url('/admin/admin-settings')}}">Settings</a>
                                        @php } @endphp
-                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                       <a class="dropdown-item" href="{{url('/admin/signout')}}"><span>Sign Out</span> <i class="fa fa-sign-out"></i></a>
                                     </div>
                                  </li>
                               </ul>
