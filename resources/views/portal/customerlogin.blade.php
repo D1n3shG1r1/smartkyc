@@ -3,7 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>SmartVerify | Portal LogIn</title>
-    <link rel="shortcut icon" href="{{url('assets/img/cropped-walls-black-fav-270x270.jpg'); }}">
+    <link rel="shortcut icon" href="{{ url('assets/img/smartverify-32x32.png'); }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
