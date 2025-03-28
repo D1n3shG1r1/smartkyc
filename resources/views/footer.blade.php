@@ -71,7 +71,7 @@
                      
                      <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/faq')}}" role="menuitem">FAQ</a></li>
                      
-                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:void(0);" role="menuitem">Contact: support@smartkyc.com.ng</a></li>
+                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:void(0);" role="menuitem">Contact: support@smartkyc.ng</a></li>
                         
                      </ul>
                   </div>

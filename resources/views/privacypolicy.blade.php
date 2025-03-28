@@ -268,7 +268,7 @@
 
                                                 <li><span style="color: #000000;"><span style="color: #ffd61f;"><strong></strong></span>Request a copy of your data</span><span style="color: #000000;"></span></li>
 
-                                                <p><span style="color: #000000;"><span style="color: #ffd61f;"><strong></strong></span>To exercise these rights, contact us at support@SmartKYC.com.ng</span><span style="color: #000000;"></span></p>
+                                                <p><span style="color: #000000;"><span style="color: #ffd61f;"><strong></strong></span>To exercise these rights, contact us at support@smartkyc.ng</span><span style="color: #000000;"></span></p>
                                                 
                                             </ul>
 
@@ -279,7 +279,7 @@
                                             <p><span style="color: #000000;"><strong style="color: #ffd61f;">10. Updates to This Policy&nbsp;</strong> - We may update this Privacy Policy periodically. Users will be notified of any significant changes. Continued use of SmartKYC after updates constitutes acceptance of the revised policy.</span></p>
 
 
-                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">11. Contact Us&nbsp;</strong> - For questions about this Privacy Policy or data protection, contact us at: support@smartkyc.com.ng</span></p>
+                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">11. Contact Us&nbsp;</strong> - For questions about this Privacy Policy or data protection, contact us at: support@smartkyc.ng</span></p>
 
                                             </span>
                                         </div>

@@ -303,7 +303,7 @@
                                             
                                             
 
-                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">13. Contact Information&nbsp;</strong>- For any inquiries regarding these Terms and Conditions, contact us at: support@smartkyc.com.ng</span></p>
+                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">13. Contact Information&nbsp;</strong>- For any inquiries regarding these Terms and Conditions, contact us at: support@smartkyc.ng</span></p>
 
                                             
                                            
