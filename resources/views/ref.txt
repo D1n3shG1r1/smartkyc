@@ -1,0 +1,11 @@
+smartverify.ng
+
+System Administrator:
+url: https://smartverify.ng/admin/sysadmlogin
+email:admin@example.com
+password:Admin@123
+
+Test Customer:
+https://smartverify.ng/login
+email:dinesh@example.com
+password:Dinesh@123

@@ -108,6 +108,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Applicant Name</th>
                                 <th>Doc Title</th>
                                 <th>Doc Type</th>
                                 <th>Doc Number</th>
@@ -126,6 +127,7 @@
                                     $adminId = $row["adminId"];
                                     $portalId = $row["portalId"];
                                     $customerId = $row["customerId"];
+                                    $customerName = $row["customerName"];
                                     $title = $row["title"];
                                     $description = $row["description"];
                                     $documentType = $row["documentType"];
@@ -143,6 +145,7 @@
                                     
                             <tr>
                                 <td>{{$k+1}}</td>
+                                <td>{{ucwords($customerName)}}</td>
                                 <td>{{ucwords($title)}}</td>
                                 <td>{{ucwords($documentType)}}</td>
                                 <td>{{$documentNo}}</td>

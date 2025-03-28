@@ -61,6 +61,13 @@ class Dashboard extends Controller
 
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();
+
+                foreach($applications as &$row){
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+
+                    $customer = Customers_model::select("fname", "lname")->where("id", $row["customerId"])->first();
+                    $row["customerName"] = ucwords($customer["fname"] . " " . $customer["lname"]);
+                }
             }
 
             $data = array();
