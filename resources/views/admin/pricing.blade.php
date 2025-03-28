@@ -289,6 +289,7 @@ function updateCharacterCount() {
 }
 
 function sendQuote(elm){
+    //send email
     var myModal = new bootstrap.Modal(document.getElementById('QuoteModal'));
 
     var message = $("#messageInput").val();
