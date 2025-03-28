@@ -206,7 +206,7 @@
                                             
                                             <p><span style="color: #000000;"><strong>Real-Time Tracking and Updates&nbsp;</strong>- Allow users to track the status of document verification in real-time, from submission to completion, ensuring transparency in the process.</span></p>
 
-                                            <p><span style="color: #000000;"><strong>API Integration&nbsp;</strong>- Offer API services that allow businesses to integrate SmartVerify’s verification process into their existing systems for seamless background checks and document validation.</span></p>
+                                            <p><span style="color: #000000;"><strong>API Integration&nbsp;</strong>- Offer API services that allow businesses to integrate SmartKYC’s verification process into their existing systems for seamless background checks and document validation.</span></p>
 
                                             <p><span style="color: #000000;"><strong>Bulk Verification&nbsp;</strong>- Provide bulk document verification for companies that need to verify multiple vendors or contractors at once, saving time and effort.</span></p>
                                             

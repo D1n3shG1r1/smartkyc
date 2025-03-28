@@ -60,7 +60,7 @@
          <div class="footer-container content-wrapper ">
             <div class="footer__copyright">
                <div class="copy_right">
-                  <p class="footer__copyright-text">© {{date("Y")}} SMART VERIFY</p>
+                  <p class="footer__copyright-text">© {{date("Y")}} SMART KYC</p>
                </div>
                <div class="footer__legal-menu" role="menu">
                   <p><span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="menu"></span></p>
@@ -71,7 +71,7 @@
                      
                      <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/faq')}}" role="menuitem">FAQ</a></li>
                      
-                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:void(0);" role="menuitem">Contact: support@smartverify.com.ng</a></li>
+                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:void(0);" role="menuitem">Contact: support@smartkyc.com.ng</a></li>
                         
                      </ul>
                   </div>

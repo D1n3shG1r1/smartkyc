@@ -84,12 +84,12 @@
                                  <div id="hs_cos_wrapper_widget_1663137157490" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                                     <span id="hs_cos_wrapper_widget_1663137157490_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text">
                                        <h2 style="text-align: center;"><span style="color: #002E5B;">About <span style="color: #ffd61f;">us</span></span></h2>
-                                       <p><span style="color: #000000;">At SmartVerify, our mission is to provide a secure, reliable, and efficient platform for verifying critical documents for organizations, governments, and individuals. Founded with the goal of ensuring transparency and trust in business transactions, we empower users to validate essential documents like government-issued certificates, financial records, tax filings, and vendor credentials with ease.&nbsp;</span></p>
+                                       <p><span style="color: #000000;">At SmartKYC, our mission is to provide a secure, reliable, and efficient platform for verifying critical documents for organizations, governments, and individuals. Founded with the goal of ensuring transparency and trust in business transactions, we empower users to validate essential documents like government-issued certificates, financial records, tax filings, and vendor credentials with ease.&nbsp;</span></p>
                                        <p><span style="color: #000000;">We recognize the growing need for accurate and timely document verification in today’s fast-paced business environment, where due diligence and compliance are more important than ever. Reducing the risk of fraud and ensuring businesses and individuals can make informed decisions.</span></p>
 
-                                       <p><span style="color: #000000;">With a user-friendly interface and comprehensive range of services, SmartVerify is built to serve clients across industries, including finance, real estate, government, and more. Our platform offers real-time tracking, bulk verification, API integration, and customizable reports, making it the preferred solution for businesses that value security and efficiency.</span></p>
+                                       <p><span style="color: #000000;">With a user-friendly interface and comprehensive range of services, SmartKYC is built to serve clients across industries, including finance, real estate, government, and more. Our platform offers real-time tracking, bulk verification, API integration, and customizable reports, making it the preferred solution for businesses that value security and efficiency.</span></p>
 
-                                       <p><span style="color: #000000;">At SmartVerify, we are committed to upholding the highest standards of integrity, data protection, and customer satisfaction. Whether you are verifying the authenticity of vendor documents or ensuring compliance with industry regulations, SmartVerify is your trusted partner for all your document verification needs.</span></p>
+                                       <p><span style="color: #000000;">At SmartKYC, we are committed to upholding the highest standards of integrity, data protection, and customer satisfaction. Whether you are verifying the authenticity of vendor documents or ensuring compliance with industry regulations, SmartKYC is your trusted partner for all your document verification needs.</span></p>
 
                                        <ul>
                                           <li><span style="color: #000000;"><span style="color: #ffd61f;"><strong>Our Vision</strong></span> - To be the leading global platform for document verification, ensuring <strong>trust</strong> and <strong>transparency</strong> in business and government transactions.</span><span style="color: #000000;"></span></li>
@@ -148,7 +148,7 @@
                                              <!--[if lte IE 8]>
                                              <div id="hs-cta-ie-element"></div>
                                              <![endif]-->
-                                             <button type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary">Getting Started with SmartVerify</button>
+                                             <button type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary">Getting Started with SmartKYC</button>
                                           </span>
                                        </span>
                                        <!-- end HubSpot Call-to-Action Code -->
@@ -186,10 +186,10 @@
                               <div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
                                  <div id="hs_cos_wrapper_module_1660215034689" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                                     <span id="hs_cos_wrapper_module_1660215034689_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text">
-                                       <h2 style="text-align: center;"><span style="color: #ffffff;">Getting Started with </span> <span style="color: #ffd61f;">SmartVerify<span style="color: #002E5B;">?</span></span></h2>
+                                       <h2 style="text-align: center;"><span style="color: #ffffff;">Getting Started with </span> <span style="color: #ffd61f;">SmartKYC<span style="color: #002E5B;">?</span></span></h2>
                                        <p style="text-align: center;">
                                           <span style="color: #ffffff;">
-                                          SmartVerify <span style="font-weight: normal;">makes document verification easy and efficient.</span> Follow these <span style="font-weight: bold;">6 simple steps</span> to start verifying your documents today.&nbsp;</span>
+                                          SmartKYC <span style="font-weight: normal;">makes document verification easy and efficient.</span> Follow these <span style="font-weight: bold;">6 simple steps</span> to start verifying your documents today.&nbsp;</span>
                                        </p>
                                     </span>
                                  </div>
@@ -217,7 +217,7 @@
                               </strong>
                             </p>
                             <p style="line-height: 1;">
-                              <span style="color: #ffffff;">To get started, visit the SmartVerify website and sign up for an account. You will need to provide your basic information, such as your name, email address, and company details (if applicable). Once registered, you can log in to access all features of the platform.</span>
+                              <span style="color: #ffffff;">To get started, visit the SmartKYC website and sign up for an account. You will need to provide your basic information, such as your name, email address, and company details (if applicable). Once registered, you can log in to access all features of the platform.</span>
                             </p>
                           </div>
                         </div>
@@ -398,7 +398,7 @@
                                        </strong>
                                     </p>
                                     <p style="line-height: 1;">
-                                       <span style="color: #ffffff;">Some verification services may require payment. If applicable, proceed to the payment page and select your preferred payment method. SmartVerify accepts major credit cards, debit cards, and other online payment systems. For businesses, bulk verification packages are also available.</span>
+                                       <span style="color: #ffffff;">Some verification services may require payment. If applicable, proceed to the payment page and select your preferred payment method. SmartKYC accepts major credit cards, debit cards, and other online payment systems. For businesses, bulk verification packages are also available.</span>
                                     </p>
                                  </div>
                                  </div>
@@ -528,7 +528,7 @@
                                        </strong>
                                     </p>
                                     <p style="line-height: 1;">
-                                       <span style="color: #ffffff;">When the verification is complete, SmartVerify will generate a detailed report showing the verification results. This report will confirm whether the document is authentic or highlight any discrepancies found during the process.</span>
+                                       <span style="color: #ffffff;">When the verification is complete, SmartKYC will generate a detailed report showing the verification results. This report will confirm whether the document is authentic or highlight any discrepancies found during the process.</span>
                                     </p>
                                  </div>
                                  </div>

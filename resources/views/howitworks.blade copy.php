@@ -265,7 +265,7 @@
                           </h2>
                           <p style="text-align: center;">
                             <span style="color: #ffffff;">
-                            SmartVerify <span style="font-weight: normal;">makes document verification easy and efficient.</span> Follow these <span style="font-weight: bold;">6 simple steps</span> to start verifying your documents today.&nbsp;</span>
+                            SmartKYC <span style="font-weight: normal;">makes document verification easy and efficient.</span> Follow these <span style="font-weight: bold;">6 simple steps</span> to start verifying your documents today.&nbsp;</span>
                           </p>
                         </span>
                       </div>
@@ -293,7 +293,7 @@
                               </strong>
                             </p>
                             <p style="line-height: 1;">
-                              <span style="color: #ffffff;">To get started, visit the SmartVerify website and sign up for an account. You will need to provide your basic information, such as your name, email address, and company details (if applicable). Once registered, you can log in to access all features of the platform.</span>
+                              <span style="color: #ffffff;">To get started, visit the SmartKYC website and sign up for an account. You will need to provide your basic information, such as your name, email address, and company details (if applicable). Once registered, you can log in to access all features of the platform.</span>
                             </p>
                           </div>
                         </div>
@@ -475,7 +475,7 @@
                                     </strong>
                                   </p>
                                   <p style="line-height: 1;">
-                                    <span style="color: #ffffff;">Some verification services may require payment. If applicable, proceed to the payment page and select your preferred payment method. SmartVerify accepts major credit cards, debit cards, and other online payment systems. For businesses, bulk verification packages are also available.</span>
+                                    <span style="color: #ffffff;">Some verification services may require payment. If applicable, proceed to the payment page and select your preferred payment method. SmartKYC accepts major credit cards, debit cards, and other online payment systems. For businesses, bulk verification packages are also available.</span>
                                   </p>
                                 </div>
                               </div>
@@ -605,7 +605,7 @@
                                     </strong>
                                   </p>
                                   <p style="line-height: 1;">
-                                    <span style="color: #ffffff;">When the verification is complete, SmartVerify will generate a detailed report showing the verification results. This report will confirm whether the document is authentic or highlight any discrepancies found during the process.</span>
+                                    <span style="color: #ffffff;">When the verification is complete, SmartKYC will generate a detailed report showing the verification results. This report will confirm whether the document is authentic or highlight any discrepancies found during the process.</span>
                                   </p>
                                 </div>
                               </div>

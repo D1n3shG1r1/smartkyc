@@ -187,7 +187,7 @@
                                             <span id="hs_cos_wrapper_widget_1663137157490_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text">
                                             <h2 style="text-align: center;"><span style="color: #002E5B;">Privacy Policy<span style="color: #ffd61f;"></span></span></h2>
                                             
-                                            <p><span style="color:#002E5B;"><strong>SmartVerify<br>Effective Date:&nbsp;{{ date("M d, Y"); }}</strong></span></p>
+                                            <p><span style="color:#002E5B;"><strong>SmartKYC<br>Effective Date:&nbsp;{{ date("M d, Y"); }}</strong></span></p>
                                             
                                             </span>
                                         </div>
@@ -195,7 +195,7 @@
                                         <div id="hs_cos_wrapper_widget_1663137157490" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                                             <span id="hs_cos_wrapper_widget_1663137157490_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text">
                                             
-                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">1. Introduction</strong> - SmartVerify, operated by Smart Technology Services Ltd, is committed to protecting the privacy and security of our users. This Privacy Policy outlines how we collect, use, store, and protect your personal data when you use our document verification services. By using SmartVerify, you agree to the practices described in this policy.</span></p>
+                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">1. Introduction</strong> - SmartKYC, operated by Smart Technology Services Ltd, is committed to protecting the privacy and security of our users. This Privacy Policy outlines how we collect, use, store, and protect your personal data when you use our document verification services. By using SmartKYC, you agree to the practices described in this policy.</span></p>
 
                                             <p><span style="color: #000000;"><strong style="color: #ffd61f;">2. Information We Collect</strong></span></p>
                                             <ul>
@@ -268,18 +268,18 @@
 
                                                 <li><span style="color: #000000;"><span style="color: #ffd61f;"><strong></strong></span>Request a copy of your data</span><span style="color: #000000;"></span></li>
 
-                                                <p><span style="color: #000000;"><span style="color: #ffd61f;"><strong></strong></span>To exercise these rights, contact us at support@smartverify.com.ng</span><span style="color: #000000;"></span></p>
+                                                <p><span style="color: #000000;"><span style="color: #ffd61f;"><strong></strong></span>To exercise these rights, contact us at support@SmartKYC.com.ng</span><span style="color: #000000;"></span></p>
                                                 
                                             </ul>
 
-                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">8. Cookies and Tracking Technologies&nbsp;</strong> - SmartVerify may use cookies and tracking tools to enhance user experience and analyze service performance. You can manage cookie preferences through your browser settings.</span></p>
+                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">8. Cookies and Tracking Technologies&nbsp;</strong> - SmartKYC may use cookies and tracking tools to enhance user experience and analyze service performance. You can manage cookie preferences through your browser settings.</span></p>
 
-                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">9. Third-Party Links&nbsp;</strong> - Our website may contain links to third-party websites. SmartVerify is not responsible for their privacy practices. Users should review their policies before providing any data.</span></p>
+                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">9. Third-Party Links&nbsp;</strong> - Our website may contain links to third-party websites. SmartKYC is not responsible for their privacy practices. Users should review their policies before providing any data.</span></p>
 
-                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">10. Updates to This Policy&nbsp;</strong> - We may update this Privacy Policy periodically. Users will be notified of any significant changes. Continued use of SmartVerify after updates constitutes acceptance of the revised policy.</span></p>
+                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">10. Updates to This Policy&nbsp;</strong> - We may update this Privacy Policy periodically. Users will be notified of any significant changes. Continued use of SmartKYC after updates constitutes acceptance of the revised policy.</span></p>
 
 
-                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">11. Contact Us&nbsp;</strong> - For questions about this Privacy Policy or data protection, contact us at: support@smartverify.com.ng</span></p>
+                                            <p><span style="color: #000000;"><strong style="color: #ffd61f;">11. Contact Us&nbsp;</strong> - For questions about this Privacy Policy or data protection, contact us at: support@smartkyc.com.ng</span></p>
 
                                             </span>
                                         </div>

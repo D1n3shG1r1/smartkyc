@@ -1308,7 +1308,7 @@ header {
 	.body-wrapper--mobile-menu .header-main__menu-nav-container:before {
 		background: #efefef;
 		border-bottom: 1px solid #bbb;
-		content: "SmartVerify";
+		content: "Smart KYC";
 		display: block;
 		letter-spacing: 2px;
 		opacity: .4;
