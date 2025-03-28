@@ -55,7 +55,7 @@
             <div class="login_section">
                 <div class="logo_login">
                     <div class="center">
-                        <img style="display:block" width="150" id="company-logo" src="{{ url('assets/img/portallogo.png'); }}" alt="SMART KYC" onError="showCompanyName()"/>
+                        <img style="display:block" width="290" id="company-logo" src="{{ url('assets/img/portallogo.png'); }}" alt="NDPC - Nigeria Data Protection Commission" onError="showCompanyName()"/>
                         <!--<div id="company-name" class="company-name lobster-regular">Smart Verification</div>-->
                     </div>
                 </div>
