@@ -125,6 +125,7 @@ class Customerportal extends Controller
             $custmoerObj->email = $email;
             $custmoerObj->fname = $fname;
             $custmoerObj->lname = $lname;
+            $custmoerObj->phone = '';
             $custmoerObj->otp = $otp;
             $custmoerObj->otpSentDateTime = $otpSentDateTime;
             $custmoerObj->createDateTime = $createDateTime;
