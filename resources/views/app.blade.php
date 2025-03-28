@@ -3,7 +3,7 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       
-      <title>SmartVerify | {{$pageTitle}}</title>
+      <title>SmartKYC | {{$pageTitle}}</title>
       <link rel="shortcut icon" href="{{ url('assets/img/smartverify-32x32.png'); }}">
 
       <!--
