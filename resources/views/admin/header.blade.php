@@ -19,7 +19,7 @@
                         <div class="user_img">
                         <img class="profilephotoimg img-responsive" src="{{url('assets/admin/img/user.png')}}"/></div>
                         <div class="user_info">
-                        <h6>{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</h6>
+                        <h6>{{ucwords($LOGINUSER["fname"]." ".$LOGINUSER["lname"])}}</h6>
                            <p><span class="online_animation"></span> Online</p>
                         </div>
                      </div>
@@ -120,7 +120,7 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="<?php echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{$LOGINUSER["fname"]." ".$LOGINUSER["lname"]}}</span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="<?php echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{ucwords($LOGINUSER["fname"]." ".$LOGINUSER["lname"])}}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="{{url('/admin/myprofile')}}">My Profile</a>
                                        @php

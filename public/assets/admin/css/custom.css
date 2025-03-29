@@ -300,6 +300,11 @@
     border-top-right-radius: 0;
 }
 
+.form-control.searchInput:focus {
+    border-color: #ced4da;
+    box-shadow: none;;
+}
+
 .searchButton {
     color: #898989;
     border-left: none;
@@ -311,4 +316,44 @@
 
 .searchButton .fa.fa-search{
     color: #898989;
+}
+
+.nav-pills{
+    border-right: solid #eee 1px;
+}
+
+.nav-pills .nav-link {
+   border-radius: 0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff !important;
+    background-color: #007bff !important;
+}
+
+.marginTop28{
+    margin-top:28px;
+}
+
+.photoSpan {
+    height: 223px;
+    width: 223px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.pdl-5{
+    padding-left: 5px;
+}
+
+.pdr-5{
+    padding-right: 5px;
+}
+
+.pdr-0{
+    padding-right: 0px;
+}
+
+.marginTop-51{
+    margin-top:51px;
 }

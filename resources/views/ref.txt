@@ -9,3 +9,6 @@ Test Customer:
 https://smartverify.ng/login
 email:dinesh@example.com
 password:Dinesh@123
+
+
+https://smartkyc.ng/admin/sysadmlogin
