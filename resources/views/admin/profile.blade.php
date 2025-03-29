@@ -68,13 +68,13 @@
                                             <input type="text" class="form-input" name="zipcode" id="zipcode" placeholder="Zipcode" value="{{$user['zipcode']}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="company" class="form-label">Company<span class="required">*</span></label>
+                                            <label for="company" class="form-label">Company<span class="requiredd">(Optional)</span></label>
                                             <input type="text" class="form-input" name="company" id="company" placeholder="Company" value="{{$user['company']}}">
                                         </div>
                                     </div>
                                     <div class="form-group row mb-3">
                                         <div class="col-md-6">
-                                            <label for="website" class="form-label">Website<span class="required">*</span></label>
+                                            <label for="website" class="form-label">Website<span class="requiredd">(Optional)</span></label>
                                             <input type="text" class="form-input" name="website" id="website" placeholder="Website" value="{{$user['website']}}">
                                         </div>
                                         <div class="col-md-6">
@@ -219,22 +219,22 @@ function validateForm(elm) {
         var msg = "Zip code must be valid (e.g., 12345 or 12345-6789).";
         showToast(err,msg);
         return false;
-    }else if(!isRealValue(company)){
+    }/*else if(!isRealValue(company)){
         var err = 1;
         var msg = "Company is required.";
         showToast(err,msg);
         return false;
-    }else if(isRealValue(company) && !validCharacters.test(company)){
+    }*/else if(isRealValue(company) && !validCharacters.test(company)){
         var err = 1;
         var msg = "Only letters, numbers and spaces are allowed.";
         showToast(err,msg);
         return false;
-    }else if(!isRealValue(website)){
+    }/*else if(!isRealValue(website)){
         var err = 1;
         var msg = "Website must be a valid URL.";
         showToast(err,msg);
         return false;
-    }else if(isRealValue(website) && !isValidWebsite(website)){
+    }*/else if(isRealValue(website) && !isValidWebsite(website)){
         var err = 1;
         var msg = "Website must be a valid URL.";
         showToast(err,msg);

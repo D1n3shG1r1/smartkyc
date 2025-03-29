@@ -43,11 +43,8 @@ class Controller extends BaseController
                     empty($adminData["address_1"]) ||
                     empty($adminData["address_2"]) ||
                     empty($adminData["city"]) ||
-                    empty($adminData["state"]) ||
-                    empty($adminData["country"]) ||
-                    empty($adminData["zipcode"]) ||
-                    empty($adminData["company"]) ||
-                    empty($adminData["website"])
+                    empty($adminData["country"])
+                    
                 ) {
                     $incompleteProfile = 1;
                 } else {
