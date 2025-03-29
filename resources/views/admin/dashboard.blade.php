@@ -151,7 +151,7 @@
                                 <td>{{$documentNo}}</td>
                                 <td>{{ucwords($verificationStatus)}}</td>
                                 <td>{{$createDate}}</td>
-                                <td><a href="{{url('portal/application/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
+                                <td><a href="{{url('admin/application/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
                             </tr>
                         <?php
                             }
