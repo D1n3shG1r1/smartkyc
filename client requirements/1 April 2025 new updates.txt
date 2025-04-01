@@ -1,0 +1,145 @@
+Customer Dashboard (For Employers/Organizations)
+
+* Each applicant's name is listed.
+* Next to each name, there is a document request form where the customer can specify which documents they need verified (e.g., tax certificate, CAC registration, ID card).
+* Once the request is submitted, the system notifies the applicant.
+
+
+Applicant Dashboard
+* After logging in, applicants see a notification listing the requested documents.
+* They upload the required documents directly.
+* The system then processes the verification.
+* Track document verification status (Pending, Verified, Rejected).
+
+* Option to resubmit if a document is rejected.
+
+
+
+Automated Reminder System
+* First Reminder: Sent 48 hours after the request if no document is uploaded.
+* Second Reminder: Sent 24 hours before the deadline.
+* Final Reminder: Sent on the deadline day with a warning of possible rejection.
+
+
+===============================
+
+SmartKYC Website Workflow
+
+User Roles
+
+1. SmartKYC Officer (Verification Officer)
+
+
+2. Customer (SmartKYC Client)
+
+
+3. Applicant (Vendor/Supplier to the Customer)
+
+
+
+
+---
+
+Customer Workflow
+
+1. Customer creates an account on SmartKYC.ng and completes their profile.
+
+
+2. Customer selects a verification package and makes a payment.
+
+
+3. Customer creates a document verification request, generating a unique link for each applicant/vendor.
+
+
+4. Each created applicant/vendor is listed on the Customer Dashboard.
+
+
+5. A notification is sent to the SmartKYC Officer, alerting them of a new verification request.
+
+
+6. The customer can track the verification status of their applicants.
+
+
+7. Once verification is completed, the customer receives a report from the SmartKYC Officer.
+
+
+8. Customer uses the verification report for internal decision-making.
+
+
+
+
+---
+
+Applicant Workflow
+
+1. Applicant receives a verification request link from the Customer.
+
+
+2. Applicant clicks on the link, completes their profile, and uploads the exact requested documents.
+
+
+3. Applicant submits documents for verification.
+
+
+4. Applicant waits for the verification outcome, which will be communicated through the Customer.
+
+
+
+
+---
+
+SmartKYC Officer Workflow
+
+1. SmartKYC Officer receives a job notification for a new verification request.
+
+
+2. Officer logs into the admin dashboard to view all customers and their requests.
+
+
+3. Officer identifies requests marked with a notification sign for new verification jobs.
+
+
+4. Officer reviews the applicant's submitted documents and conducts due diligence.
+
+
+5. Upon completing verification, the Officer writes a report or selects a verification outcome button.
+
+
+6. The report is sent to the Customer, who can then view the verification status.
+
+
+7. Customer uses the report to make decisions regarding their applicant/vendor.
+
+
+
+
+---
+
+Additional Features
+
+Automated Reminders: Applicants receive notifications if they fail to upload documents before the deadline.
+
+Verification Status Tracking: Customers and Applicants can track document verification status (Pending, Verified, Rejected).
+
+Admin Dashboard for Officers: SmartKYC Officers manage verification tasks efficiently with a centralized dashboard.
+
+
+============================
+
+
+Addition idea! This feature will allow customers to verify their own documents without needing an applicant. Here's how it could work:
+
+Customer Dashboard Update:
+
+Create Verification Button: A button that allows customers to start a new verification request.
+
+Document Selection: Customers can select the type of document they need verified (e.g., Business Registration, Tax Clearance, ID, etc.).
+
+File Upload: Customers upload the document(s) for verification.
+
+Verification Submission: Once submitted, the request is sent to the SmartKYC Officer for processing.
+
+Tracking & Reports: Customers can track the status of their document verification and receive a final report.
+
+
+This feature ensures that businesses and individuals can verify their own compliance documents seamlessly.

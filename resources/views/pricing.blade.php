@@ -137,7 +137,7 @@
                             </div>
                           </div>
                         </li>
-                        <li class="glide__slide lazy glide__slide--active loaded" style="background-position: center center; width: 1275px; margin-left: 0px; margin-right: 0px; background-image: url('<?php echo url('assets/img/people-5.jpg'); ?>');" data-ll-status="loaded">
+                        <li class="glide__slide lazy glide__slide--active loaded" style="background-position: center center; width: 1275px; margin-left: 0px; margin-right: 0px; margin:auto; background-image: url('<?php echo url('assets/img/people-5.jpg'); ?>');" data-ll-status="loaded">
                           <div class="slider__inner-container">
                             <div class="slider__inner ">
                               <h1 style="font-size: 43px; text-align: left; line-height: 1.15;">

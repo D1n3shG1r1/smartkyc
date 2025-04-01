@@ -249,6 +249,7 @@ iframe {
 .row-fluid .span4 {
 	width: 31.914893614%;
 	*width: 31.8617021246383%
+	
 }
 
 .row-fluid .span3 {
@@ -369,6 +370,7 @@ iframe {
 	.row-fluid .span4 {
 		width: 31.491712705%;
 		*width: 31.4385212156383%
+		
 	}
 
 	.row-fluid .span3 {
@@ -462,7 +464,7 @@ iframe {
 
 	.row-fluid .span4 {
 		width: 31.623931624%;
-		*width: 31.5707401346383%
+		*width: 31.5707401346383%;
 	}
 
 	.row-fluid .span3 {
@@ -689,7 +691,7 @@ h2 {
 }
 
 h2 {
-	color: #002E5B;
+	color: #002E5B !important;
 	font-size: 33px
 }
 
