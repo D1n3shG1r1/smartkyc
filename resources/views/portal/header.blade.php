@@ -61,14 +61,14 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="{{url('admin/dashboard');}}"><img class="img-responsive logoblack logoblackpngdk" src="{{url('assets/img/walls-logo-web2.png?width=1994&height=402&name=walls-logo-web2.png')}}" alt="#" /></a>
+                           <a href="{{url('portal/dashboard');}}"><img class="img-responsive logoblack logoblackpngdk" src="{{url('assets/img/walls-logo-web2.png?width=1994&height=402&name=walls-logo-web2.png')}}" alt="#" /></a>
                         </div>
                         <div class="right_topbar">
                            <div class="icon_info">
                               <ul>
-                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                                 <li><a href="{{url('portal/notifications');}}"><i class="fa fa-bell-o"></i><span class="badge">{{$LOGINUSER["notifiationCount"]}}</span></a></li>
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
-                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                                 <!--<li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>-->
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>

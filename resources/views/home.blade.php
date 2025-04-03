@@ -224,16 +224,16 @@
                           <div class="feature__inner">
                             <p style="font-size: 20px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Step 1</span>
+                                <span style="color: #002e5b;">Step 1</span>
                               </strong>
                             </p>
                             <p style="font-size: 18px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Sign Up & Set Up Your Account</span>
+                                <span style="color: #002e5b;">Sign Up & Set Up Your Account</span>
                               </strong>
                             </p>
                             <p style="line-height: 1;"></p>
-                            <ul style="color: #ffffff;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
+                            <ul style="color: #002e5b;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
                               <li>Visit SmartKYC.ng and create an account.</li>
                               <li>Complete your profile with relevant business details.</li>
                               <li>Select a verification package that best suits your needs.</li>
@@ -248,14 +248,14 @@
                           }
 
                           .feature--widget_1660656504774:hover {
-                            box-shadow: 0 43px 70px rgba(0, 0, 0, 0.12);
+                            box-shadow: 0 43px 70px rgba(255, 255, 255, 0.12);
                           }
 
                           .feature--widget_1660656504774 {
                             padding: 10px 43px;
                             border-radius: 12px;
                             border: 0px solid rgba(255, 255, 255, 1.0);
-                            background: rgba(255, 255, 255, 0.0);
+                            background: rgba(255, 255, 255, 1);
                             height: 100%;
                           }
 
@@ -287,16 +287,16 @@
                           <div class="feature__inner">
                             <p style="font-size: 20px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Step 2</span>
+                                <span style="color: #002e5b;">Step 2</span>
                               </strong>
                             </p>
                             <p style="font-size: 18px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Request Document Verification</span>
+                                <span style="color: #002e5b;">Request Document Verification</span>
                               </strong>
                             </p>
                             <p style="line-height: 1;"></p>
-                            <ul style="color: #ffffff;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
+                            <ul style="color: #002e5b;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
                               <li>Generate a unique verification request link for each vendor or applicant.</li>
                               <li>Specify the exact documents required for verification.</li>
                             </ul>
@@ -308,14 +308,14 @@
                           }
 
                           .feature--module_1660731587249:hover {
-                            box-shadow: 0 43px 70px rgba(0, 0, 0, 0.12);
+                            box-shadow: 0 43px 70px rgba(255, 255, 255, 0.12);
                           }
 
                           .feature--module_1660731587249 {
                             padding: 10px 43px;
                             border-radius: 12px;
                             border: 0px solid rgba(255, 255, 255, 1.0);
-                            background: rgba(255, 255, 255, 0.0);
+                            background: rgba(255, 255, 255, 1);
                             height: 100%;
                           }
 
@@ -345,16 +345,16 @@
                           <div class="feature__inner">
                             <p style="font-size: 20px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Step 3</span>
+                                <span style="color: #002e5b;">Step 3</span>
                               </strong>
                             </p>
                             <p style="font-size: 18px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Track Your Applicants</span>
+                                <span style="color: #002e5b;">Track Your Applicants</span>
                               </strong>
                             </p>
                             <p style="line-height: 1;"></p>
-                            <ul style="color: #ffffff;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
+                            <ul style="color: #002e5b;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
                               <li>View all submitted applicants on your Customer Dashboard.</li>
                               <li>Receive real-time updates on the status of each verification request.</li>
                             </ul>
@@ -366,14 +366,14 @@
                           }
 
                           .feature--module_1660731613000:hover {
-                            box-shadow: 0 43px 70px rgba(0, 0, 0, 0.12);
+                            box-shadow: 0 43px 70px rgba(255, 255, 255, 0.12);
                           }
 
                           .feature--module_1660731613000 {
                             padding: 10px 43px;
                             border-radius: 12px;
                             border: 0px solid rgba(255, 255, 255, 1.0);
-                            background: rgba(255, 255, 255, 0.0);
+                            background: rgba(255, 255, 255, 1);
                             height: 100%;
                           }
 
@@ -408,16 +408,16 @@
                           <div class="feature__inner">
                             <p style="font-size: 20px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Step 4</span>
+                                <span style="color: #002e5b;">Step 4</span>
                               </strong>
                             </p>
                             <p style="font-size: 18px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Get Verified Reports</span>
+                                <span style="color: #002e5b;">Get Verified Reports</span>
                               </strong>
                             </p>
                             <p style="line-height: 1;"></p>
-                            <ul style="color: #ffffff;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
+                            <ul style="color: #002e5b;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
                               <li>SmartKYC Officers will conduct thorough verification and submit a detailed report.</li>
                               <li>The report is sent to the Customer, who can then view the verification status to make decisions regarding their applicant/vendor.</li>
                             </ul>
@@ -429,14 +429,14 @@
                           }
 
                           .feature--module_1660731613000:hover {
-                            box-shadow: 0 43px 70px rgba(0, 0, 0, 0.12);
+                            box-shadow: 0 43px 70px rgba(255, 255, 255, 0.12);
                           }
 
                           .feature--module_1660731613000 {
                             padding: 10px 43px;
                             border-radius: 12px;
                             border: 0px solid rgba(255, 255, 255, 1.0);
-                            background: rgba(255, 255, 255, 0.0);
+                            background: rgba(255, 255, 255, 1);
                             height: 100%;
                           }
 
@@ -468,16 +468,16 @@
                           <div class="feature__inner">
                             <p style="font-size: 20px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Step 5</span>
+                                <span style="color: #002e5b;">Step 5</span>
                               </strong>
                             </p>
                             <p style="font-size: 18px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Applicant Receive a Verification Request</span>
+                                <span style="color: #002e5b;">Applicant Receive a Verification Request</span>
                               </strong>
                             </p>
                             <p style="line-height: 1;"></p>
-                            <ul style="color: #ffffff;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
+                            <ul style="color: #002e5b;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
                               <li>If a customer requires your documents for verification, you’ll receive a secure link.</li>
                             </ul>
                           </div>
@@ -488,14 +488,14 @@
                           }
 
                           .feature--module_1660731587249:hover {
-                            box-shadow: 0 43px 70px rgba(0, 0, 0, 0.12);
+                            box-shadow: 0 43px 70px rgba(255, 255, 255, 0.12);
                           }
 
                           .feature--module_1660731587249 {
                             padding: 10px 43px;
                             border-radius: 12px;
                             border: 0px solid rgba(255, 255, 255, 1.0);
-                            background: rgba(255, 255, 255, 0.0);
+                            background: rgba(255, 255, 255, 1);
                             height: 100%;
                           }
 
@@ -525,16 +525,16 @@
                           <div class="feature__inner">
                             <p style="font-size: 20px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Step 6</span>
+                                <span style="color: #002e5b;">Step 6</span>
                               </strong>
                             </p>
                             <p style="font-size: 18px; line-height: 1;">
                               <strong>
-                                <span style="color: #ffffff;">Upload Required Documents</span>
+                                <span style="color: #002e5b;">Upload Required Documents</span>
                               </strong>
                             </p>
                             <p style="line-height: 1;"></p>
-                            <ul style="color: #ffffff;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
+                            <ul style="color: #002e5b;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
                               <li>Click the link, complete your profile, and upload the requested documents.</li>
                               <li>Once submitted, your documents will be reviewed by SmartKYC Officers.</li>
                               <li>The verification outcome will be sent to the customer who requested your details.</li>
@@ -547,15 +547,16 @@
                           }
 
                           .feature--module_1660731613000:hover {
-                            box-shadow: 0 43px 70px rgba(0, 0, 0, 0.12);
+                            box-shadow: 0 43px 70px rgba(255, 255, 255, 0.2);
                           }
 
                           .feature--module_1660731613000 {
                             padding: 10px 43px;
                             border-radius: 12px;
                             border: 0px solid rgba(255, 255, 255, 1.0);
-                            background: rgba(255, 255, 255, 0.0);
+                            background: rgba(255, 255, 255, 1);
                             height: 100%;
+
                           }
 
                           @media (min-width: 1200px) {

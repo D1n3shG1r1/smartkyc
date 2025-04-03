@@ -274,7 +274,7 @@
 */
 
 .regenerate-otp-btn .fa.fa-refresh{
-    margin-right: 5px;
+    margin-right: 0px;
 }
 
 .custom-modal {
@@ -356,4 +356,42 @@
 
 .marginTop-51{
     margin-top:51px;
+}
+
+.applicantRowIdCol{
+    width: 32px;
+} 
+
+.applicantNameCol{
+    width: 200px;
+} 
+
+.applicantEmailCol{
+    width: 200px;
+}
+
+.applicantOtpCol{
+    width: 110px;
+}
+
+.applicantActionCol{
+    width: 280px;
+}
+
+a, a:hover{
+    color: #007bff;
+}
+
+.navSeprator {
+    border: none;
+    border-left: 1px solid;
+    height: 12px;
+}
+
+.errorMsg{
+    color:#721c24;
+}
+
+.successMsg{
+    color:#155724;
 }

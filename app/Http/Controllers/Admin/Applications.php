@@ -299,4 +299,44 @@ class Applications extends Controller
 
         return response()->json($response); die;       
     }
+
+    function getApplicantData(Request $request){
+        
+        if($this->ADMINID > 0){
+            
+            $adminId = $this->ADMINID;
+            $portalId = sha1($adminId);
+            $applicantId = $request->input("applicantId");
+
+            //applicant name, email
+            $customer = Customers_model::select("fname", "lname", "email")->where("id", $applicantId)->first();
+            
+            //applicant previous applications 
+            $applications = Applications_model::select("id")->where("portalId",$portalId)->where("adminId",$adminId)->where("customerId",$applicantId)->get();
+            
+            $postBackData = array();
+            $postBackData["success"] = 1;
+            $postBackData["customer"] = $customer;
+            $postBackData["applications"] = $applications;
+
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "success"
+            );
+            
+        }else{
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die;       
+    }
+
+
 }

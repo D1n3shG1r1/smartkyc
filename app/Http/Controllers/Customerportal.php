@@ -9,6 +9,7 @@ use App\Models\Customerportal_model;
 use App\Models\Customers_model;
 use App\Models\Applications_model;
 use App\Models\ApplicationDocuments_model;
+use App\Models\Notifications_model;
 
 class Customerportal extends Controller
 {
@@ -239,7 +240,7 @@ class Customerportal extends Controller
                 $response = array(
                     "C" => 101,
                     "R" => $postBackData,
-                    "M" => "Invalid OTP."
+                    "M" => "You have entered an invalid OTP."
                 );
             }
 
@@ -249,7 +250,7 @@ class Customerportal extends Controller
             $response = array(
                 "C" => 102,
                 "R" => $postBackData,
-                "M" => "Invalid email or entered email is not associated with us."
+                "M" => "The email is invalid or it is not associated with our records."
             );
         }
 
@@ -634,4 +635,34 @@ class Customerportal extends Controller
         return Redirect::to(url("portal/login/$portalId"));
     }
 
+
+    function notifications(Request $request){
+        $portalId = $this->getSession('portalId');
+        
+        if($this->CUSTOMERID > 0){
+            $customerId = $this->CUSTOMERID; 
+            
+            Notifications_model::where("receiver", $customerId)->where("isRead", 0)->update(["isRead" => 1]);
+
+
+            $notificationsData = Notifications_model::where("receiver", $customerId)->orderBy('dateTime', 'desc')->paginate(10);
+
+            $notifications = array();
+            if($notificationsData){
+                $notifications = $notificationsData->toArray();
+            }
+
+            $data = array();
+            $data["pageTitle"] = "My Notifications";
+            $data["notifications"] = $notifications;
+
+            //echo "data:<pre>"; print_r($data); die;
+
+            return View("portal.notifications",$data);
+
+        }else{
+            //redirect to login
+            return Redirect::to(url("portal/login/$portalId"));
+        }
+    }
 }

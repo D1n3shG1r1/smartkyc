@@ -7,6 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Session\Session as Session_N;
+use App\Models\Notifications_model;
 
 class Controller extends BaseController
 {
@@ -23,13 +24,17 @@ class Controller extends BaseController
         $customerFname = $this->getSession('customerFname');
         $customerLname = $this->getSession('customerLname');
 
+        // Get applicant new notifications
+        $notificationCount = Notifications_model::where("receiver", $customerId)->where("isRead", 0)->count();
+
         view()->share('LOGINUSER',array(
             "adminId" => $adminId,
             "portalId" => $portalId,
             "customerId" => $customerId,
             "customerEmail" => $customerEmail,
             "customerFname" => $customerFname,
-            "customerLname" => $customerLname
+            "customerLname" => $customerLname,
+            "notifiationCount" => $notificationCount
         ));
         
     }

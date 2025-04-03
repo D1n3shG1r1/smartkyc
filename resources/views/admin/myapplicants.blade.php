@@ -21,6 +21,10 @@ $customersData = $customers["data"];
 }
 
 </style>
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+-->
 
 <div class="container-fluid">
     <div class="row column_title">
@@ -74,18 +78,28 @@ $customersData = $customers["data"];
                     ?>
                                 
                         <tr id="row-{{$id}}">
-                            <td>{{$k+1}}</td>
-                            <td>{{$fullName}}</td>
-                            <td>{{$email}}</td>
-                            <td id="otp-{{$id}}" style="letter-spacing: 5px;"><span>{{$otp}}</span>
-                            <button type="button" id="otpcopybtn-{{$id}}" class="btn btn-outline-primary" onclick="copyOtp(this);">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                            <td class="applicantRowIdCol">{{$k+1}}</td>
+                            <td class="applicantNameCol">{{$fullName}}</td>
+                            <td class="applicantEmailCol">{{$email}}</td>
+                            <td class="applicantOtpCol" id="otp-{{$id}}"><span style="letter-spacing: 5px;">{{$otp}}</span>
+                            <br>
+                            <a href="javascript:void(0);" id="otpcopybtn-{{$id}}" class="btn btn-outline-primary" onclick="copyOtp(this);" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy OTP" style="cursor:pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
                                 </svg>
-                                Copy OTP
-                            </button>
+                            </a>
+                            &nbsp;
+                            <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="btn cur-p btn-outline-primary regenerate-otp-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Regenerate OTP" style="cursor:pointer;"><i class="fa fa-refresh"></i></a>
                             </td>
-                            <td><a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="btn cur-p btn-outline-primary regenerate-otp-btn"><i class="fa fa-refresh"></i>Regenerate OTP</a></td>
+
+                            <td class="applicantActionCol">
+                                <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="View applicant details." style="cursor:pointer;"><i class="fa fa-file-text-o"></i>&nbsp;View</a>
+                                <span class="navSeprator"></span>
+                                <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete applicant and his all related documents" style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+                                <span class="navSeprator"></span>
+                                <a href="javascript:void(0);" onclick="getApllicantData(this);" data-id="{{$id}}"  class="" data-toggle="modal" data-target="#requestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Make a new request to upload documents for verification." style="cursor:pointer;"><i class="fa fa-newspaper-o"></i>&nbsp; Request Document</a>
+                                
+                            </td>
                         </tr>
                     <?php
                         }
@@ -139,9 +153,91 @@ $customersData = $customers["data"];
         </div>
     </div>
 </div>
+
+<div id="requestModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request Document Upload</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="applicantName">Name</label>
+                <input type="text" class="form-control" id="applicantName" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="applicantEmail">Email</label>
+                <input type="email" class="form-control" id="applicantEmail" readonly>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputApplication">Application</label>
+                <select id="inputApplication" class="form-control">
+                    <option value="">Loading...</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDocumentType">Document Type</label>
+                <select id="inputDocumentType" class="form-control">
+                    <option value="">Choose...</option>
+                    <option value="company_registration_certificate">Company registration certificates</option>
+                    <option value="tax_clearance_certificates">Tax clearance certificates</option>
+                    <option value="bank_statement">Bank statements</option>
+                    <option value="passport">Passport</option>
+                    <option value="national_id_card">National ID card</option>
+                    <option value="vendor_and_contractor_documentation">Vendor and contractor documentation</option>
+                    <option value="business_licenses_and_permits">Business licenses and permits</option>
+                    <option value="compliance_certificates">Compliance certificates</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="inputComment">Any comment</label>
+                <textarea class="form-control" id="inputComment"></textarea>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <span id="modalMessage" class="hideMe">check it out!</span>
+            </div>
+            <div class="form-group col-md-6" style="text-align: right;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="sendRequest();"><i class="fa fa-send-o"></i>&nbsp;Send</button>
+            </div>
+        </div>
+            <input type="hidden" class="form-control" id="applicantId">
+        </form>
+        
+
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
 @endsection
 @push("js")
 <script>
+
+/*$(function(){
+    $('#inputDocumentType').multiselect({
+        includeSelectAllOption: true,
+    });
+});*/
 
 function copyOtp(elm) {
     // Get the ID attribute of the element
@@ -199,6 +295,105 @@ function generateotp(elm){
         showToast(err,msg);
         spinnerIcon.classList.remove("spinner");
     });
+}
+
+
+function getApllicantData(elm){
+    
+    var applicantId = $(elm).attr("data-id");
+    $("#applicantId").val(applicantId);
+    
+    // Show loading state (Optional)
+    $("#applicantName, #applicantEmail, #inputApplication").val("Loading...");
+
+    var requrl = "admin/getApplicantData";
+    var postdata = {
+        "applicantId":applicantId
+    };
+    
+    callajax(requrl, postdata, function(resp){
+        if(resp.C == 100){
+            const customer = resp.R.customer;
+            const applications = resp.R.applications;
+
+            var applicantName = customer.fname+' '+customer.lname;
+            applicantName = capatilizeWordsInPhrase(applicantName);
+            $("#applicantName").val(applicantName);
+            $("#applicantEmail").val(customer.email);
+            
+            var optionHtml = '<option value="">Choose...</option>';
+            if(applications.length > 0){
+                $.each(applications, function(i, v){
+                    optionHtml += '<option value="'+v.id+'">App ID:'+v.id+'</option>';
+                });
+            }
+            
+            optionHtml += '<option value="0">New Application</option>';
+
+            $("#inputApplication").html(optionHtml);
+        }
+        
+    });
+}
+
+function sendRequest(){
+    var applicantId = $("#applicantId").val();
+    var applicantName = $("#applicantName").val();
+    var applicantEmail = $("#applicantEmail").val();
+    var inputApplication = $("#inputApplication").val();
+    var inputDocumentType = $("#inputDocumentType").val();
+    var inputComment = $("#inputComment").val();
+    
+    if(!isRealValue(inputApplication)){
+        var err = 1;
+        var msg = 'Choose the application for which the document is required.'
+        modalErr(err, msg);
+        return false;
+    }else if(!isRealValue(inputDocumentType)){
+        var err = 1;
+        var msg = 'Please choose a document type.'
+        modalErr(err, msg);
+        return false;
+    }else if(!isRealValue(inputComment)){
+        var err = 1;
+        var msg = 'Please add a comment for the applicant.'
+        modalErr(err, msg);
+        return false;
+    }else{
+        
+        var requrl = "admin/sendDocumentRequest";
+        var postdata = {
+            "applicantId":applicantId,
+            "inputApplication":inputApplication,
+            "inputDocumentType":inputDocumentType,
+            "inputComment":inputComment,
+        };
+        
+        callajax(requrl, postdata, function(resp){
+        
+        });
+    }
+
+}
+
+function modalErr(err, msg){
+
+    if(err == 1){
+        //err
+        $("#modalMessage").removeClass("successMsg");
+        $("#modalMessage").addClass("errorMsg");
+    }else{
+        //success
+        $("#modalMessage").addClass("successMsg");
+        $("#modalMessage").removeClass("errorMsg");
+    }
+
+    $("#modalMessage").html(msg);
+    $("#modalMessage").removeClass("hideMe");
+
+    setTimeout(function(){
+        $("#modalMessage").addClass("hideMe");
+    }, 5000);
 }
 </script>
 @endpush

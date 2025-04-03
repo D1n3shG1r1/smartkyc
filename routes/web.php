@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Documents;
 use App\Http\Controllers\Admin\Applications;
 use App\Http\Controllers\Admin\Package;
 use App\Http\Controllers\Admin\Admin;
+use App\Http\Controllers\Admin\Notifications;
 
 
 /*
@@ -60,6 +61,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/myapplications',[Applications::class, 'myApplications']);
     Route::get('/application/{Id}',[Applications::class, 'application']);
     Route::post('/updateApplicationStatus',[Applications::class, 'updateApplicationStatus']);
+
+    Route::post('/getApplicantData',[Applications::class, 'getApplicantData']);
+    
+
+
     Route::get('/mypackage',[Package::class, 'plans']);
     Route::get('/buy/{package}',[Package::class, 'buy']);
 
@@ -82,6 +88,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/admin-myprofile',[Admin::class, 'myprofile']);
     Route::post('/updatemyprofile',[Admin::class, 'updatemyprofile']);
     Route::post('/updatepassword',[Admin::class, 'updatepassword']);
+
+    Route::post('/sendDocumentRequest',[Notifications::class, 'sendDocumentRequest']);
+    
+    
     
 });
 
@@ -98,6 +108,8 @@ Route::prefix('portal')->name('portal.')->group(function () {
     Route::get('/application/{Id}',[Customerportal::class, 'application']);
     Route::get('/newapplication',[Customerportal::class, 'newapplication']);
     Route::post('/submitapplication',[Customerportal::class, 'submitapplication']);
+    Route::get('/notifications',[Customerportal::class, 'notifications']);
+    
     Route::get('/logout',[Customerportal::class, 'logout']);
     
 });

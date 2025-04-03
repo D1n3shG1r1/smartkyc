@@ -384,4 +384,58 @@ use Illuminate\Support\Facades\Auth;
         }
     }
 
+    
+    if(!function_exists('timeAgo')){
+        function timeAgo($datetime) {
+            // Convert the datetime string to a timestamp
+            $timestamp = strtotime($datetime);
+        
+            // If strtotime fails, return a fallback message
+            if ($timestamp === false) {
+                return "Invalid date format";
+            }
+            
+            // Get the difference between the current time and the given time
+            $timeDifference = time() - $timestamp;
+        
+            // If the date is in the future (time difference is negative), handle it separately
+            if ($timeDifference < 0) {
+                $timeDifference = abs($timeDifference);
+                return "In the future"; // Or you could show something like "In X minutes" if preferred
+            }
+            
+            // Time unit conversions
+            $units = [
+                'second' => 1,
+                'minute' => 60,
+                'hour' => 3600,
+                'day' => 86400,
+                'month' => 2592000,
+                'year' => 31536000
+            ];
+        
+            // Loop through each time unit and check the appropriate one to use
+            foreach ($units as $unit => $seconds) {
+                $time = floor($timeDifference / $seconds);
+                if ($time >= 1) {
+                    // Return the time ago string
+                    return ($time == 1) ? "1 $unit ago" : "$time {$unit}s ago";
+                }
+            }
+        
+            return "Just now"; // In case the time difference is too small (within seconds)
+        }
+        
+    }
+
+    if(!function_exists('convertDateTime')){
+        function convertDateTime($datetime) {
+            // Create a DateTime object from the input datetime string
+            $date = new DateTime($datetime);
+            
+            // Format the date into the desired format
+            return $date->format('d F, Y h:i a');
+        }
+    }
+
 ?>

@@ -338,7 +338,7 @@
                 } else {
                     $("#email").removeAttr("readonly");
                     var err = 1;
-                    var msg = resp.R;
+                    var msg = resp.M;
                     showToast(err, msg);
                 }
             });
