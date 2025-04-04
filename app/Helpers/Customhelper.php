@@ -239,6 +239,48 @@ use Illuminate\Support\Facades\Auth;
         }
     }
     
+    if(!function_exists('documentsTypes')){
+        function documentsTypes($k = false){
+
+            $list = array(
+                "Company_registration_certificates" => "Company registration certificates",
+                "Tax_clearance_certificates" => "Tax clearance certificates",
+                "Bank_statements" => "Bank statements",
+                "Passport" => "Passport",
+                "National_ID_card" => "National ID card",
+                "Vendor_and_contractor_documentation" => "Vendor and contractor documentation",
+                "Business_licenses_and_permits" => "Business licenses and permits",
+                "Compliance_certificates" => "Compliance certificates",
+                "Corporate_Affairs_Commission_(CAC)" => "Corporate Affairs Commission (CAC)",
+                "Tax_Identification_Number_(TIN)_&_Tax" => "Tax Identification Number (TIN) & Tax",
+                "PENCOM_Compliance_Certificate" => "PENCOM Compliance Certificate",
+                "Industrial_Training_Fund_(ITF)" => "Industrial Training Fund (ITF)",
+                "Nigeria_Social_Insurance_Trust_Fund_(NSITF)" => "Nigeria Social Insurance Trust Fund (NSITF)",
+                "SONCAP_Certificate" => "SONCAP Certificate",
+                "NAFDAC_Registration_Certificate" => "NAFDAC Registration Certificate",
+                "Statement_of_Account_&_Bank" => "Statement of Account & Bank",
+                "Nigerian_Export_Promotion_Council_(NEPC)" => "Nigerian Export Promotion Council (NEPC)",
+                "Department_of_Petroleum_Resources_(DPR)" => "Department of Petroleum Resources (DPR)",
+                "COREN_Certification" => "COREN Certification",
+                "ICAN_&_ANAN_Certification" => "ICAN & ANAN Certification",
+                "Legal Practitioners’ License (NBA Certificate)" => "Legal Practitioners’ License (NBA Certificate)",
+                "Medical & Pharmaceutical Licenses" => "Medical & Pharmaceutical Licenses",
+                "International Passport" => "International Passport",
+                "Driver’s License" => "Driver’s License",
+                "Police Character Certificate" => "Police Character Certificate",
+                "Other" => "Other"
+            );
+
+            if($k){
+                return $list[$k];
+            }else{
+                return $list;
+            }
+            
+        }
+    }
+
+
     if(!function_exists('getFileMimeType')){
         function getFileMimeType($file){
             $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
@@ -263,6 +305,7 @@ use Illuminate\Support\Facades\Auth;
     if(!function_exists('verificationStatusOptions')){
         function verificationStatusOptions(){
             //verification outcome
+            $vrfstatus[0] = "";
             $vrfstatus[1] = "Verification in Progress";
             $vrfstatus[2] = "Document Failed Verification";
             $vrfstatus[3] = "Document is Expired";
@@ -282,6 +325,7 @@ use Illuminate\Support\Facades\Auth;
     if(!function_exists('DiscrepanciesOptions')){
         function DiscrepanciesOptions(){
             
+            $options[0] = "";
             $options[1] = "No Discrepancies Found";
             $options[2] = "Invalid Document Number";
             $options[3] = "Document Expired";

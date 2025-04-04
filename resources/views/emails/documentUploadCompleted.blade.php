@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Requesting Documents for Verification Process</title>
+    <title>Document Upload Completed</title>
     <style>
         /* General styles */
         body {
@@ -132,43 +132,21 @@
                 <!-- Replace 'logo-url.png' with the actual logo URL -->
                 <img style="margin:auto;" src="{{ url('assets/img/walls-logo-web2.png') }}" alt="SmartKYC Logo">
                 <!--<h1 style="text-align:center;">SmartKYC</h1>-->
-                <p style="text-align:center;">Requesting Documents for Verification Process</p>
+                <p style="text-align:center;">Document Upload Completed</p>
             </td>
         </tr>
         <tr>
             <td class="email-body">
-                <p>Dear {{ ucwords($customerName) }},</p>
+                <p>Dear {{ ucwords($adminName) }},</p>
                 
-                <!-- Check if it's a New Application or Existing Application -->
-                @if($newApplication > 0)  <!-- Existing application -->
-                    <p><strong>Existing Application (Application Ref No: {{ $applicationRef }}):</strong> We are reviewing your existing application and require the following additional documents for verification:</p>
-                    <ul>
-                        <li>{{$documentType}}</li>
-                    </ul>
-                    <p>These documents are needed to complete the verification process and update your application. Please upload the requested documents as soon as possible.</p>
-                @else  <!-- New application -->
-                    <p><strong>New Application:</strong> We are excited to begin the verification process for your new application. To proceed, we kindly request the following documents:</p>
-                    <ul>
-                        <li>{{$documentType}}</li>
-                    </ul>
-                    <p>Please upload the requested documents at your earliest convenience to avoid any delays in your verification process.</p>
-                @endif
-
-                <!-- Special Note Section -->
-                <div class="special-note" style="display: {{ $additionalMessage ? 'block' : 'none' }}">
-                    <h3>Special Note:</h3>
-                    <p>{{ $additionalMessage }}</p>
-                </div>
-                
-                <p><strong>Important:</strong> Please submit your required documents before {{$lastDate}}.</p>
-
-                <p>You can upload the documents using the link below:
-                    <a href="{{$uploadLink}}">{{$uploadLink}}</a>
+                <p>
+                    The applicant has successfully uploaded the required documents for application #{{$applicationId}}. The documents include the {{$documentType}} for the verification process.
                 </p>
-                <p>If you have any questions or need assistance, feel free to contact us at <a href="mailto:support@smartkyc.ng">support@smartkyc.ng</a>.</p>
-                <p>Thank you for choosing SmartKYC!</p>
+
+                <p>
+                    Please review the submitted documents to proceed with the verification.
+                </p>
                 
-                <!--<a href="[Upload_Link]" class="btn">Upload Documents</a>-->
             </td>
         </tr>
         <tr>

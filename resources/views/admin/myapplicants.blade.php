@@ -168,52 +168,56 @@ $customersData = $customers["data"];
         <form>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="applicantName">Name</label>
+                <label for="applicantName">Name &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Name."></i></label>
                 <input type="text" class="form-control" id="applicantName" readonly>
             </div>
             <div class="form-group col-md-6">
-                <label for="applicantEmail">Email</label>
+                <label for="applicantEmail">Email &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Email."></i></label>
                 <input type="email" class="form-control" id="applicantEmail" readonly>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputApplication">Application</label>
+                <label for="inputApplication">Application &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Select an application ID for an existing application, or select 'New Application' to initiate a new verification."></i></label>
                 <select id="inputApplication" class="form-control">
                     <option value="">Loading...</option>
                 </select>
             </div>
             <div class="form-group col-md-6">
-                <label for="inputDocumentType">Document Type</label>
+                <label for="inputDocumentType">Document Type &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Select the document type for verification."></i></label>
                 <select id="inputDocumentType" class="form-control">
                     <option value="">Choose...</option>
-                    <option value="company_registration_certificate">Company registration certificates</option>
-                    <option value="tax_clearance_certificates">Tax clearance certificates</option>
-                    <option value="bank_statement">Bank statements</option>
-                    <option value="passport">Passport</option>
-                    <option value="national_id_card">National ID card</option>
-                    <option value="vendor_and_contractor_documentation">Vendor and contractor documentation</option>
-                    <option value="business_licenses_and_permits">Business licenses and permits</option>
-                    <option value="compliance_certificates">Compliance certificates</option>
-                    <option value="other">Other</option>
+                    
+                    <?php foreach(documentsTypes() as $k => $v){
+                        echo '<option value="'.$k.'">'.$v.'</option>';
+                    }
+                    ?>
+                    
                 </select>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label for="inputComment">Any comment</label>
-                <textarea class="form-control" id="inputComment"></textarea>
+                <label for="inputComment">Any comment &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Any special notes for the applicant?"></i></label>
+                <textarea class="form-control" style="resize:none;" rows="5" id="inputComment" maxlength="250" oninput="updateCharacterCount()"></textarea>
+                <p class="text-align-right">Remaining characters: <span id="remainingChars">250</span></p>
             </div>
         </div>
         
         <div class="form-row">
             <div class="form-group col-md-6">
-                <span id="modalMessage" class="hideMe">check it out!</span>
+                <label for="inputComment">Last Date &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Last date for document submission."></i></label>
+                <input type="date" min="{{date('Y-m-d')}}" class="form-control" id="lastDate" />    
             </div>
-            <div class="form-group col-md-6" style="text-align: right;">
+            <div class="form-group col-md-6" style="text-align: right; padding-top: 27px;">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" onclick="sendRequest();"><i class="fa fa-send-o"></i>&nbsp;Send</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <span id="modalMessage" class="hideMe">check it out!</span>
             </div>
         </div>
             <input type="hidden" class="form-control" id="applicantId">
@@ -336,6 +340,22 @@ function getApllicantData(elm){
     });
 }
 
+function updateCharacterCount() {
+    var textarea = document.getElementById("inputComment");
+    var remainingChars = document.getElementById("remainingChars");
+    var maxLength = textarea.getAttribute("maxlength");
+    var currentLength = textarea.value.length;
+
+    var charsLeft = maxLength - currentLength;
+    remainingChars.textContent = charsLeft;
+
+    if (charsLeft <= 0) {
+        remainingChars.style.color = "red";
+    } else {
+        remainingChars.style.color = "black";
+    }
+}
+
 function sendRequest(){
     var applicantId = $("#applicantId").val();
     var applicantName = $("#applicantName").val();
@@ -343,20 +363,26 @@ function sendRequest(){
     var inputApplication = $("#inputApplication").val();
     var inputDocumentType = $("#inputDocumentType").val();
     var inputComment = $("#inputComment").val();
+    var lastDate = $("#lastDate").val();
     
     if(!isRealValue(inputApplication)){
         var err = 1;
-        var msg = 'Choose the application for which the document is required.'
+        var msg = 'Choose the application for which the document is required.';
         modalErr(err, msg);
         return false;
     }else if(!isRealValue(inputDocumentType)){
         var err = 1;
-        var msg = 'Please choose a document type.'
+        var msg = 'Please choose a document type.';
         modalErr(err, msg);
         return false;
     }else if(!isRealValue(inputComment)){
         var err = 1;
-        var msg = 'Please add a comment for the applicant.'
+        var msg = 'Please add a comment for the applicant.';
+        modalErr(err, msg);
+        return false;
+    }else if(!isRealValue(lastDate)){
+        var err = 1;
+        var msg = 'Please specify the last date for document submission.';
         modalErr(err, msg);
         return false;
     }else{
@@ -367,10 +393,33 @@ function sendRequest(){
             "inputApplication":inputApplication,
             "inputDocumentType":inputDocumentType,
             "inputComment":inputComment,
+            "lastDate":lastDate
         };
         
         callajax(requrl, postdata, function(resp){
-        
+            $("#applicantId").val("");
+            $("#applicantName").val("");
+            $("#applicantEmail").val("");
+            $("#inputApplication").val("");
+            $("#inputDocumentType").val("");
+            $("#inputComment").val("");
+            $("#lastDate").val("");
+            
+            if(resp.C == 100){
+                var err = 0;
+                var msg = resp.M;
+                modalErr(err, msg);
+
+                $('#requestModal').modal('hide');
+
+            }else{
+                var err = 1;
+                var msg = resp.M;
+                modalErr(err, msg);
+
+                $('#requestModal').modal('hide');
+            }
+
         });
     }
 

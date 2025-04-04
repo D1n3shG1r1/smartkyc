@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\Package_model;
 use App\Models\Admin_model;
-
+use App\Models\Notifications_model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -23,13 +23,20 @@ class Controller extends BaseController
         $tmpAdminFName = $this->getSession('adminFName');
         $tmpAdminLName = $this->getSession('adminLName');
         $tmpAdminEmail = $this->getSession('adminEmail');
-        
+
         if($tmpSystemAdmin > 0){
             //system admin
             $hasPackage = 1;
             $incompleteProfile = 0;
+
+            // Get applicant new notifications
+            $notificationCount = Notifications_model::where("receiver", $tmpSystemAdmin)->where("isRead", 0)->count();
+
         }else{
             //admin
+            // Get applicant new notifications
+            $notificationCount = Notifications_model::where("receiver", $tmpAdminId)->where("isRead", 0)->count();
+
             //get current package and profile details
             $adminObj = Admin_model::select("fname", "lname", "address_1", "address_2", "city", "state", "country", "zipcode", "phone", "email", "company", "website")->where("id", $tmpAdminId)->first();            
             
@@ -75,12 +82,13 @@ class Controller extends BaseController
                 $tmpAdminEmail = "";
                 $hasPackage = 0;
                 $incompleteProfile = 0;
+                $notificationCount = 0;
             
             }
         }
 
 
-        view()->share('LOGINUSER',array("systemAdmin" => $tmpSystemAdmin, "adminId" => $tmpAdminId, "fname" => $tmpAdminFName, "lname" => $tmpAdminLName,"email" => $tmpAdminEmail,"hasPackage" => $hasPackage, "incompleteProfile" => $incompleteProfile));
+        view()->share('LOGINUSER',array("systemAdmin" => $tmpSystemAdmin, "adminId" => $tmpAdminId, "fname" => $tmpAdminFName, "lname" => $tmpAdminLName,"email" => $tmpAdminEmail,"hasPackage" => $hasPackage, "incompleteProfile" => $incompleteProfile,"notifiationCount" => $notificationCount));
         
     }
 

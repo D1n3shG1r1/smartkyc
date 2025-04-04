@@ -64,6 +64,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('/getApplicantData',[Applications::class, 'getApplicantData']);
     
+    Route::get('/notifications',[Notifications::class, 'notifications']);
 
 
     Route::get('/mypackage',[Package::class, 'plans']);
@@ -110,6 +111,9 @@ Route::prefix('portal')->name('portal.')->group(function () {
     Route::post('/submitapplication',[Customerportal::class, 'submitapplication']);
     Route::get('/notifications',[Customerportal::class, 'notifications']);
     
+    Route::get('/documentrequest/{Id}',[Customerportal::class, 'documentrequest']);
+    Route::post('/submitapplicationrequest',[Customerportal::class, 'submitapplicationrequest']);
+
     Route::get('/logout',[Customerportal::class, 'logout']);
     
 });

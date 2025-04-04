@@ -63,6 +63,8 @@
                     <form>
                     <input type="hidden" id="adminId" value="{{$adminId}}">   
                     <input type="hidden" id="portalId" value="{{$portalId}}">   
+                    <input type="hidden" id="requestToken" value="{{$requestToken}}">   
+                    
                     <fieldset>
                         <div class="field">
                             <label class="label_field">Email Address</label>
@@ -165,7 +167,8 @@
         const adminId = $("#adminId").val();
         const portalId = $("#portalId").val();
         const email = $("#email").val();
-
+        const requestToken = $("#requestToken").val();
+        
         if (!isRealValue(email)) {
             return false;
         } else if (!validateEmail(email)) {
@@ -296,7 +299,8 @@
         var portalId = $("#portalId").val();
         var email = $("#email").val();
         var otp = $("#otp").val();
-        
+        const requestToken = $("#requestToken").val();
+
         if (!isRealValue(email)) {
             var err = 1;
             var msg = "Please enter your email.";
@@ -333,7 +337,12 @@
                     var msg = "Your account is verified successfully";
                     showToast(err, msg);
 
-                    window.location.href = "{{url('portal/dashboard')}}";
+
+                    if(requestToken){
+                        window.location.href = "{{url('portal/documentrequest/'.$requestToken)}}";
+                    }else{
+                        window.location.href = "{{url('portal/dashboard')}}";
+                    }
                 
                 } else {
                     $("#email").removeAttr("readonly");

@@ -7,13 +7,16 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\Customerportal_model;
 use App\Models\Customers_model;
+use App\Models\Admin_model;
+use App\Models\SuperAdmin_model;
 use App\Models\Applications_model;
 use App\Models\ApplicationDocuments_model;
 use App\Models\Notifications_model;
+use App\Traits\SmtpConfigTrait;
 
 class Customerportal extends Controller
 {
-
+    use SmtpConfigTrait;
     var $CUSTOMERID = 0;
     
     function __construct(){   
@@ -21,12 +24,27 @@ class Customerportal extends Controller
         $this->CUSTOMERID = $this->getSession('customerId');
     }
 
-    function index($portalId){
+    function index($portalId, Request $request){
         if (!$portalId) {
             // Return a 404 response if no portalId is provided
             abort(404, 'Portal ID not provided');
         }
     
+        $applicationId = $request->input('applicationtoken');
+        if($applicationId){
+
+            $applicationObj = Applications_model::where("portalId",$portalId)->where("id",$applicationId)->first();
+
+            if($applicationObj){
+                $token = $applicationId;
+            }else{
+                abort(404, 'Invalid application token');
+            }
+
+        }else{
+            $token = 0;
+        }
+
         // Retrieve the portal information from the database
         $portalObj = Customerportal_model::where("portalId", $portalId)->first()->toArray();
         
@@ -44,7 +62,8 @@ class Customerportal extends Controller
         $data = [
             'pageTitle' => 'Portal LogIn',
             'adminId' => $adminId,
-            'portalId' => $portalId
+            'portalId' => $portalId,
+            'requestToken' => $token
         ];
     
         return View('portal.customerlogin', $data);
@@ -664,5 +683,309 @@ class Customerportal extends Controller
             //redirect to login
             return Redirect::to(url("portal/login/$portalId"));
         }
+    }
+
+    function documentrequest($token, Request $request){
+        $portalId = $this->getSession('portalId');
+        
+        if($this->CUSTOMERID > 0){
+            if($token){
+
+                $customerId = $this->CUSTOMERID; 
+                $applicationId = $token;
+                
+                //get customer data
+                $customerObj = Customers_model::select("fname","lname","email","phone")
+                ->where("portalId",$portalId)
+                ->where("id",$customerId)
+                ->first()->toArray();
+
+                $customer = array();
+                
+                //$data["adminId"] = $adminId;
+                $customer["portalId"] = $portalId;
+                $customer["customerId"] = $customerId;
+                $customer["fname"] = $customerObj["fname"]; 
+                $customer["lname"] = $customerObj["lname"];
+                $customer["email"] = $customerObj["email"];
+                $customer["phone"] = $customerObj["phone"];
+
+                if($customer["fname"] == '' || $customer["fname"] == null || $customer["lname"] == '' || $customer["lname"] == null || $customer["email"] == '' || $customer["email"] == null || $customer["phone"] == '' || $customer["phone"] == null){
+                    $customer["incompleteProfile"] = 1;
+                }else{
+                    $customer["incompleteProfile"] = 0;
+                }
+
+                //get application data
+                $applicationObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->where("id",$applicationId)->where("requestSubmitted",0)->first();
+
+                if($applicationObj){
+                    //load view for upload
+                    
+                    $application = $applicationObj->toArray();     
+                    $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+                    
+                    //get application documents
+                    $documentsObj = ApplicationDocuments_model::where("portalId",$portalId)->where("applicationId",$applicationId)->get();
+    
+                    if($documentsObj){
+                        $documents = $documentsObj->toArray();
+                    
+                        foreach($documents as &$document){
+                            
+                            $adminId = $document['adminId'];
+                            $fileName = $document['fileName'];
+                            $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
+                            $filePath = $adminDirPath.$fileName;
+                            $document['filePath'] = $filePath;
+                            $document['mimeType'] = getFileMimeType($filePath);
+                            
+                            unset($document['id']);
+                            unset($document['adminId']);
+                            unset($document['portalId']);
+                            unset($document['applicationId']);
+                            unset($document['fileName']);
+                        }
+                    
+                    }else{
+                        $documents = array();
+                    }
+                        
+                    
+                    $application["documents"] = $documents;
+                    $data = [
+                        'pageTitle' => 'Application',
+                        'customer' => $customer,
+                        'application' => $application,
+                        'verificationOutcomeOptions' => verificationStatusOptions(),
+                        'DiscrepanciesOptions' => DiscrepanciesOptions()
+                    ];
+                    
+                    //echo "<pre>"; print_r($data); die;
+                    return View('portal.applicationRequestform', $data);
+
+                }else{
+                    // invalid token
+                    die("invalid token or link expired");
+                }
+
+            }else{
+                //invalid token
+                die("token missing");
+            }
+            
+        }else{
+            //redirect to login
+            return Redirect::to(url("portal/login/$portalId"));
+        }   
+    }
+
+    function submitapplicationrequest(Request $request){
+        
+        if($this->CUSTOMERID > 0){
+            
+            $documentId = db_randnumber();
+            $createDateTime = date("Y-m-d H:i:s");
+            $updateDateTime = date("Y-m-d H:i:s");
+            
+            $portalId = $request->input("portalId");
+            $customerId = $request->input("customerId");
+            $applicationId = $request->input("applicationId");
+
+            //get adminId by portalId
+            $portalObj = Customerportal_model::where("portalId", $portalId)->first()->toArray();
+            $adminId = $portalObj["adminId"];            
+            
+            $firstName = $request->input("firstName");
+            $lastName = $request->input("lastName");
+            $email = $request->input("email");
+            $phone = $request->input("phone");
+            $title = $request->input("title");
+            $documentType = $request->input("documentType");
+            $documentNumber = $request->input("documentNumber");
+            $description = $request->input("description");
+            $comments = $request->input("comments");
+            $base64Image = $request->input("base64Input");
+            
+            if(!$comments){$comments = '';}
+            
+            $updateData = array(
+                "title" => $title,
+                "description" => $description,
+                "documentNo" => $documentNumber,
+                "comment" => $comments,
+                "requestSubmitted" => 1,
+                "updateDateTime" => $updateDateTime
+            );
+            
+            $updated = Applications_model::where("id", $applicationId)->update($updateData);
+            
+            if($updated){
+
+                $documentObj = new ApplicationDocuments_model();
+
+                // Strip off the base64 prefix
+                $imageData = explode(';base64,', $base64Image);
+                $imageDataPart1 = $imageData[0];
+                $imageDataPart1Arr = explode('/', $imageDataPart1);
+                $fileExt = $imageDataPart1Arr[1];
+                $imageData = $imageData[1];
+                $imageName = $documentId.'.'.$fileExt; 
+                // Decode the base64 string into an image
+                $decodedImage = base64_decode($imageData);
+
+                // Define the dynamic path for storing the image
+                //$adminDirPath = customerDocumentsPath($adminId);
+                $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
+                // Ensure the directory structure exists
+
+                // Laravel will create any missing directories
+                Storage::disk('local')->makeDirectory($adminDirPath);
+                
+                // Store the image in the appropriate folder
+                Storage::disk('local')->put($adminDirPath . $imageName, $decodedImage);  // Save the image
+                
+                // Return the relative path of the image for further processing
+                //$path = $adminDirPath . $imageName;
+                //$path = userImagesDisplayPath($adminId,$imageName);
+
+                
+                $documentObj->id = $documentId;
+                $documentObj->adminId = $adminId;
+                $documentObj->portalId =  $portalId;
+                $documentObj->applicationId = $applicationId;
+                $documentObj->fileName = $imageName;
+                $documentSaved = $documentObj->save();
+
+
+                //send notification and email to Admin & Super-Admin
+                $documentTypeTxt = $documentType;
+                $documentTypeTxt = ucwords($documentTypeTxt);
+                $notifyMsg = "Applicant has uploaded the required documents for application $applicationId. Please review the $documentTypeTxt for verification.";
+
+                //send to admin
+                $notifyObj = new Notifications_model();
+                $notifyObj->id = db_randnumber();
+                $notifyObj->message = $notifyMsg;
+                $notifyObj->receiver = $adminId;
+                $notifyObj->sender = $customerId;
+                $notifyObj->dateTime = $createDateTime;
+                $notifyObj->isRead = 0;
+                $notifyObj->type = "document uploaded";
+                $notifyObj->reference = $applicationId;
+                $notifyObj->save();
+
+                //send to sysyetm admin
+                $notifyObj = new Notifications_model();
+                $notifyObj->id = db_randnumber();
+                $notifyObj->message = $notifyMsg;
+                $notifyObj->receiver = 1; //systemAdmin
+                $notifyObj->sender = $customerId;
+                $notifyObj->dateTime = $createDateTime;
+                $notifyObj->isRead = 0;
+                $notifyObj->type = "document uploaded";
+                $notifyObj->reference = $applicationId;
+                $notifyObj->save();
+
+                // get smtp
+                $smtpDetails = array();
+                $smtpDetails['host'] = "sandbox.smtp.mailtrap.io"; //$smtpData["host"];
+                $smtpDetails['port'] = 587; //$smtpData["port"];;
+                $smtpDetails['username'] = "60986f24c10f85";//$smtpData["username"];
+                $smtpDetails['password'] = "d3c808d42dee70";//$smtpData["password"];
+                $smtpDetails['encryption'] = "";
+                $smtpDetails['from_email'] = "support@smartkyc.ng"; //$smtpData["fromemail"];
+                $smtpDetails['from_name'] = "SmartKYC"; //$smtpData["fromname"];
+                $smtpDetails['replyTo_email'] = "support@smartkyc.ng";//$smtpData["replytoemail"];
+                $smtpDetails['replyTo_name'] = "SmartKYC";//$smtpData["replytoname"];
+                
+                
+                //send aknoledge mail to applicant
+                $subject = "Acknowledgement of Document Upload Request for Application #$applicationId";
+                $templateBlade = "emails.documentAknowledgement";
+                $toName = ucwords($firstName . " " . $lastName);
+                $toEmail = $email;
+                $recipient = ['name' => $toName, 'email' => $toEmail];
+                
+                $bladeData = [
+                    'customerName' => $toName,
+                    'customerEmail' => $toEmail,
+                    'applicationId' => $applicationId,
+                    'documentType' => $documentTypeTxt
+                ];
+                
+                $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
+
+
+                //Send emails to admin and system-admin
+                $admObj = Admin_model::select('fname', 'lname', 'email')->where('id', $adminId)->first();
+                
+                $adminName = ucwords($admObj["fname"] . " " . $admObj["lname"]);
+                $adminEmail = $admObj["email"];
+                
+                $subject = "Document Upload Completed for Application #$applicationId";
+                $templateBlade = "emails.documentUploadCompleted";
+                
+                $toName = ucwords($adminName);
+                $toEmail = $adminEmail;
+                $recipient = ['name' => $toName, 'email' => $toEmail];
+                
+                $bladeData = [
+                    'adminName' => $toName,
+                    'applicationId' => $applicationId,
+                    'documentType' => $documentTypeTxt
+                ];
+                
+                $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
+
+                //send email to sysadmin
+                $sysadmObj = SuperAdmin_model::select('id', 'fname', 'lname', 'email')->first();
+                
+                $sysAdminName = ucwords($sysadmObj["fname"] . " " . $sysadmObj["lname"]);
+                $sysAdminEmail = $sysadmObj["email"];
+                $toName = ucwords($sysAdminName);
+                $toEmail = $sysAdminEmail;
+                $recipient = ['name' => $toName, 'email' => $toEmail];
+                
+                $bladeData = [
+                    'adminName' => $toName,
+                    'applicationId' => $applicationId,
+                    'documentType' => $documentTypeTxt
+                ];
+                
+                $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
+
+                $postBackData = array();
+                $postBackData["success"] = 1;
+
+                $response = array(
+                    "C" => 100,
+                    "R" => $postBackData,
+                    "M" => "Your application is submitted successfully."
+                );
+            
+            }else{
+
+                $postBackData = array();
+                $postBackData["success"] = 0;
+
+                $response = array(
+                    "C" => 101,
+                    "R" => $postBackData,
+                    "M" => "Something went wrong. please try again."
+                );
+            }
+            
+        }else{
+
+            $postBackData = array();
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die;
     }
 }

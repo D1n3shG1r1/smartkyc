@@ -55,13 +55,9 @@ $notificationsArr = $notifications["data"];
                                                 {{$message}}
                                                 </span>
                                                 <span style="float: left; width: 100%; padding: 15px; padding-right: 0; text-align: right;"> 
-                                                    <?php if($reference > 0){ ?>
-                                                        <a style="border: 1px solid #ff9800; border-radius: 3px; padding: 3px;" href="{{url('portal/application/'.$reference)}}"><i class="fa fa-upload yellow_color"></i> <span>Upload Documents</span></a>
+                                                    
+                                                    <a style="border: 1px solid #ff9800; border-radius: 3px; padding: 3px;" href="{{url('admin/application/'.$reference)}}"><i class="fa fa-file-text-o yellow_color"></i> <span>View Documents</span></a>
 
-                                                        <?php }else{ ?>
-                                                            <a style="border: 1px solid #ff9800; border-radius: 3px; padding: 3px;" href="{{url('portal/newapplication')}}"><i class="fa fa-upload yellow_color"></i> <span>Upload Documents</span></a>
-
-                                                        <?php } ?>
                                                 </span>
 
                                                 </span>

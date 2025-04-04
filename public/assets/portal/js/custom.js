@@ -401,7 +401,7 @@ function printLog(arg){
 }
 
 function showToast(err,msg){
-	alert(msg);
+	
 	if(err > 0){
 		//error
     $("#toastMessage").removeClass("alert-success");
