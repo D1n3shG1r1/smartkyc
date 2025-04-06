@@ -132,7 +132,7 @@
                 <!-- Replace 'logo-url.png' with the actual logo URL -->
                 <img style="margin:auto;" src="{{ url('assets/img/walls-logo-web2.png') }}" alt="SmartKYC Logo">
                 <!--<h1 style="text-align:center;">SmartKYC</h1>-->
-                <p style="text-align:center;">Requesting Documents for Verification Process</p>
+                <p style="text-align:center;">Acknowledgement of Document Upload Request</p>
             </td>
         </tr>
         <tr>

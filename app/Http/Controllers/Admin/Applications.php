@@ -307,6 +307,11 @@ class Applications extends Controller
             $adminId = $this->ADMINID;
             $portalId = sha1($adminId);
             $applicantId = $request->input("applicantId");
+            
+            if($request->input("userId")){
+                $adminId = $request->input("userId");
+                $portalId = sha1($adminId);
+            }
 
             //applicant name, email
             $customer = Customers_model::select("fname", "lname", "email")->where("id", $applicantId)->first();

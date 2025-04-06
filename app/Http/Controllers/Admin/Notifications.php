@@ -57,6 +57,11 @@ class Notifications extends Controller
         if($this->ADMINID > 0){
             $adminId = $this->ADMINID;
             $portalId = sha1($this->ADMINID);
+
+            if($request->input("applicantAdminId")){
+                $adminId = $request->input("applicantAdminId");
+                $portalId = sha1($adminId);    
+            }
             
             $applicantId = $request->input("applicantId");
             $inputApplication = $request->input("inputApplication");
@@ -105,6 +110,7 @@ class Notifications extends Controller
                 $applicationObj->createDateTime = $createDateTime;
                 $applicationObj->updateDateTime = $updateDateTime;
                 
+                //dd($applicationObj);
                 $appSaved = $applicationObj->save();
 
 
@@ -113,8 +119,7 @@ class Notifications extends Controller
 
             // one time use upload link
             $uploadLink = url("portal/login/$portalId?applicationtoken=$token") ;
-
-
+            
             //Send Email
             $subject = "SmartKYC Document request.";
             $templateBlade = "emails.applicantDocumentRequest";
@@ -145,11 +150,13 @@ class Notifications extends Controller
             
             $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
 
-            if($applicationRef > 0){
+            /*if($applicationRef > 0){
                 $notifyMsg = "You are requested to upload the following documents for the verification process of application #$applicationRef. Required Documents: $documentType";
             }else{
                 $notifyMsg = "Please upload your documents to begin the verification process.";
-            }
+            }*/
+
+            $notifyMsg = "You are requested to upload the following documents for the verification process of application #$token. Required Documents: $documentType";
 
             //save notifications
             $notifyObj = new Notifications_model();
@@ -160,15 +167,19 @@ class Notifications extends Controller
             $notifyObj->dateTime = $createDateTime;
             $notifyObj->isRead = 0;
             $notifyObj->type = "document required";
-            $notifyObj->reference = $applicationRef;
+            $notifyObj->reference = $token; //$applicationRef;
             $notifyObj->save();
 
 
-            //save email to database
+            //save email to inbox database
             $emailHtml = View::make($templateBlade, $bladeData)->render();
             $inbox = new customerInbox_model();
             $inbox->id = db_randnumber();
             $inbox->customerId = $applicantId;
+            $inbox->customerEmail = $toEmail;
+            $inbox->customerName = $toName;
+            $inbox->adminId = $adminId;
+            $inbox->receiver = $applicantId;
             $inbox->isRead = 0;
             $inbox->inbound = 1;
             $inbox->content = $emailHtml;

@@ -40,7 +40,7 @@ $customersData = $customers["data"];
                     </div>
                     <div class="col-md-6 align-right">
                         <form class="searchForm" method="get" >
-                            <input type="email" name="email" class="form-control searchInput" placeholder="Enter email to search">
+                            <input type="email" name="email" class="form-control searchInput" placeholder="Enter customer's email to search">
                             <button type="submit" class="form-control searchButton"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -78,7 +78,17 @@ $customersData = $customers["data"];
                             <td>{{$fullName}}</td>
                             <td>{{$email}}</td>
                             <td>{{$phone}}</td>
-                            <td><a href="{{url('admin/admin-customer/'.$id)}}" target="_blank" class="btn cur-p btn-outline-primary regenerate-otp-btn">View</a></td>
+                            <td>
+                                <a href="{{url('admin/admin-customer/'.$id)}}" target="_blank" class=""><i class="fa fa-user"></i>&nbsp;Profile</a>
+                                
+                                <span class="navSeprator"></span>
+
+                                <a href="{{url('admin/admin-customer-applicants/'.$id)}}" target="_blank" class=""><i class="fa fa-users"></i>&nbsp;Applicants</a>
+                                
+                                <span class="navSeprator"></span>
+
+                                <a href="{{url('admin/admin-customer-applications/'.$id)}}" target="_blank" class=""><i class="fa fa-file-text-o"></i>&nbsp;Applications</a>
+                            </td>
                         </tr>
                     <?php
                         }

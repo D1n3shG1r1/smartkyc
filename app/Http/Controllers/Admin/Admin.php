@@ -9,6 +9,8 @@ use App\Models\Admin_model;
 use App\Models\Package_model;
 use App\Models\Packagepayments_model;
 use App\Models\SuperAdmin_model;
+use App\Models\Customers_model;
+use App\Models\Applications_model;
 use App\Traits\SmtpConfigTrait;
 use Carbon\Carbon;
 
@@ -303,18 +305,35 @@ class Admin extends Controller
             $adminId = $this->ADMINID;
             
             $email = $request->input("email");
-
-            $customersObj = Admin_model::select("id","fname","lname","email","phone","address_1","address_2","city","state","country","zipcode","company","website")->paginate(10);
+            /*
+            $customersObj = Admin_model::select("id","fname","lname","email","phone","address_1","address_2","city","state","country","zipcode","company","website");
             
             // Add dynamic filters based on your conditions (like email or fname)
             if (!empty($email)) {
                 $customersObj->where('email', $email);
             }
 
+            $customersObj->paginate(10);
+
             $customers = array();
             if($customersObj){
                 $customers = $customersObj->toArray();
+            }*/
+
+            $customersObj = Admin_model::select(
+                "id", "fname", "lname", "email", "phone", "address_1", "address_2", "city", "state", "country", "zipcode", "company", "website"
+            );
+            
+            // Add dynamic filters based on your conditions (like email or fname)
+            if (!empty($email)) {
+                $customersObj->where('email', $email);
             }
+            
+            // Paginate the results
+            $customersObj = $customersObj->paginate(10);
+            
+            // Convert the result to an array if there are any customers
+            $customers = $customersObj->isEmpty() ? [] : $customersObj->toArray();
             
             $data = array();
             $data["pageTitle"] = "My Customers";
@@ -504,7 +523,7 @@ class Admin extends Controller
         return response()->json($response); die;                
         
     }
-
+    
     function saveemailsettings(Request $request){
         if($this->ADMINID > 0){
             
@@ -561,4 +580,119 @@ class Admin extends Controller
         
     }
 
+
+    function customerApplicants($customerId, Request $request){
+        // get list of applicants     
+        if($this->ADMINID > 0){
+            $adminId = $this->ADMINID;
+
+            $userObj = Admin_model::where("id", $customerId)->get()->first();
+            $userName = ucwords($userObj["fname"] ." ". $userObj["lname"]);
+            $userEmail = $userObj["email"];
+            
+            $customers = array();
+            $customersQuery = Customers_model::select("id", "email", "otp", "fname", "lname", "phone")->where("adminId", $customerId);
+
+            // Add dynamic filters based on your conditions (like email or fname)
+            $email = $request->input("email");
+            if (!empty($email)) {
+                $customersQuery->where('email', $email);
+            }
+
+            $customersObj = $customersQuery->paginate(10);
+
+            if($customersObj){
+                $customers = $customersObj->toArray();
+            }
+
+            //echo "<pre>"; print_r($customers); die;
+            $data = [
+                'pageTitle' => 'Customer Applicants',
+                'userId' => $customerId,
+                'userName' => $userName,
+                'userEmail' => $userEmail,
+                'customers' => $customers
+
+            ];
+            
+            return View('admin.customerapplicants', $data);
+
+        }else{
+            //redirect to login
+            return Redirect::to(url('login'));
+        }
+    }
+
+    function customerApplicant(Request $request){
+
+        if($this->ADMINID > 0){
+            
+            $userId = $request->input('userId');
+            $applicantId = $request->input('applicantId');
+
+            $applicantData = Customers_model::where("id", $applicantId)->where("adminId", $userId)->first();
+
+            $postBackData["success"] = 1;
+            $postBackData["applicant"] = $applicantData;
+            
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "success"
+            );
+        }else{
+                
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "Your session has expired. Please log in again to continue."
+            );
+        }
+    
+        return response()->json($response); die;     
+
+    }
+
+    function customerApplications($customerId){
+        if($this->ADMINID > 0){
+            $adminId = $customerId;
+            $portalId = sha1($customerId);
+
+            $userObj = Admin_model::where("id", $customerId)->get()->first();
+            $userName = ucwords($userObj["fname"] ." ". $userObj["lname"]);
+            $userEmail = $userObj["email"];
+
+            $applications = array();
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->orderBy('createDateTime', 'desc')->paginate(10);
+            
+            if($applicationsObj){
+                $applications = $applicationsObj->toArray();
+               
+                foreach($applications["data"] as &$row){
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+
+                    $customer = Customers_model::select("fname", "lname")->where("id", $row["customerId"])->first();
+                    $row["customerName"] = ucwords($customer["fname"] . " " . $customer["lname"]);
+                }
+            }
+
+            //echo "<pre>"; print_r($applications); die;
+             
+            $data = [
+                'pageTitle' => 'Customer Applications',
+                'userName' => $userName,
+                'userEmail' => $userEmail,
+                'applications' => $applications
+            ];
+            
+            return View('admin.customerapplications', $data);
+
+        }else{
+            //redirect to login
+            return Redirect::to(url('login'));
+        }       
+    }
+    
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 use App\Models\Customerportal_model;
 use App\Models\Customers_model;
@@ -12,6 +13,7 @@ use App\Models\SuperAdmin_model;
 use App\Models\Applications_model;
 use App\Models\ApplicationDocuments_model;
 use App\Models\Notifications_model;
+use App\Models\customerInbox_model;
 use App\Traits\SmtpConfigTrait;
 
 class Customerportal extends Controller
@@ -938,6 +940,21 @@ class Customerportal extends Controller
                 
                 $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
 
+                //save email to inbox database
+                $emailHtml = View::make($templateBlade, $bladeData)->render();
+                $inbox = new customerInbox_model();
+                $inbox->id = db_randnumber();
+                $inbox->customerId = $this->CUSTOMERID;
+                $inbox->customerEmail = $email;
+                $inbox->customerName = ucwords($firstName . " " . $lastName);
+                $inbox->adminId = $adminId;
+                $inbox->receiver = $adminId;
+                $inbox->isRead = 0;
+                $inbox->inbound = 1;
+                $inbox->content = $emailHtml;
+                $inbox->createDateTime = $createDateTime;
+                $inbox->save();
+
                 //send email to sysadmin
                 $sysadmObj = SuperAdmin_model::select('id', 'fname', 'lname', 'email')->first();
                 
@@ -954,6 +971,22 @@ class Customerportal extends Controller
                 ];
                 
                 $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
+
+                //save email to inbox database
+                $emailHtml = View::make($templateBlade, $bladeData)->render();
+                $inbox = new customerInbox_model();
+                $inbox->id = db_randnumber();
+                $inbox->customerId = $this->CUSTOMERID;
+                $inbox->customerEmail = $email;
+                $inbox->customerName = ucwords($firstName . " " . $lastName);
+                $inbox->adminId = $adminId;
+                $inbox->receiver = $adminId;
+                $inbox->isRead = 0;
+                $inbox->inbound = 1;
+                $inbox->content = $emailHtml;
+                $inbox->createDateTime = $createDateTime;
+                $inbox->save();
+
 
                 $postBackData = array();
                 $postBackData["success"] = 1;

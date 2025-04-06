@@ -24,6 +24,7 @@ $applicationsData = $applications["data"];
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Applicantion ID</th>
                             <th>Applicant Name</th>
                             <th>Doc Title</th>
                             <th>Doc Type</th>
@@ -60,6 +61,7 @@ $applicationsData = $applications["data"];
                                 
                         <tr>
                             <td>{{$k+1}}</td>
+                            <td>{{$id}}</td>
                             <td>{{ucwords($customerName)}}</td>
                             <td>{{ucwords($title)}}</td>
                             <td>{{ucwords($documentType)}}</td>

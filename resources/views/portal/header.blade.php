@@ -67,8 +67,9 @@
                            <div class="icon_info">
                               <ul>
                                  <li><a href="{{url('portal/notifications');}}"><i class="fa fa-bell-o"></i><span class="badge">{{$LOGINUSER["notifiationCount"]}}</span></a></li>
+                                 <!--
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
-                                 <!--<li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>-->
+                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>-->
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>

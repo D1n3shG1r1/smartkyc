@@ -140,18 +140,26 @@
                 <p>Dear {{ ucwords($customerName) }},</p>
                 
                 <!-- Check if it's a New Application or Existing Application -->
-                @if($newApplication > 0)  <!-- Existing application -->
+                @if($newApplication > 0)  
+                    <!-- New application -->
+                    <p>
+                        <!--<strong>New Application (Application Ref No: {{ $applicationRef }}):</strong>  We are excited to begin the verification process for your new application. To proceed, we kindly request the following documents: -->
+                        
+                        <strong>(Application Ref No: {{ $applicationRef }}):</strong>We are reviewing your application and require the following documents for verification:
+                    </p>
+                    <ul>
+                        <li>{{$documentType}}</li>
+                    </ul>
+                    <p>Please upload the requested documents at your earliest convenience to avoid any delays in your verification process.</p>
+
+                @else 
+                    <!-- Existing application -->
                     <p><strong>Existing Application (Application Ref No: {{ $applicationRef }}):</strong> We are reviewing your existing application and require the following additional documents for verification:</p>
                     <ul>
                         <li>{{$documentType}}</li>
                     </ul>
                     <p>These documents are needed to complete the verification process and update your application. Please upload the requested documents as soon as possible.</p>
-                @else  <!-- New application -->
-                    <p><strong>New Application:</strong> We are excited to begin the verification process for your new application. To proceed, we kindly request the following documents:</p>
-                    <ul>
-                        <li>{{$documentType}}</li>
-                    </ul>
-                    <p>Please upload the requested documents at your earliest convenience to avoid any delays in your verification process.</p>
+
                 @endif
 
                 <!-- Special Note Section -->

@@ -82,6 +82,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/admin-dashboard',[Admin::class, 'dashboard']);
     Route::get('/admin-customers',[Admin::class, 'customers']);
     Route::get('/admin-customer/{id}',[Admin::class, 'customer']);
+    
+    Route::get('/admin-customer-applicants/{id}',[Admin::class, 'customerApplicants']);
+
+    Route::post('/admin-customer-applicant',[Admin::class, 'customerApplicant']);
+    
+
+
+    Route::get('/admin-customer-applications/{id}',[Admin::class, 'customerApplications']);
+    
     Route::post('/admin-updatepackage',[Admin::class, 'updatepackage']);
     Route::get('/admin-settings',[Admin::class, 'settings']);
     Route::post('/savepaymentsettings',[Admin::class, 'savepaymentsettings']);

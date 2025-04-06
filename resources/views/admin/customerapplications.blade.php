@@ -1,13 +1,15 @@
 @php
 $applicationsData = $applications["data"];
 @endphp
+
 @extends("app")
 @section("contentbox")
 <div class="container-fluid">
     <div class="row column_title">
         <div class="col-md-12">
             <div class="page_title">
-                <h2>My Applications</h2>
+                <h2>Applications for the customer</h2>
+                <span>{{$userEmail}} ({{$userName}})</span>
             </div>
         </div>
     </div>
@@ -24,6 +26,7 @@ $applicationsData = $applications["data"];
                         <tr>
                             <th>#</th>
                             <th>Applicantion ID</th>
+                            <th>Applicant Name</th>
                             <th>Doc Title</th>
                             <th>Doc Type</th>
                             <th>Doc Number</th>
@@ -34,13 +37,14 @@ $applicationsData = $applications["data"];
                     </thead>
                     <tbody>
                     <?php
-                    //echo "<pre>"; print_r($applications); die;
-                    if(!empty($applicationsData)){
-                        foreach($applicationsData as $k => $row){    
+                        if(!empty($applicationsData)){
+                            foreach($applicationsData as $k => $row){
+                    
                                 $id = $row["id"];
                                 $adminId = $row["adminId"];
                                 $portalId = $row["portalId"];
                                 $customerId = $row["customerId"];
+                                $customerName = $row["customerName"];
                                 $title = $row["title"];
                                 $description = $row["description"];
                                 $documentType = $row["documentType"];
@@ -59,17 +63,18 @@ $applicationsData = $applications["data"];
                         <tr>
                             <td>{{$k+1}}</td>
                             <td>{{$id}}</td>
+                            <td>{{ucwords($customerName)}}</td>
                             <td>{{ucwords($title)}}</td>
                             <td>{{ucwords($documentType)}}</td>
                             <td>{{$documentNo}}</td>
-                            <td>{{ucwords($verificationStatus)}}</td>
+                            <td>{{ucwords($verificationStatus)}}</td> 
                             <td>{{$createDate}}</td>
-                            <td><a href="{{url('portal/application/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
+                            <td><a href="{{url('admin/application/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
                         </tr>
                     <?php
                         }
                     }
-                    ?>    
+                    ?>
                     </tbody>
                 </table>
                 </div>
