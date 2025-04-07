@@ -890,17 +890,30 @@ class Customerportal extends Controller
                 $notifyObj->save();
 
                 // get smtp
-                $smtpDetails = array();
-                $smtpDetails['host'] = "sandbox.smtp.mailtrap.io"; //$smtpData["host"];
-                $smtpDetails['port'] = 587; //$smtpData["port"];;
-                $smtpDetails['username'] = "60986f24c10f85";//$smtpData["username"];
-                $smtpDetails['password'] = "d3c808d42dee70";//$smtpData["password"];
-                $smtpDetails['encryption'] = "";
-                $smtpDetails['from_email'] = "support@smartkyc.ng"; //$smtpData["fromemail"];
-                $smtpDetails['from_name'] = "SmartKYC"; //$smtpData["fromname"];
-                $smtpDetails['replyTo_email'] = "support@smartkyc.ng";//$smtpData["replytoemail"];
-                $smtpDetails['replyTo_name'] = "SmartKYC";//$smtpData["replytoname"];
+                $sysAdmId = 1;
+                $sysAdm = SuperAdmin_model::where("id", $sysAdmId)->first();
+                $smtp = json_decode($sysAdm["smtp"], true);
                 
+                $host = $smtp["host"];
+                $port = $smtp["port"];
+                $username = $smtp["username"];
+                $password = $smtp["password"];
+                $encryption = $smtp["encryption"];
+                $from_email = $smtp["from_email"];
+                $from_name = $smtp["from_name"];
+                $replyTo_email = $smtp["replyTo_email"];
+                $replyTo_name = $smtp["replyTo_name"];
+    
+                $smtpDetails = array();
+                $smtpDetails['host'] = $host;
+                $smtpDetails['port'] = $port;
+                $smtpDetails['username'] = $username;
+                $smtpDetails['password'] = $password;
+                $smtpDetails['encryption'] = $encryption;
+                $smtpDetails['from_email'] = $from_email;
+                $smtpDetails['from_name'] = $from_name;
+                $smtpDetails['replyTo_email'] = $replyTo_email;
+                $smtpDetails['replyTo_name'] = $replyTo_name;
                 
                 //send aknoledge mail to applicant
                 $subject = "Acknowledgement of Document Upload Request for Application #$applicationId";

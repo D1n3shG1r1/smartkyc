@@ -83,19 +83,24 @@ $customersData = $customers["data"];
                             <td class="applicantEmailCol">{{$email}}</td>
                             <td class="applicantOtpCol" id="otp-{{$id}}"><span style="letter-spacing: 5px;">{{$otp}}</span>
                             <br>
-                            <a href="javascript:void(0);" id="otpcopybtn-{{$id}}" class="btn btn-outline-primary" onclick="copyOtp(this);" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy OTP" style="cursor:pointer;">
+                            <a href="javascript:void(0);" id="otpcopybtn-{{$id}}" class="btn btn-outline-primary" onclick="copyOtp(this);" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy the OTP and share it with your applicant manually via a phone call, email, or SMS." style="cursor:pointer;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
                                 </svg>
                             </a>
                             &nbsp;
-                            <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="btn cur-p btn-outline-primary regenerate-otp-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Regenerate OTP" style="cursor:pointer;"><i class="fa fa-refresh"></i></a>
+                            <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="btn cur-p btn-outline-primary regenerate-otp-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Regenerate and copy the OTP, then share it with your applicant manually via phone call, email, or SMS." style="cursor:pointer;"><i class="fa fa-refresh"></i></a>
                             </td>
 
                             <td class="applicantActionCol">
-                                <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="View applicant details." style="cursor:pointer;"><i class="fa fa-file-text-o"></i>&nbsp;View</a>
+                                
+                                <a href="javascript:void(0);" onclick="getApllicantProfileData(this);" data-id="{{$id}}" data-toggle="modal" data-target="#profileModal" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="View applicant details." style="cursor:pointer;"><i class="fa fa-file-text-o"></i>&nbsp;View</a>
+
+                                <!--
                                 <span class="navSeprator"></span>
                                 <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete applicant and his all related documents" style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+                                -->
+
                                 <span class="navSeprator"></span>
                                 <a href="javascript:void(0);" onclick="getApllicantData(this);" data-id="{{$id}}"  class="" data-toggle="modal" data-target="#requestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Make a new request to upload documents for verification." style="cursor:pointer;"><i class="fa fa-newspaper-o"></i>&nbsp; Request Document</a>
                                 
@@ -152,6 +157,86 @@ $customersData = $customers["data"];
         </div>
         </div>
     </div>
+</div>
+
+<div id="profileModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Applicant Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="applicantPName">Name &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Name."></i></label>
+                    <input type="text" class="form-control" id="applicantPName" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="applicantPEmail">Email &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Email."></i></label>
+                    <input type="email" class="form-control" id="applicantPEmail" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="applicantPPhone">Phone &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Phone."></i></label>
+                    <input type="text" class="form-control" id="applicantPPhone" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="applicantPAddress_1">Address 1 &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant address 1."></i></label>
+                    <input type="text" class="form-control" id="applicantPAddress_1" readonly>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="applicantPAddress_2">Address 2 &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant address 2."></i></label>
+                    <input type="text" class="form-control" id="applicantPAddress_2" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="applicantPCity">City &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant City."></i></label>
+                    <input type="text" class="form-control" id="applicantPCity" readonly>
+                </div>
+            </div>
+            
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="applicantPCountry">Country &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Country."></i></label>
+                    <input type="text" class="form-control" id="applicantPCountry" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="applicantPZipcode">Zipcode &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Zipcode."></i></label>
+                    <input type="text" class="form-control" id="applicantPZipcode" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="applicantPCompany">Company &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Company."></i></label>
+                    <input type="text" class="form-control" id="applicantPCompany" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="applicantPWebsite">Website &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Website."></i></label>
+                    <input type="text" class="form-control" id="applicantPWebsite" readonly>
+                </div>
+            </div>
+
+        </form>
+        
+
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>-->
+    </div>
+  </div>
 </div>
 
 <div id="requestModal" class="modal" tabindex="-1" role="dialog">
@@ -222,6 +307,40 @@ $customersData = $customers["data"];
             </div>
         </div>
         
+        <div class="form-row">
+            <div class="hideMe form-group col-md-12" id="portalLinkParent">
+                <span class="portalLinkContainer alert alert-primary">
+                    
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                    
+                        <label>Applicant Portal:</label>
+                        <!--<input class="blue1_color btn btn-copy-link" type="text" id="portalLink" value="http://local.smartkyc.com/portal/login/1f7eb1d132dd059422ead7d5660301a21db9d2eb" readonly="">-->
+
+                        <!--<span style="line-break: anywhere;" id="portalLink">...</span>-->
+
+
+                        <textarea rows="3" style="line-break: anywhere;border: none;background: transparent;overflow: hidden;resize: none;width: 100%;" id="portalLink">Loding...</textarea>
+
+                    </div>
+                    
+                    <div class="form-group col-md-3">
+                        <button type="button" class="btn btn-outline-primary" onclick="copyLink();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
+                            </svg>
+                            Copy Link
+                        </button>    
+                        
+                    </div>
+                </div>
+
+                <label>Copy the link above and share it with your customers to upload the documents for verification.</label>
+
+                </span>
+            </div>
+        </div>
+
             <input type="hidden" class="form-control" id="applicantId">
             <input type="hidden" class="form-control" id="inputApplication" value="0">
             
@@ -305,13 +424,47 @@ function generateotp(elm){
     });
 }
 
+function getApllicantProfileData(elm){
+    
+    var applicantId = $(elm).attr("data-id");
+    
+    $("#applicantPName, #applicantPEmail, #applicantPPhone, #applicantPAddress_1, #applicantPAddress_2, #applicantPCity, #applicantPCountry, #applicantPZipcode, #applicantPCompany, #applicantPWebsite").val("Loading...");
+
+    var requrl = "admin/getApplicantProfile";
+    var postdata = {
+        "applicantId":applicantId
+    };
+
+    callajax(requrl, postdata, function(resp){
+        if(resp.C == 100){
+            var applicant = resp.R.applicant;
+
+            var applicantName = applicant.fname+' '+applicant.lname;
+            applicantName = capatilizeWordsInPhrase(applicantName);
+            $("#applicantPName").val(applicantName);
+            $("#applicantPEmail").val(applicant.email);
+            $("#applicantPPhone").val(applicant.phone);
+            $("#applicantPAddress_1").val(applicant.address_1);
+            $("#applicantPAddress_2").val(applicant.address_2);
+            $("#applicantPCity").val(applicant.city);
+            $("#applicantPCountry").val(applicant.country);
+            $("#applicantPZipcode").val(applicant.zipcode);
+            $("#applicantPCompany").val(applicant.company);
+            $("#applicantPWebsite").val(applicant.website);
+
+        }
+    });
+}
 
 function getApllicantData(elm){
     
+    $("#portalLinkParent").addClass("hideMe");
+
     var applicantId = $(elm).attr("data-id");
     $("#applicantId").val(applicantId);
     
     // Show loading state (Optional)
+    $("#portalLink").html("Loading...");
     $("#applicantName, #applicantEmail").val("Loading...");
 
     var requrl = "admin/getApplicantData";
@@ -410,9 +563,12 @@ function sendRequest(){
             $("#lastDate").val("");
             
             if(resp.C == 100){
+                
                 var err = 0;
                 var msg = resp.M;
                 modalErr(err, msg);
+                $("#portalLinkParent").removeClass("hideMe");
+                $("#portalLink").html(resp.R.uploadLink);
 
             }else{
                 var err = 1;
@@ -421,13 +577,31 @@ function sendRequest(){
 
             }
 
+            /*
             setTimeout(function(){
                 $('#requestModal').modal('hide');
             }, 3000);
+            */
             
         });
     }
 
+}
+
+function copyLink() {
+    // Get the text field containing the link
+    var link = document.getElementById("portalLink");
+
+    // Select the text field
+    link.select();
+    link.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text inside the text field
+    document.execCommand("copy");
+
+    var err = 0;
+    var msg = "Link copied to clipboard: " + link.value;
+    showToast(err,msg);
 }
 
 function modalErr(err, msg){

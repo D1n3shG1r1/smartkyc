@@ -57,8 +57,9 @@
     bottom: 0;
     margin: auto;
     top: 0;
-    margin-top: 15px;
-    margin-right: 5px;
+    right:0;
+    margin-top: 0px;
+    margin-right: 0px;
 }
 
 .portalLinkContainer .btn-copy-link {

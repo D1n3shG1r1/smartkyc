@@ -580,6 +580,80 @@ class Admin extends Controller
         
     }
 
+    function sendTestEmail(Request $request){
+        if($this->ADMINID > 0){
+            $adminId = $this->ADMINID;
+            $settings = SuperAdmin_model::select("fname", "lname", "email", "smtp")->where("id",$adminId)->first()->toArray();
+            
+            $toName = ucwords($settings["fname"] ." ". $settings["lname"]);
+            $toEmail = $settings["email"];
+            
+            $smtp = json_decode($settings["smtp"], true);
+
+            //Send Email
+            $subject = "SmartKYC Document request.";
+            $templateBlade = "emails.testEmail";
+            
+            $host = $smtp["host"];
+            $port = $smtp["port"];
+            $username = $smtp["username"];
+            $password = $smtp["password"];
+            $encryption = $smtp["encryption"];
+            $from_email = $smtp["from_email"];
+            $from_name = $smtp["from_name"];
+            $replyTo_email = $smtp["replyTo_email"];
+            $replyTo_name = $smtp["replyTo_name"];
+
+            $smtpDetails = array();
+            $smtpDetails['host'] = $host;
+            $smtpDetails['port'] = $port;
+            $smtpDetails['username'] = $username;
+            $smtpDetails['password'] = $password;
+            $smtpDetails['encryption'] = $encryption;
+            $smtpDetails['from_email'] = $from_email;
+            $smtpDetails['from_name'] = $from_name;
+            $smtpDetails['replyTo_email'] = $replyTo_email;
+            $smtpDetails['replyTo_name'] = $replyTo_name;
+        
+            $recipient = ['name' => $toName, 'email' => $toEmail];
+            
+            $bladeData = [
+                'adminName' => $toName,
+            ];
+            
+            $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
+            
+            if($result === true){
+                $postBackData = array();
+                $postBackData["success"] = 1;
+                $response = array(
+                    "C" => 100,
+                    "R" => $postBackData,
+                    "M" => "Your SMTP configuration has been successfully passed."
+                );
+            }else{
+                $postBackData = array();
+                $postBackData["success"] = 0;
+                $response = array(
+                    "C" => 100,
+                    "R" => $postBackData,
+                    "M" => "Connection could not be established with host \"$host\""
+                );
+            }
+
+        }else{
+                    
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "Your session has expired. Please log in again to continue."
+            );
+        }
+
+        return response()->json($response); die;                
+    }
 
     function customerApplicants($customerId, Request $request){
         // get list of applicants     

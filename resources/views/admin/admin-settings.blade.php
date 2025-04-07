@@ -110,7 +110,9 @@
                                                             <input type="text" class="form-control" id="replyTo_name" name="replyTo_name" placeholder="Reply To Name" value="{{$smtp['replyTo_name']}}">
                                                         </div>
                                                         <div class="col-md-6 align-right">
-                                                            <label class="form-label label_field hidden">hidden label</label>
+                                                            
+                                                            <button type="button" id="testSmtpBtn" class="btn cur-p btn-primary verifyEmailBtn marginTop28" onclick="testSmtp(this);" data-txt="Send Test Email" data-loadingtxt="Sending...">Send Test Email</button>
+                                                        
                                                             <button type="button" id="saveSmtpBtn" class="btn cur-p btn-primary verifyEmailBtn marginTop28" onclick="saveSmtp(this);" data-txt="Save" data-loadingtxt="Saving...">Save</button>
                                                         </div>
                                                     </div>
@@ -290,6 +292,32 @@
             }            
         });
             
+    }
+
+    function testSmtp(elm){
+
+        var elmId = $(elm).attr("id");
+        $(elm).attr("disabled",true);
+        var orgTxt = $(elm).attr("data-txt");
+        var loadingTxt = $(elm).attr("data-loadingtxt");
+        showLoader(elmId,loadingTxt); 
+        
+        var requrl = "admin/sendTestEmail";
+        var postdata = {};
+        
+        callajax(requrl, postdata, function(resp){
+            $(elm).removeAttr("disabled");
+            hideLoader(elmId,orgTxt);
+            if(resp.C == 100){
+                var err = 0;
+                var msg = resp.M;
+                showToast(err,msg);
+            }else{
+                var err = 1;
+                var msg = resp.M;
+                showToast(err,msg);
+            }            
+        });
     }
 
 </script>

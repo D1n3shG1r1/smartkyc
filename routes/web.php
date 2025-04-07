@@ -63,7 +63,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/updateApplicationStatus',[Applications::class, 'updateApplicationStatus']);
 
     Route::post('/getApplicantData',[Applications::class, 'getApplicantData']);
-    
+    Route::post('/getApplicantProfile',[Applications::class, 'getApplicantProfile']);
+
+
     Route::get('/notifications',[Notifications::class, 'notifications']);
 
 
@@ -87,7 +89,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('/admin-customer-applicant',[Admin::class, 'customerApplicant']);
     
-
+    /*Route::get('admin/customer-applicant/{id}/applications',[Admin::class, 'customerApplications']);*/
 
     Route::get('/admin-customer-applications/{id}',[Admin::class, 'customerApplications']);
     
@@ -100,8 +102,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/updatepassword',[Admin::class, 'updatepassword']);
 
     Route::post('/sendDocumentRequest',[Notifications::class, 'sendDocumentRequest']);
-    
-    
+    Route::post('/sendTestEmail', [Admin::class, 'sendTestEmail']);
     
 });
 

@@ -89,6 +89,12 @@ $customersData = $customers["data"];
                                 <span class="navSeprator"></span>-->
                                 
                                 <a href="javascript:void(0);" onclick="getApllicantData(this);" data-userid="{{$userId}}" data-id="{{$id}}"  class="" data-toggle="modal" data-target="#requestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Make a new request to upload documents for verification." style="cursor:pointer;"><i class="fa fa-newspaper-o"></i>&nbsp; Request Document</a>
+
+                                <!--
+                                <span class="navSeprator">
+
+                                <a href="{{url('admin/customer-applicant/' . $id . 'applications')}}" target="_blank" data-id="{{$id}}"  class="" data-bs-toggle="tooltip" data-bs-placement="top" title="View all applications of this applicant along with all related documents." style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Applications</a>
+                                -->
                                 
                             </td>
                         </tr>

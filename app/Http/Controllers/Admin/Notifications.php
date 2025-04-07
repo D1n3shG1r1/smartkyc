@@ -12,16 +12,18 @@ use App\Models\ApplicationDocuments_model;
 use App\Models\Package_model;
 use App\Models\Notifications_model;
 use App\Models\customerInbox_model;
+use App\Models\SuperAdmin_model;
 use App\Traits\SmtpConfigTrait;
 
 class Notifications extends Controller
 {   
     use SmtpConfigTrait;
     var $ADMINID = 0;
-    
+    var $SYSTEMADMIN = 0;
     function __construct(){   
         parent::__construct();
         $this->ADMINID = $this->getSession('adminId');
+        $this->SYSTEMADMIN = $this->getSession('systemAdmin');
     }
 
     function notifications(Request $request){
@@ -56,13 +58,19 @@ class Notifications extends Controller
     function sendDocumentRequest(Request $request){
         if($this->ADMINID > 0){
             $adminId = $this->ADMINID;
-            $portalId = sha1($this->ADMINID);
-
-            if($request->input("applicantAdminId")){
-                $adminId = $request->input("applicantAdminId");
-                $portalId = sha1($adminId);    
-            }
             
+
+            if($this->SYSTEMADMIN > 0){
+                // system admin
+                if($request->input("applicantAdminId")){
+                    $adminId = $request->input("applicantAdminId");
+                    $portalId = sha1($adminId);    
+                }
+            }else{
+               //user admin 
+               $portalId = sha1($this->ADMINID);
+            }
+
             $applicantId = $request->input("applicantId");
             $inputApplication = $request->input("inputApplication");
             $inputDocumentType = $request->input("inputDocumentType");
@@ -124,16 +132,31 @@ class Notifications extends Controller
             $subject = "SmartKYC Document request.";
             $templateBlade = "emails.applicantDocumentRequest";
             
+            $sysAdmId = 1;
+            $sysAdm = SuperAdmin_model::where("id", $sysAdmId)->first();
+
+            $smtp = json_decode($sysAdm["smtp"], true);
+            
+            $host = $smtp["host"];
+            $port = $smtp["port"];
+            $username = $smtp["username"];
+            $password = $smtp["password"];
+            $encryption = $smtp["encryption"];
+            $from_email = $smtp["from_email"];
+            $from_name = $smtp["from_name"];
+            $replyTo_email = $smtp["replyTo_email"];
+            $replyTo_name = $smtp["replyTo_name"];
+
             $smtpDetails = array();
-            $smtpDetails['host'] = "sandbox.smtp.mailtrap.io"; //$smtpData["host"];
-            $smtpDetails['port'] = 587; //$smtpData["port"];;
-            $smtpDetails['username'] = "60986f24c10f85";//$smtpData["username"];
-            $smtpDetails['password'] = "d3c808d42dee70";//$smtpData["password"];
-            $smtpDetails['encryption'] = "";
-            $smtpDetails['from_email'] = "support@smartkyc.ng"; //$smtpData["fromemail"];
-            $smtpDetails['from_name'] = "SmartKYC"; //$smtpData["fromname"];
-            $smtpDetails['replyTo_email'] = "support@smartkyc.ng";//$smtpData["replytoemail"];
-            $smtpDetails['replyTo_name'] = "SmartKYC";//$smtpData["replytoname"];
+            $smtpDetails['host'] = $host;
+            $smtpDetails['port'] = $port;
+            $smtpDetails['username'] = $username;
+            $smtpDetails['password'] = $password;
+            $smtpDetails['encryption'] = $encryption;
+            $smtpDetails['from_email'] = $from_email;
+            $smtpDetails['from_name'] = $from_name;
+            $smtpDetails['replyTo_email'] = $replyTo_email;
+            $smtpDetails['replyTo_name'] = $replyTo_name;
         
             $recipient = ['name' => $toName, 'email' => $toEmail];
             
@@ -187,6 +210,7 @@ class Notifications extends Controller
             $inbox->save();
 
             $postBackData["success"] = 1;
+            $postBackData["uploadLink"] = $uploadLink;
 
             $response = array(
                 "C" => 100,
