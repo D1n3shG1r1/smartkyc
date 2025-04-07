@@ -582,6 +582,22 @@ function sendRequest(){
 
 }
 
+function copyLink() {
+    // Get the text field containing the link
+    var link = document.getElementById("portalLink");
+
+    // Select the text field
+    link.select();
+    link.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text inside the text field
+    document.execCommand("copy");
+
+    var err = 0;
+    var msg = "Link copied to clipboard: " + link.value;
+    showToast(err,msg);
+}
+
 function modalErr(err, msg){
 
     if(err == 1){
