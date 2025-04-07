@@ -298,6 +298,40 @@ $customersData = $customers["data"];
                 <button type="button" class="btn btn-primary" onclick="sendRequest();"><i class="fa fa-send-o"></i>&nbsp;Send</button>
             </div>
         </div>
+
+        <div class="form-row">
+            <div class="hideMe form-group col-md-12" id="portalLinkParent">
+                <span class="portalLinkContainer alert alert-primary">
+                    
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                    
+                        <label>Applicant Portal:</label>
+                        <!--<input class="blue1_color btn btn-copy-link" type="text" id="portalLink" value="http://local.smartkyc.com/portal/login/1f7eb1d132dd059422ead7d5660301a21db9d2eb" readonly="">-->
+
+                        <!--<span style="line-break: anywhere;" id="portalLink">...</span>-->
+
+
+                        <textarea rows="3" style="line-break: anywhere;border: none;background: transparent;overflow: hidden;resize: none;width: 100%;" id="portalLink">Loding...</textarea>
+
+                    </div>
+                    
+                    <div class="form-group col-md-3">
+                        <button type="button" class="btn btn-outline-primary" onclick="copyLink();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
+                            </svg>
+                            Copy Link
+                        </button>    
+                        
+                    </div>
+                </div>
+
+                <label>Copy the link above and share it with your customers to upload the documents for verification.</label>
+
+                </span>
+            </div>
+        </div>
         
             <input type="hidden" class="form-control" id="applicantAdminId" value="{{$userId}}">    
             <input type="hidden" class="form-control" id="applicantId">
@@ -529,6 +563,9 @@ function sendRequest(){
                 var msg = resp.M;
                 modalErr(err, msg);
 
+                $("#portalLinkParent").removeClass("hideMe");
+                $("#portalLink").html(resp.R.uploadLink);
+
             }else{
                 var err = 1;
                 var msg = resp.M;
@@ -536,9 +573,9 @@ function sendRequest(){
 
             }
 
-            setTimeout(function(){
+            /*setTimeout(function(){
                 $('#requestModal').modal('hide');
-            }, 3000);
+            }, 3000);*/
 
         });
     }
