@@ -319,7 +319,9 @@ input[type=checkbox]:not(old):checked + label > span:before {
 
 .loginhere-link {
   font-weight: 700;
-  color: #222; }
+  color: #222; 
+  text-decoration: none;
+}
 
 .field-icon {
   float: right;
@@ -362,7 +364,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
     background-image: url(<?php echo url('assets/img/people-4.jpg'); ?>);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center bottom;
+    /*background-position: center bottom;*/
   }
 </style>
 
@@ -384,7 +386,8 @@ input[type=checkbox]:not(old):checked + label > span:before {
                               <section class="signup">
                                 <div class="container">
                                   <div class="signup-content">
-                                    <form id="signup-form" class="signup-form">
+                                    
+                                  <form id="signup-form" class="signup-form">
                                       <h2 class="form-title">Log In</h2>
                                       <div class="form-group">
                                           <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
@@ -402,6 +405,14 @@ input[type=checkbox]:not(old):checked + label > span:before {
                                     <p class="loginhere">
                                         Not have an account ? <a href="{{ url('register') }}" class="loginhere-link">Register here</a>
                                     </p>
+                                    <p>OR</p>
+                                    
+                                    <p class="">
+                                        <a href="{{ url('admin/sysadmlogin') }}" class="loginhere-link">Log in as a System Administrator</a>
+                                    </p>
+                                    
+
+
                                   </div>
                                 </div>
                               </section>

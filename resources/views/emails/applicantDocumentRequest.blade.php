@@ -148,7 +148,9 @@
                         <strong>(Application Ref No: {{ $applicationRef }}):</strong>We are reviewing your application and require the following documents for verification:
                     </p>
                     <ul>
-                        <li>{{$documentType}}</li>
+                        @php foreach($documentType as $docTyp){ @endphp
+                        <li>{{$docTyp}}</li>
+                        @php } @endphp
                     </ul>
                     <p>Please upload the requested documents at your earliest convenience to avoid any delays in your verification process.</p>
 
@@ -156,7 +158,9 @@
                     <!-- Existing application -->
                     <p><strong>Existing Application (Application Ref No: {{ $applicationRef }}):</strong> We are reviewing your existing application and require the following additional documents for verification:</p>
                     <ul>
-                        <li>{{$documentType}}</li>
+                        @php foreach($documentType as $docTyp){ @endphp
+                        <li>{{$docTyp}}</li>
+                        @php } @endphp
                     </ul>
                     <p>These documents are needed to complete the verification process and update your application. Please upload the requested documents as soon as possible.</p>
 

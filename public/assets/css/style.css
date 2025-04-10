@@ -50,13 +50,15 @@
     }
     .header-main__logo img {
     /*max-width: 170px;*/
-    max-width: 7.5rem;
+    /*max-width: 7.5rem;*/
+    max-width: 200px;
     }
     .header-main--fixed .header-main__white-logo { display: block; }
     .header-main--fixed .header-main__color-logo { display: none; }
     @media (max-width: 1200px) {
     .header-main__logo img {
-    max-width: 137.76337115072934px;
+        /*max-width: 137.76337115072934px;*/
+        max-width: 200px;
     }
     }
     .top-bar {

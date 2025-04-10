@@ -361,7 +361,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
   background-image: url(<?php echo url('assets/img/people-4.jpg'); ?>);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center bottom;
+  /*background-position: center bottom;*/
 }
 </style>
 

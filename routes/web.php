@@ -102,6 +102,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/updatepassword',[Admin::class, 'updatepassword']);
 
     Route::post('/sendDocumentRequest',[Notifications::class, 'sendDocumentRequest']);
+    Route::post('/addNewApplicant',[Notifications::class, 'addNewApplicant']);
+    
     Route::post('/sendTestEmail', [Admin::class, 'sendTestEmail']);
     
 });

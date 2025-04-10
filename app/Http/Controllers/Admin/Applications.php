@@ -335,7 +335,9 @@ class Applications extends Controller
             if (!empty($email)) {
                 $customersQuery->where('email', $email);
             }
-
+            
+            $customersQuery->orderBy('createDateTime', 'desc');
+            
             $customersObj = $customersQuery->paginate(10);
 
             if($customersObj){

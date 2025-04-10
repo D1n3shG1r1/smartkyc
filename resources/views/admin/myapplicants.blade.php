@@ -20,17 +20,54 @@ $customersData = $customers["data"];
     }
 }
 
+
+#requestModal .btn-group, #newRequestModal .btn-group{
+    width: 100% !important;
+}
+
+.multiselect.dropdown-toggle.btn.btn-default, .custom-multiselect{
+    width: 100% !important;
+    text-align: left;
+    
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+}
+
+.multiselect.dropdown-toggle.btn.btn-default::after, .custom-multiselect::after{
+    float: right;
+    font-size: 19px;
+    margin-top: 8px;
+}
+
+
+.multiselect-container.dropdown-menu {
+    overflow: hidden auto;
+    height: 150px;
+    padding: 5px;
+}
+
 </style>
-<!--
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
--->
+
+<link rel="stylesheet" href="https://www.jqueryscript.net/demo/jQuery-Multiple-Select-Plugin-For-Bootstrap-Bootstrap-Multiselect/css/bootstrap-multiselect.css" type="text/css">
+<script type="text/javascript" src="https://www.jqueryscript.net/demo/jQuery-Multiple-Select-Plugin-For-Bootstrap-Bootstrap-Multiselect/js/bootstrap-multiselect.js"></script>
 
 <div class="container-fluid">
     <div class="row column_title">
         <div class="col-md-12">
-            <div class="page_title">
-                <h2>My Applicants</h2>
+            <div class="row page_title">
+                <div class="col-md-3"><h2>My Applicants</h2></div>
+                <div class="col-md-9">
+                    <a href="javascript:void(0);" onclick="newApplication();" class="pull-right a-button" data-id="0" data-toggle="modal" data-target="#newRequestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to add a new applicant and make a document request."><i class="fa fa-plus"></i>&nbsp;Add Applicant</a>
+                </div>
             </div>
         </div>
     </div>
@@ -272,15 +309,13 @@ $customersData = $customers["data"];
                 </select>
                 -->
 
-                <label for="inputComment">Last Date &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Last date for document submission."></i></label>
+                <label for="inputComment">Last date of submission &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Last date for document submission."></i></label>
                 <input type="date" min="{{date('Y-m-d')}}" class="form-control" id="lastDate" /> 
 
             </div>
             <div class="form-group col-md-6">
                 <label for="inputDocumentType">Document Type &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Select the document type for verification."></i></label>
-                <select id="inputDocumentType" class="form-control">
-                    <option value="">Choose...</option>
-                    
+                <select id="inputDocumentType" class="form-control" multiple="multiple">
                     <?php foreach(documentsTypes() as $k => $v){
                         echo '<option value="'.$k.'">'.$v.'</option>';
                     }
@@ -325,7 +360,7 @@ $customersData = $customers["data"];
                     </div>
                     
                     <div class="form-group col-md-3">
-                        <button type="button" class="btn btn-outline-primary" onclick="copyLink();">
+                        <button type="button" class="btn btn-outline-primary" onclick="copyLink('portalLink');">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
                             </svg>
@@ -356,15 +391,147 @@ $customersData = $customers["data"];
   </div>
 </div>
 
+<div id="newRequestModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Applicant</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span>Add a new applicant and make a document request.</span>  
+        <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="New_applicantName">Applicant Name &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Name."></i></label>
+                <input type="text" class="form-control" id="New_applicantName"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="New_applicantEmail">Applicant Email &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Applicant Email."></i></label>
+                <input type="email" class="form-control" id="New_applicantEmail"/>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                
+                <!--
+                <label for="inputApplication">Application &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Select an application ID for an existing application, or select 'New Application' to initiate a new verification."></i></label>
+                <select id="inputApplication" class="form-control">
+                    <option value="0">New Application</option>
+                </select>
+                -->
+
+                <label for="New_lastDate">Last date of submission&nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Last date for document submission."></i></label>
+                <input type="date" min="{{date('Y-m-d')}}" class="form-control" id="New_lastDate" /> 
+
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputNew_DocumentType">Document Type &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Select the document type for verification."></i></label>
+                
+                <select id="inputNew_DocumentType" class="form-control" multiple="multiple">
+                    <?php foreach(documentsTypes() as $k => $v){
+                        echo '<option value="'.$k.'">'.$v.'</option>';
+                    }
+                    ?>
+                </select>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="inputNew_Comment">Any comment &nbsp;<i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="" style="cursor:pointer;" data-original-title="Any special notes for the applicant?"></i></label>
+                <textarea class="form-control" style="resize:none;" rows="5" id="inputNew_Comment" maxlength="250" oninput="updateCharacterCount()"></textarea>
+                <p class="text-align-right">Remaining characters: <span id="remainingChars">250</span></p>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <span id="modalNew_Message" class="hideMe">check it out!</span>   
+            </div>
+            <div class="form-group col-md-6" style="text-align: right; padding-top: 27px;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="sendNewRequest();"><i class="fa fa-send-o"></i>&nbsp;Send</button>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="hideMe form-group col-md-12" id="New_portalLinkParent">
+                <span class="portalLinkContainer alert alert-primary">
+                    
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                    
+                        <label>Applicant Portal:</label>
+                        <!--<input class="blue1_color btn btn-copy-link" type="text" id="portalLink" value="http://local.smartkyc.com/portal/login/1f7eb1d132dd059422ead7d5660301a21db9d2eb" readonly="">-->
+
+                        <!--<span style="line-break: anywhere;" id="portalLink">...</span>-->
+
+
+                        <textarea rows="3" style="line-break: anywhere;border: none;background: transparent;overflow: hidden;resize: none;width: 100%;" id="New_portalLink">Loding...</textarea>
+
+                    </div>
+                    
+                    <div class="form-group col-md-3">
+                        <button type="button" class="btn btn-outline-primary" onclick="copyLink('New_portalLink');">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
+                            </svg>
+                            Copy Link
+                        </button>    
+                       
+                    </div>
+                </div>
+
+                <label>Copy the link above and share it with your customers to upload the documents for verification.</label>
+
+                </span>
+            </div>
+        </div>
+
+            <input type="hidden" class="form-control" id="New_applicantId" value="0">
+            <input type="hidden" class="form-control" id="inputNew_Application" value="0">
+            
+        </form>
+        
+
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
 @endsection
 @push("js")
 <script>
 
-/*$(function(){
-    $('#inputDocumentType').multiselect({
-        includeSelectAllOption: true,
+var TMP_DOCTYPES = [];
+
+$(function(){
+    $('#inputNew_DocumentType, #inputDocumentType').multiselect({
+        buttonClass:'custom-multiselect',
+        inheritClass:true,
+        selectedClass:'active',
+        maxHeight:'300px',
+        nonSelectedText: 'None selected',
+        onChange:function (option, checked) {
+            
+            if(checked == true){
+                TMP_DOCTYPES.push(option[0].value);
+            }else{
+                var idx = TMP_DOCTYPES.indexOf(option[0].value);
+                TMP_DOCTYPES.splice(idx, 1);
+            }
+        },
     });
-});*/
+});
+
 
 function copyOtp(elm) {
     // Get the ID attribute of the element
@@ -422,6 +589,10 @@ function generateotp(elm){
         showToast(err,msg);
         spinnerIcon.classList.remove("spinner");
     });
+}
+
+function newApplication(){
+    
 }
 
 function getApllicantProfileData(elm){
@@ -522,25 +693,27 @@ function sendRequest(){
     var inputComment = $("#inputComment").val();
     var lastDate = $("#lastDate").val();
     
+    var modalErrId = "modalMessage";
+
     if(!isRealValue(inputApplication)){
         var err = 1;
         var msg = 'Choose the application for which the document is required.';
-        modalErr(err, msg);
+        modalErr(modalErrId, err, msg);
         return false;
     }else if(!isRealValue(inputDocumentType)){
         var err = 1;
         var msg = 'Please choose a document type.';
-        modalErr(err, msg);
+        modalErr(modalErrId, err, msg);
         return false;
     }else if(!isRealValue(lastDate)){
         var err = 1;
         var msg = 'Please specify the last date for document submission.';
-        modalErr(err, msg);
+        modalErr(modalErrId, err, msg);
         return false;
     }else if(!isRealValue(inputComment)){
         var err = 1;
         var msg = 'Please add a comment for the applicant.';
-        modalErr(err, msg);
+        modalErr(modalErrId, err, msg);
         return false;
     }else{
         
@@ -566,14 +739,14 @@ function sendRequest(){
                 
                 var err = 0;
                 var msg = resp.M;
-                modalErr(err, msg);
+                modalErr(modalErrId, err, msg);
                 $("#portalLinkParent").removeClass("hideMe");
                 $("#portalLink").html(resp.R.uploadLink);
 
             }else{
                 var err = 1;
                 var msg = resp.M;
-                modalErr(err, msg);
+                modalErr(modalErrId, err, msg);
 
             }
 
@@ -588,9 +761,115 @@ function sendRequest(){
 
 }
 
-function copyLink() {
+function sendNewRequest(){
+    var applicantId = $("#New_applicantId").val();
+    var applicantName = $("#New_applicantName").val();
+    var applicantEmail = $("#New_applicantEmail").val();
+    var inputApplication = $("#inputNew_Application").val();
+    var inputDocumentType = TMP_DOCTYPES; //$("#inputNew_DocumentType").val();
+    var inputComment = $("#inputNew_Comment").val();
+    var lastDate = $("#New_lastDate").val();
+    
+    var modalErrId = "modalNew_Message";
+    
+    var fnameObj = validateName(applicantName);
+    //var lnameObj = validateName(lname);
+    var fnameerr = fnameObj.err;
+    var fnamemsg = fnameObj.msg;
+    
+    if(!isRealValue(applicantName)){
+        var err = 1;
+        var msg = "Please enter the applicant's name.";
+        modalErr(modalErrId, err, msg);
+        return false;
+    }else if(fnameerr == 1){
+        var err = 1;
+        var msg = fnamemsg;
+        modalErr(modalErrId, err, msg);
+        return false;
+    }else if(!isRealValue(applicantEmail)){
+        var err = 1;
+        var msg = "Please enter the applicant's email.";
+        modalErr(modalErrId, err, msg);
+        return false;
+    }else if(!validateEmail(applicantEmail)){
+        var err = 1;
+        var msg = "Please enter a valid email address.";
+        modalErr(modalErrId, err, msg);
+        return false;
+    }/*else if(!isRealValue(inputApplication)){
+        var err = 1;
+        var msg = 'Choose the application for which the document is required.';
+        modalErr(modalErrId, err, msg);
+        return false;
+    }*/else if(!isRealValue(lastDate)){
+        var err = 1;
+        var msg = 'Please specify the last date for document submission.';
+        modalErr(modalErrId, err, msg);
+        return false;
+    }else if(!isRealValue(inputDocumentType) || inputDocumentType.length == 0){
+        var err = 1;
+        var msg = 'Please choose a document type.';
+        modalErr(modalErrId, err, msg);
+        return false;
+    }else if(!isRealValue(inputComment)){
+        var err = 1;
+        var msg = 'Please add a comment for the applicant.';
+        modalErr(modalErrId, err, msg);
+        return false;
+    }else{
+        
+        var requrl = "admin/addNewApplicant";
+        var postdata = {
+            "applicantId":applicantId,
+            "inputApplication":inputApplication,
+            "applicantName":applicantName,
+            "applicantEmail":applicantEmail,
+            "inputDocumentType":inputDocumentType,
+            "inputComment":inputComment,
+            "lastDate":lastDate
+        };
+        
+        callajax(requrl, postdata, function(resp){
+
+            $("#New_applicantId").val("");
+            $("#New_applicantName").val("");
+            $("#New_applicantEmail").val("");
+            $("#inputNew_Application").val("");
+            $("#inputNew_DocumentType").val("");
+            $("#inputNew_Comment").val("");
+            $("#New_lastDate").val("");
+            TMP_DOCTYPES = [];
+
+            if(resp.C == 100){
+                
+                var err = 0;
+                var msg = resp.M;
+                modalErr(modalErrId, err, msg);
+                $("#New_portalLinkParent").removeClass("hideMe");
+                $("#New_portalLink").html(resp.R.uploadLink);
+
+            }else{
+                var err = 1;
+                var msg = resp.M;
+                modalErr(modalErrId, err, msg);
+
+            }
+            //modalNew_Message
+            /*
+            setTimeout(function(){
+                $('#requestModal').modal('hide');
+            }, 3000);
+            */
+            
+        });
+    }
+}
+
+
+function copyLink(elmId) {
     // Get the text field containing the link
-    var link = document.getElementById("portalLink");
+    var link = document.getElementById(elmId);
 
     // Select the text field
     link.select();
@@ -604,24 +883,25 @@ function copyLink() {
     showToast(err,msg);
 }
 
-function modalErr(err, msg){
-
+function modalErr(modalErrId, err, msg){
+    
     if(err == 1){
         //err
-        $("#modalMessage").removeClass("successMsg");
-        $("#modalMessage").addClass("errorMsg");
+        $("#"+modalErrId).removeClass("successMsg");
+        $("#"+modalErrId).addClass("errorMsg");
     }else{
         //success
-        $("#modalMessage").addClass("successMsg");
-        $("#modalMessage").removeClass("errorMsg");
+        $("#"+modalErrId).addClass("successMsg");
+        $("#"+modalErrId).removeClass("errorMsg");
     }
 
-    $("#modalMessage").html(msg);
-    $("#modalMessage").removeClass("hideMe");
+    $("#"+modalErrId).html(msg);
+    $("#"+modalErrId).removeClass("hideMe");
 
     setTimeout(function(){
-        $("#modalMessage").addClass("hideMe");
+        $("#"+modalErrId).addClass("hideMe");
     }, 5000);
 }
+
 </script>
 @endpush

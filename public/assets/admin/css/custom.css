@@ -396,3 +396,11 @@ a, a:hover{
 .successMsg{
     color:#155724;
 }
+
+.a-button, .a-button:hover {
+    border: 1px solid #007bff;
+    padding: 5px;
+    border-radius: 3px;
+    color: #007bff !important;
+    cursor:pointer;
+}
