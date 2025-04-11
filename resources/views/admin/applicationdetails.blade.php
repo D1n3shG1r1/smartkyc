@@ -89,7 +89,7 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
             <div class="full graph_head">
                 <form class="full graph_head">
                 <div class="row mb-3">
-                    <div class="col-md-6 heading1 margin_0 pdr-20 borderright-1">
+                    <div class="col-md-6 heading1 margin_0 pdr-20 {{ $isSystemAdmin ? 'borderright-1' : '' }}">
                         <div>
                             <h6>Info</h6>
                             <div class="mb-3">
@@ -108,6 +108,7 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
                             </div>
                         </div>                    
                     </div>
+                    @php if($isSystemAdmin > 0){ @endphp
                     <div class="col-md-6 heading1 margin_0 pdl-20">
                         <input type="hidden" id="applicationId" value="{{$id}}" />
                         <input type="hidden" id="portalId" value="{{$portalId}}" />
@@ -197,6 +198,7 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
                             </div>
                         </div>    
                     </div>
+                    @php } @endphp
                 </div>
                 </form>
             </div>

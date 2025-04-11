@@ -276,12 +276,12 @@ $customersData = $customers["data"];
   </div>
 </div>
 
-<div id="requestModal" class="modal" tabindex="-1" role="dialog">
+<div id="requestModal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Request Document Upload</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reloadPage();">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -337,7 +337,7 @@ $customersData = $customers["data"];
                 <span id="modalMessage" class="hideMe">check it out!</span>   
             </div>
             <div class="form-group col-md-6" style="text-align: right; padding-top: 27px;">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reloadPage();">Cancel</button>
                 <button type="button" class="btn btn-primary" onclick="sendRequest();"><i class="fa fa-send-o"></i>&nbsp;Send</button>
             </div>
         </div>
@@ -391,12 +391,12 @@ $customersData = $customers["data"];
   </div>
 </div>
 
-<div id="newRequestModal" class="modal" tabindex="-1" role="dialog">
+<div id="newRequestModal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Applicant</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reloadPage();">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -453,7 +453,7 @@ $customersData = $customers["data"];
                 <span id="modalNew_Message" class="hideMe">check it out!</span>   
             </div>
             <div class="form-group col-md-6" style="text-align: right; padding-top: 27px;">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reloadPage();">Cancel</button>
                 <button type="button" class="btn btn-primary" onclick="sendNewRequest();"><i class="fa fa-send-o"></i>&nbsp;Send</button>
             </div>
         </div>
@@ -514,6 +514,7 @@ $customersData = $customers["data"];
 var TMP_DOCTYPES = [];
 
 $(function(){
+    
     $('#inputNew_DocumentType, #inputDocumentType').multiselect({
         buttonClass:'custom-multiselect',
         inheritClass:true,
@@ -648,7 +649,10 @@ function getApllicantData(elm){
             const customer = resp.R.customer;
             const applications = resp.R.applications;
 
-            var applicantName = customer.fname+' '+customer.lname;
+            var applicantName = customer.fname;
+            if(isRealValue(customer.lname)){
+                applicantName += ' '+customer.lname;
+            }
             applicantName = capatilizeWordsInPhrase(applicantName);
             $("#applicantName").val(applicantName);
             $("#applicantEmail").val(customer.email);
@@ -689,7 +693,7 @@ function sendRequest(){
     var applicantName = $("#applicantName").val();
     var applicantEmail = $("#applicantEmail").val();
     var inputApplication = $("#inputApplication").val();
-    var inputDocumentType = $("#inputDocumentType").val();
+    var inputDocumentType = TMP_DOCTYPES; //$("#inputDocumentType").val();
     var inputComment = $("#inputComment").val();
     var lastDate = $("#lastDate").val();
     
@@ -903,5 +907,8 @@ function modalErr(modalErrId, err, msg){
     }, 5000);
 }
 
+function reloadPage(){
+    location.reload();
+}
 </script>
 @endpush

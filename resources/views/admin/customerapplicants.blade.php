@@ -20,7 +20,44 @@ $customersData = $customers["data"];
     }
 }
 
+#requestModal .btn-group, #newRequestModal .btn-group{
+    width: 100% !important;
+}
+
+.multiselect.dropdown-toggle.btn.btn-default, .custom-multiselect{
+    width: 100% !important;
+    text-align: left;
+    
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+}
+
+.multiselect.dropdown-toggle.btn.btn-default::after, .custom-multiselect::after{
+    float: right;
+    font-size: 19px;
+    margin-top: 8px;
+}
+
+
+.multiselect-container.dropdown-menu {
+    overflow: hidden auto;
+    height: 150px;
+    padding: 5px;
+}
+
 </style>
+
+<link rel="stylesheet" href="https://www.jqueryscript.net/demo/jQuery-Multiple-Select-Plugin-For-Bootstrap-Bootstrap-Multiselect/css/bootstrap-multiselect.css" type="text/css">
+<script type="text/javascript" src="https://www.jqueryscript.net/demo/jQuery-Multiple-Select-Plugin-For-Bootstrap-Bootstrap-Multiselect/js/bootstrap-multiselect.js"></script>
 
 <div class="container-fluid">
     <div class="row column_title">
@@ -82,13 +119,13 @@ $customersData = $customers["data"];
                             
                                 <a href="javascript:void(0);" onclick="getApllicantProfileData(this);" data-userid="{{$userId}}" data-id="{{$id}}" data-toggle="modal" data-target="#profileModal" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="View applicant details." style="cursor:pointer;"><i class="fa fa-file-text-o"></i>&nbsp;View</a>
 
+                                <!--<span class="navSeprator"></span>
+                                
+                                <a href="javascript:void(0);" data-id="{{$id}}"  class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete applicant and his all related documents" style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+                                
                                 <span class="navSeprator"></span>
                                 
-                                <!--<a href="javascript:void(0);" data-id="{{$id}}"  class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete applicant and his all related documents" style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
-                                
-                                <span class="navSeprator"></span>-->
-                                
-                                <a href="javascript:void(0);" onclick="getApllicantData(this);" data-userid="{{$userId}}" data-id="{{$id}}"  class="" data-toggle="modal" data-target="#requestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Make a new request to upload documents for verification." style="cursor:pointer;"><i class="fa fa-newspaper-o"></i>&nbsp; Request Document</a>
+                                <a href="javascript:void(0);" onclick="getApllicantData(this);" data-userid="{{$userId}}" data-id="{{$id}}"  class="" data-toggle="modal" data-target="#requestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Make a new request to upload documents for verification." style="cursor:pointer;"><i class="fa fa-newspaper-o"></i>&nbsp; Request Document</a>-->
 
                                 <!--
                                 <span class="navSeprator">

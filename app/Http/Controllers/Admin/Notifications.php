@@ -82,9 +82,12 @@ class Notifications extends Controller
 
             $customer = Customers_model::select("fname", "lname", "email")->where("id", $applicantId)->first();
 
-            $documentType = $inputDocumentType;  
-            $documentType = str_replace("_"," ",$documentType);
-            $documentType = ucwords($documentType);
+            $documentType = implode(",",$inputDocumentType);
+            $documentTypeTxtArr = array();
+            foreach($inputDocumentType as $tmpDocTyp){
+                $documentTypeTxtArr[] = documentsTypes($tmpDocTyp);
+            }
+
             $applicationRef = $inputApplication;
             
             $toName = $customer["fname"] . " " . $customer["lname"];
@@ -107,7 +110,7 @@ class Notifications extends Controller
                 $applicationObj->requestSubmitted = 0;
                 $applicationObj->title = '';
                 $applicationObj->description = '';
-                $applicationObj->documentType = $inputDocumentType;
+                $applicationObj->documentType = $documentType;
                 $applicationObj->documentNo = '';
                 $applicationObj->comment = '';
                 $applicationObj->verificationOutcome = 1;
@@ -165,7 +168,7 @@ class Notifications extends Controller
                 'customerEmail' => $toEmail,
                 'newApplication' => $newApplication,
                 'applicationRef' => $token,
-                'documentType' => $documentType,
+                'documentType' => $documentTypeTxtArr,
                 'additionalMessage' => $inputComment,
                 'lastDate' => $lastDate,
                 'uploadLink' => $uploadLink
@@ -178,9 +181,9 @@ class Notifications extends Controller
             }else{
                 $notifyMsg = "Please upload your documents to begin the verification process.";
             }*/
-
-            $notifyMsg = "You are requested to upload the following documents for the verification process of application #$token. Required Documents: $documentType";
-
+            
+            $notifyMsg = 'You are requested to upload the following documents for the verification process of application #'.$token.'. Required Documents: '. implode(',', $documentTypeTxtArr);
+            
             //save notifications
             $notifyObj = new Notifications_model();
             $notifyObj->id = db_randnumber();
@@ -385,7 +388,6 @@ class Notifications extends Controller
             }else{
                 $notifyMsg = "Please upload your documents to begin the verification process.";
             }*/
-
             $notifyMsg = 'You are requested to upload the following documents for the verification process of application #'.$token.'. Required Documents: '. implode(',', $documentTypeTxtArr);
 
             //save notifications

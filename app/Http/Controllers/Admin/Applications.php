@@ -184,6 +184,7 @@ class Applications extends Controller
                 'DiscrepanciesOptions' => DiscrepanciesOptions(),
                 'incompleteProfile' => $incompleteProfile,
                 'hasPackage' => $hasPackage,
+                'isSystemAdmin' => $this->SYSTEMADMIN
             ];
 
 
