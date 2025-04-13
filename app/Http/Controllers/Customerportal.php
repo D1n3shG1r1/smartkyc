@@ -615,6 +615,8 @@ class Customerportal extends Controller
             $website = $request->input("website");
             $phone = $request->input("phone");
            
+            if(!$state){$state = "";}
+            if(!$zipcode){$zipcode = "";}
             if(!$company){$company = "";}
             if(!$website){$website = "";}
 

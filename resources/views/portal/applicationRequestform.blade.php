@@ -12,7 +12,7 @@ $phone = $customer["phone"];
 $applicationId = $application["id"];
 $documentType = $application["documentType"];
 $lastDate = $application["lastDate"];
-
+$uploadCount = 0;
 @endphp
 @extends("app")
 @section("contentbox")
@@ -58,6 +58,22 @@ $lastDate = $application["lastDate"];
         /*padding-top:11px;*/
     }
 
+    .previewDiv{
+        padding-top: 7px;
+        padding-bottom: 2px;
+    }
+
+    .modal-dialog {
+        max-width: 700px !important;
+        margin: 1.75rem auto;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 700px !important;
+            margin: 1.75rem auto;
+        }   
+    }
 </style>
 <div class="container-fluid">
     <div class="row column_title">
@@ -113,7 +129,7 @@ $lastDate = $application["lastDate"];
 
                 @php
                 $documentTypeArr = explode(",",$documentType);
-                foreach($documentTypeArr as $k => $docType){ @endphp
+                foreach($documentTypeArr as $k => $docType){ $uploadCount++; @endphp
                 <div class="row">
                 <div class="col-md-12 heading1"><h2>#{{$k+1}} {{ucwords(documentsTypes($docType))}}</h2></div>
                 </div>
@@ -145,7 +161,7 @@ $lastDate = $application["lastDate"];
                         <label class="form-label">Upload Document<span class="required">*</span></label>
                         <label class="form-label" style="font-size: 10px; color: #721c24;">If your document has more than one page or contains multiple pages, please upload it as a PDF. Only JPEG, JPG, PNG, or PDF files are allowed to be uploaded.</label>   
                         <div class="border rounded text-center">
-                            <label id="labeluploadDocument_{{$k+1}}" for="uploadDocument_{{$k+1}}" class="form-label d-block uploadButton">
+                            <label id="labeluploadDocument_{{$k+1}}" for="uploadDocument_{{$k+1}}" class="form-label dd-block uploadButton">
                                 <i class="bi bi-cloud-upload display-4"></i>
                                 <p style="font-size:12px; line-height:10px; margin-bottom: 0;">Browse File</p>
                                 <input class="form-control d-none" type="file" id="uploadDocument_{{$k+1}}" name="uploadDocument_{{$k+1}}" onchange="uploadFiles(event)" accept=".jpeg,.jpg,.png,.pdf"
@@ -153,7 +169,7 @@ $lastDate = $application["lastDate"];
                                 <input class="form-control d-none" type="hidden" id="DocumentUpload" name="DocumentUpload" value="0">
                                 <input class="form-control d-none" type="hidden" id="base64Input" name="base64Input" value="">
                             </label>
-                            <div id="preview"></div>
+                            <div id="preview_{{$k+1}}" class="previewDiv"></div>
                         </div>
 
                     </div>
@@ -199,6 +215,25 @@ $lastDate = $application["lastDate"];
         </div>
     </div>
 </div>
+
+<div id="previewModal" class="modal" role="dialog" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="previewModalBody" class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 @push("js")
 <script>
@@ -206,19 +241,18 @@ $lastDate = $application["lastDate"];
 // Function to handle the file input and upload process
 var BASE64INPUT = "";
 var BASE64ARR = {};
+var uploadCount = "{{$uploadCount}}";
+uploadCount = parseInt(uploadCount);
 
 function uploadFiles(e) {
-    console.log('e');
-    console.log(e);
-    //e.target.id
-    //e.target.id
-    //const fileInput = document.getElementById('uploadDocument');
     const fileInput = e.target;
-    const fileId = fileInput.id;
+    const fileInputId = fileInput.id;
+    const fileInputIdParts = fileInputId.split("_");
+    const fileId = fileInputIdParts[1];
     const files = fileInput.files;
     
     // Clear previous previews if any
-    document.getElementById('preview').innerHTML = '';
+    $('#preview_'+fileId).html('');
 
     // Check if files are selected
     if (files.length === 0) {
@@ -241,30 +275,19 @@ function uploadFiles(e) {
             $("#uploadButton").addClass("hideMe");
             $("#uploadButton").removeClass("d-block");
             // Get the base64 string here for the PDF
-            BASE64INPUT = e.target.result;
             BASE64ARR[fileId] = e.target.result;
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.width = '200';
-            filePreviewDiv.appendChild(img);
+            
+            var previewHtml = `<i class="bi bi-file-image display-4"></i>
+            <a href="javascript:void(0);" class="uploadDeleteBtn" onClick="removeFile('`+fileId+`')"><i class="fa fa-trash-o"></i>&nbsp;Delete</a><span class="navSeprator"></span><a href="javascript:void(0);" class="uploadViewBtn" onClick="viewFile('`+fileId+`','jpeg')" data-toggle="modal" data-target="#previewModal"><i class="fa fa-eye"></i>&nbsp;View</a>`;
+             
+            //filePreviewDiv.appendChild(previewHtml);
 
-            // Add delete button
-            const deleteBtn = document.createElement('button');
-            deleteBtn.innerHTML = '<i class="fa fa-remove"></i>';
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = removeFile(fileId); /*function() {
-                filePreviewDiv.remove();
-                fileInput.value = '';  // Optionally reset file input
-                BASE64INPUT = '';
-                
-                $("#DocumentUpload").val(0);
-                $("#uploadButton").addClass("d-block");
-                $("#uploadButton").removeClass("hideMe");
-            };*/
-            filePreviewDiv.appendChild(deleteBtn);
 
             // Add file preview to the DOM
-            document.getElementById('preview').appendChild(filePreviewDiv);
+            //document.getElementById('preview').appendChild(filePreviewDiv);
+            document.getElementById('preview_'+fileId).innerHTML = previewHtml;
+            $('#preview_'+fileId).removeClass("hideMe");
+            $("#labeluploadDocument_"+fileId).addClass("hideMe");
         };
         reader.readAsDataURL(file);
         }
@@ -275,31 +298,16 @@ function uploadFiles(e) {
             $("#DocumentUpload").val(1);
             $("#uploadButton").addClass("hideMe");
             $("#uploadButton").removeClass("d-block");
-            BASE64INPUT = e.target.result;
+            
             BASE64ARR[fileId] = e.target.result;
-            /*const objectTag = document.createElement('object');
-            objectTag.data = e.target.result;
-            objectTag.type = 'application/pdf';
-            objectTag.width = '200';
-            objectTag.height = '300';
-            filePreviewDiv.appendChild(objectTag);*/
-
-            // Add delete button
-            const deleteBtn = document.createElement('button');
-            deleteBtn.innerHTML = '<i class="fa fa-remove"></i>';
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = removeFile(fileId); /*function() {
-                filePreviewDiv.remove();
-                fileInput.value = '';  // Optionally reset file input
-                BASE64INPUT = '';
-                $("#DocumentUpload").val(0);
-                $("#uploadButton").addClass("d-block");
-                $("#uploadButton").removeClass("hideMe");
-            };*/
-            filePreviewDiv.appendChild(deleteBtn);
-
+            
+            var previewHtml = `<i class="bi bi-file-image display-4"></i>
+            <a href="javascript:void(0);" class="uploadDeleteBtn" onClick="removeFile('`+fileId+`')"><i class="fa fa-trash-o"></i>&nbsp;Delete</a><span class="navSeprator"></span><a href="javascript:void(0);" class="uploadViewBtn" onClick="viewFile('`+fileId+`','pdf')" data-toggle="modal" data-target="#previewModal"><i class="fa fa-eye"></i>&nbsp;View</a>`;
+            
             // Add file preview to the DOM
-            document.getElementById('preview').appendChild(filePreviewDiv);
+            document.getElementById('preview_'+fileId).innerHTML = previewHtml;
+            $('#preview_'+fileId).removeClass("hideMe");
+            $("#labeluploadDocument_"+fileId).addClass("hideMe");
         };
         reader.readAsDataURL(file);
         }
@@ -308,8 +316,12 @@ function uploadFiles(e) {
 }
 
 function removeFile(fileId){
-    delete BASE64ARR.fileId;
-
+    delete BASE64ARR[fileId];
+    
+    $('#preview_'+fileId).html("");
+    $('#preview_'+fileId).addClass("hideMe");
+    $("#labeluploadDocument_"+fileId).removeClass("hideMe");
+    $("#uploadDocument_"+fileId).val("");
     /*filePreviewDiv.remove();
     fileInput.value = '';  // Optionally reset file input
     BASE64INPUT = '';
@@ -318,8 +330,45 @@ function removeFile(fileId){
     $("#uploadButton").removeClass("hideMe");*/
 }
 
+function viewFile(fileId, fileType){
+    $("#previewModalBody").html("Loading...");
+    const fileData = BASE64ARR[fileId];
+    if(fileType == 'pdf'){
+        const objectTag = document.createElement('object');
+        objectTag.data = fileData;
+        objectTag.type = 'application/pdf';
+        objectTag.style = "width:100%; height:800px;";
+        $("#previewModalBody").html(objectTag);
+
+    }else if(fileType == 'jpeg'){
+        const img = document.createElement('img');
+        img.src = fileData;
+        img.style = "width:100%; height:100%;";
+        $("#previewModalBody").html(img);
+
+    }else{
+        $("#previewModalBody").html("Loading...");    
+    }
+    
+}
+
     function submitForm(){
         
+        if (Object.keys(BASE64ARR).length === 0) {
+            var err = 1;
+            var msg = "Please upload required documents.";
+            showToast(err,msg);
+            return false;
+        } else if(Object.keys(BASE64ARR).length < uploadCount){
+            var err = 1;
+            var msg = "Please upload all "+uploadCount+" documents.";
+            showToast(err,msg);
+            return false;
+        }else{
+            alert("ok");
+        }
+
+        return false;
         var portalId = $("#portalId").val();
         var customerId = $("#customerId").val();
         var applicationId = $("#applicationId").val();

@@ -128,3 +128,18 @@
     font-size: 14px;
     font-weight: 500;
 }
+
+.navSeprator {
+    border: none;
+    border-left: 1px solid;
+    height: 12px;
+}
+
+
+.uploadDeleteBtn{
+    margin-right: 10px;
+}
+
+.uploadViewBtn{
+    margin-left: 10px;
+}
