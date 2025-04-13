@@ -193,8 +193,7 @@ class Applications extends Controller
             return View('admin.applicationdetails', $data);
         }else{
             //redirect to login
-            $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('login'));
         }
     }
 

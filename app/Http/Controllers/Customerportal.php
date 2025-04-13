@@ -32,6 +32,7 @@ class Customerportal extends Controller
             abort(404, 'Portal ID not provided');
         }
     
+        $customerDetails = array("fname" => "", "lname" => "", "email" => "");
         $applicationId = $request->input('applicationtoken');
         if($applicationId){
 
@@ -39,6 +40,13 @@ class Customerportal extends Controller
 
             if($applicationObj){
                 $token = $applicationId;
+
+                //get applicant name and email
+                //dd($applicationObj);
+                $customerId = $applicationObj["customerId"];
+                $customerDetails = Customers_model::select("fname", "lname", "email")->where('id', $customerId)->first();
+
+
             }else{
                 abort(404, 'Invalid application token');
             }
@@ -65,9 +73,10 @@ class Customerportal extends Controller
             'pageTitle' => 'Portal LogIn',
             'adminId' => $adminId,
             'portalId' => $portalId,
-            'requestToken' => $token
+            'requestToken' => $token,
+            'customerDetails' => $customerDetails
         ];
-    
+        
         return View('portal.customerlogin', $data);
     }
     

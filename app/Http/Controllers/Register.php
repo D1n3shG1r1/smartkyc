@@ -25,8 +25,6 @@ class Register extends Controller
     
     function login(Request $request){
         
-        return Redirect::to(url('')); 
-
         if($request->isMethod('post')) {
             $email = $request->input("email");
             $password = $request->input("password");
@@ -78,8 +76,6 @@ class Register extends Controller
     
 
     function register(Request $request){
-
-        return Redirect::to(url('')); 
 
         if($request->isMethod('post')) {
             

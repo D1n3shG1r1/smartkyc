@@ -83,8 +83,20 @@ if(!empty($currentPackage)){
                                         </div>
                                         <div class="price_table_bottom">
                                         <div class="center">
-                                            
-                                        <a class="main_bt" href="javascript:void(0);" data-toggle="modal" data-target="#QuoteModal">Get Quote</a></div>
+                                        
+                                        @php
+                                        if($package == "package-payasyougo" && $expired == 0 && $active == 1){
+                                        @endphp
+                                            <a class="main_bt disabled" href="javascript:void(0);" disabled>Buy Now</a>
+                                        @php
+                                        }else{
+                                        @endphp    
+                                            <a class="main_bt" href="{{url('admin/buy/package-payasyougo')}}">Buy Now</a>
+                                        @php
+                                        }
+                                        @endphp
+
+                                        </div>
                                         
                                     </div>
                                     </div>
@@ -221,6 +233,7 @@ if(!empty($currentPackage)){
                                         </div>
                                         <div class="price_table_bottom">
                                         <div class="center">
+
                                         @php
                                         if($package == "package-enterprise" && $expired == 0 && $active == 1){
                                         @endphp
@@ -228,7 +241,7 @@ if(!empty($currentPackage)){
                                         @php
                                         }else{
                                         @endphp    
-                                            <a class="main_bt" href="{{url('admin/buy/package-enterprise')}}">Buy Now</a>
+                                            <a class="main_bt" href="javascript:void(0);" data-toggle="modal" data-target="#QuoteModal">Get Quote</a>
                                         @php
                                         }
                                         @endphp

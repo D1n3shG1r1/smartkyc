@@ -55,6 +55,7 @@ $lastDate = $application["lastDate"];
         width: fit-content;
         margin: auto;
         cursor: pointer;
+        /*padding-top:11px;*/
     }
 
 </style>
@@ -62,7 +63,7 @@ $lastDate = $application["lastDate"];
     <div class="row column_title">
         <div class="col-md-12">
             <div class="page_title">
-                <h2>Application #-{{$applicationId}}</h2>
+                <h2>Application #{{$applicationId}}</h2>
             </div>
         </div>
     </div>
@@ -78,7 +79,7 @@ $lastDate = $application["lastDate"];
         <div class="white_shd full margin_bottom_30">
             
             <div class="full graph_head">
-                <div class="heading1 margin_0"><h2>Document Verification Form</h2></div>
+                <div class="heading1 margin_0"><h2>Upload Documents</h2></div>
             </div>
             <!-- Form -->
             <form class="full graph_head" id="documentForm">  
@@ -107,20 +108,28 @@ $lastDate = $application["lastDate"];
                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="000-000-0000" value="{{$phone}}" readonly>
                     </div>
                 </div>
- 
+                
+                <input type="hidden" class="form-control" id="documentType" name="documentType" placeholder="Document Type" value="{{$documentType}}">
+
+                @php
+                $documentTypeArr = explode(",",$documentType);
+                foreach($documentTypeArr as $k => $docType){ @endphp
+                <div class="row">
+                <div class="col-md-12 heading1"><h2>#{{$k+1}} {{ucwords(documentsTypes($docType))}}</h2></div>
+                </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <label for="title" class="form-label">Document Title<span class="required">*</span></label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Document title">
-                        </div>
-                    </div>
+                    <!--<div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="title" class="form-label">Document Title<span class="required">*</span></label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Document title">
+                            </div>
+                        </div>-->
+
                         <div class="row mb-3">
                         <div class="col-md-12">
                             <label for="documentType" class="form-label">Document Type<span class="required">*</span></label>
-                            <span type="text" class="form-control" readonly> {{ucwords(str_replace("_", " ",documentsTypes($documentType)))}}</span>
-                            <input type="hidden" class="form-control" id="documentType" name="documentType" placeholder="Document Type" value="{{documentsTypes($documentType)}}">
+                            <span type="text" class="form-control" readonly> {{ucwords(documentsTypes($docType))}}</span>
                         </div>
                         </div>
                         <div class="row mb-3">
@@ -131,12 +140,28 @@ $lastDate = $application["lastDate"];
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="description" class="form-label">Description<span class="required">*</span></label>
-                        <textarea class="form-control" id="description" name="description" style="resize:none;" rows="8" placeholder="Description..."></textarea>
+                        <!--<label for="description" class="form-label">Description<span class="required">*</span></label>
+                        <textarea class="form-control" id="description" name="description" style="resize:none;" rows="8" placeholder="Description..."></textarea>-->
+                        <label class="form-label">Upload Document<span class="required">*</span></label>
+                        <label class="form-label" style="font-size: 10px; color: #721c24;">If your document has more than one page or contains multiple pages, please upload it as a PDF. Only JPEG, JPG, PNG, or PDF files are allowed to be uploaded.</label>   
+                        <div class="border rounded text-center">
+                            <label id="labeluploadDocument_{{$k+1}}" for="uploadDocument_{{$k+1}}" class="form-label d-block uploadButton">
+                                <i class="bi bi-cloud-upload display-4"></i>
+                                <p style="font-size:12px; line-height:10px; margin-bottom: 0;">Browse File</p>
+                                <input class="form-control d-none" type="file" id="uploadDocument_{{$k+1}}" name="uploadDocument_{{$k+1}}" onchange="uploadFiles(event)" accept=".jpeg,.jpg,.png,.pdf"
+                                >
+                                <input class="form-control d-none" type="hidden" id="DocumentUpload" name="DocumentUpload" value="0">
+                                <input class="form-control d-none" type="hidden" id="base64Input" name="base64Input" value="">
+                            </label>
+                            <div id="preview"></div>
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="mb-3">
+                @php } @endphp
+
+                <!--<div class="mb-3">
                     <label for="uploadDocumentt" class="form-label">Upload Document<span class="required">*</span></label>
                     <div class="border rounded p-3 text-center">
                         <label id="uploadButton" for="uploadDocument" class="form-label d-block uploadButton">
@@ -148,7 +173,7 @@ $lastDate = $application["lastDate"];
                         </label>
                         <div id="preview"></div>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="mb-3">
                     <label for="comments" class="form-label">Additional Comments</label>
@@ -180,11 +205,18 @@ $lastDate = $application["lastDate"];
 
 // Function to handle the file input and upload process
 var BASE64INPUT = "";
-function uploadFiles() {
-    
-    const fileInput = document.getElementById('uploadDocument');
+var BASE64ARR = {};
+
+function uploadFiles(e) {
+    console.log('e');
+    console.log(e);
+    //e.target.id
+    //e.target.id
+    //const fileInput = document.getElementById('uploadDocument');
+    const fileInput = e.target;
+    const fileId = fileInput.id;
     const files = fileInput.files;
-        
+    
     // Clear previous previews if any
     document.getElementById('preview').innerHTML = '';
 
@@ -210,7 +242,7 @@ function uploadFiles() {
             $("#uploadButton").removeClass("d-block");
             // Get the base64 string here for the PDF
             BASE64INPUT = e.target.result;
-            
+            BASE64ARR[fileId] = e.target.result;
             const img = document.createElement('img');
             img.src = e.target.result;
             img.width = '200';
@@ -220,14 +252,15 @@ function uploadFiles() {
             const deleteBtn = document.createElement('button');
             deleteBtn.innerHTML = '<i class="fa fa-remove"></i>';
             deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = function() {
+            deleteBtn.onclick = removeFile(fileId); /*function() {
                 filePreviewDiv.remove();
                 fileInput.value = '';  // Optionally reset file input
                 BASE64INPUT = '';
+                
                 $("#DocumentUpload").val(0);
                 $("#uploadButton").addClass("d-block");
                 $("#uploadButton").removeClass("hideMe");
-            };
+            };*/
             filePreviewDiv.appendChild(deleteBtn);
 
             // Add file preview to the DOM
@@ -243,25 +276,26 @@ function uploadFiles() {
             $("#uploadButton").addClass("hideMe");
             $("#uploadButton").removeClass("d-block");
             BASE64INPUT = e.target.result;
-            const objectTag = document.createElement('object');
+            BASE64ARR[fileId] = e.target.result;
+            /*const objectTag = document.createElement('object');
             objectTag.data = e.target.result;
             objectTag.type = 'application/pdf';
             objectTag.width = '200';
             objectTag.height = '300';
-            filePreviewDiv.appendChild(objectTag);
+            filePreviewDiv.appendChild(objectTag);*/
 
             // Add delete button
             const deleteBtn = document.createElement('button');
             deleteBtn.innerHTML = '<i class="fa fa-remove"></i>';
             deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = function() {
+            deleteBtn.onclick = removeFile(fileId); /*function() {
                 filePreviewDiv.remove();
                 fileInput.value = '';  // Optionally reset file input
                 BASE64INPUT = '';
                 $("#DocumentUpload").val(0);
                 $("#uploadButton").addClass("d-block");
                 $("#uploadButton").removeClass("hideMe");
-            };
+            };*/
             filePreviewDiv.appendChild(deleteBtn);
 
             // Add file preview to the DOM
@@ -273,6 +307,16 @@ function uploadFiles() {
     
 }
 
+function removeFile(fileId){
+    delete BASE64ARR.fileId;
+
+    /*filePreviewDiv.remove();
+    fileInput.value = '';  // Optionally reset file input
+    BASE64INPUT = '';
+    $("#DocumentUpload").val(0);
+    $("#uploadButton").addClass("d-block");
+    $("#uploadButton").removeClass("hideMe");*/
+}
 
     function submitForm(){
         

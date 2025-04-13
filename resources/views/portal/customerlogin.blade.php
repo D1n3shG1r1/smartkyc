@@ -68,17 +68,17 @@
                     <fieldset>
                         <div class="field">
                             <label class="label_field">Email Address</label>
-                            <input id="email" type="email" name="email" placeholder="E-mail" onblur="checkEmail();" />
+                            <input id="email" type="email" name="email" placeholder="E-mail" value="{{$customerDetails['email']}}" onblur="checkEmail();" />
                         </div>
                         
                         <div class="field">
                             <label class="label_field">First Name</label>
-                            <input id="fname" type="text" name="fname" placeholder="First Name" />
+                            <input id="fname" type="text" name="fname" placeholder="First Name" value="{{$customerDetails['fname']}}"/>
                         </div>
 
                         <div class="field">
                             <label class="label_field">Last Name</label>
-                            <input id="lname" type="text" name="lname" placeholder="Last Name" />
+                            <input id="lname" type="text" name="lname" placeholder="Last Name" value="{{$customerDetails['lname']}}"/>
                         </div>
                         
                         <div id="optInputBox" class="field hideMe">
@@ -233,6 +233,11 @@
         } else if (fnameerr == 1) {
             var err = 1;
             var msg = fnamemsg;
+            showToast(err, msg);
+            return false;
+        } else if (!isRealValue(lname)) {
+            var err = 1;
+            var msg = "Please enter your last name.";
             showToast(err, msg);
             return false;
         } else if (lnameerr == 1) {

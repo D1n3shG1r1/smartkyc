@@ -74,9 +74,9 @@
                      <li><a href="{{url('/admin/dashboard')}}"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a></li>
                      <li><a href="{{url('/admin/myprofile')}}"><i class="fa fa-user yellow_color"></i> <span>My Profile</span></a></li>
                      
-                     <li><a href="{{url('/admin/myapplications')}}"><i class="fa fa-file-text-o yellow_color"></i> <span>My Applications</span></a></li>
-                     
                      <li><a href="{{url('/admin/myapplicants')}}"><i class="fa fa-group yellow_color"></i> <span>My Applicants</span></a></li>
+                     
+                     <li><a href="{{url('/admin/myapplications')}}"><i class="fa fa-file-text-o yellow_color"></i> <span>My Applications</span></a></li>
                      
                      <li><a href="{{url('/admin/mypackage')}}"><i class="fa fa-briefcase yellow_color"></i> <span>My Package</span></a></li>
                      

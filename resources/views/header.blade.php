@@ -141,7 +141,7 @@
                            
                         </ul>
                      </div>
-                     <span id="hs_cos_wrapper_header_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="margin-left: 10px; display:none" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
+                     <span id="hs_cos_wrapper_header_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="margin-left: 10px;" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
                         <!--HubSpot Call-to-Action Code -->
                         <span class="hs-cta-wrapper" id="hs-cta-wrapper-902b98e9-f415-4605-8c9d-dc69f148a396">
                            <span class="hs-cta-node hs-cta-902b98e9-f415-4605-8c9d-dc69f148a396" id="hs-cta-902b98e9-f415-4605-8c9d-dc69f148a396">
@@ -153,7 +153,7 @@
                         </span>
                         <!-- end HubSpot Call-to-Action Code -->
                      </span>
-                     <span id="hs_cos_wrapper_header_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="display:none" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
+                     <span id="hs_cos_wrapper_header_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
                         <!--HubSpot Call-to-Action Code -->
                         <span class="hs-cta-wrapper" id="hs-cta-wrapper-423e93eb-7391-4fb5-b3c4-ba0993818d43">
                            <span class="hs-cta-node hs-cta-423e93eb-7391-4fb5-b3c4-ba0993818d43" id="hs-cta-423e93eb-7391-4fb5-b3c4-ba0993818d43">

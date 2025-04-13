@@ -3,6 +3,7 @@
 $id = $application["id"];
 $adminId = $application["adminId"];
 $portalId = $application["portalId"];
+$requestSubmitted = $application["requestSubmitted"];
 $customerId = $application["customerId"];
 $title = ucwords($application["title"]);
 $description = ucwords($application["description"]);
@@ -11,6 +12,7 @@ $documentNo = $application["documentNo"];
 $comment = ucwords($application["comment"]);
 $createDateTime = $application["createDateTime"];
 $submitDate = date("M d, Y", strtotime($createDateTime));
+
 
 $verificationStatus = $application["verificationStatus"];
 $verificationMethod = $application["verificationMethod"];
@@ -82,6 +84,9 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
         </div>
     </div>
     
+    @if($requestSubmitted == 0)
+        <div class="alert alert-danger" style="display:block; position:relative; right:unset; bottom:unset;">It seems the applicant has not submitted or uploaded their documents for verification.</div>
+    @endif
     <div class="row">
         <div class="col-md-12">
         <div class="white_shd full margin_bottom_30">
@@ -207,12 +212,12 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
                             
                 <div class="row mb-3">
                     <div class="col-md-6">
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <label for="title" class="form-label">Document Title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Document title" value="{{$title}}" readonly disabled>
-                        </div>
-                    </div>
+                        <!--<div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="title" class="form-label">Document Title</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Document title" value="{{$title}}" readonly disabled>
+                            </div>
+                        </div>-->
                         <div class="row mb-3">
                         <div class="col-md-12">
                             <label for="documentType" class="form-label">Document Type</label>
@@ -229,8 +234,22 @@ if(array_key_exists($discrepancies, $DiscrepanciesOptions)){
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" style="resize:none;" rows="8" placeholder="Description..." readonly disabled>{{$description}}</textarea>
+                        <!--<label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" style="resize:none;" rows="8" placeholder="Description..." readonly disabled>{{$description}}</textarea>-->
+                        <label for="description" class="form-label">Document</label>
+                        <div class="border rounded text-center row">
+                            <div class="documentBlock col-md-3">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </div>
+                            <div class="documentBlock col-md-6" style="padding: 48px 5px 20px 5px;">
+                                <a href="#" class="btn cur-p btn-outline-primary" download><i class="fa fa-eye"></i>&nbsp;View</a>
+                                
+                                <!--<span class="navSeprator"></span>-->
+                                
+                                <a href="#" class="btn cur-p btn-outline-primary" download><i class="fa fa-download"></i>&nbsp;Download</a>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
 

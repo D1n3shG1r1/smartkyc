@@ -78,13 +78,13 @@
 .borderright-1{border-right:1px solid #f3f3f3;}
 
 .documentBlock{
-    border: 1px dashed #007bff;
+    /*border: 1px dashed #007bff;*/
     width: 100px;
-    height: 112px;
-    margin: auto;
+    /*height: 112px;*/
+    /*margin: auto;*/
     border-radius: 0px;
     /* text-align: center; */
-    padding: 5px 5px 5px 5px;
+    padding: 19px 5px 19px 5px;
 }
 
 .documentBlock .fa.fa-file-image-o, .documentBlock .fa.fa-file-pdf-o{
