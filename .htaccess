@@ -1,0 +1,11 @@
+# .htaccess file located in the root of your project (not in public/)
+RewriteEngine On
+
+# Redirect everything to the public folder
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]
+
+# Ensure that everything else inside /public is treated normally
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /public/index.php [L]
