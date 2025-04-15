@@ -59,7 +59,6 @@ class Notifications extends Controller
         if($this->ADMINID > 0){
             $adminId = $this->ADMINID;
             
-
             if($this->SYSTEMADMIN > 0){
                 // system admin
                 if($request->input("applicantAdminId")){

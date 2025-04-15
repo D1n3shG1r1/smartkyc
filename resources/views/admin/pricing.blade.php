@@ -342,7 +342,11 @@ function sendQuote(elm){
         if(resp.C == 100){
             var err = 0;
             var msg = "Your request has been submitted. We will contact you shortly.";
-            showToast(err,msg);    
+            showToast(err,msg);  
+
+            
+            $('#QuoteModal').modal('hide');
+
         }else{
             var err = 1;
             var msg = "Your session has expired. Please log in again to continue.";

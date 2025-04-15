@@ -122,9 +122,97 @@ $uploadCount = 0;
                         </div>
                                             
                     </div>
+                    @php if($isSystemAdmin > 0){ @endphp
                     <div class="col-md-6 heading1 margin_0 pdl-20">
-                           
+                        <input type="hidden" id="applicationId" value="{{$id}}" />
+                        <input type="hidden" id="portalId" value="{{$portalId}}" />
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6>Status</h6>
+                                @php
+                                    $statusOptions = ['verified' => '', 'not verified' => '', 'pending' => ''];
+                                    if (array_key_exists($verificationStatus, $statusOptions)) {
+                                        $statusOptions[$verificationStatus] = 'selected';
+                                    }
+                                @endphp
+                                <select class="form-select form-control" id="documentStatus" name="documentStatus">
+                                    <option value="">--Select Status--</option>
+                                    <option value="verified" {{ $statusOptions['verified'] }}>Verified</option>
+                                    <option value="not verified" {{ $statusOptions['not verified'] }}>Not Verified</option>
+                                    <option value="pending" {{ $statusOptions['pending'] }}>Pending</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6>Verification Method</h6>
+                                @php
+                                $methodOptions = ['automated system check' => '', 'manual review' => '', 'contact with issuing authority' => ''];
+                                    if (array_key_exists($verificationMethod, $methodOptions)) {
+                                        $methodOptions[$verificationMethod] = 'selected';
+                                    }
+                                @endphp
+                                <select class="form-select form-control" id="verificationMethod" name="verificationMethod">
+                                    <option value="">--Select Verification Method--</option>
+                                    <option value="automated system check" {{ $methodOptions['automated system check'] }}>Automated System Check</option>
+                                    <option value="manual review" {{ $methodOptions['manual review'] }}>Manual Review</option>
+                                    <option value="contact with issuing authority" {{ $methodOptions['contact with issuing authority'] }}>Contact with Issuing Authority</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6>Verification Outcome</h6>
+                                <select class="form-select form-control" id="verificationOutcome" name="verificationOutcome">
+                                @php
+                                foreach($verificationOutcomeOptions as $k => $vrfyOutOpt) {
+                                    $selected = ''; // Reset $selected for each option
+                                    if($verificationOutcome == $k) {
+                                        $selected = "selected";
+                                    }
+                                    $opt = '<option value="'.$k.'" '.$selected.'>'.$vrfyOutOpt.'</option>';   
+                                    echo $opt;
+                                }
+                                @endphp
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6>Discrepancies</h6>
+                                <select class="form-select form-control" id="discrepancies" name="discrepancies" onchange="discrepancyOnchange(this);">
+                                <option value="">--Select Discrepancy--</option>
+                                @php
+                                
+                                foreach($DiscrepanciesOptions as $kk => $dspOpt){
+                                    $selected = ''; // Reset $selected for each option
+                                    if($discrepancies == $kk) {
+                                        $selected = "selected";
+                                    }
+                                    
+                                    $opt = '<option value="'.$kk.'" '.$selected.'>'.$dspOpt.'</option>';   
+                                    echo $opt;
+                                }
+                                @endphp
+                                </select>
+                            </div>
+                        </div>
+                        <div id="specifyDiscrepancyBox" class="row mb-3 hideMe">
+                            <div class="col-md-12">
+                                <h6>Specify</h6>
+                                <textarea class="form-control" id="specifyDiscrepancy" name="specifyDiscrepancy" style="resize:none;" rows="3" placeholder="Specify the discrepancy details..." maxlength="160" oninput="updateCharacterCount()">{{$specifyDiscrepancy}}</textarea>
+                                <p class="text-align-right">Remaining characters: <span id="remainingChars">160</span></p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <button type="button" id="updateStatusBtn" class="updateStatusBtn btn cur-p btn-outline-primary" data-txt="Update" data-loadingtxt="Saving..." onclick="updateStatus();">Update</button>    
+                            </div>
+                        </div>    
                     </div>
+                    @php } @endphp
                 </div>
                 </form>
             </div>
@@ -350,6 +438,103 @@ function viewFile(filePath, fileType){
     }
     
 }
+
+function updateCharacterCount() {
+        var textarea = document.getElementById("specifyDiscrepancy");
+        var remainingChars = document.getElementById("remainingChars");
+        var maxLength = textarea.getAttribute("maxlength");
+        var currentLength = textarea.value.length;
+
+        var charsLeft = maxLength - currentLength;
+        remainingChars.textContent = charsLeft;
+
+        if (charsLeft <= 0) {
+            remainingChars.style.color = "red";
+        } else {
+            remainingChars.style.color = "black";
+        }
+    }
+
+    function discrepancyOnchange(elm){
+        var disVal = $(elm).val();
+        disVal = parseInt(disVal);
+        if(disVal == 15){
+            $("#specifyDiscrepancyBox").removeClass("hideMe");
+        }else{
+            $("#specifyDiscrepancyBox").addClass("hideMe");
+            $("#specifyDiscrepancy").val("");
+            $("specifyDiscrepancy").attr("maxlength", 160);
+        }
+        
+    }
+
+    function updateStatus(){
+
+        var applicationId = $("#applicationId").val();
+        var portalId = $("#portalId").val();
+        var documentStatus = $("#documentStatus").val();
+        var verificationMethod = $("#verificationMethod").val();
+        var vrfOutcome = $("#verificationOutcome").val();
+        var discrepancies = $("#discrepancies").val();
+        //discrepancies = parseInt(discrepancies);
+        var specifyDiscrepancy = $("#specifyDiscrepancy").val();
+        
+        if(!isRealValue(documentStatus)){
+            var err = 1;
+            var msg = "Please select the status.";
+            showToast(err,msg);
+            return false;
+        }else if(documentStatus == 'verified' && !isRealValue(verificationMethod)){
+            var err = 1;
+            var msg = "Please select the verification method.";
+            showToast(err,msg);
+            return false;
+        }else if(!isRealValue(vrfOutcome)){
+            var err = 1;
+            var msg = "Please select the verification outcome.";
+            showToast(err,msg);
+            return false;
+        }else if(!isRealValue(discrepancies)){
+            var err = 1;
+            var msg = "Please select the discrepancy option.";
+            showToast(err,msg);
+            return false;
+        }else if(parseInt(discrepancies) == 15 && !isRealValue(specifyDiscrepancy)){
+            var err = 1;
+            var msg = "Please specify the discrepancy details.";
+            showToast(err,msg);
+            return false;    
+        }else if(specifyDiscrepancy.length > 160){
+            var err = 1;
+            var msg = "Discrepancy details cannot exceed 160 characters.";
+            showToast(err,msg);
+            return false;
+        }else{
+            var requrl = "admin/updateApplicationStatus";
+            var postdata = {
+                "applicationId":applicationId,
+                "verificationStatus":documentStatus,
+                "verificationMethod":verificationMethod,
+                "verificationOutcome":vrfOutcome,
+                "discrepancies":discrepancies,
+                "specifyDiscrepancy":specifyDiscrepancy
+            };
+            
+            callajax(requrl, postdata, function(resp){
+                if(resp.C == 100){
+                    var err = 0;
+                    var msg = "Application status has been updated successfully.";
+                    showToast(err,msg);        
+                }else{
+                    var err = 1;
+                    var msg = resp.M;
+                    showToast(err,msg);
+                }
+                
+            });
+        }
+        
+    }
 
     //http://local.smartkyc.com/portal/login/1f7eb1d132dd059422ead7d5660301a21db9d2eb?applicationtoken=1744308570290744
     //http://local.smartkyc.com/portal/documentrequest/1744308570290744

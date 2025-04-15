@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Admin_model;
 use App\Models\Packagepayments_model;
 use App\Models\Package_model;
+use App\Models\SuperAdmin_model;
 use Carbon\Carbon;
 use App\Traits\SmtpConfigTrait;
 
@@ -375,32 +376,49 @@ class Package extends Controller
 
     function savequote(Request $request){
         
-        $message = $request->input("message");
-
         if($this->ADMINID > 0){
+            
+            $message = $request->input("message");
             
             $adminId = $this->ADMINID;
             $adminEmail = $this->getSession('adminEmail');
             $adminFName = $this->getSession('adminFName');
             $adminLName = $this->getSession('adminLName');
             $fullName = $adminFName.' '.$adminLName;
-            //Email
-            $toEmail = "support@smartverify.com.ng";
-            $toName = "Can Namho"; //;
-            $subject = "'Pay As You Go' Plan - Quotation Request";
-            $templateBlade = "emails.payasgorequest";
+            
+            $sysAdmId = 1;
+            $sysAdm = SuperAdmin_model::where("id", $sysAdmId)->first();
+
+            $smtp = json_decode($sysAdm["smtp"], true);
+            
+            $host = $smtp["host"];
+            $port = $smtp["port"];
+            $username = $smtp["username"];
+            $password = $smtp["password"];
+            $encryption = $smtp["encryption"];
+            $from_email = $smtp["from_email"];
+            $from_name = $smtp["from_name"];
+            $replyTo_email = $smtp["replyTo_email"];
+            $replyTo_name = $smtp["replyTo_name"];
+
             
             $smtpDetails = array();
-            $smtpDetails['host'] = "sandbox.smtp.mailtrap.io"; //$smtpData["host"];
-            $smtpDetails['port'] = 587; //$smtpData["port"];;
-            $smtpDetails['username'] = "91fb4abff4f79b";//$smtpData["username"];
-            $smtpDetails['password'] = "33231ac212a6a7";//$smtpData["password"];
+            $smtpDetails['host'] = $host;
+            $smtpDetails['port'] = $port;
+            $smtpDetails['username'] = $username;
+            $smtpDetails['password'] = $password;
             $smtpDetails['encryption'] = "";
-            $smtpDetails['from_email'] = "support@smartverify.com.ng"; //$smtpData["fromemail"];
-            $smtpDetails['from_name'] = "Smart Verify"; //$smtpData["fromname"];
-            $smtpDetails['replyTo_email'] = "support@smartverify.com.ng";//$smtpData["replytoemail"];
-            $smtpDetails['replyTo_name'] = "Smart Verify";//$smtpData["replytoname"];
+            $smtpDetails['from_email'] = $from_email;
+            $smtpDetails['from_name'] = $from_name;
+            $smtpDetails['replyTo_email'] = $replyTo_email;
+            $smtpDetails['replyTo_name'] = $replyTo_name;
         
+            //Email
+            $toEmail = $sysAdm["email"]; //"support@smartverify.com.ng";
+            $toName = ucwords($sysAdm["fname"] ." ". $sysAdm["lname"]);//"Can Namho"; //;
+            $subject = "'Pay As You Go' Plan - Quotation Request";
+            $templateBlade = "emails.payasgorequest";
+
             $recipient = ['name' => $toName, 'email' => $toEmail];
             
             $bladeData = [
@@ -408,7 +426,7 @@ class Package extends Controller
                 'customerName' => $fullName,
                 'customerEmail' => $adminEmail,
                 'packageName' => 'Pay as You Go',
-                'additionalMessage' => 'hello' //$message 
+                'additionalMessage' => $message 
             ];
             
             $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);

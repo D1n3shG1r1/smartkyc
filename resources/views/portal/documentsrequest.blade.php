@@ -24,11 +24,9 @@ $applicationsData = $applications["data"];
                         <tr>
                             <th>#</th>
                             <th>Applicantion ID</th>
-                            <!--<th>Doc Title</th>
-                            <th>Doc Type</th>
-                            <th>Doc Number</th>-->
                             <th>Status</th>
                             <th>Date</th>
+                            <th>Expiry Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -49,9 +47,12 @@ $applicationsData = $applications["data"];
                                 $verificationStatus = $row["verificationStatus"];
                                 $createDateTime = $row["createDateTime"];
                                 $updateDateTime = $row["updateDateTime"];
-                                
+                                $lastDate = $row["lastDate"];
+
                                 $documentType = str_replace("_"," ",$documentType);
                                 $createDate = date("M d, Y", strtotime($createDateTime));
+
+                                $lastDate = date("M d, Y", strtotime($lastDate));
                                 
                                 
                     ?>
@@ -59,19 +60,18 @@ $applicationsData = $applications["data"];
                         <tr>
                             <td>{{$k+1}}</td>
                             <td>{{$id}}</td>
-                            <!--<td>{{ucwords($title)}}</td>
-                            <td>{{ucwords($documentType)}}</td>
-                            <td>{{$documentNo}}</td>-->
                             <td>{{ucwords($verificationStatus)}}</td>
                             <td>{{$createDate}}</td>
-                            <td><a href="{{url('portal/application/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
+                            <td>{{$lastDate}}</td>
+                            <td><a href="{{url('portal/documentrequest/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
                         </tr>
                     <?php
                         }
                     }else{?>
+
                         <tr>
-                            <td colspan="5">
-                            It seems you don't have any applications yet.
+                            <td colspan="6">
+                            It seems you don't have any new requests for documents.
                             </td>
                         </tr>
                     <?php }

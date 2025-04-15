@@ -123,6 +123,7 @@ Route::prefix('portal')->name('portal.')->group(function () {
     Route::post('/submitapplication',[Customerportal::class, 'submitapplication']);
     Route::get('/notifications',[Customerportal::class, 'notifications']);
     
+    Route::get('/documentrequests',[Customerportal::class, 'documentrequests']);
     Route::get('/documentrequest/{Id}',[Customerportal::class, 'documentrequest']);
     Route::post('/submitapplicationrequest',[Customerportal::class, 'submitapplicationrequest']);
     

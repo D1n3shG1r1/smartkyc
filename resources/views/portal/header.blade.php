@@ -45,7 +45,7 @@
                   <h4>Applicant</h4>
                   <ul class="list-unstyled components">
                     <li><a href="{{url('/portal/dashboard')}}"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a></li>
-                    <!--<li><a href="{{url('/portal/documentrequests')}}"><i class="fa fa-upload yellow_color"></i> <span>Document Requests</span></a></li>-->
+                    <li><a href="{{url('/portal/documentrequests')}}"><i class="fa fa-upload yellow_color"></i> <span>Document Requests</span></a></li>
                     <li><a href="{{url('/portal/myapplications')}}"><i class="fa fa-file-text-o yellow_color"></i> <span>My Applications</span></a></li>
                     <!--<li><a href="{{url('/portal/newapplication')}}"><i class="fa fa-upload yellow_color"></i> <span>Upload Documents</span></a></li>-->
                     <li><a href="{{url('/portal/myprofile')}}"><i class="fa fa-user yellow_color"></i> <span>My Profile</span></a></li>

@@ -322,7 +322,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portallogin/'.$portalId));
+            return Redirect::to(url('/portal/login/'.$portalId));
         }
 
     }
@@ -515,7 +515,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portallogin/'.$portalId));
+            return Redirect::to(url('/portal/login/'.$portalId));
         }
     }
 
@@ -625,7 +625,8 @@ class Customerportal extends Controller
             return View("portal.profile",$data);
         }else{
             //redirect to login
-            return Redirect::to(url('login'));
+            $portalId = $this->getSession('portalId');    
+            return Redirect::to(url('/portal/login/'.$portalId));
         }
     }
 
@@ -724,7 +725,8 @@ class Customerportal extends Controller
 
         }else{
             //redirect to login
-            return Redirect::to(url("portal/login/$portalId"));
+            $portalId = $this->getSession('portalId');    
+            return Redirect::to(url('/portal/login/'.$portalId));
         }
     }
 
@@ -819,7 +821,8 @@ class Customerportal extends Controller
             
         }else{
             //redirect to login
-            return Redirect::to(url("portal/login/$portalId"));
+            $portalId = $this->getSession('portalId');    
+            return Redirect::to(url('/portal/login/'.$portalId));
         }   
     }
 
@@ -943,8 +946,12 @@ class Customerportal extends Controller
                 */
 
                 //send notification and email to Admin & Super-Admin
-                $documentTypeTxt = $documentType;
-                $documentTypeTxt = ucwords($documentTypeTxt);
+                $docTxtArr = array();
+                foreach($documentType as $docTyp){
+                    $docTxtArr[] = documentsTypes($docTyp);
+                }
+                
+                $documentTypeTxt = implode(",", $docTxtArr);
                 $notifyMsg = "Applicant has uploaded the required documents for application $applicationId. Please review the $documentTypeTxt for verification.";
 
                 //send to admin
@@ -1117,4 +1124,42 @@ class Customerportal extends Controller
         return response()->json($response); die;
     }
 
+    function documentrequests(Request $request){
+        
+        $portalId = $this->getSession('portalId');
+        
+        if($this->CUSTOMERID > 0){
+            //list applications
+            $portalId = $this->getSession('portalId');
+            $customerId = $this->getSession('customerId');
+            //$customerEmail= $this->getSession('customerEmail');
+            //$customerFname = $this->getSession('customerFname');
+            //$customerLname = $this->getSession('customerLname');
+
+            $applications = array();
+            $applicationsObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->where("requestSubmitted",0)->orderBy('createDateTime', 'desc')->paginate(10);
+            
+            if($applicationsObj){
+                $applications = $applicationsObj->toArray();
+            
+                foreach($applications["data"] as &$row){
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                }
+                
+            }
+            
+            $data = [
+                'pageTitle' => 'My Applications',
+                'applications' => $applications
+            ];
+            
+            return View('portal.documentsrequest', $data);
+
+        }else{
+            //redirect to login
+            $portalId = $this->getSession('portalId');    
+            return Redirect::to(url('/portal/login/'.$portalId));
+        }
+    }
+    
 }
