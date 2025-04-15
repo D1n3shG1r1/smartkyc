@@ -113,6 +113,8 @@ class Applications extends Controller
                 $hasPackage = 1;
             }
 
+
+
             if($this->SYSTEMADMIN > 0){
                 $applicationObj = Applications_model::where("id",$Id)->first();
             }else{
@@ -125,17 +127,38 @@ class Applications extends Controller
                 $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
                 
                 
+               /* //get customer data
+            $customerObj = Customers_model::select("fname","lname","email","phone")
+            ->where("portalId",$portalId)
+            ->where("id",$customerId)
+            ->first()->toArray();
+
+            $customer = array();
+            
+            //$data["adminId"] = $adminId;
+            $customer["portalId"] = $portalId;
+            $customer["customerId"] = $customerId;
+            $customer["fname"] = $customerObj["fname"]; 
+            $customer["lname"] = $customerObj["lname"];
+            $customer["email"] = $customerObj["email"];
+            $customer["phone"] = $customerObj["phone"];
+*/
+
+
                 if($this->SYSTEMADMIN > 0){
                     //get applicant details
-                    $customerObj = Customers_model::select("id","fname","lname","email")->where("id",$customerId)->first();
+                    $customerObj = Customers_model::select("id","fname","lname","email", "phone")->where("id",$customerId)->first();
                 }else{
                     //get applicant details
-                    $customerObj = Customers_model::select("id","fname","lname","email")->where("adminId",$adminId)->where("id",$customerId)->first();
+                    $customerObj = Customers_model::select("id","fname","lname","email", "phone")->where("adminId",$adminId)->where("id",$customerId)->first();
                 }
+
+
 
                 $customerDetails = array();
                 if($customerObj){
                     $customerDetails = $customerObj->toArray();
+                    $customerDetails["customerId"] = $customerDetails["id"];
                 }
 
                 
@@ -156,6 +179,7 @@ class Applications extends Controller
                         $fileName = $document['fileName'];
                         $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
                         $filePath = $adminDirPath.$fileName;
+                        $filePath = asset('storage/' . $filePath);
                         $document['filePath'] = $filePath;
                         $document['mimeType'] = getFileMimeType($filePath);
                         
@@ -175,11 +199,13 @@ class Applications extends Controller
             }
 
             $application["documents"] = $documents;
-            $application["customerDetails"] = $customerDetails;
+            //$application["customer"] = $customerDetails;
+            //$application["customerDetails"] = $customerDetails;
             
             $data = [
                 'pageTitle' => 'Application',
                 'application' => $application,
+                'customer' => $customerDetails,
                 'verificationOutcomeOptions' => verificationStatusOptions(),
                 'DiscrepanciesOptions' => DiscrepanciesOptions(),
                 'incompleteProfile' => $incompleteProfile,

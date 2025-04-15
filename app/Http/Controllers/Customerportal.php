@@ -328,7 +328,11 @@ class Customerportal extends Controller
     }
     
     function newapplication(Request $request){
+
         if($this->CUSTOMERID > 0){
+            
+            return Redirect::to(url('/portal/dashboard'));
+
             //$adminId = $this->getSession('adminId');
             $portalId = $this->getSession('portalId');
             $customerId = $this->getSession('customerId');
@@ -359,7 +363,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portallogin/'.$portalId));
+            return Redirect::to(url('/portal/login/'.$portalId));
         }
     }
     
@@ -518,10 +522,31 @@ class Customerportal extends Controller
     function application($Id){
         if($this->CUSTOMERID > 0 && $Id){
             
-            ///$Id
             $applicationId = $Id;
             $portalId = $this->getSession('portalId');
             $customerId = $this->getSession('customerId');
+
+            //get customer data
+            $customerObj = Customers_model::select("fname","lname","email","phone")
+            ->where("portalId",$portalId)
+            ->where("id",$customerId)
+            ->first()->toArray();
+
+            $customer = array();
+            
+            //$data["adminId"] = $adminId;
+            $customer["portalId"] = $portalId;
+            $customer["customerId"] = $customerId;
+            $customer["fname"] = $customerObj["fname"]; 
+            $customer["lname"] = $customerObj["lname"];
+            $customer["email"] = $customerObj["email"];
+            $customer["phone"] = $customerObj["phone"];
+
+            if($customer["fname"] == '' || $customer["fname"] == null || $customer["lname"] == '' || $customer["lname"] == null || $customer["email"] == '' || $customer["email"] == null || $customer["phone"] == '' || $customer["phone"] == null){
+                $customer["incompleteProfile"] = 1;
+            }else{
+                $customer["incompleteProfile"] = 0;
+            }
             
             $applicationObj = Applications_model::where("portalId",$portalId)->where("customerId",$customerId)->where("id",$Id)->first();
 
@@ -541,6 +566,7 @@ class Customerportal extends Controller
                         $fileName = $document['fileName'];
                         $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
                         $filePath = $adminDirPath.$fileName;
+                        $filePath = asset('storage/' . $filePath);
                         $document['filePath'] = $filePath;
                         $document['mimeType'] = getFileMimeType($filePath);
                         
@@ -561,6 +587,7 @@ class Customerportal extends Controller
             $application["documents"] = $documents;
             $data = [
                 'pageTitle' => 'Application',
+                'customer' => $customer,
                 'application' => $application,
                 'verificationOutcomeOptions' => verificationStatusOptions(),
                 'DiscrepanciesOptions' => DiscrepanciesOptions()
@@ -568,11 +595,14 @@ class Customerportal extends Controller
             
             //echo "<pre>"; print_r($data); die;
 
+            //$filePath = "users/1736615183114993/assets/customers/1744308570659527/applications/174439278683943/documents/1744703972686941.jpg";
+            //echo asset('storage/' . $filePath); die;
+
             return View('portal.applicationdetails', $data);
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portallogin/'.$portalId));
+            return Redirect::to(url('/portal/login/'.$portalId));
         }
     }
 
@@ -794,7 +824,7 @@ class Customerportal extends Controller
     }
 
     function submitapplicationrequest(Request $request){
-        
+        //dd($request); die;
         if($this->CUSTOMERID > 0){
             
             $documentId = db_randnumber();
@@ -813,19 +843,19 @@ class Customerportal extends Controller
             $lastName = $request->input("lastName");
             $email = $request->input("email");
             $phone = $request->input("phone");
-            $title = $request->input("title");
+            //$title = $request->input("title");
             $documentType = $request->input("documentType");
             $documentNumber = $request->input("documentNumber");
-            $description = $request->input("description");
+            //$description = $request->input("description");
             $comments = $request->input("comments");
-            $base64Image = $request->input("base64Input");
+            //$base64Image = $request->input("base64Input");
             
             if(!$comments){$comments = '';}
             
             $updateData = array(
-                "title" => $title,
-                "description" => $description,
-                "documentNo" => $documentNumber,
+                //"title" => $title,
+                //"description" => $description,
+                "documentNo" => implode(",",$documentNumber),
                 "comment" => $comments,
                 "requestSubmitted" => 1,
                 "updateDateTime" => $updateDateTime
@@ -835,6 +865,47 @@ class Customerportal extends Controller
             
             if($updated){
 
+                //$documentObj = new ApplicationDocuments_model();
+
+                if ($request->hasFile('uploadDocument')) {
+                    $documentsBatch = array();
+                    foreach ($request->file('uploadDocument') as $file) {
+                        //$fileName = time() . '_' . $file->getClientOriginalName();
+                        //$file->storeAs('uploads/images', $fileName, 'public');
+                        //$uploadedFiles['images'][] = $fileName;
+                        $documentId = db_randnumber();
+                        $fileName = $documentId . '.' . $file->getClientOriginalExtension();
+
+                        // Define the dynamic path for storing the image
+                        $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
+                        
+
+                        // Laravel will create any missing directories
+                        Storage::disk('local')->makeDirectory($adminDirPath);
+                        
+                        $file->storeAs($adminDirPath, $fileName, 'public');
+
+                        // Store the image in the appropriate folder
+                        //Storage::disk('local')->put($adminDirPath . $imageName, $decodedImage);  // Save the image
+
+                        $documentsBatch[] = [
+                            "id" => $documentId,
+                            "adminId" => $adminId,
+                            "portalId" =>  $portalId,
+                            "applicationId" => $applicationId,
+                            "fileName" => $fileName
+                        ];
+                        
+                    }
+
+                    if(!empty($documentsBatch)){
+                        $tagsSaved = ApplicationDocuments_model::insert($documentsBatch);
+                    }
+                }
+    
+                
+
+                /*
                 $documentObj = new ApplicationDocuments_model();
 
                 // Strip off the base64 prefix
@@ -869,7 +940,7 @@ class Customerportal extends Controller
                 $documentObj->applicationId = $applicationId;
                 $documentObj->fileName = $imageName;
                 $documentSaved = $documentObj->save();
-
+                */
 
                 //send notification and email to Admin & Super-Admin
                 $documentTypeTxt = $documentType;
@@ -1045,4 +1116,5 @@ class Customerportal extends Controller
 
         return response()->json($response); die;
     }
+
 }

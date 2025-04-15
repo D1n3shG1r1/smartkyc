@@ -1,6 +1,5 @@
 @php
 
-
 $incompleteProfile = $customer["incompleteProfile"];
 $portalId = $customer["portalId"];
 $customerId = $customer["customerId"];
@@ -99,7 +98,9 @@ $uploadCount = 0;
             </div>
             <!-- Form -->
             <form class="full graph_head" id="documentForm">  
-                <input type="hidden" class="form-control" id="portalId" name="portalId" value="{{$portalId}}">
+            
+            <input type="hidden" class="form-control" id="_token" name="_token" value="{{ csrf_token() }}">    
+            <input type="hidden" class="form-control" id="portalId" name="portalId" value="{{$portalId}}">
                 <input type="hidden" class="form-control" id="customerId" name="customerId" value="{{$customerId}}">
                 <input type="hidden" class="form-control" id="applicationId" name="applicationId" value="{{$applicationId}}">
 
@@ -143,16 +144,16 @@ $uploadCount = 0;
                         </div>-->
 
                         <div class="row mb-3">
-                        <div class="col-md-12">
-                            <label for="documentType" class="form-label">Document Type<span class="required">*</span></label>
-                            <span type="text" class="form-control" readonly> {{ucwords(documentsTypes($docType))}}</span>
-                        </div>
+                            <div class="col-md-12">
+                                <label for="documentType" class="form-label">Document Type<span class="required">*</span></label>
+                                <span type="text" class="form-control" readonly> {{ucwords(documentsTypes($docType))}}</span>
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-12">
-                            <label for="documentNumber" class="form-label">Document Number<span class="required">*</span></label>
-                            <input type="text" class="form-control" id="documentNumber" placeholder="Document Number">
-                        </div>
+                                <label for="documentNumber_{{$k+1}}" class="form-label">Document Number<span class="required">*</span></label>
+                                <input type="text" class="form-control documentNumber" id="documentNumber_{{$k+1}}" name="documentNumber[]" placeholder="Document Number">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -164,7 +165,7 @@ $uploadCount = 0;
                             <label id="labeluploadDocument_{{$k+1}}" for="uploadDocument_{{$k+1}}" class="form-label dd-block uploadButton">
                                 <i class="bi bi-cloud-upload display-4"></i>
                                 <p style="font-size:12px; line-height:10px; margin-bottom: 0;">Browse File</p>
-                                <input class="form-control d-none" type="file" id="uploadDocument_{{$k+1}}" name="uploadDocument_{{$k+1}}" onchange="uploadFiles(event)" accept=".jpeg,.jpg,.png,.pdf"
+                                <input class="form-control d-none" type="file" id="uploadDocument_{{$k+1}}" name="uploadDocument[]" onchange="uploadFiles(event)" accept=".jpeg,.jpg,.png,.pdf"
                                 >
                                 <input class="form-control d-none" type="hidden" id="DocumentUpload" name="DocumentUpload" value="0">
                                 <input class="form-control d-none" type="hidden" id="base64Input" name="base64Input" value="">
@@ -354,21 +355,6 @@ function viewFile(fileId, fileType){
 
     function submitForm(){
         
-        if (Object.keys(BASE64ARR).length === 0) {
-            var err = 1;
-            var msg = "Please upload required documents.";
-            showToast(err,msg);
-            return false;
-        } else if(Object.keys(BASE64ARR).length < uploadCount){
-            var err = 1;
-            var msg = "Please upload all "+uploadCount+" documents.";
-            showToast(err,msg);
-            return false;
-        }else{
-            alert("ok");
-        }
-
-        return false;
         var portalId = $("#portalId").val();
         var customerId = $("#customerId").val();
         var applicationId = $("#applicationId").val();
@@ -377,7 +363,7 @@ function viewFile(fileId, fileType){
         var lastName = $("#lastName").val();
         var email = $("#email").val();
         var phone = $("#phone").val();
-        var title = $("#title").val();
+        //var title = $("#title").val();
         var documentType = $("#documentType").val();
         var documentNumber = $("#documentNumber").val();
         var description = $("#description").val();
@@ -385,6 +371,18 @@ function viewFile(fileId, fileType){
         DocumentUpload = parseInt(DocumentUpload);
         var uploadDocument = $("#uploadDocument").val();
         var comments = $("#comments").val();
+
+        var documentNumErr = 0;
+        var documentNumbersArr = [];
+        $(".documentNumber").each(function(i, elm){
+            var docNum = $(elm).val().trim();
+            if(!isRealValue(docNum)){
+                documentNumErr = 1;    
+            }else{
+                documentNumbersArr.push(docNum);
+            }
+        });
+
         
         if(!isRealValue(firstName)){
             var err = 1;
@@ -406,22 +404,22 @@ function viewFile(fileId, fileType){
             var msg = "Phone number is required.";
             showToast(err,msg);
             return false;
-        }else if(!isRealValue(title)){
+        }/*else if(!isRealValue(title)){
             var err = 1;
             var msg = "Document title is required.";
             showToast(err,msg);
             return false;
-        }else if(!isRealValue(documentType)){
+        }*/else if(!isRealValue(documentType)){
             var err = 1;
             var msg = "Document type is required.";
             showToast(err,msg);
             return false;
-        }else if(!isRealValue(documentNumber)){
+        }else if(documentNumErr > 0){
             var err = 1;
             var msg = "Document number is required.";
             showToast(err,msg);
             return false;
-        }else if(!isRealValue(description)){
+        }/*else if(!isRealValue(description)){
             var err = 1;
             var msg = "Document description is required.";
             showToast(err,msg);
@@ -431,41 +429,42 @@ function viewFile(fileId, fileType){
             var msg = "Upload Document.";
             showToast(err,msg);
             return false;
+        }*/
+        else if(Object.keys(BASE64ARR).length === 0) {
+            var err = 1;
+            var msg = "Please upload required documents.";
+            showToast(err,msg);
+            return false;
+        }else if(Object.keys(BASE64ARR).length < uploadCount){
+            var err = 1;
+            var msg = "Please upload all "+uploadCount+" documents.";
+            showToast(err,msg);
+            return false;
         }else{
 
             const requrl = "portal/submitapplicationrequest";
-            const postdata = {
-                "portalId": portalId,
-                "customerId":customerId,
-                "applicationId":applicationId,
-                "firstName":firstName,
-                "lastName":lastName,
-                "email":email,
-                "phone":phone,
-                "title":title,
-                "documentType":documentType,
-                "documentNumber":documentNumber,
-                "description":description,
-                "comments":comments,
-                "base64Input":BASE64INPUT
-            };
-
-            callajax(requrl, postdata, function (resp) {
+            var postdata = new FormData($('#documentForm')[0]);
+            callajaxFormData(requrl, postdata, function (resp) {
                 if (resp.C == 100) {
                     var err = 0;
                     var msg = "Your application is submitted successfully.";
                     showToast(err,msg);     
                     
-                    window.location.href = "{{url('portal/myapplications')}}";
+                    //window.location.href = "{{url('portal/myapplications')}}";
+                    
                 } else {
                     var err = 1;
                     var msg = "Something went wrong please try again.";
                     showToast(err,msg);        
                 }
             });
-            
+
         }
     }
 
+    //http://local.smartkyc.com/portal/login/1f7eb1d132dd059422ead7d5660301a21db9d2eb?applicationtoken=1744308570290744
+    //http://local.smartkyc.com/portal/documentrequest/1744308570290744
+    //http://local.smartkyc.com/portal/login/1f7eb1d132dd059422ead7d5660301a21db9d2eb?applicationtoken=174439278683943
+    //http://local.smartkyc.com/portal/documentrequest/174439278683943
 </script>
 @endpush

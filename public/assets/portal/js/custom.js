@@ -388,6 +388,38 @@ function callajax(requrl, jsondata, cb){
 	});
 }
 
+function callajaxFormData(requrl, jsondata, cb){
+	var requestUrl = SERVICEURL+"/"+requrl;
+  
+	$.ajax({
+		url:requestUrl,
+		data:jsondata,
+    method: 'POST',
+    contentType: false,
+    processData: false,
+    type:"post",
+		dataType:"json",
+		success:function(resp){
+			if(resp.C == 1004){
+        window.location.href = SERVICEURL; 
+      }else{
+        return cb(resp);
+      }
+      
+		},
+		error:function(p1,p2,p3){
+			
+			printLog("p1");
+			printLog(p1);
+			printLog("p2");
+			printLog(p2);
+			printLog("p3");
+			printLog(p3);
+			return cb({C:777, R:[p1,p2,p3],M:"error"});
+		}
+	});
+}
+
 function isRealValue(arg){
 	if(arg != "" && arg != null && arg != undefined){
 		return true;

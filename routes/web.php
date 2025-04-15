@@ -125,7 +125,7 @@ Route::prefix('portal')->name('portal.')->group(function () {
     
     Route::get('/documentrequest/{Id}',[Customerportal::class, 'documentrequest']);
     Route::post('/submitapplicationrequest',[Customerportal::class, 'submitapplicationrequest']);
-
+    
     Route::get('/logout',[Customerportal::class, 'logout']);
     
 });
