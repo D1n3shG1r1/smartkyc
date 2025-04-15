@@ -96,10 +96,20 @@ class Profile extends Controller
             $state = $request->input("state");
             $state = '';
             $country = $request->input("country");
+
             $zipcode = $request->input("zipcode");
+            if(!$zipcode || $zipcode == null || $zipcode == ''){
+                $zipcode = '';
+            }
             $phone = $request->input("phone");
             $company = $request->input("company");
+            if(!$company || $company == null || $company == ''){
+                $company = '';
+            }
             $website = $request->input("website");
+            if(!$website || $website == null || $website == ''){
+                $website = '';
+            }
             $updatedDateTime = date("Y-m-d H:i:s");
 
             $updateData = array(
