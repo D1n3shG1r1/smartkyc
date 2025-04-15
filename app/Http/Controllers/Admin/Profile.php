@@ -94,6 +94,7 @@ class Profile extends Controller
             $address_2 = $request->input("address_2");
             $city = $request->input("city");
             $state = $request->input("state");
+            $state = '';
             $country = $request->input("country");
             $zipcode = $request->input("zipcode");
             $phone = $request->input("phone");
