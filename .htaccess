@@ -1,13 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Ensure the `public` folder is served first
+    # Ensure the 'public' folder is served first
     RewriteCond %{REQUEST_URI} !^/public/
 
-    # If the requested URL is a directory or a file that exists, serve it
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-
-    # Redirect all requests to the index.php in the public folder
+    # Redirect all requests to the public/index.php file
     RewriteRule ^(.*)$ public/index.php/$1 [L]
 </IfModule>
+
