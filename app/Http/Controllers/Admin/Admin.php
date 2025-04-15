@@ -331,14 +331,14 @@ class Admin extends Controller
             
             // Paginate the results
             $customersObj = $customersObj->paginate(10);
-            $customers = $customersObj;
+            
             // Convert the result to an array if there are any customers
-            //$customers = $customersObj->isEmpty() ? [] : $customersObj->toArray();
+            $customers = $customersObj->isEmpty() ? [] : $customersObj->toArray();
             
             $data = array();
             $data["pageTitle"] = "My Customers";
             $data["customers"] = $customers;
-            
+            //echo "<pre>"; print_r($data); die;
             return View("admin.admin-customers",$data);
 
         }else{

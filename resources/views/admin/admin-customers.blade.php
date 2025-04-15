@@ -1,5 +1,10 @@
 @php
-$customersData = $customers["data"];
+if(!empty($customers)){
+    $customersData = $customers["data"];
+}else{
+    $customersData = [];
+}
+
 @endphp
 @extends("app")
 @section("contentbox")
@@ -98,6 +103,7 @@ $customersData = $customers["data"];
                 </table>
                 </div>
 
+                @php if(!empty($customers)){ @endphp
                 <div class="btn-group mr-2 pagination button_section button_style2">
                 @php
           
@@ -136,7 +142,7 @@ $customersData = $customers["data"];
             
                 <a class="btn paginate_button next {{$nextdisable}}" {{$nextHref}}  aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="-1" id="DataTables_Table_0_next"><i class="fa fa-angle-double-right"></i></a>    
             </div>
-
+            @php } @endphp
             </div>
         </div>
         </div>
