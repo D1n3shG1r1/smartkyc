@@ -31,7 +31,7 @@ class Applications extends Controller
             $portalId = sha1($this->ADMINID);
             $applications = array();
             $applicationsObj = Applications_model::where("portalId",$portalId)->where("adminId",$adminId)->orderBy('createDateTime', 'desc')->paginate(10);
-            
+            dd($applicationsObj);
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();
                
