@@ -166,8 +166,13 @@ $uploadCount = 0;
                 @php
 
                 $documentTypeArr = explode(",",$documentType);
-                $documentNoArr = explode(",",$documentNo);
-                dd($documentNoArr);
+                if($documentNo != ""){
+                    $documentNoArr = explode(",",$documentNo);
+                }else{
+                    $documentNoArr = array();
+                }
+                
+                
                 foreach($documentTypeArr as $k => $docType){
                     if(!array_key_exists($k, $documentNoArr)){
                         $documentNoVal = '';
