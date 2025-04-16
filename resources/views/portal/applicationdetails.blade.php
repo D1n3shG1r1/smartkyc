@@ -172,7 +172,7 @@ $uploadCount = 0;
                     $documentNoArr = array();
                 }
                 
-                
+                dd($documentNoArr);
                 foreach($documentTypeArr as $k => $docType){
                     if(!array_key_exists($k, $documentNoArr)){
                         $documentNoVal = '';
