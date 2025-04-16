@@ -450,7 +450,7 @@ function viewFile(fileId, fileType){
                     var msg = "Your application is submitted successfully.";
                     showToast(err,msg);     
                     setTimeout(function(){
-                        window.location.href = "{{url('portal/myapplications')}}";
+                        //window.location.href = "{{url('portal/myapplications')}}";
                     },1000);
                     
                     
