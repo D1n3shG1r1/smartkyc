@@ -36,7 +36,8 @@ class Applications extends Controller
                 $applications = $applicationsObj->toArray();
                
                 foreach($applications["data"] as &$row){
-                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    //$row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    $row["verificationOutcomeTxt"] = $row["verificationOutcome"];
 
                     $customer = Customers_model::select("fname", "lname")->where("id", $row["customerId"])->first();
                     $row["customerName"] = ucwords($customer["fname"] . " " . $customer["lname"]);
