@@ -1103,7 +1103,6 @@ class Customerportal extends Controller
 
                 $postBackData = array();
                 $postBackData["success"] = 1;
-                $postBackData["test"] = $sysadmObj["email"];
                 
                 $response = array(
                     "C" => 100,
