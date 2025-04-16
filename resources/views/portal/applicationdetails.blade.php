@@ -183,19 +183,24 @@ $uploadCount = 0;
                         $documentNoVal = '';
                     }
                     
-                    
-                    $docPath = $documents[$k]["filePath"];
-                    $docMime = $documents[$k]["mimeType"];
+                    if($requestSubmitted > 0){
+                        $docPath = $documents[$k]["filePath"];
+                        $docMime = $documents[$k]["mimeType"];
 
 
-                    if($docMime == "application/pdf"){
-                        //pdf file
-                        $icon = '<i class="bi bi-filetype-pdf display-4"></i>';
-                        
+                        if($docMime == "application/pdf"){
+                            //pdf file
+                            $icon = '<i class="bi bi-filetype-pdf display-4"></i>';
+                            
+                        }else{
+                            //jpeg png file
+                            $icon = '<i class="bi bi-filetype-jpg display-4"></i>';
+                        }
                     }else{
-                        //jpeg png file
-                        $icon = '<i class="bi bi-filetype-jpg display-4"></i>';
+                        $docPath = '';
+                        $docMime = '';
                     }
+                    
 
                     $uploadCount++;
                
@@ -232,12 +237,16 @@ $uploadCount = 0;
                         <div class="border rounded text-center">
 
                             <div id="preview_{{$k+1}}" class="previewDiv">
+                            @php if($requestSubmitted > 0){ @endphp
                                 {!! $icon !!}
                                 <a href="javascript:void(0);" class="uploadDeleteBtn" onClick="viewFile('{{$docPath}}','{{$docMime}}')" data-toggle="modal" data-target="#previewModal"><i class="fa fa-eye"></i>&nbsp;View</a>
                                 
                                 <span class="navSeprator"></span>
                                 
                                 <a href="{{$docPath}}" class="uploadViewBtn" download><i class="fa fa-download"></i>&nbsp;Download</a>
+                                @php }else{ @endphp
+                                    No document uploaded yet.
+                                @php } @endphp
                             </div>
                             
                         </div>
