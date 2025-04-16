@@ -1154,7 +1154,8 @@ class Customerportal extends Controller
                 $applications = $applicationsObj->toArray();
             
                 foreach($applications["data"] as &$row){
-                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    //$row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    $row["verificationOutcomeTxt"] = $row["verificationOutcome"];
                 }
                 
             }
