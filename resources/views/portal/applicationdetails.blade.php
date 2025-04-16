@@ -103,7 +103,7 @@ $uploadCount = 0;
     </div>
     
     @php if($requestSubmitted == 0){ @endphp
-        <div class="alert alert-danger" style="display:block; position:relative; right:unset; bottom:unset;">It appears that you have not submitted your application yet. Please <a href="{{url('portal/documentrequest/'.$applicationId)}}">click here</a> to submit it.</div>
+        <div class="alert alert-danger" style="display:block; position:relative; right:unset; bottom:unset;">It appears that you have not submitted your application yet. Please <a href="{{url('portal/documentrequest/'.$applicationId)}}" class="btn btn-primary">Click Here</a> to submit it.</div>
     @php } @endphp
     
     <div class="row">
