@@ -126,7 +126,6 @@ $uploadCount = 0;
                     </div>
                 </div>
                 
-                <input type="hidden" class="form-control" id="documentType" name="documentType" placeholder="Document Type" value="{{$documentType}}">
 
                 @php
                 $documentTypeArr = explode(",",$documentType);
@@ -147,6 +146,7 @@ $uploadCount = 0;
                             <div class="col-md-12">
                                 <label for="documentType" class="form-label">Document Type<span class="required">*</span></label>
                                 <span type="text" class="form-control" readonly> {{ucwords(documentsTypes($docType))}}</span>
+                                <input type="hidden" class="form-control" id="documentType" name="documentType[]" placeholder="Document Type" value="{{$docType}}">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -364,7 +364,7 @@ function viewFile(fileId, fileType){
         var email = $("#email").val();
         var phone = $("#phone").val();
         //var title = $("#title").val();
-        var documentType = $("#documentType").val();
+        //var documentType = $("#documentType").val();
         var documentNumber = $("#documentNumber").val();
         var description = $("#description").val();
         var DocumentUpload = $("#DocumentUpload").val();
@@ -409,12 +409,12 @@ function viewFile(fileId, fileType){
             var msg = "Document title is required.";
             showToast(err,msg);
             return false;
-        }*/else if(!isRealValue(documentType)){
+        }else if(!isRealValue(documentType)){
             var err = 1;
             var msg = "Document type is required.";
             showToast(err,msg);
             return false;
-        }else if(documentNumErr > 0){
+        }*/else if(documentNumErr > 0){
             var err = 1;
             var msg = "Document number is required.";
             showToast(err,msg);
