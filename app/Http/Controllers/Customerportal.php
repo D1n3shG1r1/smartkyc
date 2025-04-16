@@ -593,7 +593,7 @@ class Customerportal extends Controller
                 'DiscrepanciesOptions' => DiscrepanciesOptions()
             ];
             
-            //echo "<pre>"; print_r($data); die;
+            echo "<pre>"; print_r($data); die;
 
             //$filePath = "users/1736615183114993/assets/customers/1744308570659527/applications/174439278683943/documents/1744703972686941.jpg";
             //echo asset('storage/' . $filePath); die;
