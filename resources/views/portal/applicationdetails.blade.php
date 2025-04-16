@@ -172,13 +172,17 @@ $uploadCount = 0;
                     $documentNoArr = array();
                 }
                 
-                dd($documentNoArr);
                 foreach($documentTypeArr as $k => $docType){
-                    if(!array_key_exists($k, $documentNoArr)){
-                        $documentNoVal = '';
+                    if(!empty($documentNoArr)){
+                        if(!array_key_exists($k, $documentNoArr)){
+                            $documentNoVal = '';
+                        }else{
+                            $documentNoVal = $documentNoArr[$k];
+                        }
                     }else{
-                        $documentNoVal = $documentNoArr[$k];
+                        $documentNoVal = '';
                     }
+                    
                     
                     $docPath = $documents[$k]["filePath"];
                     $docMime = $documents[$k]["mimeType"];
