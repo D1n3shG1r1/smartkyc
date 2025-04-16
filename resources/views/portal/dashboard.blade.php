@@ -23,9 +23,10 @@ $applicationsData = $applications["data"];
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Doc Title</th>
+                            <th>Application ID</th>
+                            <!--<th>Doc Title</th>
                             <th>Doc Type</th>
-                            <th>Doc Number</th>
+                            <th>Doc Number</th>-->
                             <th>Status</th>
                             <th>Date</th>
                             <th>Action</th>
@@ -58,9 +59,10 @@ $applicationsData = $applications["data"];
                                 
                         <tr>
                             <td>{{$k+1}}</td>
-                            <td>{{ucwords($title)}}</td>
+                            <td>{{$id}}</td>
+                            <!--<td>{{ucwords($title)}}</td>
                             <td>{{ucwords($documentType)}}</td>
-                            <td>{{$documentNo}}</td>
+                            <td>{{$documentNo}}</td>-->
                             <td>{{ucwords($verificationStatus)}}</td>
                             <td>{{$createDate}}</td>
                             <td><a href="{{url('portal/application/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
