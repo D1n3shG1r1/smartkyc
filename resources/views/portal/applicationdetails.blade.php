@@ -22,6 +22,7 @@ $email = $customer["email"];
 $phone = $customer["phone"];
 
 $applicationId = $application["id"];
+$requestSubmitted = $application["requestSubmitted"];
 $documentType = $application["documentType"];
 $documentNo = $application["documentNo"];
 $documents = $application["documents"];
@@ -101,6 +102,9 @@ $uploadCount = 0;
         </div>
     </div>
     
+    @php if($requestSubmitted == 0){ @endphp
+        <div class="alert alert-danger" style="display:block; position:relative; right:unset; bottom:unset;">It appears that you have not submitted your application yet. Please <a href="{{url('portal/documentrequest/'.$applicationId)}}">click here</a> to submit it.</div>
+    @php } @endphp
     
     <div class="row">
         <div class="col-md-12">
@@ -123,7 +127,6 @@ $uploadCount = 0;
                                             
                     </div>
                     <div class="col-md-6 heading1 margin_0 pdl-20">
-                           
                     </div>
                 </div>
                 </form>
@@ -164,7 +167,12 @@ $uploadCount = 0;
                 $documentTypeArr = explode(",",$documentType);
                 $documentNoArr = explode(",",$documentNo);
                 foreach($documentTypeArr as $k => $docType){
-                    $documentNoVal = $documentNoArr[$k];
+                    array_key_exists($k, $documentNoArr){
+                        $documentNoVal = $documentNoArr[$k];
+                    }else{
+                        $documentNoVal = '';
+                    }
+                    
                     $docPath = $documents[$k]["filePath"];
                     $docMime = $documents[$k]["mimeType"];
 
