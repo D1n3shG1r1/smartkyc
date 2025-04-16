@@ -125,7 +125,9 @@ class Applications extends Controller
             if($applicationObj){
                 $application = $applicationObj->toArray();     
                 $customerId = $application["customerId"];
-                $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+                //$application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+
+                $application["verificationOutcomeTxt"] = $application["verificationOutcome"];
                 
                 
                /* //get customer data

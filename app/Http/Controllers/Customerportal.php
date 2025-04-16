@@ -554,7 +554,9 @@ class Customerportal extends Controller
 
             if($applicationObj){
                 $application = $applicationObj->toArray();     
-                $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+                //$application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+
+                $application["verificationOutcomeTxt"] = $application["verificationOutcome"];
                 
                 //get application documents
                 $documentsObj = ApplicationDocuments_model::where("portalId",$portalId)->where("applicationId",$Id)->get();
