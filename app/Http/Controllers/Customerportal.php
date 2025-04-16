@@ -772,7 +772,8 @@ class Customerportal extends Controller
                     //load view for upload
                     
                     $application = $applicationObj->toArray();     
-                    $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+                    //$application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+                    $application["verificationOutcomeTxt"] = $application["verificationOutcome"];
                     
                     //get application documents
                     $documentsObj = ApplicationDocuments_model::where("portalId",$portalId)->where("applicationId",$applicationId)->get();
