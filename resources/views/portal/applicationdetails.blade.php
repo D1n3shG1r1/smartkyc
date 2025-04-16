@@ -167,10 +167,10 @@ $uploadCount = 0;
                 $documentTypeArr = explode(",",$documentType);
                 $documentNoArr = explode(",",$documentNo);
                 foreach($documentTypeArr as $k => $docType){
-                    array_key_exists($k, $documentNoArr){
-                        $documentNoVal = $documentNoArr[$k];
-                    }else{
+                    if(!array_key_exists($k, $documentNoArr)){
                         $documentNoVal = '';
+                    }else{
+                        $documentNoVal = $documentNoArr[$k];
                     }
                     
                     $docPath = $documents[$k]["filePath"];
