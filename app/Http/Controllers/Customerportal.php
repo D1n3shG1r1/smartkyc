@@ -15,6 +15,7 @@ use App\Models\ApplicationDocuments_model;
 use App\Models\Notifications_model;
 use App\Models\customerInbox_model;
 use App\Traits\SmtpConfigTrait;
+use Hamcrest\Arrays\IsArray;
 
 class Customerportal extends Controller
 {
@@ -947,9 +948,15 @@ class Customerportal extends Controller
 
                 //send notification and email to Admin & Super-Admin
                 $docTxtArr = array();
-                foreach($documentType as $docTyp){
-                    $docTxtArr[] = documentsTypes($docTyp);
+                
+                if (is_array($documentType)) {
+                    foreach($documentType as $docTyp){
+                        $docTxtArr[] = documentsTypes($docTyp);
+                    }
+                }else{
+                    $docTxtArr[] = documentsTypes($documentType);   
                 }
+                
                 
                 $documentTypeTxt = implode(",", $docTxtArr);
                 $notifyMsg = "Applicant has uploaded the required documents for application $applicationId. Please review the $documentTypeTxt for verification.";
