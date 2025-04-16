@@ -69,7 +69,7 @@
                   
                </div>
                <div class="sidebar_blog_2">
-                  <h4>Admin</h4>
+                  <h4>Customer</h4>
                   <ul class="list-unstyled components">
                      <li><a href="{{url('/admin/dashboard')}}"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a></li>
                      <li><a href="{{url('/admin/myprofile')}}"><i class="fa fa-user yellow_color"></i> <span>My Profile</span></a></li>
