@@ -164,8 +164,10 @@ $uploadCount = 0;
                 <input type="hidden" class="form-control" id="documentType" name="documentType" placeholder="Document Type" value="{{$documentType}}">
 
                 @php
+
                 $documentTypeArr = explode(",",$documentType);
                 $documentNoArr = explode(",",$documentNo);
+                dd($documentNoArr);
                 foreach($documentTypeArr as $k => $docType){
                     if(!array_key_exists($k, $documentNoArr)){
                         $documentNoVal = '';
@@ -187,6 +189,7 @@ $uploadCount = 0;
                     }
 
                     $uploadCount++;
+               
                 @endphp
                 <div class="row">
                 <div class="col-md-12 heading1"><h2>#{{$k+1}} {{ucwords(documentsTypes($docType))}}</h2></div>
