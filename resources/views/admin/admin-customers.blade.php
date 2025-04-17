@@ -58,8 +58,8 @@ if(!empty($customers)){
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Company</th>
                             <th>Email</th>
-                            <th>Phone</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -74,6 +74,7 @@ if(!empty($customers)){
                             $fname = $row["fname"];
                             $lname = $row["lname"];
                             $fullName = ucwords($fname." ".$lname);
+                            $company = $row["company"];
                             $phone = $row["phone"];
                             
                     ?>
@@ -81,8 +82,8 @@ if(!empty($customers)){
                         <tr id="row-{{$id}}">
                             <td>{{$k+1}}</td>
                             <td>{{$fullName}}</td>
+                            <td>{{$company}}</td>
                             <td>{{$email}}</td>
-                            <td>{{$phone}}</td>
                             <td>
                                 <a href="{{url('admin/admin-customer/'.$id)}}" target="_blank" class=""><i class="fa fa-user"></i>&nbsp;Profile</a>
                                 
