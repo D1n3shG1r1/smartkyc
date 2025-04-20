@@ -202,13 +202,13 @@ $uploadCount = 0;
                     @if($incompleteProfile == 1)
                         <div class="alert alert-danger" style="display:block; position:relative; right:unset; bottom:unset;">Please first complete your profile to submit application.</div>
                     @else
-                        <button type="button" class="btn cur-p btn-primary submitApplBtn" onclick="submitForm();">Submit</button>
+                        <button id="docSbmtBtn" type="button" class="btn cur-p btn-primary submitApplBtn" data-txt="Submit" data-loadingtxt="Submitting..." onclick="submitForm(this);">Submit</button>
                     @endif
                     
                 </div>
             
             </form>
-            
+
             <!-- End / Form -->
 
 
@@ -353,7 +353,7 @@ function viewFile(fileId, fileType){
     
 }
 
-    function submitForm(){
+    function submitForm(elm){
         
         var portalId = $("#portalId").val();
         var customerId = $("#customerId").val();
@@ -442,15 +442,25 @@ function viewFile(fileId, fileType){
             return false;
         }else{
 
+            var elmId = $(elm).attr("id");
+            $(elm).attr("disabled",true);
+            var orgTxt = $(elm).attr("data-txt");
+            var loadingTxt = $(elm).attr("data-loadingtxt");
+            showLoader(elmId,loadingTxt);
+
             const requrl = "portal/submitapplicationrequest";
             var postdata = new FormData($('#documentForm')[0]);
             callajaxFormData(requrl, postdata, function (resp) {
+                
+                $(elm).removeAttr("disabled");
+                hideLoader(elmId,orgTxt);
+
                 if (resp.C == 100) {
                     var err = 0;
                     var msg = "Your application is submitted successfully.";
                     showToast(err,msg);     
                     setTimeout(function(){
-                        //window.location.href = "{{url('portal/myapplications')}}";
+                        window.location.href = "{{url('portal/myapplications')}}";
                     },1000);
                     
                     

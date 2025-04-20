@@ -66,7 +66,13 @@ $customersData = $customers["data"];
             <div class="row page_title">
                 <div class="col-md-3"><h2>My Applicants</h2></div>
                 <div class="col-md-9">
-                    <a href="javascript:void(0);" onclick="newApplication();" class="pull-right a-button" data-id="0" data-toggle="modal" data-target="#newRequestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to add a new applicant and make a document request."><i class="fa fa-plus"></i>&nbsp;Add Applicant</a>
+
+                    @php if($hasPackage > 0){ @endphp
+                        <a href="javascript:void(0);" onclick="newApplication();" class="pull-right a-button" data-id="0" data-toggle="modal" data-target="#newRequestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to add a new applicant and make a document request."><i class="fa fa-plus"></i>&nbsp;Add Applicant</a>
+                    @php }else{ @endphp
+
+                        <a href="javascript:void(0);" onclick="buyPackage();" class="pull-right a-button" data-id="0" data-toggle="modal" data-target="#buyPackageModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to add a new applicant and make a document request."><i class="fa fa-plus"></i>&nbsp;Add Applicant</a>
+                    @php } @endphp
                 </div>
             </div>
         </div>
@@ -139,8 +145,14 @@ $customersData = $customers["data"];
                                 -->
 
                                 <span class="navSeprator"></span>
-                                <a href="javascript:void(0);" onclick="getApllicantData(this);" data-id="{{$id}}"  class="" data-toggle="modal" data-target="#requestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Make a new request to upload documents for verification." style="cursor:pointer;"><i class="fa fa-newspaper-o"></i>&nbsp; Request Document</a>
-                                
+
+                                @php if($hasPackage > 0){ @endphp
+                                    <a href="javascript:void(0);" onclick="getApllicantData(this);" data-id="{{$id}}"  class="" data-toggle="modal" data-target="#requestModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Make a new request to upload documents for verification." style="cursor:pointer;"><i class="fa fa-newspaper-o"></i>&nbsp; Request Document</a>
+                                @php }else{ @endphp
+                                    <a href="javascript:void(0);" onclick="buyPackage();" data-id="{{$id}}"  class="" data-toggle="modal" data-target="#buyPackageModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Make a new request to upload documents for verification." style="cursor:pointer;"><i class="fa fa-newspaper-o"></i>&nbsp; Request Document</a>
+                                    
+                                @php } @endphp
+
                             </td>
                         </tr>
                     <?php
@@ -194,6 +206,27 @@ $customersData = $customers["data"];
         </div>
         </div>
     </div>
+</div>
+
+<div id="buyPackageModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Buy Package</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>It seems you haven't purchased or activated a package, or your current package has expired. To continue using the service, please purchase or renew a suitable package.</p>
+        <a href="{{url('admin/mypackage')}}" style="display:inline-block; padding:10px 20px; background-color:#007bff; color:white; text-decoration:none; border-radius:5px;">View Available Packages</a>
+
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="profileModal" class="modal" tabindex="-1" role="dialog">
@@ -338,7 +371,7 @@ $customersData = $customers["data"];
             </div>
             <div class="form-group col-md-6" style="text-align: right; padding-top: 27px;">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reloadPage();">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="sendRequest();"><i class="fa fa-send-o"></i>&nbsp;Send</button>
+                <button id="sendRequestBtn" type="button" class="btn btn-primary" onclick="sendRequest(this);" data-txt='<i class="fa fa-send-o"></i>&nbsp;Send' data-loadingtxt='<i class="fa fa-send-o"></i>&nbsp;Sending...'><i class="fa fa-send-o"></i>&nbsp;Send</button>
             </div>
         </div>
         
@@ -454,7 +487,7 @@ $customersData = $customers["data"];
             </div>
             <div class="form-group col-md-6" style="text-align: right; padding-top: 27px;">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reloadPage();">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="sendNewRequest();"><i class="fa fa-send-o"></i>&nbsp;Send</button>
+                <button id="sendNewRequestBtn" type="button" class="btn btn-primary" onclick="sendNewRequest(this);" data-txt='<i class="fa fa-send-o"></i>&nbsp;Send' data-loadingtxt='<i class="fa fa-send-o"></i>&nbsp;Sending...'><i class="fa fa-send-o"></i>&nbsp;Send</button>
             </div>
         </div>
         
@@ -688,7 +721,8 @@ function updateCharacterCount() {
     }
 }
 
-function sendRequest(){
+function sendRequest(elm){
+     
     var applicantId = $("#applicantId").val();
     var applicantName = $("#applicantName").val();
     var applicantEmail = $("#applicantEmail").val();
@@ -720,6 +754,14 @@ function sendRequest(){
         modalErr(modalErrId, err, msg);
         return false;
     }else{
+    
+        //sendRequestBtn
+        var elmId = $(elm).attr("id");
+        
+        $(elm).attr("disabled",true);
+        var orgTxt = $(elm).attr("data-txt");
+        var loadingTxt = $(elm).attr("data-loadingtxt");
+        showLoader(elmId,loadingTxt);
         
         var requrl = "admin/sendDocumentRequest";
         var postdata = {
@@ -731,6 +773,10 @@ function sendRequest(){
         };
         
         callajax(requrl, postdata, function(resp){
+
+            $(elm).removeAttr("disabled");
+            hideLoader(elmId,orgTxt);
+
             $("#applicantId").val("");
             $("#applicantName").val("");
             $("#applicantEmail").val("");
@@ -765,7 +811,7 @@ function sendRequest(){
 
 }
 
-function sendNewRequest(){
+function sendNewRequest(elm){
     var applicantId = $("#New_applicantId").val();
     var applicantName = $("#New_applicantName").val();
     var applicantEmail = $("#New_applicantEmail").val();
@@ -823,6 +869,13 @@ function sendNewRequest(){
         return false;
     }else{
         
+        var elmId = $(elm).attr("id");
+        
+        $(elm).attr("disabled",true);
+        var orgTxt = $(elm).attr("data-txt");
+        var loadingTxt = $(elm).attr("data-loadingtxt");
+        showLoader(elmId,loadingTxt);
+
         var requrl = "admin/addNewApplicant";
         var postdata = {
             "applicantId":applicantId,
@@ -835,6 +888,9 @@ function sendNewRequest(){
         };
         
         callajax(requrl, postdata, function(resp){
+            
+            $(elm).removeAttr("disabled");
+            hideLoader(elmId,orgTxt); 
 
             $("#New_applicantId").val("");
             $("#New_applicantName").val("");
@@ -909,6 +965,10 @@ function modalErr(modalErrId, err, msg){
 
 function reloadPage(){
     location.reload();
+}
+
+function buyPackage(){
+
 }
 </script>
 @endpush

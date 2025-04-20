@@ -416,8 +416,8 @@ class Package extends Controller
             //Email
             $toEmail = $sysAdm["email"]; //"support@smartverify.com.ng";
             $toName = ucwords($sysAdm["fname"] ." ". $sysAdm["lname"]);//"Can Namho"; //;
-            $subject = "'Pay As You Go' Plan - Quotation Request";
-            $templateBlade = "emails.payasgorequest";
+            $subject = "Enterprise Plan - Quotation Request";
+            $templateBlade = "emails.enterpriseplanrequest";
 
             $recipient = ['name' => $toName, 'email' => $toEmail];
             
@@ -425,7 +425,7 @@ class Package extends Controller
                 'name' => $toName,
                 'customerName' => $fullName,
                 'customerEmail' => $adminEmail,
-                'packageName' => 'Pay as You Go',
+                'packageName' => 'Enterprise Plan',
                 'additionalMessage' => $message 
             ];
             

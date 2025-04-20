@@ -67,6 +67,10 @@
                   <div id="hs_menu_wrapper_footer_main_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="default" data-menu-id="51449774528" aria-label="Navigation Menu">
                      <ul role="menu">
                         
+                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/track-your-application')}}" role="menuitem">Track Application</a></li>
+
+                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/pricing')}}" role="menuitem">Pricing</a></li>
+
                      <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/how-it-works')}}" role="menuitem">How It Works</a></li>
                      
                      <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/faq')}}" role="menuitem">FAQ</a></li>

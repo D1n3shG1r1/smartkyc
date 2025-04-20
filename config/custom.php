@@ -20,7 +20,7 @@ return [
     ),
     "packagePricing" => array(
         "package-basic" => 37500,
-        "package-business" => 450000,
+        "package-business" => 70000,
         "package-enterprise" => 0,
         "package-payasyougo" => 9000
     ),

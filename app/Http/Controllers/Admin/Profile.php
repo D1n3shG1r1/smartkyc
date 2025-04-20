@@ -18,7 +18,8 @@ class Profile extends Controller
         
         if($this->ADMINID > 0){
             $adminId = $this->ADMINID;
-            $adminObj = Admin_model::where('id', $adminId)->first()->toArray();
+            //$adminObj = Admin_model::where('id', $adminId)->first()->toArray();
+            $adminObj = Admin_model::where('id', $adminId)->first();
             
             unset($adminObj["password"]);
             unset($adminObj["createDateTime"]);

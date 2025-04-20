@@ -18,9 +18,12 @@
     <link rel="stylesheet" href="{{ url('assets/portal/css/perfect-scrollbar.css'); }}">
     <link rel="stylesheet" href="{{ url('assets/portal/css/custom.css'); }}">
 
+
+    
+         <!--<script src="{{ url('/assets/portal/js/bootstrap.min.js') }}"></script>-->
     <!-- Bootstrap CSS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
 
     <style>
         .agree-term{
@@ -44,7 +47,8 @@
         var SERVICEURL = "{{ url('') }}";
     </script>
     <script src="{{ url('assets/js/jquery-3.6.0.min.js'); }}"></script>   
-    <script src="{{ url('/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url('/assets/portal/js/popper.min.js') }}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url('/assets/js/script.js') }}"></script>
 
 </head>
@@ -69,6 +73,9 @@
                         <div class="field">
                             <label class="label_field">Email Address</label>
                             <input id="email" type="email" name="email" placeholder="E-mail" value="{{$customerDetails['email']}}" onblur="checkEmail();" />
+                            <div id="emailLoader" class="hideMe spinner-border text-primary" role="status" style="float: right; margin-top: -32px; border: 0.20em solid #6c757d;
+                            border-right-color: transparent;">
+                            </div>
                         </div>
                         
                         <div class="field">
@@ -84,6 +91,7 @@
                         <div id="optInputBox" class="field hideMe">
                             <label class="label_field">OTP</label>
                             <input type="text" id="otp" placeholder="Enter OTP" maxlength="6">
+                            <i style="float: right; margin-top: -30px;" class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Contact your administrator to get the OTP."></i>
                         </div>
 
                         <div class="field">
@@ -93,7 +101,7 @@
 
                         <div id="sendOtpButtonBox" class="field margin_0">
                             <label class="label_field hidden">hidden label</label>
-                            <button type="button" class="btn cur-p btn-primary sendotpBtn" onclick="sendOtp();">Login</button>
+                            <button id="loginBtn" data-txt="Login" data-loadingtxt="Login" type="button" class="btn cur-p btn-primary sendotpBtn" onclick="sendOtp(this);">Login</button>
                         </div>
                         
                         <div id="resendotpBox" class="field hideMe">
@@ -156,7 +164,27 @@
 <div id="toastMessage" class="alert alert-danger" role="alert">This is a danger alert—check it out!</div>
 
 <script>
+    var emailOk = 0;
 
+    $(function(){
+        //http://local.smartkyc.com/portal/login/1f7eb1d132dd059422ead7d5660301a21db9d2eb?applicationtoken=174439278683943
+        
+        const portal_Id = $("#portalId").val();
+        const request_Token = $("#requestToken").val();
+        localStorage.setItem('portalId', portal_Id);
+        localStorage.setItem('requestToken', request_Token);
+        
+        setTimeout(function(){
+            $("#email").trigger("blur");
+        }, 1500);
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    });
+
+    
     function showCompanyName() {
       // Hide the image and show the company name if the image fails to load
       document.getElementById('company-logo').style.display = 'none';
@@ -170,10 +198,19 @@
         const requestToken = $("#requestToken").val();
         
         if (!isRealValue(email)) {
+            var err = 1;
+            var msg = "Please enter your email.";
+            showToast(err, msg);
             return false;
         } else if (!validateEmail(email)) {
+            var err = 1;
+            var msg = "Please enter valid email.";
+            showToast(err, msg);
             return false;
         } else {
+
+            $("#emailLoader").removeClass("hideMe");
+
             const requrl = "portal/checkemail";
             const postdata = {
                 "adminId": adminId,
@@ -182,6 +219,9 @@
             };
 
             callajax(requrl, postdata, function (resp) {
+                
+                $("#emailLoader").addClass("hideMe");
+
                 if (resp.C == 100) {
                     const tmpFname = resp.R.fname;
                     const tmpLname = resp.R.lname;
@@ -189,19 +229,27 @@
                         $("#fname").val(tmpFname);
                         $("#lname").val(tmpLname);  // Corrected: set #lname instead of #fname
                     }
+
+                    emailOk = 1;
+
                 } else {
                     $("#fname").val("");
                     $("#lname").val("");  // Corrected: set #lname to empty
+                    emailOk = 0;
+                    var err = 1;
+                    var msg = "Entered email is not associated with us.";
+                    showToast(err, msg);
+                    return false;
                 }
             });
         }
     }
 
-    function sendOtp() {
+    function sendOtp(elm) {
         
         var adminId = $("#adminId").val();
         var portalId = $("#portalId").val();
-
+        
         var email = $("#email").val();
         var fname = $("#fname").val();
         var lname = $("#lname").val();
@@ -252,6 +300,52 @@
             showToast(err, msg);
             return false;
         } else {
+
+            $("#emailLoader").removeClass("hideMe");
+            var elmId = $(elm).attr("id");
+            $(elm).attr("disabled",true);
+            var orgTxt = $(elm).attr("data-txt");
+            var loadingTxt = $(elm).attr("data-loadingtxt");
+            showLoader(elmId,loadingTxt);
+            
+            const requrl = "portal/checkemail";
+            const postdata = {
+                "adminId": adminId,
+                "portalId": portalId,
+                "email": email
+            };
+
+            callajax(requrl, postdata, function (resp) {
+                
+                $("#emailLoader").addClass("hideMe");
+                $(elm).removeAttr("disabled");
+                hideLoader(elmId,orgTxt);
+
+                if (resp.C == 100) {
+                    $("#email").attr("readonly", true);
+                    $("#sendOtpButtonBox").addClass("hideMe");
+                    $("#optInputBox").removeClass("hideMe");
+                    $("#resendotpBox").removeClass("hideMe");
+                    $("#verifyBttnBox").removeClass("hideMe");
+
+                    var err = 0;
+                    var msg = "Contact your administrator to get the OTP.";
+                    showToast(err, msg);
+
+                    emailOk = 1;
+
+                } else {
+                    $("#fname").val("");
+                    $("#lname").val("");  // Corrected: set #lname to empty
+                    emailOk = 0;
+                    var err = 1;
+                    var msg = "Entered email is not associated with us.";
+                    showToast(err, msg);
+                    return false;
+                }
+            });
+
+            /*
             $("#email").attr("readonly", true);
             const requrl = "portal/sendotp";
             const postdata = {
@@ -281,6 +375,7 @@
                     showToast(err, msg);
                 }
             });
+            */
         }
     }
     
@@ -304,6 +399,7 @@
         var portalId = $("#portalId").val();
         var email = $("#email").val();
         var otp = $("#otp").val();
+        var agreeTerm = $("#agree_term").is(":checked");
         const requestToken = $("#requestToken").val();
 
         if (!isRealValue(email)) {
@@ -324,6 +420,12 @@
         }else if (otp.length < 6 || otp.length > 6) {
             var err = 1;
             var msg = "Please enter the valid otp.";
+            showToast(err, msg);
+            return false;
+        } else if (!agreeTerm) {
+            // Validate Terms of Service Checkbox
+            var err = 1;
+            var msg = "You must agree to the Privacy & Data Security Policy.";
             showToast(err, msg);
             return false;
         }else{

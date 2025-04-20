@@ -30,7 +30,18 @@ class Customerportal extends Controller
     function index($portalId, Request $request){
         if (!$portalId) {
             // Return a 404 response if no portalId is provided
-            abort(404, 'Portal ID not provided');
+            //abort(404, 'Portal ID not provided');
+
+            if($this->CUSTOMERID > 0){
+                $isLogin = 1;
+            }else{
+                $isLogin = 0;
+            }
+            $data = [
+                'pageTitle' => '404 Page Not Found',
+                'isLogin' => $isLogin,
+            ];
+            return View('portal.page404', $data);
         }
     
         $customerDetails = array("fname" => "", "lname" => "", "email" => "");
@@ -49,7 +60,17 @@ class Customerportal extends Controller
 
 
             }else{
-                abort(404, 'Invalid application token');
+                //abort(404, 'Invalid application token');
+                if($this->CUSTOMERID > 0){
+                    $isLogin = 1;
+                }else{
+                    $isLogin = 0;
+                }
+                $data = [
+                    'pageTitle' => '404 Page Not Found',
+                    'isLogin' => $isLogin,
+                ];
+                return View('portal.page404', $data);
             }
 
         }else{
@@ -62,7 +83,17 @@ class Customerportal extends Controller
         // Check if portal object exists
         if (!$portalObj) {
             // Return a 404 response if portal does not exist
-            abort(404, 'Portal not found');
+            //abort(404, 'Portal not found');
+            if($this->CUSTOMERID > 0){
+                $isLogin = 1;
+            }else{
+                $isLogin = 0;
+            }
+            $data = [
+                'pageTitle' => '404 Page Not Found',
+                'isLogin' => $isLogin,
+            ];
+            return View('portal.page404', $data);
         }
     
         // If portal exists, proceed with additional data
@@ -216,77 +247,86 @@ class Customerportal extends Controller
     }
     
     function login(Request $request){
-        $portalId = $request->input('portalId');
-        //$adminId = $request->input('adminId');
-        $email = $request->input('email');
-        $otp = $request->input('otp');
-        
-        $portalObj = Customerportal_model::where("portalId", $portalId)->first()->toArray();
-        $adminId = $portalObj['adminId'];
 
-        $custmoerObj = Customers_model::where("adminId", $adminId)->where("portalid", $portalId)->where("email", $email)->first();
+        if($request->isMethod('post')) {
+            $portalId = $request->input('portalId');
+            //$adminId = $request->input('adminId');
+            $email = $request->input('email');
+            $otp = $request->input('otp');
+            
+            $portalObj = Customerportal_model::where("portalId", $portalId)->first()->toArray();
+            $adminId = $portalObj['adminId'];
 
-        if($custmoerObj){
-            $custmoerObj = $custmoerObj->toArray();
-            
-            $postBackData = array();
-            $postBackData["email"] = $email;
-            
-            if($custmoerObj["otp"] == $otp){
-                //set portal session
-                $customerId = $custmoerObj["id"];
-                $customerEmail = $custmoerObj["email"];
-                $customerFname = $custmoerObj["fname"];
-                $customerLname = $custmoerObj["lname"];
+            $custmoerObj = Customers_model::where("adminId", $adminId)->where("portalid", $portalId)->where("email", $email)->first();
+
+            if($custmoerObj){
+                $custmoerObj = $custmoerObj->toArray();
                 
-                //update otp for security reason
-                $otp = genOtp();
-                $otpSentDateTime = date("Y-m-d H:i:s");
-                $updateDateTime = date("Y-m-d H:i:s");
+                $postBackData = array();
+                $postBackData["email"] = $email;
+                
+                if($custmoerObj["otp"] == $otp){
+                    //set portal session
+                    $customerId = $custmoerObj["id"];
+                    $customerEmail = $custmoerObj["email"];
+                    $customerFname = $custmoerObj["fname"];
+                    $customerLname = $custmoerObj["lname"];
+                    
+                    //update otp for security reason
+                    $otp = genOtp();
+                    $otpSentDateTime = date("Y-m-d H:i:s");
+                    $updateDateTime = date("Y-m-d H:i:s");
+                
+                    $updateArr = array(
+                        "otp" => $otp,
+                        "otpSentDateTime" => $otpSentDateTime,
+                        "updateDateTime" => $updateDateTime
+                    );
             
-                $updateArr = array(
-                    "otp" => $otp,
-                    "otpSentDateTime" => $otpSentDateTime,
-                    "updateDateTime" => $updateDateTime
-                );
-        
-                $saved = Customers_model::where("portalid", $portalId)->where("email", $email)->update($updateArr);
-                
-                //$this->setSession('adminId', $adminId);
-                $this->setSession('portalId', $portalId);
-                $this->setSession('customerId', $customerId);
-                $this->setSession('customerEmail', $customerEmail);
-                $this->setSession('customerFname', $customerFname);
-                $this->setSession('customerLname', $customerLname);
-                
-                $postBackData["success"] = 1;
-                $response = array(
-                    "C" => 100,
-                    "R" => $postBackData,
-                    "M" => "Email verified successfully."
-                );
+                    $saved = Customers_model::where("portalid", $portalId)->where("email", $email)->update($updateArr);
+                    
+                    //$this->setSession('adminId', $adminId);
+                    $this->setSession('portalId', $portalId);
+                    $this->setSession('customerId', $customerId);
+                    $this->setSession('customerEmail', $customerEmail);
+                    $this->setSession('customerFname', $customerFname);
+                    $this->setSession('customerLname', $customerLname);
+                    
+                    $postBackData["success"] = 1;
+                    $response = array(
+                        "C" => 100,
+                        "R" => $postBackData,
+                        "M" => "Email verified successfully."
+                    );
+                }else{
+                    //invalid otp
+                    $postBackData["success"] = 0;
+                    $response = array(
+                        "C" => 101,
+                        "R" => $postBackData,
+                        "M" => "You have entered an invalid OTP."
+                    );
+                }
+
             }else{
-                //invalid otp
+                //invalid email
                 $postBackData["success"] = 0;
                 $response = array(
-                    "C" => 101,
+                    "C" => 102,
                     "R" => $postBackData,
-                    "M" => "You have entered an invalid OTP."
+                    "M" => "The email is invalid or it is not associated with our records."
                 );
             }
 
+            return response()->json($response);
         }else{
-            //invalid email
-            $postBackData["success"] = 0;
-            $response = array(
-                "C" => 102,
-                "R" => $postBackData,
-                "M" => "The email is invalid or it is not associated with our records."
-            );
+            $data = [
+                'pageTitle' => 'Session Expired',
+            ];
+        
+            return View('portal.loginsessionoutpage', $data);
         }
 
-        return response()->json($response);
-        
     }
 
     
@@ -324,7 +364,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('/portal/login'));
         }
 
     }
@@ -365,7 +405,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('/portal/login'));
         }
     }
     
@@ -518,7 +558,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('/portal/login'));
         }
     }
 
@@ -607,7 +647,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('/portal/login'));
         }
     }
 
@@ -631,7 +671,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('/portal/login'));
         }
     }
 
@@ -731,7 +771,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('/portal/login'));
         }
     }
 
@@ -817,18 +857,38 @@ class Customerportal extends Controller
 
                 }else{
                     // invalid token
-                    die("invalid token or link expired");
+                    if($this->CUSTOMERID > 0){
+                        $isLogin = 1;
+                    }else{
+                        $isLogin = 0;
+                    }
+                    $data = [
+                        'pageTitle' => '404 Page Not Found',
+                        'isLogin' => $isLogin,
+                    ];
+                    return View('portal.page404', $data);
+                    
                 }
 
             }else{
                 //invalid token
-                die("token missing");
+                //die("token missing");
+                if($this->CUSTOMERID > 0){
+                    $isLogin = 1;
+                }else{
+                    $isLogin = 0;
+                }
+                $data = [
+                    'pageTitle' => '404 Page Not Found',
+                    'isLogin' => $isLogin,
+                ];
+                return View('portal.page404', $data);
             }
             
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('/portal/login'));
         }   
     }
 
@@ -1171,7 +1231,7 @@ class Customerportal extends Controller
         }else{
             //redirect to login
             $portalId = $this->getSession('portalId');    
-            return Redirect::to(url('/portal/login/'.$portalId));
+            return Redirect::to(url('/portal/login'));
         }
     }
     

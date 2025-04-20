@@ -208,7 +208,7 @@ $uploadCount = 0;
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <button type="button" id="updateStatusBtn" class="updateStatusBtn btn cur-p btn-outline-primary" data-txt="Update" data-loadingtxt="Saving..." onclick="updateStatus();">Update</button>    
+                                <button type="button" id="updateStatusBtn" class="updateStatusBtn btn cur-p btn-outline-primary" data-txt="Update" data-loadingtxt="Saving..." onclick="updateStatus(this);">Update</button>    
                             </div>
                         </div>    
                     </div>
@@ -468,7 +468,7 @@ function updateCharacterCount() {
         
     }
 
-    function updateStatus(){
+    function updateStatus(elm){
 
         var applicationId = $("#applicationId").val();
         var portalId = $("#portalId").val();
@@ -510,6 +510,14 @@ function updateCharacterCount() {
             showToast(err,msg);
             return false;
         }else{
+
+            var elmId = $(elm).attr("id");
+        
+            $(elm).attr("disabled",true);
+            var orgTxt = $(elm).attr("data-txt");
+            var loadingTxt = $(elm).attr("data-loadingtxt");
+            showLoader(elmId,loadingTxt);
+            
             var requrl = "admin/updateApplicationStatus";
             var postdata = {
                 "applicationId":applicationId,
@@ -521,6 +529,10 @@ function updateCharacterCount() {
             };
             
             callajax(requrl, postdata, function(resp){
+
+                $(elm).removeAttr("disabled");
+                hideLoader(elmId,orgTxt); 
+
                 if(resp.C == 100){
                     var err = 0;
                     var msg = "Application status has been updated successfully.";

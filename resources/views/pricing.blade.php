@@ -114,15 +114,19 @@
                   <div class="slider glide slider--dnd_area-module-1 glide--ltr glide--carousel glide--swipeable" id="">
                     <div class="glide__track" data-glide-el="track">
                       <ul class="glide__slides" style="transition: transform cubic-bezier(0.165, 0.84, 0.44, 1); width: 3825px; transform: translate3d(-1275px, 0px, 0px);">
-                        <li class="glide__slide lazy glide__slide--clone" style="background-position: center center; width: 1275px; margin-right: 0px;" data-bg="<?php echo url('assets/img/people-4.jpg'); ?>">
+                        <li class="glide__slide lazy glide__slide--clone" style="background-position: center center; /*width: 1275px;*/ margin-right: 0px;" data-bg="<?php echo url('assets/img/people-4.jpg'); ?>">
                           <div class="slider__inner-container">
                             <div class="slider__inner ">
                               <h1 style="font-size: 43px; text-align: left; line-height: 1.15;">
-                                <strong>World's quickest <br>inspection marketplace! </strong>
+                                <strong>Smarter Verification for Smarter Decisions</strong>
                               </h1>
-                              <p style="font-size: 20px;">Are you an inspection company or a freelance quality professional?</p>
-                              <p style="line-height: 1.15;">Whether you're a global, regional, domestic inspection company, or a freelance quality pro, you're welcome to submit your application to become a registered vendor, all in <strong>6 easy steps</strong>. </p>
-                              <p style="line-height: 1.15;">Submit your application for review, and once approved, check our short or long term jobs you may want to submit an offer for.</p>
+                              <p style="font-size: 20px;">Welcome to Nigeria’s most reliable document verification platform.</p>
+                              <p style="line-height: 1.15;">Whether you’re a government agency, corporate institution, or private business, SmartKYC gives you the power to verify your vendors, contractors, or applicants quickly and securely — all in just a few steps.</p>
+                              <p style="line-height: 1.15;">We know that each organization is unique. That’s why our pricing is fully tailored to meet your specific needs. We base our service plans on:<br>
+                              The number of vendors or contractors you need to verify
+                              <br>Your industry’s risk level and compliance requirements<br>The frequency and volume of verifications   
+
+                              </p>
                               <div class="slider__ctas text-left">
                                 <span id="hs_cos_wrapper_dnd_area-module-1_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
                                   <!--HubSpot Call-to-Action Code -->
@@ -137,15 +141,17 @@
                             </div>
                           </div>
                         </li>
-                        <li class="glide__slide lazy glide__slide--active loaded" style="background-position: center center; width: 1275px; margin-left: 0px; margin-right: 0px; margin:auto; background-image: url('<?php echo url('assets/img/people-5.jpg'); ?>');" data-ll-status="loaded">
+                        <li class="glide__slide lazy glide__slide--active loaded" style="background-position: center center; /*width: 1275px;*/ margin-left: 0px; margin-right: 0px; margin:auto; background-image: url('<?php echo url('assets/img/people-5.jpg'); ?>');" data-ll-status="loaded">
                           <div class="slider__inner-container">
                             <div class="slider__inner ">
                               <h1 style="font-size: 43px; text-align: left; line-height: 1.15;">
-                                <strong>World's quickest <br>inspection marketplace! </strong>
+                                <strong>Smarter Verification for Smarter Decisions </strong>
                               </h1>
-                              <p style="font-size: 20px;">Are you an inspection company or a freelance quality professional?</p>
-                              <p style="line-height: 1.15;">Whether you're a global, regional, domestic inspection company, or a freelance quality pro, you're welcome to submit your application to become a registered vendor, all in <strong>6 easy steps</strong>. </p>
-                              <p style="line-height: 1.15;">Submit your application for review, and once approved, check our short or long term jobs you may want to submit an offer for.</p>
+                              <p style="font-size: 20px;">Welcome to Nigeria’s most reliable document verification platform.</p>
+                              <p style="line-height: 1.15;">Whether you’re a government agency, corporate institution, or private business, SmartKYC gives you the power to verify your vendors, contractors, or applicants quickly and securely — all in just a few steps.</p>
+                              <p style="line-height: 1.15;">We know that each organization is unique. That’s why our pricing is fully tailored to meet your specific needs. We base our service plans on:<br>
+                              The number of vendors or contractors you need to verify
+                              <br>Your industry’s risk level and compliance requirements<br>The frequency and volume of verifications </p>
                               <div class="slider__ctas text-left">
                                 <span id="hs_cos_wrapper_dnd_area-module-1_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
                                   <!--HubSpot Call-to-Action Code -->
@@ -160,15 +166,17 @@
                             </div>
                           </div>
                         </li>
-                        <li class="glide__slide lazy glide__slide--clone" style="background-position: center center; width: 1275px; margin-left: 0px;" data-bg="<?php echo url('assets/img/people-6.jpg'); ?>">
+                        <li class="glide__slide lazy glide__slide--clone" style="background-position: center center; /*width: 1275px;*/ margin-left: 0px;" data-bg="<?php echo url('assets/img/people-6.jpg'); ?>">
                           <div class="slider__inner-container">
                             <div class="slider__inner ">
                               <h1 style="font-size: 43px; text-align: left; line-height: 1.15;">
-                                <strong>World's quickest <br>inspection marketplace! </strong>
+                                <strong>Smarter Verification for Smarter Decisions </strong>
                               </h1>
-                              <p style="font-size: 20px;">Are you an inspection company or a freelance quality professional?</p>
-                              <p style="line-height: 1.15;">Whether you're a global, regional, domestic inspection company, or a freelance quality pro, you're welcome to submit your application to become a registered vendor, all in <strong>6 easy steps</strong>. </p>
-                              <p style="line-height: 1.15;">Submit your application for review, and once approved, check our short or long term jobs you may want to submit an offer for.</p>
+                              <p style="font-size: 20px;">Welcome to Nigeria’s most reliable document verification platform.</p>
+                              <p style="line-height: 1.15;">Whether you’re a government agency, corporate institution, or private business, SmartKYC gives you the power to verify your vendors, contractors, or applicants quickly and securely — all in just a few steps.</p>
+                              <p style="line-height: 1.15;">We know that each organization is unique. That’s why our pricing is fully tailored to meet your specific needs. We base our service plans on:<br>
+                              The number of vendors or contractors you need to verify
+                              <br>Your industry’s risk level and compliance requirements<br>The frequency and volume of verifications </p>
                               <div class="slider__ctas text-left">
                                 <span id="hs_cos_wrapper_dnd_area-module-1_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta">
                                   <!--HubSpot Call-to-Action Code -->
@@ -356,11 +364,11 @@
                                  <div id="hs_cos_wrapper_module_1660223857177" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                                     <div class="pricing-item pric_lp pricing-item--module_1660223857177 text-center " id="">
                                        <h3 class="pricing-item__name">Business</h3>
-                                       <h3 class="pricing-item__name pricing-item__price">₦ 450,000 Monthly</h3>
+                                       <h3 class="pricing-item__name pricing-item__price">₦ 70,000 Monthly</h3>
                                        <div class="pricing-item__inner-content">
                                           <p><small></small></p>
                                           <div>
-                                             <p style="text-align: left;">Medium to large businesses with higher verification needs.</p>
+                                             <p style="text-align: left;">Ideal for medium to large businesses with moderate verification needs.</p>
                                           </div>
                                           <ul class="no-list">
                                              <li>
@@ -371,7 +379,7 @@
                                                    </g>
                                                 </svg>
                                                 <span>
-                                                Verify up to 100 documents per month
+                                                Verify up to 10 documents per month
                                                 </span>
                                              </li>
                                              <li>
@@ -382,7 +390,7 @@
                                                    </g>
                                                 </svg>
                                                 <span>
-                                                Cost: ₦4,500 per document
+                                                Cost: ₦7,000 per additional document
                                                 </span>
                                              </li>
                                              <li>
@@ -404,7 +412,7 @@
                                                    </g>
                                                 </svg>
                                                 <span>
-                                                API integration for automated verification
+                                                Bulk upload capability
                                                 </span>
                                              </li>
                                              <li>
@@ -415,22 +423,10 @@
                                                    </g>
                                                 </svg>
                                                 <span>
-                                                   Bulk upload capability
+                                                Customizable reporting features
                                                 </span>
                                              </li>
 
-                                             <li>
-                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check4" role="img">
-                                                   <title id="check4">Feature</title>
-                                                   <g id="check4_layer">
-                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                   </g>
-                                                </svg>
-                                                <span>
-                                                Customizable reporting features 
-                                                </span>
-                                             </li>
-                                             
                                              <li>
                                                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check4" role="img">
                                                    <title id="check4">Feature</title>
@@ -469,11 +465,11 @@
                                        </div>
                                        -->
                                        <h3 class="pricing-item__name">Enterprise</h3>
-                                       <h3 class="pricing-item__name pricing-item__price">Enterprise</h3>
+                                       <h3 class="pricing-item__name pricing-item__price">Custom Pricing</h3>
                                        <div class="pricing-item__inner-content">
                                           <p><small></small></p>
                                           <div>
-                                             <p style="text-align: left;">Large organizations or government entities with extensive verification requirements</p>
+                                             <p style="text-align: left;">Designed for large organizations and government entities with extensive verification needs.</p>
                                           </div>
                                           <ul class="no-list">
                                              <li>
@@ -484,18 +480,7 @@
                                                    </g>
                                                 </svg>
                                                 <span>
-                                                Verify Unlimited documents per month
-                                                </span>
-                                             </li>
-                                             <li>
-                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check2" role="img">
-                                                   <title id="check2">Feature</title>
-                                                   <g id="check2_layer">
-                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                   </g>
-                                                </svg>
-                                                <span>
-                                                Contact us for a custom quote
+                                                Unlimited document verifications per month
                                                 </span>
                                              </li>
                                              <li>
@@ -506,7 +491,7 @@
                                                    </g>
                                                 </svg>
                                                 <span>
-                                                Processing time:1-3 business days, with expedited options
+                                                Processing time: 1–3 business days (expedited options available)
                                                 </span>
                                              </li>
                                              <li>
@@ -517,7 +502,7 @@
                                                    </g>
                                                 </svg>
                                                 <span>
-                                                During production inspection
+                                                Bulk document upload and processing
                                                 </span>
                                              </li>
                                              <li>
@@ -529,18 +514,6 @@
                                                 </svg>
                                                 <span>
                                                 Full API integration with custom workflows 
-                                                </span>
-                                             </li>
-
-                                             <li>
-                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check5" role="img">
-                                                   <title id="check5">Feature</title>
-                                                   <g id="check5_layer">
-                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                   </g>
-                                                </svg>
-                                                <span>
-                                                Bulk document processing 
                                                 </span>
                                              </li>
 
@@ -577,6 +550,26 @@
                                                 </svg>
                                                 <span>
                                                 24/7 priority customer support
+                                                </span>
+                                             </li>
+
+                                             <li>
+                                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" aria-labelledby="check5" role="img">
+                                                   <title id="check5">Feature</title>
+                                                   <g id="check5_layer">
+                                                      <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                                                   </g>
+                                                </svg>
+                                                <span>
+                                                Optional:
+                                                <br> 
+                                                On-site production inspections
+                                                <br> 
+                                                Custom onboarding and training for your team
+                                                <br> 
+                                                Advanced analytics and performance dashboards
+                                                <br> 
+                                                Integration with internal systems and databases
                                                 </span>
                                              </li>
                                           </ul>

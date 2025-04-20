@@ -113,7 +113,13 @@
                            <div class="icon_info">
                               <ul>
                                  
-                                 <li><a href="{{url('admin/notifications');}}"><i class="fa fa-bell-o"></i><span class="badge">{{$LOGINUSER["notifiationCount"]}}</span></a></li>
+                                 <li><a href="{{url('admin/notifications');}}"><i class="fa fa-bell-o"></i>
+                                   
+                                 @php $bellClass = ''; if($LOGINUSER["notifiationCount"] > 0){
+                                    $bellClass = 'online_animation';
+                                 } @endphp
+                                 <span class="badge {{$bellClass}}">{{$LOGINUSER["notifiationCount"]}}</span>
+                              </a></li>
                                  <!--
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
                                  <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
@@ -123,12 +129,16 @@
                                  <li>
                                     <a class="dropdown-toggle" data-toggle="dropdown"><img class="profilephotoimg img-responsive rounded-circle" src="<?php echo url(userImagesDisplayPath($LOGINUSER["adminId"],"pp-".$LOGINUSER["adminId"].".jpg"))?>" onerror="this.onerror=null; this.src='{{url('assets/admin/img/user-white.png')}}';" alt="#" /><span class="name_user">{{ucwords($LOGINUSER["fname"]." ".$LOGINUSER["lname"])}}</span></a>
                                     <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="{{url('/admin/myprofile')}}">My Profile</a>
+                                    
                                        @php
                                        if($LOGINUSER["systemAdmin"] > 0){
                                        @endphp
+                                       <a class="dropdown-item" href="{{url('/admin/admin-myprofile')}}">My Profile</a>
                                        <a class="dropdown-item" href="{{url('/admin/admin-settings')}}">Settings</a>
+                                       @php }else{ @endphp
+                                       <a class="dropdown-item" href="{{url('/admin/myprofile')}}">My Profile</a>
                                        @php } @endphp
+                                       
                                        <a class="dropdown-item" href="{{url('/admin/signout')}}"><span>Sign Out</span> <i class="fa fa-sign-out"></i></a>
                                     </div>
                                  </li>

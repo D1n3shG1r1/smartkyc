@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acknowledgement of Document Upload Request</title>
+    <title>Enterprise Plan - Quotation Request</title>
     <style>
         /* General styles */
         body {
@@ -132,20 +132,25 @@
                 <!-- Replace 'logo-url.png' with the actual logo URL -->
                 <img style="margin:auto;" src="{{ url('assets/img/walls-logo-web2.png') }}" alt="SmartKYC Logo">
                 <!--<h1 style="text-align:center;">SmartKYC</h1>-->
-                <p style="text-align:center;">Acknowledgement of Document Upload Request</p>
+                <p style="text-align:center;">Enterprise Plan - Quotation Request</p>
             </td>
         </tr>
         <tr>
             <td class="email-body">
-                <p>Dear {{ ucwords($customerName) }},</p>
+                <p>Dear {{$name}},</p>
                 
+      
                 <p>
-                    Thank you for your message. We acknowledge the request for the {{$documentType}} for the verification process of application #{{$applicationId}}.
+                $customerName (<a rel="noopener" href="mailto:{{$customerEmail}}" target="_blank"><strong>{{$customerEmail}}</strong></a>) has sent you a quotation for the <strong>{{$packageName}}</strong> plan.
                 </p>
-
-                <p>If you have any questions or need assistance, please contact the company that is verifying you directly.</p>
-                <p>Thank you for choosing SmartKYC!</p>
-                
+                <p>{{$additionalMessage}}</p>
+                <p>
+                  Regards,
+                  <br>
+                  {{ $customerName }}
+                  <br>
+                  {{ $customerEmail }}
+                </p>
             </td>
         </tr>
         <tr>

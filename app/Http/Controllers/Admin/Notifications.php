@@ -122,10 +122,26 @@ class Notifications extends Controller
                 
                 //dd($applicationObj);
                 $appSaved = $applicationObj->save();
-
-
                 $token = $applicationId;
-            }
+
+                //update verified count in adminpackage table
+                $packageRow = Package_model::where("adminId",$adminId)->first();
+                $documentsVerified = $packageRow->documentsVerified + 1;
+                $documentsVerifyLimit = $packageRow->documentsVerifyLimit;
+
+                $updatePackageData = array(); 
+                $updatePackageData['documentsVerified'] = $documentsVerified;
+                
+                // if the documentsVerofied count exceeds the limit, deactivate and mark expired
+                if($documentsVerified >= $documentsVerifyLimit){
+                    $updatePackageData['active'] = 0;
+                    $updatePackageData['expired'] = 1;
+                }
+
+                // Update the record
+                $packageRowUpdt = Package_model::where("adminId",$adminId)->update($updatePackageData);
+            }   
+            
 
             // one time use upload link
             $uploadLink = url("portal/login/$portalId?applicationtoken=$token") ;
@@ -329,9 +345,24 @@ class Notifications extends Controller
                 
                 //dd($applicationObj);
                 $appSaved = $applicationObj->save();
-
-
                 $token = $applicationId;
+
+                //update verified count in adminpackage table
+                $packageRow = Package_model::where("adminId",$adminId)->first();
+                $documentsVerified = $packageRow->documentsVerified + 1;
+                $documentsVerifyLimit = $packageRow->documentsVerifyLimit;
+
+                $updatePackageData = array(); 
+                $updatePackageData['documentsVerified'] = $documentsVerified;
+                
+                // if the documentsVerofied count exceeds the limit, deactivate and mark expired
+                if($documentsVerified >= $documentsVerifyLimit){
+                    $updatePackageData['active'] = 0;
+                    $updatePackageData['expired'] = 1;
+                }
+
+                // Update the record
+                $packageRowUpdt = Package_model::where("adminId",$adminId)->update($updatePackageData);
             /*}*/
 
             // one time use upload link

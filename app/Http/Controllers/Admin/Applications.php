@@ -357,6 +357,23 @@ class Applications extends Controller
             
             $email = $request->input("email"); 
 
+            //get current package
+            $packageRow = Package_model::where("adminId", $adminId)->first();
+            $hasPackage = 0;
+            if($packageRow){
+                
+                $packageRow = $packageRow->toArray();
+                
+                if($packageRow["active"] == 0 || $packageRow["expired"] == 1){
+                    $hasPackage = 0;
+                }else if($packageRow["active"] == 1 && $packageRow["expired"] == 0){
+                    $hasPackage = 1;
+                }
+            
+            }else{
+                $hasPackage = 0;
+            }
+
             $customers = array();
             $customersQuery = Customers_model::select("id", "email", "otp", "fname", "lname", "phone")->where("adminId", $adminId);
 
@@ -372,13 +389,15 @@ class Applications extends Controller
             if($customersObj){
                 $customers = $customersObj->toArray();
             }
-
-            //echo "<pre>"; print_r($customers); die;
+            //$hasPackage = 0;
             $data = [
                 'pageTitle' => 'My Applicants',
-                'customers' => $customers
+                'customers' => $customers,
+                'hasPackage' => $hasPackage
             ];
             
+            //echo "<pre>"; print_r($data); die;
+
             return View('admin.myapplicants', $data);
 
         }else{

@@ -165,15 +165,14 @@ if(!empty($currentPackage)){
                                         </div>
                                         <div class="price_table_inner">
                                         <div class="cont_table_price_blog">
-                                            <p class="green_color">₦ <span class="price_no">450,000</span> Monthly</p>
+                                            <p class="green_color">₦ <span class="price_no">70,000</span> Monthly</p>
                                         </div>
                                         <div class="cont_table_price">
                                             <ul>
-                                                <li><a href="#">Medium to large businesses with higher verification needs.</a></li>
-                                                <li><i class="fa fa-check"></i><a href="#">Verify up to 100 documents per month</a></li>
-                                                <li><i class="fa fa-check"></i><a href="#">Cost: ₦4,500 per document</a></li>
+                                                <li><a href="#">Ideal for medium to large businesses with moderate verification needs.</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Verify up to 10 documents per month</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Cost: ₦7,000 per additional document</a></li>
                                                 <li><i class="fa fa-check"></i><a href="#">Processing time: 1-3 business days</a></li>
-                                                <li><i class="fa fa-check"></i><a href="#">API integration for automated verification</a></li>
                                                 <li><i class="fa fa-check"></i><a href="#">Bulk upload capability</a></li>
                                                 <li><i class="fa fa-check"></i><a href="#">Customizable reporting features</a></li>
                                                 <li><i class="fa fa-check"></i><a href="#">Priority support</a></li>
@@ -214,20 +213,26 @@ if(!empty($currentPackage)){
                                         </div>
                                         <div class="price_table_inner">
                                         <div style="display: none;" class="cont_table_price_blog">
-                                            <p class="red_color">₦ <span class="price_no">?</span> Monthly</p>
+                                            <p class="red_color"><span class="price_no">Custom Pricing</span></p>
                                         </div>
                                         <div class="cont_table_price">
                                             <ul>
-                                                <li><a href="#">Large organizations or government entities with extensive verification requirements.</a></li>
-                                                <li><i class="fa fa-check"></i><a href="#">Verify Unlimited documents per month</a></li>
-                                                <li><i class="fa fa-check"></i><a href="#">Contact us for a custom quote</a></li>
-                                                <li><i class="fa fa-check"></i><a href="#">Processing time:1-3 business days, with expedited options</a></li>
-                                                <li><i class="fa fa-check"></i><a href="#">During production inspection</a></li>
+                                                <li><a href="#">Designed for large organizations and government entities with extensive verification needs.</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Unlimited document verifications per month</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Processing time: 1–3 business days (expedited options available)</a></li>
+                                                <li><i class="fa fa-check"></i><a href="#">Bulk document upload and processing</a></li>
                                                 <li><i class="fa fa-check"></i><a href="#">Full API integration with custom workflows</a></li>
-                                                <li><i class="fa fa-check"></i><a href="#">Bulk document processing</a></li>
                                                 <li><i class="fa fa-check"></i><a href="#">Dedicated account manager</a></li>
                                                 <li><i class="fa fa-check"></i><a href="#">Compliance and audit trail reporting</a></li>
                                                 <li><i class="fa fa-check"></i><a href="#">24/7 priority customer support</a></li>
+
+                                                <li><i class="fa fa-check"></i><a href="#">
+                                                Optional:
+                                                On-site production inspections<br>
+                                                Custom onboarding and training for your team<br>
+                                                Advanced analytics and performance dashboards<br>
+                                                Integration with internal systems and databases
+                                                </a></li>
                                             </ul>
                                         </div>
                                         </div>

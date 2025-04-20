@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\Package;
 use App\Http\Controllers\Admin\Admin;
 use App\Http\Controllers\Admin\Notifications;
 
+use App\Http\Controllers\ApplicationTracking;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +49,9 @@ Route::get('/register',[Register::class, 'register']);
 Route::post('/register',[Register::class, 'register']);
 Route::get('/termsofservice',[Terms::class, 'termsofservice']);
 Route::get('/privacypolicy',[Terms::class, 'privacypolicy']);
+
+Route::get('/track-your-application',[ApplicationTracking::class, 'index']);
+Route::post('/processTracking',[ApplicationTracking::class, 'processTracking']);
 
 
 Route::prefix('admin')->name('admin.')->group(function () {    
@@ -113,6 +118,7 @@ Route::prefix('portal')->name('portal.')->group(function () {
     Route::get('/login/{portalId}',[Customerportal::class, 'index']);
     Route::post('/checkemail',[Customerportal::class, 'checkEmail']);
     Route::post('/sendotp',[Customerportal::class, 'sendloginotp']);
+    Route::get('/login',[Customerportal::class, 'login']);
     Route::post('/login',[Customerportal::class, 'login']);
     Route::get('/myprofile',[Customerportal::class, 'myprofile']);
     Route::post('/saveprofile',[Customerportal::class, 'saveprofile']);
