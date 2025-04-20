@@ -8,7 +8,7 @@
     }
 
     .form-container{
-        padding: 15%;
+        padding: 20%;
         margin: auto;
     }
 
@@ -31,6 +31,7 @@
     .resultForm {
         border-top: 1px solid #bbb;
         padding-top: 15px;
+        display: none;
     }
 </style>
 
@@ -51,7 +52,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="text" id="input_applicationid" class="input_applicationid form-control" placeholder="Enter your Application-Id" aria-label="Enter your Application-Id" aria-describedby="button-addon2">
+                            <input type="text" id="input_applicationid" onkeyup="idKeyup()" class="input_applicationid form-control" placeholder="Enter your Application-Id" aria-label="Enter your Application-Id" aria-describedby="button-addon2">
                             <button class="btn btn-outline-secondary trackButton" type="button" id="trackingButton" data-txt='<i class="fa fa-paper-plane-o"></i>&nbsp;Track' data-loadingtxt='<i class="fa fa-paper-plane-o"></i>&nbsp;Tracking...' onclick="trackApplication(this);"><i class="fa fa-paper-plane-o"></i>&nbsp;Track</button>
                         </div>
                     </form>
@@ -70,7 +71,7 @@
                                     <label class="form-label">Application ID:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label id="applicationId" class="form-label">Loading...</label>
+                                    <label id="applicationId" class="form-label"></label>
                                 </div>
                             </div>
                             <div class="row">
@@ -78,7 +79,7 @@
                                     <label class="form-label">Applicant Details:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label id="applicantDetails" class="form-label">Loading...</label>
+                                    <label id="applicantDetails" class="form-label"></label>
                                 </div>
                             </div>
                             <div class="row">
@@ -86,7 +87,7 @@
                                     <label class="form-label">Status:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label id="applicationStatus" class="form-label">Loading...</label>
+                                    <label id="applicationStatus" class="form-label"></label>
                                 </div>
                             </div>
                             <div class="row">
@@ -94,7 +95,7 @@
                                     <label class="form-label">Disrepancy:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label id="applicationDisrepancy" class="form-label">Loading...</label>
+                                    <label id="applicationDisrepancy" class="form-label"></label>
                                 </div>
                             </div>
                             <div class="row">
@@ -102,7 +103,7 @@
                                     <label class="form-label">Note:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label id="note" class="form-label">Loading...</label>
+                                    <label id="note" class="form-label"></label>
                                 </div>
                             </div>
                         </div>
@@ -115,8 +116,13 @@
 @endsection
 @push("js")
 <script>
-    function trackApplication(elm){
 
+    function idKeyup(){
+        $(".resultForm").fadeOut("slow");
+    }
+
+    function trackApplication(elm){
+        
         $("#applicationId, #applicantDetails, #applicationStatus, #applicationDisrepancy, #note").html("Loading...");
 
         const applicationId = $("#input_applicationid").val();
@@ -134,6 +140,7 @@
             var loadingTxt = $(elm).attr("data-loadingtxt");
             showLoader(elmId,loadingTxt); 
             
+            $(".resultForm").fadeIn("slow");
 
             var requrl = "processTracking"
             var jsondata = {"applicationId":applicationId};
@@ -169,28 +176,7 @@
                     showToast(err,msg);
                     return false;
                 }
-                /*[customerId] => 1744989418580713
-                    [requestSubmitted] => 0
-                    [documentType] => Company_registration_certificates,Tax_clearance_certificates,Bank_statements
-                    [documentNo] => 
-                    [verificationOutcome] => 1
-                    [discrepancies] => 0
-                    [specifyDiscrepancy] => 
-                    [verificationStatus] => Pending
-                    [createDateTime] => 2025-04-18 16:08:43
-                    [updateDateTime] => 2025-04-18 16:08:43
-                    [fname] => gemini
-                    [lname] => 
-                    [email] => gemini@example.com
-                    [documentTypeVal] => Array
-                        (
-                            [0] => Company registration certificates
-                            [1] => Tax clearance certificates
-                            [2] => Bank statements
-                        )
-
-                    [discrepanciesTxt] => 
-                    [verificationOutcomeTxt] => Verification in Progress*/
+                
             });
         }
     }  
