@@ -68,8 +68,18 @@ class Package extends Controller
                 $endpoint = config('custom.paystack.transInitialize');
 
                 //get paystack credentials
-                $SECRET_KEY = config('custom.paystack.secretkey');
-                $SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
+                //$SECRET_KEY = config('custom.paystack.secretkey');
+                //$SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
+                
+                $sysAdmId = 1;
+                $sysAdm = SuperAdmin_model::where("id", $sysAdmId)->first();
+
+                $paystack = json_decode($sysAdm["paystack"], true);
+                $SECRET_KEY = $paystack["secretkey"];
+                //$paystack["publickey"];
+                if(!$SECRET_KEY || $SECRET_KEY == null || $SECRET_KEY == ''){
+                    return Redirect::to(url("admin/payment/cancel"));
+                }
                 $FName = $this->getSession('adminFName');
                 $LName = $this->getSession('adminLName');
                 $email = $this->getSession('adminEmail');
@@ -210,7 +220,15 @@ class Package extends Controller
             $this->removeSession('transactionRef');
             
             //$SECRET_KEY = config('custom.paystack.secretkey');
-            $SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
+            //$SECRET_KEY = "sk_test_48f9c1d23041e406b620438391c682afbe66cfbb";
+            $sysAdmId = 1;
+            $sysAdm = SuperAdmin_model::where("id", $sysAdmId)->first();
+
+            $paystack = json_decode($sysAdm["paystack"], true);
+            $SECRET_KEY = $paystack["secretkey"];
+            //$paystack["publickey"];
+
+
             $endpoint = config('custom.paystack.transVerify') . $reference;
         
             //$endpoint = "https://api.paystack.co/transaction/verify/1739081877345892";

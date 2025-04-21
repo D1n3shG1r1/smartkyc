@@ -274,189 +274,203 @@ class Notifications extends Controller
             $inputComment = $request->input("inputComment");
             $lastDate = $request->input("lastDate");
 
-            $otpSentDateTime = date("Y-m-d H:i:s");
-            $createDateTime = date("Y-m-d H:i:s");
-            $updateDateTime = date("Y-m-d H:i:s");
 
-            
-            $applicantId = db_randnumber();
-            $customer = new Customers_model();
-            $customer->id = $applicantId;
-            $customer->portalId = $portalId;
-            $customer->adminId = $adminId;
-            $customer->fname = $applicantName;
-            $customer->lname = '';
-            $customer->email = $applicantEmail;
-            $customer->address_1 = '';
-            $customer->address_2 = '';
-            $customer->city = '';
-            $customer->state = '';
-            $customer->country = '';
-            $customer->zipcode = '';
-            $customer->phone = '';
-            $customer->company = '';
-            $customer->website = '';
-            $customer->otp = genOtp();
-            $customer->otpSentDateTime = $otpSentDateTime;
-            $customer->createDateTime = $createDateTime;
-            $customer->updateDateTime = $updateDateTime;
-            $customer->save();
-            
-            $customer = Customers_model::select("fname", "lname", "email")->where("id", $applicantId)->first();
-            
-            $documentType = implode(",",$inputDocumentType);
-            $documentTypeTxtArr = array();
-            foreach($inputDocumentType as $tmpDocTyp){
-                $documentTypeTxtArr[] = documentsTypes($tmpDocTyp);
-            }
-
-            $applicationRef = $inputApplication;
-            
-            $toName = $customer["fname"] . " " . $customer["lname"];
-            $toEmail = $customer["email"];
-
-
-            /*if($applicationRef > 0){
-                //existing application
-                $token = $applicationRef;
-                $newApplication = 0;
-            }else{*/
-                //new application
-                $newApplication = 1;
-                $applicationId = db_randnumber();
-                $applicationObj = new Applications_model();
-                $applicationObj->id = $applicationId;
-                $applicationObj->adminId = $adminId;
-                $applicationObj->portalId = $portalId;
-                $applicationObj->customerId = $applicantId;
-                $applicationObj->requestSubmitted = 0;
-                $applicationObj->title = '';
-                $applicationObj->description = '';
-                $applicationObj->documentType = $documentType;
-                $applicationObj->documentNo = '';
-                $applicationObj->comment = '';
-                $applicationObj->verificationOutcome = 1;
-                $applicationObj->discrepancies = 0;
-                $applicationObj->specifyDiscrepancy = '';
-                $applicationObj->verificationStatus = "pending";
-                $applicationObj->lastDate = $lastDate;
-                $applicationObj->createDateTime = $createDateTime;
-                $applicationObj->updateDateTime = $updateDateTime;
+            //check if the email is already registered
+            $customer = Customers_model::where("id", $applicantId)->where("portalId", $portalId)->where("adminId", $adminId)->first();
+            if($customer){
+                //email already associate with us
+                $postBackData["success"] = 0;
                 
-                //dd($applicationObj);
-                $appSaved = $applicationObj->save();
-                $token = $applicationId;
+                $response = array(
+                    "C" => 102,
+                    "R" => $postBackData,
+                    "M" => "An applicant with the entered email is already associated with us."
+                );
+            }else{
+                $otpSentDateTime = date("Y-m-d H:i:s");
+                $createDateTime = date("Y-m-d H:i:s");
+                $updateDateTime = date("Y-m-d H:i:s");
 
-                //update verified count in adminpackage table
-                $packageRow = Package_model::where("adminId",$adminId)->first();
-                $documentsVerified = $packageRow->documentsVerified + 1;
-                $documentsVerifyLimit = $packageRow->documentsVerifyLimit;
-
-                $updatePackageData = array(); 
-                $updatePackageData['documentsVerified'] = $documentsVerified;
                 
-                // if the documentsVerofied count exceeds the limit, deactivate and mark expired
-                if($documentsVerified >= $documentsVerifyLimit){
-                    $updatePackageData['active'] = 0;
-                    $updatePackageData['expired'] = 1;
+                $applicantId = db_randnumber();
+                $customer = new Customers_model();
+                $customer->id = $applicantId;
+                $customer->portalId = $portalId;
+                $customer->adminId = $adminId;
+                $customer->fname = $applicantName;
+                $customer->lname = '';
+                $customer->email = $applicantEmail;
+                $customer->address_1 = '';
+                $customer->address_2 = '';
+                $customer->city = '';
+                $customer->state = '';
+                $customer->country = '';
+                $customer->zipcode = '';
+                $customer->phone = '';
+                $customer->company = '';
+                $customer->website = '';
+                $customer->otp = genOtp();
+                $customer->otpSentDateTime = $otpSentDateTime;
+                $customer->createDateTime = $createDateTime;
+                $customer->updateDateTime = $updateDateTime;
+                $customer->save();
+                
+                $customer = Customers_model::select("fname", "lname", "email")->where("id", $applicantId)->first();
+                
+                $documentType = implode(",",$inputDocumentType);
+                $documentTypeTxtArr = array();
+                foreach($inputDocumentType as $tmpDocTyp){
+                    $documentTypeTxtArr[] = documentsTypes($tmpDocTyp);
                 }
 
-                // Update the record
-                $packageRowUpdt = Package_model::where("adminId",$adminId)->update($updatePackageData);
-            /*}*/
+                $applicationRef = $inputApplication;
+                
+                $toName = $customer["fname"] . " " . $customer["lname"];
+                $toEmail = $customer["email"];
 
-            // one time use upload link
-            $uploadLink = url("portal/login/$portalId?applicationtoken=$token") ;
+
+                /*if($applicationRef > 0){
+                    //existing application
+                    $token = $applicationRef;
+                    $newApplication = 0;
+                }else{*/
+                    //new application
+                    $newApplication = 1;
+                    $applicationId = db_randnumber();
+                    $applicationObj = new Applications_model();
+                    $applicationObj->id = $applicationId;
+                    $applicationObj->adminId = $adminId;
+                    $applicationObj->portalId = $portalId;
+                    $applicationObj->customerId = $applicantId;
+                    $applicationObj->requestSubmitted = 0;
+                    $applicationObj->title = '';
+                    $applicationObj->description = '';
+                    $applicationObj->documentType = $documentType;
+                    $applicationObj->documentNo = '';
+                    $applicationObj->comment = '';
+                    $applicationObj->verificationOutcome = 1;
+                    $applicationObj->discrepancies = 0;
+                    $applicationObj->specifyDiscrepancy = '';
+                    $applicationObj->verificationStatus = "pending";
+                    $applicationObj->lastDate = $lastDate;
+                    $applicationObj->createDateTime = $createDateTime;
+                    $applicationObj->updateDateTime = $updateDateTime;
+                    
+                    //dd($applicationObj);
+                    $appSaved = $applicationObj->save();
+                    $token = $applicationId;
+
+                    //update verified count in adminpackage table
+                    $packageRow = Package_model::where("adminId",$adminId)->first();
+                    $documentsVerified = $packageRow->documentsVerified + 1;
+                    $documentsVerifyLimit = $packageRow->documentsVerifyLimit;
+
+                    $updatePackageData = array(); 
+                    $updatePackageData['documentsVerified'] = $documentsVerified;
+                    
+                    // if the documentsVerofied count exceeds the limit, deactivate and mark expired
+                    if($documentsVerified >= $documentsVerifyLimit){
+                        $updatePackageData['active'] = 0;
+                        $updatePackageData['expired'] = 1;
+                    }
+
+                    // Update the record
+                    $packageRowUpdt = Package_model::where("adminId",$adminId)->update($updatePackageData);
+                /*}*/
+
+                // one time use upload link
+                $uploadLink = url("portal/login/$portalId?applicationtoken=$token") ;
+                
+                //Send Email
+                $subject = "SmartKYC Document request.";
+                $templateBlade = "emails.applicantDocumentRequest";
+                
+                $sysAdmId = 1;
+                $sysAdm = SuperAdmin_model::where("id", $sysAdmId)->first();
+
+                $smtp = json_decode($sysAdm["smtp"], true);
+                
+                $host = $smtp["host"];
+                $port = $smtp["port"];
+                $username = $smtp["username"];
+                $password = $smtp["password"];
+                $encryption = $smtp["encryption"];
+                $from_email = $smtp["from_email"];
+                $from_name = $smtp["from_name"];
+                $replyTo_email = $smtp["replyTo_email"];
+                $replyTo_name = $smtp["replyTo_name"];
+
+                $smtpDetails = array();
+                $smtpDetails['host'] = $host;
+                $smtpDetails['port'] = $port;
+                $smtpDetails['username'] = $username;
+                $smtpDetails['password'] = $password;
+                $smtpDetails['encryption'] = $encryption;
+                $smtpDetails['from_email'] = $from_email;
+                $smtpDetails['from_name'] = $from_name;
+                $smtpDetails['replyTo_email'] = $replyTo_email;
+                $smtpDetails['replyTo_name'] = $replyTo_name;
             
-            //Send Email
-            $subject = "SmartKYC Document request.";
-            $templateBlade = "emails.applicantDocumentRequest";
+                $recipient = ['name' => $toName, 'email' => $toEmail];
+                
+                $bladeData = [
+                    'customerName' => $toName,
+                    'customerEmail' => $toEmail,
+                    'newApplication' => $newApplication,
+                    'applicationRef' => $token,
+                    'documentType' => $documentTypeTxtArr,
+                    'additionalMessage' => $inputComment,
+                    'lastDate' => $lastDate,
+                    'uploadLink' => $uploadLink
+                ];
+                
+                $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
+
+                /*if($applicationRef > 0){
+                    $notifyMsg = "You are requested to upload the following documents for the verification process of application #$applicationRef. Required Documents: $documentType";
+                }else{
+                    $notifyMsg = "Please upload your documents to begin the verification process.";
+                }*/
+                $notifyMsg = 'You are requested to upload the following documents for the verification process of application #'.$token.'. Required Documents: '. implode(',', $documentTypeTxtArr);
+
+                //save notifications
+                $notifyObj = new Notifications_model();
+                $notifyObj->id = db_randnumber();
+                $notifyObj->message = $notifyMsg;
+                $notifyObj->receiver = $applicantId;
+                $notifyObj->sender = $adminId;
+                $notifyObj->dateTime = $createDateTime;
+                $notifyObj->isRead = 0;
+                $notifyObj->type = "document required";
+                $notifyObj->reference = $token; //$applicationRef;
+                $notifyObj->save();
+
+
+                //save email to inbox database
+                $emailHtml = View::make($templateBlade, $bladeData)->render();
+                $inbox = new customerInbox_model();
+                $inbox->id = db_randnumber();
+                $inbox->customerId = $applicantId;
+                $inbox->customerEmail = $toEmail;
+                $inbox->customerName = $toName;
+                $inbox->adminId = $adminId;
+                $inbox->receiver = $applicantId;
+                $inbox->isRead = 0;
+                $inbox->inbound = 1;
+                $inbox->content = $emailHtml;
+                $inbox->createDateTime = $createDateTime;
+                $inbox->save();
+
+                $postBackData["success"] = 1;
+                $postBackData["uploadLink"] = $uploadLink;
+
+                $response = array(
+                    "C" => 100,
+                    "R" => $postBackData,
+                    "M" => "Your document request has been submitted successfully."
+                );
+            }
             
-            $sysAdmId = 1;
-            $sysAdm = SuperAdmin_model::where("id", $sysAdmId)->first();
-
-            $smtp = json_decode($sysAdm["smtp"], true);
-            
-            $host = $smtp["host"];
-            $port = $smtp["port"];
-            $username = $smtp["username"];
-            $password = $smtp["password"];
-            $encryption = $smtp["encryption"];
-            $from_email = $smtp["from_email"];
-            $from_name = $smtp["from_name"];
-            $replyTo_email = $smtp["replyTo_email"];
-            $replyTo_name = $smtp["replyTo_name"];
-
-            $smtpDetails = array();
-            $smtpDetails['host'] = $host;
-            $smtpDetails['port'] = $port;
-            $smtpDetails['username'] = $username;
-            $smtpDetails['password'] = $password;
-            $smtpDetails['encryption'] = $encryption;
-            $smtpDetails['from_email'] = $from_email;
-            $smtpDetails['from_name'] = $from_name;
-            $smtpDetails['replyTo_email'] = $replyTo_email;
-            $smtpDetails['replyTo_name'] = $replyTo_name;
-        
-            $recipient = ['name' => $toName, 'email' => $toEmail];
-            
-            $bladeData = [
-                'customerName' => $toName,
-                'customerEmail' => $toEmail,
-                'newApplication' => $newApplication,
-                'applicationRef' => $token,
-                'documentType' => $documentTypeTxtArr,
-                'additionalMessage' => $inputComment,
-                'lastDate' => $lastDate,
-                'uploadLink' => $uploadLink
-            ];
-            
-            $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
-
-            /*if($applicationRef > 0){
-                $notifyMsg = "You are requested to upload the following documents for the verification process of application #$applicationRef. Required Documents: $documentType";
-            }else{
-                $notifyMsg = "Please upload your documents to begin the verification process.";
-            }*/
-            $notifyMsg = 'You are requested to upload the following documents for the verification process of application #'.$token.'. Required Documents: '. implode(',', $documentTypeTxtArr);
-
-            //save notifications
-            $notifyObj = new Notifications_model();
-            $notifyObj->id = db_randnumber();
-            $notifyObj->message = $notifyMsg;
-            $notifyObj->receiver = $applicantId;
-            $notifyObj->sender = $adminId;
-            $notifyObj->dateTime = $createDateTime;
-            $notifyObj->isRead = 0;
-            $notifyObj->type = "document required";
-            $notifyObj->reference = $token; //$applicationRef;
-            $notifyObj->save();
-
-
-            //save email to inbox database
-            $emailHtml = View::make($templateBlade, $bladeData)->render();
-            $inbox = new customerInbox_model();
-            $inbox->id = db_randnumber();
-            $inbox->customerId = $applicantId;
-            $inbox->customerEmail = $toEmail;
-            $inbox->customerName = $toName;
-            $inbox->adminId = $adminId;
-            $inbox->receiver = $applicantId;
-            $inbox->isRead = 0;
-            $inbox->inbound = 1;
-            $inbox->content = $emailHtml;
-            $inbox->createDateTime = $createDateTime;
-            $inbox->save();
-
-            $postBackData["success"] = 1;
-            $postBackData["uploadLink"] = $uploadLink;
-
-            $response = array(
-                "C" => 100,
-                "R" => $postBackData,
-                "M" => "Your document request has been submitted successfully."
-            );
-
         }else{
             $postBackData = array();
             $postBackData["success"] = 0;

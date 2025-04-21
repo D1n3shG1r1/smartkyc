@@ -626,7 +626,14 @@ function generateotp(elm){
 }
 
 function newApplication(){
-    
+    $("#New_applicantId").val("");
+    $("#New_applicantName").val("");
+    $("#New_applicantEmail").val("");
+    $("#inputNew_Application").val("");
+    $("#inputNew_DocumentType").val("");
+    $("#inputNew_Comment").val("");
+    $("#New_lastDate").val("");
+    TMP_DOCTYPES = [];
 }
 
 function getApllicantProfileData(elm){
@@ -663,6 +670,7 @@ function getApllicantProfileData(elm){
 
 function getApllicantData(elm){
     
+    TMP_DOCTYPES = [];
     $("#portalLinkParent").addClass("hideMe");
 
     var applicantId = $(elm).attr("data-id");
@@ -784,7 +792,7 @@ function sendRequest(elm){
             $("#inputDocumentType").val("");
             $("#inputComment").val("");
             $("#lastDate").val("");
-            
+            TMP_DOCTYPES = [];
             if(resp.C == 100){
                 
                 var err = 0;
@@ -891,17 +899,17 @@ function sendNewRequest(elm){
             
             $(elm).removeAttr("disabled");
             hideLoader(elmId,orgTxt); 
-
-            $("#New_applicantId").val("");
-            $("#New_applicantName").val("");
-            $("#New_applicantEmail").val("");
-            $("#inputNew_Application").val("");
-            $("#inputNew_DocumentType").val("");
-            $("#inputNew_Comment").val("");
-            $("#New_lastDate").val("");
-            TMP_DOCTYPES = [];
-
+            
             if(resp.C == 100){
+
+                $("#New_applicantId").val("");
+                $("#New_applicantName").val("");
+                $("#New_applicantEmail").val("");
+                $("#inputNew_Application").val("");
+                $("#inputNew_DocumentType").val("");
+                $("#inputNew_Comment").val("");
+                $("#New_lastDate").val("");
+                TMP_DOCTYPES = [];
                 
                 var err = 0;
                 var msg = resp.M;
