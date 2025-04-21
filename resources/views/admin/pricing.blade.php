@@ -188,10 +188,11 @@ if(!empty($currentPackage)){
                                         @php
                                         }else{
                                         @endphp
-                                        <a class="main_bt" href="{{url('admin/buy/package-business')}}">Buy Now</a></div>
+                                        <a class="main_bt" href="{{url('admin/buy/package-business')}}">Buy Now</a>
                                         @php
                                         }
                                         @endphp
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

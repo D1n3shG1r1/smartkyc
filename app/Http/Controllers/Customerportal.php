@@ -16,6 +16,7 @@ use App\Models\Notifications_model;
 use App\Models\customerInbox_model;
 use App\Traits\SmtpConfigTrait;
 use Hamcrest\Arrays\IsArray;
+use Carbon\Carbon;
 
 class Customerportal extends Controller
 {
@@ -264,50 +265,69 @@ class Customerportal extends Controller
                 
                 $postBackData = array();
                 $postBackData["email"] = $email;
-                
-                if($custmoerObj["otp"] == $otp){
-                    //set portal session
-                    $customerId = $custmoerObj["id"];
-                    $customerEmail = $custmoerObj["email"];
-                    $customerFname = $custmoerObj["fname"];
-                    $customerLname = $custmoerObj["lname"];
-                    
-                    //update otp for security reason
-                    $otp = genOtp();
-                    $otpSentDateTime = date("Y-m-d H:i:s");
-                    $updateDateTime = date("Y-m-d H:i:s");
-                
-                    $updateArr = array(
-                        "otp" => $otp,
-                        "otpSentDateTime" => $otpSentDateTime,
-                        "updateDateTime" => $updateDateTime
-                    );
-            
-                    $saved = Customers_model::where("portalid", $portalId)->where("email", $email)->update($updateArr);
-                    
-                    //$this->setSession('adminId', $adminId);
-                    $this->setSession('portalId', $portalId);
-                    $this->setSession('customerId', $customerId);
-                    $this->setSession('customerEmail', $customerEmail);
-                    $this->setSession('customerFname', $customerFname);
-                    $this->setSession('customerLname', $customerLname);
-                    
-                    $postBackData["success"] = 1;
-                    $response = array(
-                        "C" => 100,
-                        "R" => $postBackData,
-                        "M" => "Email verified successfully."
-                    );
-                }else{
-                    //invalid otp
-                    $postBackData["success"] = 0;
-                    $response = array(
-                        "C" => 101,
-                        "R" => $postBackData,
-                        "M" => "You have entered an invalid OTP."
-                    );
-                }
 
+                $otpCreatedAt = Carbon::parse($custmoerObj["otpSentDateTime"]);
+                $now = Carbon::now();
+
+                if ($now->diffInHours($otpCreatedAt) > 12) {
+                    
+                    $postBackData["success"] = 0;
+                    $postBackData["timeDiff"] = $now->diffInHours($otpCreatedAt);
+                    $postBackData["time"] = $now .'--'. $otpCreatedAt;
+                    $response = array(
+                        "C" => 103,
+                        "R" => $postBackData,
+                        "M" => "The OTP is expired."
+                    );
+
+                }else{
+
+                    if($custmoerObj["otp"] == $otp){
+
+                        //set portal session
+                        $customerId = $custmoerObj["id"];
+                        $customerEmail = $custmoerObj["email"];
+                        $customerFname = $custmoerObj["fname"];
+                        $customerLname = $custmoerObj["lname"];
+                        
+                        //update otp for security reason
+                        //$otp = genOtp();
+                        //$otpSentDateTime = date("Y-m-d H:i:s");
+                        $updateDateTime = date("Y-m-d H:i:s");
+                    
+                        $updateArr = array(
+                            //"otp" => $otp,
+                            //"otpSentDateTime" => $otpSentDateTime,
+                            "updateDateTime" => $updateDateTime
+                        );
+                
+                        $saved = Customers_model::where("portalid", $portalId)->where("email", $email)->update($updateArr);
+                        
+                        //$this->setSession('adminId', $adminId);
+                        $this->setSession('portalId', $portalId);
+                        $this->setSession('customerId', $customerId);
+                        $this->setSession('customerEmail', $customerEmail);
+                        $this->setSession('customerFname', $customerFname);
+                        $this->setSession('customerLname', $customerLname);
+                        
+                        $postBackData["success"] = 1;
+                        $response = array(
+                            "C" => 100,
+                            "R" => $postBackData,
+                            "M" => "Email verified successfully."
+                        );
+                    }else{
+                        //invalid otp
+                        $postBackData["success"] = 0;
+                        $response = array(
+                            "C" => 101,
+                            "R" => $postBackData,
+                            "M" => "You have entered an invalid OTP."
+                        );
+                    }
+
+                }
+                
             }else{
                 //invalid email
                 $postBackData["success"] = 0;

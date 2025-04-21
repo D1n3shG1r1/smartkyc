@@ -22,6 +22,7 @@ $email = $customer["email"];
 $phone = $customer["phone"];
 
 $applicationId = $application["id"];
+$requestSubmitted = $application["requestSubmitted"];
 $documentType = $application["documentType"];
 $documentNo = $application["documentNo"];
 $documents = $application["documents"];
@@ -101,6 +102,9 @@ $uploadCount = 0;
         </div>
     </div>
     
+    @php if($requestSubmitted == 0){ @endphp
+        <div class="alert alert-danger" style="display:block; position:relative; right:unset; bottom:unset;">It appears that the applicant has not yet submitted their application.</div>
+    @php } @endphp
     
     <div class="row">
         <div class="col-md-12">
@@ -250,22 +254,42 @@ $uploadCount = 0;
 
                 @php
                 $documentTypeArr = explode(",",$documentType);
-                $documentNoArr = explode(",",$documentNo);
+                if($documentNo != ""){
+                    $documentNoArr = explode(",",$documentNo);
+                }else{
+                    $documentNoArr = array();
+                }
+                
                 foreach($documentTypeArr as $k => $docType){
-                    $documentNoVal = $documentNoArr[$k];
-                    $docPath = $documents[$k]["filePath"];
-                    $docMime = $documents[$k]["mimeType"];
 
-
-                    if($docMime == "application/pdf"){
-                        //pdf file
-                        $icon = '<i class="bi bi-filetype-pdf display-4"></i>';
-                        
+                    if(!empty($documentNoArr)){
+                        if(!array_key_exists($k, $documentNoArr)){
+                            $documentNoVal = '';
+                        }else{
+                            $documentNoVal = $documentNoArr[$k];
+                        }
                     }else{
-                        //jpeg png file
-                        $icon = '<i class="bi bi-filetype-jpg display-4"></i>';
+                        $documentNoVal = '';
                     }
 
+
+                    if($requestSubmitted > 0){
+                        $docPath = $documents[$k]["filePath"];
+                        $docMime = $documents[$k]["mimeType"];
+
+
+                        if($docMime == "application/pdf"){
+                            //pdf file
+                            $icon = '<i class="bi bi-filetype-pdf display-4"></i>';
+                            
+                        }else{
+                            //jpeg png file
+                            $icon = '<i class="bi bi-filetype-jpg display-4"></i>';
+                        }
+                    }else{
+                        $docPath = '';
+                        $docMime = '';
+                    }
                     $uploadCount++;
                 @endphp
                 <div class="row">
@@ -300,12 +324,16 @@ $uploadCount = 0;
                         <div class="border rounded text-center">
 
                             <div id="preview_{{$k+1}}" class="previewDiv">
+                            @php if($requestSubmitted > 0){ @endphp
                                 {!! $icon !!}
                                 <a href="javascript:void(0);" class="uploadDeleteBtn" onClick="viewFile('{{$docPath}}','{{$docMime}}')" data-toggle="modal" data-target="#previewModal"><i class="fa fa-eye"></i>&nbsp;View</a>
                                 
                                 <span class="navSeprator"></span>
                                 
                                 <a href="{{$docPath}}" class="uploadViewBtn" download><i class="fa fa-download"></i>&nbsp;Download</a>
+                            @php }else{ @endphp
+                                No document uploaded yet.
+                            @php } @endphp
                             </div>
                             
                         </div>

@@ -8,7 +8,7 @@ password:Sm4rtV3r1fy
 return [
     "packageLimit" => array(
         "package-basic" => 5,
-        "package-business" => 100,
+        "package-business" => 10,
         "package-enterprise" => 10000, //unlimited
         "package-payasyougo" => 1 //can verify only one document
     ),

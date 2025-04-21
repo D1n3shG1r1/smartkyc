@@ -43,7 +43,7 @@
                     <form>
                         <div class="row">    
                             <div class="col-md-12">
-                                <h2 class="formTitle">Know your apllication status</h2>
+                                <h2 class="formTitle">Know your application status</h2>
                             </div>
                         </div>
                         <div class="row">
