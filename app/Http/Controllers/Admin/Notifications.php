@@ -276,7 +276,7 @@ class Notifications extends Controller
 
 
             //check if the email is already registered
-            $customer = Customers_model::where("id", $applicantId)->where("portalId", $portalId)->where("adminId", $adminId)->first();
+            $customer = Customers_model::where("email", $applicantEmail)->where("portalId", $portalId)->where("adminId", $adminId)->first();
             if($customer){
                 //email already associate with us
                 $postBackData["success"] = 0;
