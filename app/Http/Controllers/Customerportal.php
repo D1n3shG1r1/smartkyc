@@ -760,7 +760,7 @@ class Customerportal extends Controller
         $this->removeSession('customerLname');
         
         //redirect to login
-        return Redirect::to(url("portal/login/$portalId"));
+        return Redirect::to(url("portal/login"));
     }
 
 
