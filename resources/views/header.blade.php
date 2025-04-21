@@ -132,7 +132,7 @@
                               <!--<span class="submenu-plus"><i></i></span>-->
                            </li>
                            
-                           <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/pricing')}}" role="menuitem">Pricing</a></li>
+                           <!--<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/pricing')}}" role="menuitem">Pricing</a></li>-->
                            
                            <li style="display:none" class="hs-menu-item hs-menu-depth-1" role="none">
                               <a href="{{url('/faq')}}" aria-haspopup="true" aria-expanded="false" role="menuitem">FAQ</a>
