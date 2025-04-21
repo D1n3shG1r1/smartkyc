@@ -112,7 +112,7 @@
                         
                         <div id="verifyBttnBox" class="field margin_0 hideMe">
                             <label class="label_field hidden">hidden label</label>
-                            <button type="button" class="btn cur-p btn-primary verifyEmailBtn" onclick="verifyEmail();">Verify</button>
+                            <button id="verifyBtn" type="button" class="btn cur-p btn-primary verifyEmailBtn" data-txt="Verify" data-loadingtxt="Verifying" onclick="verifyEmail(this);">Verify</button>
                         </div>
                     </fieldset>
                     </form>
@@ -393,7 +393,7 @@
         sendOtp();
     }    
     
-    function verifyEmail(){
+    function verifyEmail(elm){
         
         var adminId = $("#adminId").val();
         var portalId = $("#portalId").val();
@@ -430,6 +430,12 @@
             return false;
         }else{
             
+            var elmId = $(elm).attr("id");
+            $(elm).attr("disabled",true);
+            var orgTxt = $(elm).attr("data-txt");
+            var loadingTxt = $(elm).attr("data-loadingtxt");
+            showLoader(elmId,loadingTxt);
+            
             const requrl = "portal/login";
             const postdata = {
                 "adminId": adminId,
@@ -439,6 +445,10 @@
             };
 
             callajax(requrl, postdata, function (resp) {
+
+                $(elm).removeAttr("disabled");
+                hideLoader(elmId,orgTxt);
+
                 if (resp.C == 100) {
                     var err = 0;
                     var msg = "Your account is verified successfully";
