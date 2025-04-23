@@ -375,7 +375,7 @@ class Applications extends Controller
             }
 
             $customers = array();
-            $customersQuery = Customers_model::select("id", "email", "otp", "fname", "lname", "phone")->where("adminId", $adminId);
+            $customersQuery = Customers_model::select("id", "email", "otp", "fname", "lname", "phone", "createDateTime")->where("adminId", $adminId);
 
             // Add dynamic filters based on your conditions (like email or fname)
             if (!empty($email)) {
