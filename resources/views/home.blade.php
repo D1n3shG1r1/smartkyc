@@ -4,7 +4,7 @@
 .banner--dnd_area-module-1 {
    position: relative;
    padding: 13% 0 13% 0;
-   background-image: url(<?php echo url('assets/img/people-4.jpg'); ?>);
+   background-image: url(<?php echo url('assets/img/homepage.jpeg'); ?>);
    background-repeat: no-repeat;
    background-size: cover;
    /*background-position: center bottom;*/
@@ -27,7 +27,7 @@
                                        <div class="content-wrapper">
                                           <div class="banner__inner fx-fade-up" style="max-width: fit-content; width: 100%;">
 
-                                          <h1 style="text-align: left; padding-top:100px">
+                                          <h1 style="text-align: left; padding-top:100px; color:#ffffff">
                                           We make document verification <span style="color: #ffd61f;">simple, fast, and reliable.</span> Whether you’re a business, government agency, or an individual, our platform ensures that every document is authenticated with <span style="color: #ffd61f;">precision and integrity.</span>
                                           </h1>
 
@@ -39,14 +39,14 @@
                                                       <span class="hs-cta-node hs-cta-5302598a-72e4-4520-98e2-98e4a5e83cfa" id="hs-cta-5302598a-72e4-4520-98e2-98e4a5e83cfa">
 
                                                          <!--[if lte IE 8]>
-                                             <div id="hs-cta-ie-element"></div><![endif]--><button type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onClick="getStarted();">Get Started</button></span></span>
+                                             <div id="hs-cta-ie-element"></div><![endif]--><button type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary; color:#fff" onClick="getStarted();">Get Started</button></span></span>
                                              <!-- end HubSpot Call-to-Action Code --> &nbsp; &nbsp;&nbsp;</span><!--HubSpot Call-to-Action Code -->
                                              
                                              <!-- end HubSpot Call-to-Action Code --></p>
-                                             <p style="font-size: 12px; display:none;"><span style="color: #ffffff;">USA | EUROPE | MIDDLE EAST | ASIA | AFRICA</span></p>
-                                             <p style="font-size: 12px;text-transform: uppercase;"><span style="color: #ffffff;">Our Mission: To provide fast, accurate, and secure verification services that help businesses and individuals reduce risks and ensure compliance in an ever-evolving digital world.</span></p>
-                                             <p style="font-size: 12px;"><span style="color: #ffffff;"><span>We prioritize data protection and the confidentiality of all documents submitted.</span></span></p>
-                                             <p style="font-size: 12px;"><span style="color: #ffffff;">SECURE ONLINE PAYMENTS.&nbsp;</span></p>
+                                             <p style="font-size: 12px; display:none;"><span style="color: #002e5b;">USA | EUROPE | MIDDLE EAST | ASIA | AFRICA</span></p>
+                                             <p style="font-size: 12px;text-transform: uppercase;"><span style="color: #002e5b;">Our Mission: To provide fast, accurate, and secure verification services that help businesses and individuals reduce risks and ensure compliance in an ever-evolving digital world.</span></p>
+                                             <p style="font-size: 12px;"><span style="color: #002e5b;"><span style="color: #002e5b;">We prioritize data protection and the confidentiality of all documents submitted.</span></span></p>
+                                             <p style="font-size: 12px;"><span style="color: #002e5b;">SECURE ONLINE PAYMENTS.&nbsp;</span></p>
                                           </div>
                                           <div class="mouse-wrap">
                                              <div class="mouse">
