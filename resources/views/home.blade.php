@@ -5,7 +5,7 @@
    position: relative;
    padding: 13% 0 13% 0;
   background: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    linear-gradient(rgba(185, 185, 185, 0.5), rgba(0, 0, 0, 0.5)),
     url(<?php echo url('assets/img/homepage.jpeg'); ?>);
   background-size: cover;
   /*background-position: center bottom;*/
