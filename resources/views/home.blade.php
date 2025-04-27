@@ -4,10 +4,12 @@
 .banner--dnd_area-module-1 {
    position: relative;
    padding: 13% 0 13% 0;
-   background-image: url(<?php echo url('assets/img/homepage.jpeg'); ?>);
-   background-repeat: no-repeat;
-   background-size: cover;
-   /*background-position: center bottom;*/
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(<?php echo url('assets/img/homepage.jpeg'); ?>);
+  background-size: cover;
+  /*background-position: center bottom;*/
+  background-repeat: no-repeat;
 }
 </style>
 
@@ -43,10 +45,10 @@
                                              <!-- end HubSpot Call-to-Action Code --> &nbsp; &nbsp;&nbsp;</span><!--HubSpot Call-to-Action Code -->
                                              
                                              <!-- end HubSpot Call-to-Action Code --></p>
-                                             <p style="font-size: 12px; display:none;"><span style="color: #002e5b;">USA | EUROPE | MIDDLE EAST | ASIA | AFRICA</span></p>
-                                             <p style="font-size: 12px;text-transform: uppercase;"><span style="color: #002e5b;">Our Mission: To provide fast, accurate, and secure verification services that help businesses and individuals reduce risks and ensure compliance in an ever-evolving digital world.</span></p>
-                                             <p style="font-size: 12px;"><span style="color: #002e5b;"><span style="color: #002e5b;">We prioritize data protection and the confidentiality of all documents submitted.</span></span></p>
-                                             <p style="font-size: 12px;"><span style="color: #002e5b;">SECURE ONLINE PAYMENTS.&nbsp;</span></p>
+                                             <p style="font-size: 12px; display:none;"><span style="color: #ffffff;">USA | EUROPE | MIDDLE EAST | ASIA | AFRICA</span></p>
+                                             <p style="font-size: 12px;text-transform: uppercase;"><span style="color: #ffffff;">Our Mission: To provide fast, accurate, and secure verification services that help businesses and individuals reduce risks and ensure compliance in an ever-evolving digital world.</span></p>
+                                             <p style="font-size: 12px;"><span style="color: #ffffff;"><span style="color: #ffffff;">We prioritize data protection and the confidentiality of all documents submitted.</span></span></p>
+                                             <p style="font-size: 12px;"><span style="color: #ffffff;">SECURE ONLINE PAYMENTS.&nbsp;</span></p>
                                           </div>
                                           <div class="mouse-wrap">
                                              <div class="mouse">
