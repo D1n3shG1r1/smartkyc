@@ -107,6 +107,10 @@
 
 <!-- Zoho SalesIQ Live Chat Script -->
 <style>
+   .chat-iframe-wrap.zsiq-medium-size.chat-iframe-open{
+      bottom:115px !important;
+      height: 480px !important;
+   }
    .zsiq-float{
       bottom:60px !important;
    }
