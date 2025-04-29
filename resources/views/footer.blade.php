@@ -106,6 +106,11 @@
 <!-- Other HTML content -->
 
 <!-- Zoho SalesIQ Live Chat Script -->
+<style>
+   .zsiq-float{
+      bottom:60px !important;
+   }
+</style>
 <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq2f563662f6b8f6926b0f7eb892d700d5169cedcfcc2bdf839cdedb97f5c3c4e4" defer></script>
 
 <script>
