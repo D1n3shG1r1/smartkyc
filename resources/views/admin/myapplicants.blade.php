@@ -99,8 +99,7 @@ $customersData = $customers["data"];
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>Name & Email</th>
                             <th>Date</th>
                             <th>OTP</th>
                             <th>Action</th>
@@ -120,15 +119,14 @@ $customersData = $customers["data"];
                             $fullName = ucwords($fname." ".$lname);
                             $otp = $row["otp"];
                             $createDateTime = $row["createDateTime"];
-                            $createDate = date("M d, Y", strtotime($createDateTime));
+                            $createDate = date("M d, Y H:i:s", strtotime($createDateTime));
                             
                     ?>
                                 
                         <tr id="row-{{$id}}">
                             <td class="applicantRowIdCol">{{$k+1}}</td>
-                            <td class="applicantNameCol">{{$fullName}}</td>
-                            <td class="applicantEmailCol">{{$email}}</td>
-                            <td>{{$createDate}}</td>
+                            <td class="applicantNameCol">{{$fullName}}<br>{{$email}}</td>
+                            <td class="applicantEmailCol">{{$createDate}}</td>
                             <td class="applicantOtpCol" id="otp-{{$id}}"><span style="letter-spacing: 5px;">{{$otp}}</span>
                             <br>
                             <a href="javascript:void(0);" id="otpcopybtn-{{$id}}" class="btn btn-outline-primary" onclick="copyOtp(this);" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy the OTP and share it with your applicant manually via a phone call, email, or SMS." style="cursor:pointer;">

@@ -90,8 +90,8 @@ $customersData = $customers["data"];
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>Name & Email</th>
+                            <td>Date</td>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -107,13 +107,15 @@ $customersData = $customers["data"];
                             $lname = $row["lname"];
                             $fullName = ucwords($fname." ".$lname);
                             $otp = $row["otp"];
+                            $createDateTime = $row["createDateTime"];
+                            $createDate = date("M d, Y H:i:s", strtotime($createDateTime));
                             
                     ?>
                                 
                         <tr id="row-{{$id}}">
                             <td class="applicantRowIdCol">{{$k+1}}</td>
-                            <td class="applicantNameCol">{{$fullName}}</td>
-                            <td class="applicantEmailCol">{{$email}}</td>
+                            <td class="applicantNameCol">{{$fullName}}<br>{{$email}}</td>
+                            <td class="applicantEmailCol">{{$createDate}}</td>
                             
                             <td class="applicantActionCol">
                             

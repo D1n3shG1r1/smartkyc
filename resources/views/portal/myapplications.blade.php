@@ -51,7 +51,7 @@ $applicationsData = $applications["data"];
                                 $updateDateTime = $row["updateDateTime"];
                                 
                                 $documentType = str_replace("_"," ",$documentType);
-                                $createDate = date("M d, Y", strtotime($createDateTime));
+                                $createDate = date("M d, Y H:i:s", strtotime($createDateTime));
                                 
                                 
                     ?>

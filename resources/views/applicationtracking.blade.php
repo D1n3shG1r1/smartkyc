@@ -33,6 +33,8 @@
         padding-top: 15px;
         display: none;
     }
+
+    .hideMe{display:none;}
 </style>
 
 <main class="body-container-wrapper">
@@ -90,7 +92,7 @@
                                     <label id="applicationStatus" class="form-label"></label>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row hideMe">
                                 <div class="col-md-6">
                                     <label class="form-label">Disrepancy:</label>
                                 </div>
@@ -98,7 +100,7 @@
                                     <label id="applicationDisrepancy" class="form-label"></label>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row hideMe">
                                 <div class="col-md-6">
                                     <label class="form-label">Note:</label>
                                 </div>
@@ -166,8 +168,8 @@
                     var note = app.specifyDiscrepancy;
 
                     $("#applicationId").html(applicationId);
-                    $("#applicantDetails").html(fullName+' ('+email+')');
-                    $("#applicationStatus").html(verificationStatus+' ('+verificationOutcomeTxt+')');
+                    $("#applicantDetails").html(fullName);
+                    $("#applicationStatus").html(verificationStatus);
                     $("#applicationDisrepancy").html(discrepanciesTxt);
                     $("#note").html(note);
                 }else{

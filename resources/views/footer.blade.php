@@ -87,33 +87,26 @@
    </footer>
 </div>
 </div>
-<!--<script defer="" src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/index.js"></script>-->
-<!-- HubSpot performance collection script -->
-<!--<script defer="" src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/embed.js"></script>-->
+
 <script async="" src="{{ url('assets/js/bootstrap.min.js'); }}"></script>
-<!--<script defer="" src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/bundle.min.js"></script>-->
+
 <script defer="" src="{{ url('assets/js/main.min.js'); }}"></script>
 <script defer="" src="{{ url('assets/js/child.min.js'); }}"></script>
 <script defer="" src="{{ url('assets/js/tp.widget.bootstrap.min.js'); }}"></script>
 <script>
    var hsVars = hsVars || {}; hsVars['language'] = 'en';
 </script>
-<!--<script src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/project.js"></script>-->
+
 <script src="{{ url('assets/js/module_79685541057_new-global-header.min.js'); }}"></script>
-<!--<script src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/project(1).js"></script>-->
-<script>
-   //     $(function() {
-   //         $(".top-bar--mobile").html( $(".top-bar--mobile").html().replace("|", "") );
-   //         $(".top-bar--mobile a").each(function() {
-   //             $(this).html( $.trim($(this).text()) );
-   //             $(this).html($(this).text().replace("|",""));		
-   //         });
-   //     });
-</script>
-<!--<script src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/module_51600793541_icon-with-text.min.js"></script>-->
+
 <script src="{{ url('assets/js/module_51600793540_pricing.min.js'); }}"></script>
 <script src="{{ url('assets/js/slick.min.js'); }}"></script>
 <script src="{{ url('assets/js/script.js'); }}"></script>
+
+<!-- Other HTML content -->
+
+<!-- Zoho SalesIQ Live Chat Script -->
+<script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq2f563662f6b8f6926b0f7eb892d700d5169cedcfcc2bdf839cdedb97f5c3c4e4" defer></script>
 
 <script>
    $(document).ready(function(){
@@ -157,8 +150,7 @@
       });
    });
 </script>
-<!--<script type="text/javascript" id="hs-script-loader" async="" defer="" src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/25947400(2).js"></script>
-<script defer="" src="./Global Inspection Marketplace _ Worldwide Network of Inspectors_files/index(1).js"></script>-->
+
 <script type="text/javascript" defer="">
    function getCookie(cname) {
    let name = cname + "=";

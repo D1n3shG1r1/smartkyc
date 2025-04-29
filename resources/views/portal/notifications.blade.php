@@ -41,7 +41,7 @@ $notificationsArr = $notifications["data"];
                                             $isRead = $row["isRead"];
                                             $type = $row["type"];
                                             $reference = $row["reference"];
-                                            $dateTime = date("d F, Y", strtotime($dateTime));
+                                            $dateTime = date("d F, Y H:i:s", strtotime($dateTime));
                                             //$dateTime = convertDateTime($dateTime);
                                             
                                     ?>

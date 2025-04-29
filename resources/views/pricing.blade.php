@@ -67,8 +67,6 @@
 		
 		
 			.slider--dnd_area-module-1 .glide__slide .slider__inner {
-			 
-				background: rgba(41, 49, 130, 0.2);
 			max-width: 750px; width: 100%; padding: 20px 20px; float: left;margin-bottom: 70px; margin-left: -40px; margin-top: 40px; }
       
       @media(max-width:1240px){
@@ -141,7 +139,7 @@
                             </div>
                           </div>
                         </li>
-                        <li class="glide__slide lazy glide__slide--active loaded" style="background-position: center center; /*width: 1275px;*/ margin-left: 0px; margin-right: 0px; margin:auto; background-image: url('<?php echo url('assets/img/people-5.jpg'); ?>');" data-ll-status="loaded">
+                        <li class="glide__slide lazy glide__slide--active loaded" style="background-position: center center; /*width: 1275px;*/ margin-left: 0px; margin-right: 0px; margin:auto; background-image: linear-gradient(rgba(185, 185, 185, 0.5), rgba(0, 0, 0, 0.5)), url('<?php echo url('assets/img/people-5.jpg'); ?>');" data-ll-status="loaded">
                           <div class="slider__inner-container">
                             <div class="slider__inner ">
                               <h1 style="font-size: 43px; text-align: left; line-height: 1.15;">

@@ -405,7 +405,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
                 </div>
                 <div class="form-group">
                     <input type="checkbox" name="agree_term" id="agree_term" class="agree-term" />
-                    <label for="agree_term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="{{url('termsofservice')}}" target="_blank" class="term-service">Terms & Conditions</a> and <a href="{{url('privacypolicy')}}" target="_blank" class="term-service">Privacy Ploicy</a></label>
+                    <label for="agree_term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="{{url('termsofservice')}}" target="_blank" class="term-service">Terms & Conditions</a> and <a href="{{url('privacypolicy')}}" target="_blank" class="term-service">Privacy Policy</a></label>
                 </div>
                 <div class="form-group">
                   <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>    
