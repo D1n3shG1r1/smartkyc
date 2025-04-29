@@ -57,9 +57,9 @@ if(!empty($customers)){
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>Name & Email</th>
                             <th>Company</th>
-                            <th>Email</th>
+                            <th>Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -76,14 +76,16 @@ if(!empty($customers)){
                             $fullName = ucwords($fname." ".$lname);
                             $company = $row["company"];
                             $phone = $row["phone"];
+                            $createDateTime = $row["createDateTime"];
+                            $createDate = date("M d, Y H:i:s", strtotime($createDateTime));
                             
                     ?>
                                 
                         <tr id="row-{{$id}}">
                             <td>{{$k+1}}</td>
-                            <td>{{$fullName}}</td>
+                            <td>{{$fullName}}<br>{{$email}}</td>
                             <td>{{$company}}</td>
-                            <td>{{$email}}</td>
+                            <td>{{createDate}}</td>
                             <td>
                                 <a href="{{url('admin/admin-customer/'.$id)}}" target="_blank" class=""><i class="fa fa-user"></i>&nbsp;Profile</a>
                                 

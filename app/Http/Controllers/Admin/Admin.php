@@ -321,7 +321,7 @@ class Admin extends Controller
             }*/
 
             $customersObj = Admin_model::select(
-                "id", "fname", "lname", "email", "phone", "address_1", "address_2", "city", "state", "country", "zipcode", "company", "website"
+                "id", "fname", "lname", "email", "phone", "address_1", "address_2", "city", "state", "country", "zipcode", "company", "website", "createDateTime"
             );
             
             // Add dynamic filters based on your conditions (like email or fname)
