@@ -129,13 +129,13 @@ $customersData = $customers["data"];
                             <td class="applicantEmailCol">{{$createDate}}</td>
                             <td class="applicantOtpCol" id="otp-{{$id}}"><span style="letter-spacing: 5px;">{{$otp}}</span>
                             <br>
-                            <a href="javascript:void(0);" id="otpcopybtn-{{$id}}" class="btn btn-outline-primary" onclick="copyOtp(this);" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy the OTP and share it with your applicant manually via a phone call, email, or SMS." style="cursor:pointer;">
+                            <button type="button" id="otpcopybtn-{{$id}}" class="btn btn-outline-primary" onclick="copyOtp(this);" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy the OTP and share it with your applicant manually via a phone call, email, or SMS." style="cursor:pointer;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
                                 </svg>
-                            </a>
+                            </button>
                             &nbsp;
-                            <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="btn cur-p btn-outline-primary regenerate-otp-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Regenerate and copy the OTP, then share it with your applicant manually via phone call, email, or SMS." style="cursor:pointer;"><i class="fa fa-refresh"></i></a>
+                            <button type="button" data-id="{{$id}}" onclick="generateotp(this);" class="btn cur-p btn-outline-primary regenerate-otp-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Regenerate and copy the OTP, then share it with your applicant manually via phone call, email, or SMS." style="cursor:pointer;"><i class="fa fa-refresh" style="color: unset;"></i></button>
                             </td>
 
                             <td class="applicantActionCol">
