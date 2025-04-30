@@ -665,7 +665,7 @@ class Admin extends Controller
             $userEmail = $userObj["email"];
             
             $customers = array();
-            $customersQuery = Customers_model::select("id", "email", "otp", "fname", "lname", "phone")->where("adminId", $customerId);
+            $customersQuery = Customers_model::select("id", "email", "otp", "fname", "lname", "phone", "createDateTime")->where("adminId", $customerId);
 
             // Add dynamic filters based on your conditions (like email or fname)
             $email = $request->input("email");
