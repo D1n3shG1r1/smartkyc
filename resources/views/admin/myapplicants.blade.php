@@ -571,6 +571,9 @@ $(function(){
 
 
 function copyOtp(elm) {
+    // Hide tooltip immediately on click to prevent flicker
+    bootstrap.Tooltip.getInstance(elm)?.hide();
+
     // Get the ID attribute of the element
     var idAttr = elm.getAttribute("id");
     
@@ -602,7 +605,8 @@ function copyOtp(elm) {
 
 
 function generateotp(elm){
-    
+    bootstrap.Tooltip.getInstance(elm)?.hide();
+
     var spinnerIcon = elm.querySelector(".fa.fa-refresh");
     spinnerIcon.classList.add("spinner");
 
