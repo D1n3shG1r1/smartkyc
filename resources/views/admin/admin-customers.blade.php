@@ -85,7 +85,7 @@ if(!empty($customers)){
                             <td>{{$k+1}}</td>
                             <td>{{$fullName}}<br>{{$email}}</td>
                             <td>{{$company}}</td>
-                            <td>{{createDate}}</td>
+                            <td>{{$createDate}}</td>
                             <td>
                                 <a href="{{url('admin/admin-customer/'.$id)}}" target="_blank" class=""><i class="fa fa-user"></i>&nbsp;Profile</a>
                                 
