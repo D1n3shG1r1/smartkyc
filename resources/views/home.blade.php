@@ -681,7 +681,7 @@
                   <!--end row-->
                </div>
                <!--end row-wrapper -->
-               <div class="row-fluid-wrapper row-depth-1 row-number-20 dnd-section dnd_area-row-4-padding">
+               <div style="display:none;" class="row-fluid-wrapper row-depth-1 row-number-20 dnd-section dnd_area-row-4-padding">
                   <div class="row-fluid equals">
                      <div class="span12 widget-span widget-type-cell cell_16602185125432-padding cell_16602185125432-margin dnd-column" style="" data-widget-type="cell" data-x="0" data-w="12">
                         <div class="row-fluid-wrapper row-depth-1 row-number-21 dnd-row">
