@@ -219,8 +219,8 @@
                         <!--end row-wrapper -->
                         <div class="row-fluid-wrapper row-depth-1 row-number-7 dnd-row">
                   <div class="row-fluid equals">
-                     <div class="span4 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="0" data-w="4" data-aos="fade-up" data-aos-delay="0">
-                      <div id="hs_cos_wrapper_widget_1660656504774" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+                     <div class="span3 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="0" data-w="4" data-aos="fade-up" data-aos-delay="0">
+                      <div id="hs_cos_wrapper_widget_1660656504774" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="height:100%!important;" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                         <div id="" class=" nequalheight feature  text-center icon-15 feature--widget_1660656504774">
                           <img class="lazy loaded" alt="Step 1" width="80" height="80" data-ll-status="loaded" src="{{ url('assets/img/Step 1.png'); }}">
                           <div class="feature__inner">
@@ -280,8 +280,8 @@
                       </div>
                      </div>
                      <!--end widget-span -->
-                     <div class="span4 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="4" data-w="4" data-aos="fade-up" data-aos-delay="200">
-                      <div id="hs_cos_wrapper_module_1660731587249" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+                     <div class="span3 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="4" data-w="4" data-aos="fade-up" data-aos-delay="200">
+                      <div id="hs_cos_wrapper_module_1660731587249" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="height:100%!important;" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                         <div id="" class=" nequalheight feature  text-center icon-10 feature--module_1660731587249">
                           <img class="lazy loaded" alt="" width="80" height="80" data-ll-status="loaded" sssrc="{{ url('assets/img/2.png'); }}"
                           src="{{ url('assets/img/icones.png'); }}"
@@ -340,8 +340,8 @@
                       </div>
                      </div>
                      <!--end widget-span -->
-                     <div class="span4 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="8" data-w="4" data-aos="fade-up" data-aos-delay="400">
-                      <div id="hs_cos_wrapper_module_1660731613000" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+                     <div class="span3 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="8" data-w="4" data-aos="fade-up" data-aos-delay="400">
+                      <div id="hs_cos_wrapper_module_1660731613000" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="height:100%!important;" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                         <div id="" class=" nequalheight feature  text-center icon-10 feature--module_1660731613000">
                           <img class="lazy loaded" alt="" width="80" height="80" data-ll-status="loaded" src="{{ url('assets/img/icones.png'); }}">
                           <div class="feature__inner">
@@ -399,10 +399,67 @@
                      </div>
                      <!--end widget-span -->
                      
+                     <div class="span3 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="8" data-w="4" data-aos="fade-up" data-aos-delay="400">
+                      <div id="hs_cos_wrapper_module_1660731613000" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="height:100%!important;" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+                        <div id="" class=" nequalheight feature  text-center icon-10 feature--module_1660731613000">
+                          <img class="lazy loaded" alt="" width="80" height="80" data-ll-status="loaded" src="{{ url('assets/img/icones.png'); }}">
+                          <div class="feature__inner">
+                            <p style="font-size: 20px; line-height: 1;">
+                              <strong>
+                                <span style="color: #002e5b;">Step 4</span>
+                              </strong>
+                            </p>
+                            <p style="font-size: 18px; line-height: 1;">
+                              <strong>
+                                <span style="color: #002e5b;">Get Verified Reports</span>
+                              </strong>
+                            </p>
+                            <p style="line-height: 1;"></p>
+                            <ul style="color: #002e5b;padding: 0;text-align: left;font-size: 14px; margin-left: 5px;">
+                              <li>SmartKYC Officers will conduct thorough verification and submit a detailed report.</li>
+                              <li>The report is sent to the Customer, who can then view the verification status to make decisions regarding their applicant/vendor.</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <style type="text/css">
+                          .feature--module_1660731613000 .feature__icon svg {
+                            fill: rgba(255, 255, 255, 1.0);
+                          }
+
+                          .feature--module_1660731613000:hover {
+                            box-shadow: 0 43px 70px rgba(255, 255, 255, 0.12);
+                          }
+
+                          .feature--module_1660731613000 {
+                            padding: 10px 43px;
+                            border-radius: 12px;
+                            border: 0px solid rgba(255, 255, 255, 1.0);
+                            background: rgba(255, 255, 255, 1);
+                            height: 100%;
+                          }
+
+                          @media (min-width: 1200px) {
+                            .feature--module_1660731613000 {
+                              margin-top: -10px;
+                            }
+                          }
+
+                          @media (max-width: 1200px) {
+                            .feature {
+                              padding: 21px 12px;
+                            }
+
+                            .feature--module_1660731613000 {
+                              margin-top: 21px;
+                            }
+                          }
+                        </style>
+                      </div>
+                     </div>
                   </div>
                   <!--end row-->
 
-                  <div class="row-fluid equals">
+                  <div class="row-fluid equals" style="display:none;">
                      <div class="span4 widget-span widget-type-custom_widget dnd-module aos-init" style="" data-widget-type="custom_widget" data-x="8" data-w="4" data-aos="fade-up" data-aos-delay="400">
                       <div id="hs_cos_wrapper_module_1660731613000" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
                         <div id="" class=" nequalheight feature  text-center icon-10 feature--module_1660731613000">

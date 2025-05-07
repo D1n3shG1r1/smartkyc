@@ -1,0 +1,122 @@
+SmartKYC Sitemap or adding the website to google
+
+1. Submit Your Website to Google
+	Google often finds websites automatically, but to speed things up:
+
+	Go to Google Search Console
+
+	Log in with your Google account
+
+	Click "URL Inspection" in the left sidebar
+
+	Enter your website’s full URL (e.g., https://www.yoursite.com)
+
+	Click "Request Indexing"
+
+2. Submit a Sitemap (Recommended)
+	This helps Google crawl your whole site more efficiently.
+
+	In Google Search Console, go to "Sitemaps"
+
+	Enter the path to your sitemap (e.g., sitemap.xml)
+
+	Click "Submit"
+
+	If you don’t have a sitemap:
+
+	Most platforms like WordPress, Wix, or Shopify generate one automatically.
+
+	Or, you can create one using tools like XML-sitemaps.com.
+
+3. Make Sure Your Site Is Crawlable
+	Avoid blocking Googlebot in your robots.txt file.
+
+	Make sure pages you want indexed are not marked as noindex.
+
+4. Build Backlinks & Share Your Site
+	Google discovers websites through links. Share your site on:
+
+	Social media
+
+	Forums
+
+	Directories
+
+	Blogs
+
+5. Check Indexing Status
+	In Search Console, click "Coverage" to see which pages are indexed.
+
+	You can also search in Google:
+	site:yoursite.com
+
+Steps to cerate sitemap in laravel:
+
+✅ Step-by-Step Guide to Create a Sitemap in Laravel
+	Option 1: Use a Laravel Sitemap Package (Recommended)
+	The most popular package is spatie/laravel-sitemap. Here's how to use it:
+
+	1. Install the package
+	Run this in your project root:
+	composer require spatie/laravel-sitemap
+
+	2. Create a sitemap generation route or command
+	You can use an Artisan command to generate the sitemap:
+
+	Create a new command (optional):
+	php artisan make:command GenerateSitemap
+
+	In your routes/web.php or a controller (simplest method):
+	use Spatie\Sitemap\Sitemap;
+	use Spatie\Sitemap\Tags\Url;
+
+	Route::get('/generate-sitemap', function () {
+	    Sitemap::create()
+	        ->add(Url::create('/'))
+	        ->add(Url::create('/about'))
+	        ->add(Url::create('/services'))
+	        ->add(Url::create('/contact'))
+	        // Add more pages as needed
+	        ->writeToFile(public_path('sitemap.xml'));
+
+	    return 'Sitemap generated!';
+	});
+
+
+	Visit https://smartkyc.ng/generate-sitemap once, and it will create public/sitemap.xml.
+
+	3. Submit your sitemap to Google
+	Go to Google Search Console > Select your domain > Sitemaps
+
+	Enter:
+	https://smartkyc.ng/sitemap.xml
+	
+	Then click Submit.
+	
+	=================================================================
+Meta tags for seo
+
+<!-- Primary Meta Tags -->
+<title>SmartKYC – Fast & Secure Customer Identity Verification</title>
+<meta name="description" content="SmartKYC helps businesses verify customer identities instantly and securely using cutting-edge technology. Trusted KYC solutions for Nigeria and beyond.">
+<meta name="keywords" content="KYC, identity verification, SmartKYC, customer onboarding, AML compliance, Nigeria KYC solutions">
+<meta name="author" content="SmartKYC Team">
+<meta name="robots" content="index, follow">
+
+<!-- Mobile Optimization -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:title" content="SmartKYC – Fast & Secure Customer Identity Verification">
+<meta property="og:description" content="Verify customer identities instantly and securely. SmartKYC is a trusted solution for businesses in Nigeria and beyond.">
+<meta property="og:url" content="https://smartkyc.ng/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://smartkyc.ng/images/og-image.jpg"> <!-- Replace with actual image -->
+
+<!-- Twitter Meta -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SmartKYC – Fast & Secure Customer Identity Verification">
+<meta name="twitter:description" content="Trusted KYC and identity verification solutions for Nigeria and beyond.">
+<meta name="twitter:image" content="https://smartkyc.ng/images/og-image.jpg"> <!-- Replace with actual image -->
+
+
