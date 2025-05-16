@@ -24,8 +24,13 @@ class Controller extends BaseController
         $customerFname = $this->getSession('customerFname');
         $customerLname = $this->getSession('customerLname');
 
-        // Get applicant new notifications
-        $notificationCount = Notifications_model::where("receiver", $customerId)->where("isRead", 0)->count();
+        if($customerId && $customerId != null){
+            // Get applicant new notifications
+            $notificationCount = Notifications_model::where("receiver", $customerId)->where("isRead", 0)->count();
+        }else{
+            $notificationCount = 0;
+        }
+        
 
         view()->share('LOGINUSER',array(
             "adminId" => $adminId,
