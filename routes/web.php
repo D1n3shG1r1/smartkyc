@@ -47,6 +47,13 @@ Route::get('/login',[Register::class, 'login']);
 Route::post('/login',[Register::class, 'login']);
 Route::get('/register',[Register::class, 'register']);
 Route::post('/register',[Register::class, 'register']);
+Route::get('/forgotpassword',[Register::class, 'forgotpassword']);
+Route::post('/forgotpassword',[Register::class, 'forgotpassword']);
+
+Route::get('/resetpassword',[Register::class, 'resetpassword']);
+Route::post('/resetpassword',[Register::class, 'resetpassword']);
+
+
 Route::get('/termsofservice',[Terms::class, 'termsofservice']);
 Route::get('/privacypolicy',[Terms::class, 'privacypolicy']);
 
@@ -67,12 +74,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/application/{Id}',[Applications::class, 'application']);
     Route::post('/updateApplicationStatus',[Applications::class, 'updateApplicationStatus']);
 
+
     Route::post('/getApplicantData',[Applications::class, 'getApplicantData']);
     Route::post('/getApplicantProfile',[Applications::class, 'getApplicantProfile']);
-
+    //Route::post('/deleteApplicant',[Applications::class, 'deleteApplicant']);
 
     Route::get('/notifications',[Notifications::class, 'notifications']);
-
 
     Route::get('/mypackage',[Package::class, 'plans']);
     Route::get('/buy/{package}',[Package::class, 'buy']);
@@ -97,6 +104,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     /*Route::get('admin/customer-applicant/{id}/applications',[Admin::class, 'customerApplications']);*/
 
     Route::get('/admin-customer-applications/{id}',[Admin::class, 'customerApplications']);
+    Route::post('/deleteApplication',[Admin::class, 'deleteApplication']);
     
     Route::post('/admin-updatepackage',[Admin::class, 'updatepackage']);
     Route::get('/admin-settings',[Admin::class, 'settings']);

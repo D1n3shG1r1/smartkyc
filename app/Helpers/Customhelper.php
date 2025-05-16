@@ -223,6 +223,7 @@ use Illuminate\Support\Facades\Auth;
     if(!function_exists('verificationStatusTxt')){
         function verificationStatusTxt($flag){
             
+            $vrfstatus[0] = "";
             $vrfstatus[1] = "Verification in Progress";
             $vrfstatus[2] = "Document Failed Verification";
             $vrfstatus[3] = "Document is Expired";

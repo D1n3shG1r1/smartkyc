@@ -11,6 +11,7 @@ use App\Models\Packagepayments_model;
 use App\Models\SuperAdmin_model;
 use App\Models\Customers_model;
 use App\Models\Applications_model;
+use App\Models\ApplicationDocuments_model;
 use App\Traits\SmtpConfigTrait;
 use Carbon\Carbon;
 
@@ -745,9 +746,9 @@ class Admin extends Controller
                 $applications = $applicationsObj->toArray();
                
                 foreach($applications["data"] as &$row){
-                    //$row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
 
-                    $row["verificationOutcomeTxt"] = $row["verificationOutcome"];
+                    //$row["verificationOutcomeTxt"] = $row["verificationOutcome"];
 
                     $customer = Customers_model::select("fname", "lname")->where("id", $row["customerId"])->first();
                     $row["customerName"] = ucwords($customer["fname"] . " " . $customer["lname"]);
@@ -769,6 +770,67 @@ class Admin extends Controller
             //redirect to login
             return Redirect::to(url('login'));
         }       
+    }
+
+    function deleteApplication(Request $request){
+        if($this->ADMINID > 0){
+            
+            $applicationId = $request->input("applicationId");
+
+            $application = Applications_model::where("id", $applicationId)
+            ->first();
+
+            $adminId = $application->adminId;
+            $customerId = $application->customerId;
+
+            $documents = ApplicationDocuments_model::where("applicationId",$applicationId)->get();
+
+            if($documents){
+                $documentsIds = array();
+                
+                foreach($documents as $documentRw){
+                    
+                    $documentsIds[] = $documentRw->id;
+                    $applicationId = $documentRw->applicationId;
+                    $fileName = $documentRw->fileName;
+
+                    $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
+
+                    //remove customer files
+                    $filename = $adminDirPath.$fileName;
+                    exec("rm " . escapeshellarg($filename));
+
+                }
+
+                //remove documents entries
+                $documents = ApplicationDocuments_model::where("applicationId", $applicationId)->delete();
+
+            }
+
+            //remove applications
+            Applications_model::where("id", $applicationId)
+            ->delete();
+
+            $postBackData = array();
+            $postBackData["success"] = 1;
+            
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "success"
+            );
+        }else{
+                
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "Your session has expired. Please log in again to continue."
+            );
+        }
+    
+        return response()->json($response); die;
     }
     
 }

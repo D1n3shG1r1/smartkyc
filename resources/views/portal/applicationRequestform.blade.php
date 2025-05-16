@@ -246,6 +246,7 @@ var uploadCount = "{{$uploadCount}}";
 uploadCount = parseInt(uploadCount);
 
 function uploadFiles(e) {
+    const MAX_FILE_SIZE = 20971520; // 20MB
     const fileInput = e.target;
     const fileInputId = fileInput.id;
     const fileInputIdParts = fileInputId.split("_");
@@ -260,11 +261,17 @@ function uploadFiles(e) {
         var err = 1;
         var msg = "Please select a file to upload!";
         showToast(err,msg);
-        return;
+        return false;
     }
 
     // Process each file
     for (const file of files) {
+        if (file.size > MAX_FILE_SIZE) {
+            showToast(1, `File "${file.name}" exceeds the 20MB limit.`);
+            fileInput.value = ''; // Clear invalid file input
+            return false;
+        }
+
         const filePreviewDiv = document.createElement('div');
         filePreviewDiv.classList.add('file-preview');
 

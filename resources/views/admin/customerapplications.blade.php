@@ -69,7 +69,15 @@ $applicationsData = $applications["data"];
                             <td>{{$documentNo}}</td>-->
                             <td>{{ucwords($verificationStatus)}}</td> 
                             <td>{{$createDate}}</td>
-                            <td><a href="{{url('admin/application/'.$id)}}" class="btn cur-p btn-outline-primary" target="_blank">View</a></td>
+                            <td>
+                                <a href="{{url('admin/application/'.$id)}}" class="" target="_blank">View</a>
+
+                                <span class="navSeprator"></span>
+
+                                <a href="javascript:void(0);" data-id="{{$id}}" onclick="deleteApplication(this);" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete the applicant and all of their related documents." style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+                        
+                        
+                            </td>
                         </tr>
                     <?php
                         }
@@ -125,4 +133,75 @@ $applicationsData = $applications["data"];
 </div>
 @endsection
 @push("js")
+<script>
+function deleteApplication(elm){
+    var applicationId = $(elm).attr("data-id");
+    
+    var title = 'Delete Application #'+applicationId;
+    var message = 'Are you sure you want to delete this record? This will also delete all related documents, and once deleted, it cannot be reversed.';
+    var confirmText = 'Yes';
+    var cancelText = 'No';
+    
+    // Update modal content dynamically
+    document.getElementById('confirmModalLabel').textContent = title;
+    document.getElementById('confirmMessage').textContent = message;
+    document.getElementById('confirmBtn').textContent = confirmText;
+    document.getElementById('confirmCancelBtn').textContent = cancelText;
+
+    // Reset event listeners
+    const confirmButton = document.getElementById('confirmBtn');
+    const cancelButton = document.getElementById('confirmCancelBtn');
+
+    // Add event listener for confirmation action
+    confirmButton.onclick = function() {
+        // Place your confirmation action here
+
+        var elmId = $(elm).attr("id");
+        
+        $(elm).attr("disabled",true);
+        var orgTxt = $(elm).attr("data-txt");
+        var loadingTxt = $(elm).attr("data-loadingtxt");
+        showLoader(elmId,loadingTxt);
+
+        var requrl = "admin/deleteApplication";
+        var postdata = {
+            "applicationId":applicationId
+        };
+        
+        callajax(requrl, postdata, function(resp){
+            
+            $(elm).removeAttr("disabled");
+            hideLoader(elmId,orgTxt); 
+            
+            if(resp.C == 100){
+                var err = 0;
+                var msg = 'Record has been deleted successfully.';
+                showToast(err,msg);
+                window.location.reload();
+
+            }else{
+                var err = 1;
+                var msg = resp.M;
+                showToast(err,msg);
+
+            }
+            
+        });
+
+        var myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        myModal.hide();
+    };
+
+    // Add event listener for cancel action
+    cancelButton.onclick = function() {
+        var myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        myModal.hide();
+    };
+
+    // Show the modal
+    var myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    myModal.show();
+
+}
+</script>
 @endpush

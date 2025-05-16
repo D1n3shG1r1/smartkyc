@@ -10,6 +10,7 @@ use App\Models\Applications_model;
 use App\Models\ApplicationDocuments_model;
 use App\Models\Package_model;
 use App\Models\Notifications_model;
+use App\Models\customerInbox_model;
 use App\Models\SuperAdmin_model;
 use App\Traits\SmtpConfigTrait;
 
@@ -36,8 +37,8 @@ class Applications extends Controller
                 $applications = $applicationsObj->toArray();
                
                 foreach($applications["data"] as &$row){
-                    //$row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
-                    $row["verificationOutcomeTxt"] = $row["verificationOutcome"];
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    //$row["verificationOutcomeTxt"] = $row["verificationOutcome"];
 
                     $customer = Customers_model::select("fname", "lname")->where("id", $row["customerId"])->first();
                     $row["customerName"] = ucwords($customer["fname"] . " " . $customer["lname"]);
@@ -125,29 +126,10 @@ class Applications extends Controller
             if($applicationObj){
                 $application = $applicationObj->toArray();     
                 $customerId = $application["customerId"];
-                //$application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+                $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
 
-                $application["verificationOutcomeTxt"] = $application["verificationOutcome"];
+                //$application["verificationOutcomeTxt"] = $application["verificationOutcome"];
                 
-                
-               /* //get customer data
-            $customerObj = Customers_model::select("fname","lname","email","phone")
-            ->where("portalId",$portalId)
-            ->where("id",$customerId)
-            ->first()->toArray();
-
-            $customer = array();
-            
-            //$data["adminId"] = $adminId;
-            $customer["portalId"] = $portalId;
-            $customer["customerId"] = $customerId;
-            $customer["fname"] = $customerObj["fname"]; 
-            $customer["lname"] = $customerObj["lname"];
-            $customer["email"] = $customerObj["email"];
-            $customer["phone"] = $customerObj["phone"];
-*/
-
-
                 if($this->SYSTEMADMIN > 0){
                     //get applicant details
                     $customerObj = Customers_model::select("id","fname","lname","email", "phone")->where("id",$customerId)->first();
@@ -155,8 +137,6 @@ class Applications extends Controller
                     //get applicant details
                     $customerObj = Customers_model::select("id","fname","lname","email", "phone")->where("adminId",$adminId)->where("id",$customerId)->first();
                 }
-
-
 
                 $customerDetails = array();
                 if($customerObj){
@@ -529,5 +509,86 @@ class Applications extends Controller
         return response()->json($response); die;       
     }
 
+    function deleteApplicant(Request $request){
+        //deleteApplicant
+        if($this->ADMINID > 0){
+            
+            $adminId = $this->ADMINID;
+            $portalId = sha1($adminId);
+            $applicantId = $request->input("applicantId");
+            $customerId = $applicantId;
+
+            $applications = Applications_model::where("adminId", $adminId)
+            ->where("customerId", $applicantId)
+            ->get();
+            
+            if($applications){
+                
+                $applicationIds = array();
+                
+                foreach($applications as $tmpApplicationRw){
+                    $applicationIds[] = $tmpApplicationRw->id;
+                }
+
+                $documents = ApplicationDocuments_model::whereIn("applicationId", $applicationIds)->get();
+
+                if($documents){
+                    $documentsIds = array();
+                    
+                    foreach($documents as $documentRw){
+                        
+                        $documentsIds[] = $documentRw->id;
+                        $applicationId = $documentRw->applicationId;
+                        $fileName = $documentRw->fileName;
+
+                        $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
+
+                        //remove customer files
+                        $filename = $adminDirPath.$fileName;
+                        exec("rm " . escapeshellarg($filename));
+
+                    }
+
+                    //remove documents entries
+                    $documents = ApplicationDocuments_model::whereIn("applicationId", $applicationIds)->delete();
+
+                }
+
+                //remove applications
+                Applications_model::where("adminId", $adminId)
+                ->where("customerId", $applicantId)
+                ->delete();
+
+            }
+            
+            Notifications_model::where("receiver", $applicantId)->delete();
+            Notifications_model::where("sender", $applicantId)->delete();
+            customerInbox_model::where("customerId", $applicantId)->delete();
+            Customers_model::where("id", $applicantId)->delete();
+
+
+            $postBackData = array();
+            
+            $postBackData["success"] = 1;
+            $postBackData["id"] = $applicantId;
+            
+            $response = array(
+                "C" => 100,
+                "R" => $postBackData,
+                "M" => "Record deleted successfully."
+            );
+
+        }else{
+            $postBackData = array();
+            $postBackData["success"] = 0;
+            $response = array(
+                "C" => 1004,
+                "R" => $postBackData,
+                "M" => "session expired."
+            );
+        }
+
+        return response()->json($response); die; 
+    }
 
 }

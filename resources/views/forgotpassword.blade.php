@@ -1,6 +1,5 @@
 @extends("app")
 @section("contentbox")
-<!-- https://colorlib.com/etc/regform/colorlib-regform-8/ -->
 <link rel="stylesheet" href="{{ url('assets/css/module_51600883929_slider.min.css'); }}"></link>
 <link rel="stylesheet" href="{{ url('assets/_hcms/fonts/material-icon/css/material-design-iconic-font.min.css'); }}">
 <style>
@@ -82,7 +81,7 @@ h2 {
   color: #222;
   font-family: 'Montserrat';
   font-size: 24px;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   text-align: center;
   margin-bottom: 40px; }
 
@@ -340,8 +339,8 @@ input[type=checkbox]:not(old):checked + label > span:before {
     padding: 50px 25px; } }
 
     .errorMessage{
-      color:#dc3545;
-      margin-left:10px;
+      color: #dc3545;
+      font-size: 12PX;
     }
 
     .success{
@@ -388,22 +387,20 @@ input[type=checkbox]:not(old):checked + label > span:before {
                                   <div class="signup-content">
                                     
                                   <form id="signup-form" class="signup-form">
-                                      <h2 class="form-title">Log In</h2>
+                                      <h2 class="form-title">Forgot Password ?</h2>
                                       <div class="form-group">
                                           <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
                                       </div>
-                                      <div class="form-group">
-                                          <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
-                                          <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                                          <div class="row text-right">
-                                            <a href="{{url('forgotpassword')}}" style="float: right; color: var(--bs-danger);" class="danger">Forgot Password?</a>
-                                          </div>
-
-                                      </div>
-                                      <div class="form-group">
+                                      
+                                      <div class="row form-group">
                                         <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>
-                                        <button id="signup-button" type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onclick="validateMe(this);" data-txt="Login" data-loadingtxt="Logging In...">Log In</button>    
-                                        <span class="errorMessage"></span>
+                                        <div class="col-md-7 text-left">
+                                          <span class="errorMessage"></span>
+                                        </div>
+                                        <div class="col-md-5 text-right">
+                                          <button id="signup-button" type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onclick="validateMe(this);" data-txt="Reset Password" data-loadingtxt="Reseting Password...">Reset my Password</button>  
+                                        </div>  
+                                        
                                       </div>
                                     </form>
                                     <p class="loginhere">
@@ -435,35 +432,23 @@ input[type=checkbox]:not(old):checked + label > span:before {
 @endsection
 @push("js")
 <script>
-$(function(){
-  $(".toggle-password").click(function() {
-    $(this).toggleClass("zmdi-eye zmdi-eye-off");
-    var input = $($(this).attr("toggle"));
-    if (input.attr("type") == "password") {
-      input.attr("type", "text");
-    } else {
-      input.attr("type", "password");
-    }
-  });
-});
 
 function validateMe(elm) {
   var email = $("#email").val();
-  var password = $("#password").val();
   
   // Clear previous error messages
   $(".errorMessage").html("");
   $(".errorMessage").removeClass("success");
   
-  if (isRealValue(email) && !validateEmail(email)) {
-    $(".errorMessage").html("Please enter a valid email.");
+  if (!isRealValue(email)) {
+    $(".errorMessage").html("Please enter your email.");
     $("#email").on("keyup", function () {
       $(".errorMessage").html("");
     });
     return false;
-  } else if (!isRealValue(password)) {
-    $(".errorMessage").html("Please enter the password.");
-    $("#password").on("keyup", function () {
+  }else if (isRealValue(email) && !validateEmail(email)) {
+    $(".errorMessage").html("Please enter a valid email.");
+    $("#email").on("keyup", function () {
       $(".errorMessage").html("");
     });
     return false;
@@ -475,11 +460,10 @@ function validateMe(elm) {
     var loadingTxt = $(elm).attr("data-loadingtxt");
     showLoader(elmId,loadingTxt); 
 
-    var requrl = 'login';
+    var requrl = 'forgotpassword';
     var postData = {
       "_token":CSRFTOKEN,
-      "email":email,
-      "password":password
+      "email":email
     };
     
     callajax(requrl, postData, function(resp){
@@ -490,7 +474,10 @@ function validateMe(elm) {
       
       if(resp.C == 100){
         $(".errorMessage").addClass("success");
-        window.location.href="admin/dashboard";
+        /*setTimeout(function(){
+          window.location.href= '<?php //echo url(); ?>';
+        }, 3000);*/
+        
       }else{
         $(".errorMessage").removeClass("success");
       }

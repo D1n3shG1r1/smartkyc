@@ -15,6 +15,7 @@ use App\Models\ApplicationDocuments_model;
 use App\Models\Notifications_model;
 use App\Models\customerInbox_model;
 use App\Traits\SmtpConfigTrait;
+use Illuminate\Validation\ValidationException;
 use Hamcrest\Arrays\IsArray;
 use Carbon\Carbon;
 
@@ -368,8 +369,8 @@ class Customerportal extends Controller
             if($applicationsObj){
                 $applications = $applicationsObj->toArray();
                 foreach($applications["data"] as &$row){
-                    //$row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
-                    $row["verificationOutcomeTxt"] = $row["verificationOutcome"];
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    //$row["verificationOutcomeTxt"] = $row["verificationOutcome"];
                 }
             }
         
@@ -563,8 +564,8 @@ class Customerportal extends Controller
                 $applications = $applicationsObj->toArray();
             
                 foreach($applications["data"] as &$row){
-                    //$row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
-                    $row["verificationOutcomeTxt"] = $row["verificationOutcome"];
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    //$row["verificationOutcomeTxt"] = $row["verificationOutcome"];
                 }
                 
             }
@@ -615,9 +616,9 @@ class Customerportal extends Controller
 
             if($applicationObj){
                 $application = $applicationObj->toArray();     
-                //$application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+                $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
 
-                $application["verificationOutcomeTxt"] = $application["verificationOutcome"];
+                //$application["verificationOutcomeTxt"] = $application["verificationOutcome"];
                 
                 //get application documents
                 $documentsObj = ApplicationDocuments_model::where("portalId",$portalId)->where("applicationId",$Id)->get();
@@ -833,8 +834,8 @@ class Customerportal extends Controller
                     //load view for upload
                     
                     $application = $applicationObj->toArray();     
-                    //$application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
-                    $application["verificationOutcomeTxt"] = $application["verificationOutcome"];
+                    $application["verificationOutcomeTxt"] = verificationStatusTxt($application["verificationOutcome"]);
+                    //$application["verificationOutcomeTxt"] = $application["verificationOutcome"];
                     
                     //get application documents
                     $documentsObj = ApplicationDocuments_model::where("portalId",$portalId)->where("applicationId",$applicationId)->get();
@@ -941,6 +942,25 @@ class Customerportal extends Controller
             
             if(!$comments){$comments = '';}
             
+            if ($request->hasFile('uploadDocument')) {
+
+                try {
+                    $request->validate([
+                        'uploadDocument' => 'required|array',
+                        'uploadDocument.*' => 'file|max:20480'
+                    ], [
+                        'uploadDocument.*.max' => 'Each file must not exceed 500MB.'
+                    ]);
+                } catch (ValidationException $e) {
+                    return response()->json([
+                        "C" => 422,
+                        "R" => [],
+                        "M" => $e->validator->errors()->first()
+                    ]);
+                }
+            }
+
+
             $updateData = array(
                 //"title" => $title,
                 //"description" => $description,
@@ -957,11 +977,11 @@ class Customerportal extends Controller
                 //$documentObj = new ApplicationDocuments_model();
 
                 if ($request->hasFile('uploadDocument')) {
+
                     $documentsBatch = array();
                     foreach ($request->file('uploadDocument') as $file) {
-                        //$fileName = time() . '_' . $file->getClientOriginalName();
-                        //$file->storeAs('uploads/images', $fileName, 'public');
-                        //$uploadedFiles['images'][] = $fileName;
+
+                        
                         $documentId = db_randnumber();
                         $fileName = $documentId . '.' . $file->getClientOriginalExtension();
 
@@ -973,9 +993,6 @@ class Customerportal extends Controller
                         Storage::disk('local')->makeDirectory($adminDirPath);
                         
                         $file->storeAs($adminDirPath, $fileName, 'public');
-
-                        // Store the image in the appropriate folder
-                        //Storage::disk('local')->put($adminDirPath . $imageName, $decodedImage);  // Save the image
 
                         $documentsBatch[] = [
                             "id" => $documentId,
@@ -991,45 +1008,6 @@ class Customerportal extends Controller
                         $tagsSaved = ApplicationDocuments_model::insert($documentsBatch);
                     }
                 }
-    
-                
-
-                /*
-                $documentObj = new ApplicationDocuments_model();
-
-                // Strip off the base64 prefix
-                $imageData = explode(';base64,', $base64Image);
-                $imageDataPart1 = $imageData[0];
-                $imageDataPart1Arr = explode('/', $imageDataPart1);
-                $fileExt = $imageDataPart1Arr[1];
-                $imageData = $imageData[1];
-                $imageName = $documentId.'.'.$fileExt; 
-                // Decode the base64 string into an image
-                $decodedImage = base64_decode($imageData);
-
-                // Define the dynamic path for storing the image
-                //$adminDirPath = customerDocumentsPath($adminId);
-                $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
-                // Ensure the directory structure exists
-
-                // Laravel will create any missing directories
-                Storage::disk('local')->makeDirectory($adminDirPath);
-                
-                // Store the image in the appropriate folder
-                Storage::disk('local')->put($adminDirPath . $imageName, $decodedImage);  // Save the image
-                
-                // Return the relative path of the image for further processing
-                //$path = $adminDirPath . $imageName;
-                //$path = userImagesDisplayPath($adminId,$imageName);
-
-                
-                $documentObj->id = $documentId;
-                $documentObj->adminId = $adminId;
-                $documentObj->portalId =  $portalId;
-                $documentObj->applicationId = $applicationId;
-                $documentObj->fileName = $imageName;
-                $documentSaved = $documentObj->save();
-                */
 
                 //send notification and email to Admin & Super-Admin
                 $docTxtArr = array();
@@ -1235,8 +1213,8 @@ class Customerportal extends Controller
                 $applications = $applicationsObj->toArray();
             
                 foreach($applications["data"] as &$row){
-                    //$row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
-                    $row["verificationOutcomeTxt"] = $row["verificationOutcome"];
+                    $row["verificationOutcomeTxt"] = verificationStatusTxt($row["verificationOutcome"]);
+                    //$row["verificationOutcomeTxt"] = $row["verificationOutcome"];
                 }
                 
             }

@@ -1,6 +1,5 @@
 @extends("app")
 @section("contentbox")
-<!-- https://colorlib.com/etc/regform/colorlib-regform-8/ -->
 <link rel="stylesheet" href="{{ url('assets/css/module_51600883929_slider.min.css'); }}"></link>
 <link rel="stylesheet" href="{{ url('assets/_hcms/fonts/material-icon/css/material-design-iconic-font.min.css'); }}">
 <style>
@@ -82,7 +81,7 @@ h2 {
   color: #222;
   font-family: 'Montserrat';
   font-size: 24px;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   text-align: center;
   margin-bottom: 40px; }
 
@@ -340,8 +339,8 @@ input[type=checkbox]:not(old):checked + label > span:before {
     padding: 50px 25px; } }
 
     .errorMessage{
-      color:#dc3545;
-      margin-left:10px;
+      color: #dc3545;
+      font-size: 12PX;
     }
 
     .success{
@@ -366,6 +365,13 @@ input[type=checkbox]:not(old):checked + label > span:before {
     background-size: cover;
     /*background-position: center bottom;*/
   }
+
+  .toggle-password{
+    margin-top: 15px;
+    margin-left: -30px;
+    z-index: 1;
+    position: absolute;
+  }
 </style>
 
 <main class="body-container-wrapper">
@@ -388,35 +394,29 @@ input[type=checkbox]:not(old):checked + label > span:before {
                                   <div class="signup-content">
                                     
                                   <form id="signup-form" class="signup-form">
-                                      <h2 class="form-title">Log In</h2>
+                                    <input type="hidden" name="linktoken" id="linktoken" value="{{$token}}">
+                                      <h2 class="form-title">New Password</h2>
                                       <div class="form-group">
-                                          <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                                        <input type="password" class="form-input" name="password" id="password" placeholder="New Password"/>
+                                        <i toggle="#password" class="fa toggle-password fa-eye-slash" onclick="togglePassword(this)"></i>
                                       </div>
                                       <div class="form-group">
-                                          <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
-                                          <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                                          <div class="row text-right">
-                                            <a href="{{url('forgotpassword')}}" style="float: right; color: var(--bs-danger);" class="danger">Forgot Password?</a>
-                                          </div>
-
+                                        <input type="password" class="form-input" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password"/>
+                                        <i toggle="#confirmpassword" class="fa toggle-password fa-eye-slash" onclick="togglePassword(this)"></i>
                                       </div>
-                                      <div class="form-group">
+                                      
+                                      <div class="row form-group">
                                         <input type="hidden" class="form-input" name="_token" id="_token" value="{{ csrf_token() }}"/>
-                                        <button id="signup-button" type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onclick="validateMe(this);" data-txt="Login" data-loadingtxt="Logging In...">Log In</button>    
-                                        <span class="errorMessage"></span>
+                                        <div class="col-md-6 text-left">
+                                          <span class="errorMessage"></span>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                          <button id="signup-button" type="button" class="hs-cta-img btn btn-primary btn-sm actionButtonPrimary" onclick="save(this);" data-txt="Set Password" data-loadingtxt="Setting Password...">Set Password</button>  
+                                        </div>  
+                                        
                                       </div>
                                     </form>
-                                    <p class="loginhere">
-                                        Not have an account ? <a href="{{ url('register') }}" class="loginhere-link">Register here</a>
-                                    </p>
-                                    <p>OR</p>
-                                    
-                                    <p class="">
-                                        <a href="{{ url('admin/sysadmlogin') }}" class="loginhere-link">Log in as a System Administrator</a>
-                                    </p>
-                                    
-
-
+                                   
                                   </div>
                                 </div>
                               </section>
@@ -435,35 +435,77 @@ input[type=checkbox]:not(old):checked + label > span:before {
 @endsection
 @push("js")
 <script>
-$(function(){
-  $(".toggle-password").click(function() {
-    $(this).toggleClass("zmdi-eye zmdi-eye-off");
-    var input = $($(this).attr("toggle"));
+
+function togglePassword(elm){
+  
+    
+    var input = $($(elm).attr("toggle"));
+    if($(elm).hasClass("fa-eye")){
+      
+      $(elm).removeClass("fa-eye");
+      $(elm).removeClass("fa-eye");
+      $(elm).addClass("fa-eye-slash");
+    
+    }else{
+      
+      $(elm).addClass("fa-eye");
+      $(elm).addClass("fa-eye");
+      $(elm).removeClass("fa-eye-slash");
+    
+    }
+
     if (input.attr("type") == "password") {
       input.attr("type", "text");
     } else {
       input.attr("type", "password");
     }
-  });
-});
-
-function validateMe(elm) {
-  var email = $("#email").val();
-  var password = $("#password").val();
   
+}
+
+function save(elm) {
+  
+  var linktoken = $("#linktoken").val();
+  var password = $("#password").val();
+  var re_password = $("#confirmpassword").val();
+
+  var psswdValidObj = validatePassword(password);
+  var cpsswdValidObj = validatePassword(re_password);
+  var psswdErr = psswdValidObj.err;
+  var psswdMsg = psswdValidObj.msg;
+  var cpsswdErr = cpsswdValidObj.err;
+  var cpsswdMsg = cpsswdValidObj.msg;
+   
   // Clear previous error messages
   $(".errorMessage").html("");
   $(".errorMessage").removeClass("success");
-  
-  if (isRealValue(email) && !validateEmail(email)) {
-    $(".errorMessage").html("Please enter a valid email.");
-    $("#email").on("keyup", function () {
+
+  if (!isRealValue(password)) {
+    $(".errorMessage").html("Please enter the password.");
+    $("#password").on("keyup", function () {
       $(".errorMessage").html("");
     });
     return false;
-  } else if (!isRealValue(password)) {
-    $(".errorMessage").html("Please enter the password.");
+  } else if (isRealValue(password) && psswdErr == 1) {
+    $(".errorMessage").html(psswdMsg);
     $("#password").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (!isRealValue(re_password)) {
+    $(".errorMessage").html("Please enter the confirm password.");
+    $("#re_password").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (isRealValue(re_password) && cpsswdErr == 1) {
+    $(".errorMessage").html(cpsswdMsg);
+    $("#re_password").on("keyup", function () {
+      $(".errorMessage").html("");
+    });
+    return false;
+  } else if (isRealValue(password) && isRealValue(re_password) && password !== re_password) {
+    $(".errorMessage").html("Confirm password does not match.");
+    $("#re_password").on("keyup", function () {
       $(".errorMessage").html("");
     });
     return false;
@@ -475,11 +517,12 @@ function validateMe(elm) {
     var loadingTxt = $(elm).attr("data-loadingtxt");
     showLoader(elmId,loadingTxt); 
 
-    var requrl = 'login';
+    var requrl = 'resetpassword';
     var postData = {
       "_token":CSRFTOKEN,
-      "email":email,
-      "password":password
+      "linktoken":linktoken,
+      "password":password,
+      "re_password":re_password,
     };
     
     callajax(requrl, postData, function(resp){
@@ -490,7 +533,10 @@ function validateMe(elm) {
       
       if(resp.C == 100){
         $(".errorMessage").addClass("success");
-        window.location.href="admin/dashboard";
+        setTimeout(function(){
+          window.location.href= "{{ url('login');}}";
+        }, 3000);
+        
       }else{
         $(".errorMessage").removeClass("success");
       }

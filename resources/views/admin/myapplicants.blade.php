@@ -141,12 +141,7 @@ $customersData = $customers["data"];
                             <td class="applicantActionCol">
                                 
                                 <a href="javascript:void(0);" onclick="getApllicantProfileData(this);" data-id="{{$id}}" data-toggle="modal" data-target="#profileModal" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="View applicant details." style="cursor:pointer;"><i class="fa fa-file-text-o"></i>&nbsp;View</a>
-
-                                <!--
-                                <span class="navSeprator"></span>
-                                <a href="javascript:void(0);" data-id="{{$id}}" onclick="generateotp(this);" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete applicant and his all related documents" style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
-                                -->
-
+                                
                                 <span class="navSeprator"></span>
 
                                 @php if($hasPackage > 0){ @endphp
@@ -981,5 +976,6 @@ function reloadPage(){
 function buyPackage(){
 
 }
+
 </script>
 @endpush
