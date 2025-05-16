@@ -268,7 +268,7 @@ class Register extends Controller
 
                 $postBackData = array();
                 $postBackData["email"] = $email;
-                $postBackData["link"] = $resetPasswordLink;
+                //$postBackData["link"] = $resetPasswordLink;
                 $postBackData["success"] = 1;
                 
                 $response = array(
