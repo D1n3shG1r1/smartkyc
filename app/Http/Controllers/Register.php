@@ -9,6 +9,7 @@ use App\Models\SuperAdmin_model;
 use App\Traits\CryptoTrait;
 use App\Traits\SmtpConfigTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Register extends Controller
 {
@@ -175,14 +176,26 @@ class Register extends Controller
         
     }
 
-    function emailExist($email){
+    /*function emailExist($email){
         $adminObj = Admin_model::where('email', $email)->first();
         if($adminObj && $adminObj != '' && $adminObj != null){
             return 1;
         }else{
             return 0;
         }
+    }*/
+
+    function emailExist($email) {
+        try {
+            $adminObj = Admin_model::where('email', $email)->first();
+            return $adminObj ? 1 : 0;
+        } catch (\Exception $e) {
+            // Log error or handle it gracefully
+            Log::error('Database error in emailExist: ' . $e->getMessage());
+            return 0;
+        }
     }
+    
 
     function forgotpassword(Request $request){
         if($request->isMethod('post')) {
