@@ -14,6 +14,7 @@ use App\Models\Applications_model;
 use App\Models\ApplicationDocuments_model;
 use App\Traits\SmtpConfigTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class Admin extends Controller
 {
@@ -460,125 +461,137 @@ class Admin extends Controller
         }
     }
 
-    function savepaymentsettings(Request $request){
-        if($this->ADMINID > 0){
-            
-            $secretkey = $request->input("secretkey");
-            $publickey = $request->input("publickey");
-            
-            $adminId = $this->ADMINID;
-           
-            $postBackData = array();
-            
-            //test api keys
-            $method = 'GET';
-            
-            $headers = [
-                "Authorization: Bearer $secretkey",
-                "Content-Type: application/json"
-            ];
-            
-            $bodyContent = null;
-            $returnAsArray = false;
-            
-            $endpoint = config('custom.paystack.paySessTime');
-            $result = makeCurlRequest($endpoint, $method, $headers, $bodyContent, $returnAsArray);
-            $result = json_decode($result, true); 
-            
-            if($result["status"] == true){
-                $updateData = array();
-                $updateData["paystack"] = json_encode(array("secretkey" => $secretkey, "publickey" => $publickey));
-                $update = SuperAdmin_model::where("id", $adminId)->update($updateData);    
-                
-                $postBackData["success"] = 1;
-                $postBackData["apiresponse"] = $result;
-                $response = array(
-                    "C" => 100,
-                    "R" => $postBackData,
-                    "M" => "Your keys have been passed."
-                );
+    function savePaymentSettings(Request $request){
 
-            }else{
-                //invalid keys
-                
-                $postBackData["success"] = 0;
-                $postBackData["apiresponse"] = $result;
-                $response = array(
-                    "C" => 101,
-                    "R" => $postBackData,
-                    "M" => "Ensure that you provide the correct authorization key for the request."
-                );
-            }
-            
-        }else{
-            
-            $postBackData = array();
-            $postBackData["success"] = 0;
-            $response = array(
+        if ($this->ADMINID <= 0) {
+            return response()->json([
                 "C" => 1004,
-                "R" => $postBackData,
+                "R" => ["success" => 0],
                 "M" => "Your session has expired. Please log in again to continue."
-            );
+            ]);
         }
 
-        return response()->json($response); die;                
-        
+        $sakey = $request->input("sakey");
+        $secretKey = $request->input("secretkey");
+        $publicKey = $request->input("publickey");
+        $adminId = $this->ADMINID;
+
+        $postBackData = [];
+
+        // Validate Special Access Key
+        $settingsRow = SuperAdmin_model::select("specialAccessKey")->find($adminId);
+
+        if (!$settingsRow || $settingsRow->specialAccessKey !== $sakey) {
+            return response()->json([
+                "C" => 102,
+                "R" => ["success" => 0],
+                "M" => "You have entered an invalid Special Access key."
+            ]);
+        }
+
+        // Validate Paystack Keys via API
+        $endpoint = config('custom.paystack.paySessTime');
+        $headers = [
+            "Authorization: Bearer $secretKey",
+            "Content-Type: application/json"
+        ];
+
+        $result = makeCurlRequest($endpoint, 'GET', $headers, null, false);
+        $result = json_decode($result, true);
+
+        if (isset($result["status"]) && $result["status"] === true) {
+            // Save keys
+            $updateData = [
+                "paystack" => json_encode([
+                    "secretkey" => $secretKey,
+                    "publickey" => $publicKey
+                ])
+            ];
+
+            SuperAdmin_model::where("id", $adminId)->update($updateData);
+
+            return response()->json([
+                "C" => 100,
+                "R" => [
+                    "success" => 1,
+                    "apiresponse" => $result
+                ],
+                "M" => "Your keys have been passed."
+            ]);
+        } else {
+            // Invalid API Keys
+            return response()->json([
+                "C" => 101,
+                "R" => [
+                    "success" => 0,
+                    "apiresponse" => $result
+                ],
+                "M" => "Ensure that you provide the correct authorization key for the request."
+            ]);
+        }
     }
     
     function saveemailsettings(Request $request){
-        if($this->ADMINID > 0){
-            
-            $host = $request->input("host");
-            $port = $request->input("port");
-            $username = $request->input("username");
-            $password = $request->input("password");
-            $encryption = $request->input("encryption");
-            $from_email = $request->input("from_email");
-            $from_name = $request->input("from_name");
-            $replyTo_email = $request->input("replyTo_email");
-            $replyTo_name = $request->input("replyTo_name");            
-            
-            $adminId = $this->ADMINID;
-            
-            $postBackData = array();
-
-            $updateData = array();
-            $updateData["smtp"] = json_encode(
-                                        array(
-                                            "host" => $host,
-                                            "port" => $port,
-                                            "username" => $username,
-                                            "password" => $password,
-                                            "encryption" => $encryption,
-                                            "from_email" => $from_email,
-                                            "from_name" => $from_name,   
-                                            "replyTo_email" => $replyTo_email,
-                                            "replyTo_name" => $replyTo_name
-                                        )
-                                    );
-
-            $update = SuperAdmin_model::where("id", $adminId)->update($updateData);    
-            
-            $postBackData["success"] = 1;
-            $response = array(
-                "C" => 100,
-                "R" => $postBackData,
-                "M" => "Your SMTP settings have been saved successfully."
-            );
-
-        }else{
-                
-            $postBackData = array();
-            $postBackData["success"] = 0;
-            $response = array(
+        if ($this->ADMINID <= 0) {
+            return response()->json([
                 "C" => 1004,
-                "R" => $postBackData,
+                "R" => ["success" => 0],
                 "M" => "Your session has expired. Please log in again to continue."
-            );
+            ]);
+        }
+        
+        $sakey = $request->input("sakey");
+        $host = $request->input("host");
+        $port = $request->input("port");
+        $username = $request->input("username");
+        $password = $request->input("password");
+        $encryption = $request->input("encryption");
+        $from_email = $request->input("from_email");
+        $from_name = $request->input("from_name");
+        $replyTo_email = $request->input("replyTo_email");
+        $replyTo_name = $request->input("replyTo_name");            
+        
+        $adminId = $this->ADMINID;
+        
+        $postBackData = array();
+
+        // Validate Special Access Key
+        $settingsRow = SuperAdmin_model::select("specialAccessKey")->find($adminId);
+
+        if (!$settingsRow || $settingsRow->specialAccessKey !== $sakey) {
+            return response()->json([
+                "C" => 102,
+                "R" => ["success" => 0],
+                "M" => "You have entered an invalid Special Access key."
+            ]);
         }
 
-        return response()->json($response); die;                
+        $updateData = array();
+        $updateData["smtp"] = json_encode(
+                                    array(
+                                        "host" => $host,
+                                        "port" => $port,
+                                        "username" => $username,
+                                        "password" => $password,
+                                        "encryption" => $encryption,
+                                        "from_email" => $from_email,
+                                        "from_name" => $from_name,   
+                                        "replyTo_email" => $replyTo_email,
+                                        "replyTo_name" => $replyTo_name
+                                    )
+                                );
+
+        $update = SuperAdmin_model::where("id", $adminId)->update($updateData);    
         
+        $postBackData["success"] = 1;
+        $response = array(
+            "C" => 100,
+            "R" => $postBackData,
+            "M" => "Your SMTP settings have been saved successfully."
+        );
+        
+        return response()->json($response);          
+    
     }
 
     function sendTestEmail(Request $request){
@@ -773,52 +786,90 @@ class Admin extends Controller
     }
 
     function deleteApplication(Request $request){
-        if($this->ADMINID > 0){
-            
-            $applicationId = $request->input("applicationId");
+        
+        if ($this->ADMINID <= 0) {
+            return response()->json([
+                "C" => 1004,
+                "R" => ["success" => 0],
+                "M" => "Your session has expired. Please log in again to continue."
+            ]);
+        }
 
-            $application = Applications_model::where("id", $applicationId)
-            ->first();
+        $sakey = $request->input("sakey");
+        $applicationId = $request->input("applicationId");
+        $adminId = $this->ADMINID;
 
-            $adminId = $application->adminId;
-            $customerId = $application->customerId;
+        // Validate Special Access Key
+        $settingsRow = SuperAdmin_model::select("specialAccessKey")->find($adminId);
 
-            $documents = ApplicationDocuments_model::where("applicationId",$applicationId)->get();
+        if (!$settingsRow || $settingsRow->specialAccessKey !== $sakey) {
+            return response()->json([
+                "C" => 101,
+                "R" => ["success" => 0],
+                "M" => "You have entered an invalid Special Access key."
+            ]);
+        }
 
-            if($documents){
-                $documentsIds = array();
-                
-                foreach($documents as $documentRw){
-                    
-                    $documentsIds[] = $documentRw->id;
-                    $applicationId = $documentRw->applicationId;
-                    $fileName = $documentRw->fileName;
+        // Fetch application
+        $application = Applications_model::find($applicationId);
 
-                    $adminDirPath = customerDocumentsPath($adminId,$customerId,$applicationId);
+        if (!$application) {
+            return response()->json([
+                "C" => 102,
+                "R" => ["success" => 0],
+                "M" => "The application does not exist or has already been deleted."
+            ]);
+        }
 
-                    //remove customer files
-                    $filename = $adminDirPath.$fileName;
-                    exec("rm " . escapeshellarg($filename));
+        $adminId = $application->adminId;
+        $customerId = $application->customerId;
 
-                }
+        // Delete associated documents
+        $documents = ApplicationDocuments_model::where("applicationId", $applicationId)->get();
 
-                //remove documents entries
-                $documents = ApplicationDocuments_model::where("applicationId", $applicationId)->delete();
+        foreach ($documents as $document) {
+            $filePath = customerDocumentsPath($adminId, $customerId, $applicationId) . $document->fileName;
 
+            if (file_exists($filePath)) {
+                @unlink($filePath); // Use @unlink for safer deletion
             }
+        }
 
-            //remove applications
-            Applications_model::where("id", $applicationId)
-            ->delete();
+        // Remove document records
+        ApplicationDocuments_model::where("applicationId", $applicationId)->delete();
+
+        // Delete the application itself
+        Applications_model::where("id", $applicationId)->delete();
+
+        return response()->json([
+            "C" => 100,
+            "R" => ["success" => 1],
+            "M" => "Application deleted successfully."
+        ]);
+    }
+
+    function generateaccesskey(Request $request){
+        if($this->ADMINID > 0 && $this->ADMINID == 1){
+
+            $updateDateTime = date("Y-m-d H:i:s");
+            //generate access key
+            $length = 12;
+            $specialAccessKey = Str::random($length).time();
+            $specialAccessKey = str_shuffle($specialAccessKey);
+            
+            SuperAdmin_model::where("id", $this->ADMINID)
+            ->update(array("specialAccessKey" => $specialAccessKey, "updateDateTime" => $updateDateTime));
 
             $postBackData = array();
             $postBackData["success"] = 1;
+            $postBackData["specialAccessKey"] = $specialAccessKey;
             
             $response = array(
                 "C" => 100,
                 "R" => $postBackData,
-                "M" => "success"
+                "M" => "Your special access key has been generated successfully."
             );
+
         }else{
                 
             $postBackData = array();
@@ -832,5 +883,5 @@ class Admin extends Controller
     
         return response()->json($response); die;
     }
-    
+
 }

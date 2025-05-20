@@ -20,7 +20,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Action Required: Complete Your Profile or Renew Package</h4>
+                <h4 style="font-weight:normal;" class="modal-title">Action Required: Complete Your Profile or Renew Package</h4>
                 <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
             <!-- Modal body -->
@@ -29,7 +29,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -39,18 +39,38 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel"></h5>
+        <h5 style="font-weight:normal;" class="modal-title" id="confirmModalLabel"></h5>
       </div>
       <div class="modal-body" id="confirmMessage">
         <!-- Dynamic content will go here -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmCancelBtn">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmBtn">Confirm</button>
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal" id="confirmCancelBtn">Cancel</button>
+        <button type="button" class="btn btn-primary" id="confirmBtn">Confirm</button>
       </div>
     </div>
   </div>
 </div>
+
+<!--- ask for special-access-key --->
+<div class="modal fade" id="SAKeyModal" tabindex="-1" aria-labelledby="SAKeyModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="font-weight:normal;" class="modal-title" id="SAKeyModalLabel"></h5>
+      </div>
+      <div class="modal-body">
+        <span id="SAKeyMessage"></span>
+        <input type="text" id="SAKeyInput" class="form-control" placeholder="Enter your Special Access Key">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal" id="SAKeyCancelBtn">Cancel</button>
+        <button type="button" class="btn btn-primary" id="SAKeyConfirmBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--- / ask for special-access-key --->
 
 @php
 $hasPackage = $LOGINUSER["hasPackage"];

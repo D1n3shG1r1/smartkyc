@@ -74,7 +74,7 @@ $applicationsData = $applications["data"];
 
                                 <span class="navSeprator"></span>
 
-                                <a href="javascript:void(0);" data-id="{{$id}}" onclick="deleteApplication(this);" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete the applicant and all of their related documents." style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+                                <a href="javascript:void(0);" data-id="{{$id}}" onclick="deleteApplication(this);" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete the application and all of their related documents." style="cursor:pointer;"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
                         
                         
                             </td>
@@ -137,6 +137,10 @@ $applicationsData = $applications["data"];
 function deleteApplication(elm){
     var applicationId = $(elm).attr("data-id");
     
+    // Show the modal
+    var myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    myModal.show();
+
     var title = 'Delete Application #'+applicationId;
     var message = 'Are you sure you want to delete this record? This will also delete all related documents, and once deleted, it cannot be reversed.';
     var confirmText = 'Yes';
@@ -148,6 +152,7 @@ function deleteApplication(elm){
     document.getElementById('confirmBtn').textContent = confirmText;
     document.getElementById('confirmCancelBtn').textContent = cancelText;
 
+
     // Reset event listeners
     const confirmButton = document.getElementById('confirmBtn');
     const cancelButton = document.getElementById('confirmCancelBtn');
@@ -156,40 +161,84 @@ function deleteApplication(elm){
     confirmButton.onclick = function() {
         // Place your confirmation action here
 
-        var elmId = $(elm).attr("id");
-        
-        $(elm).attr("disabled",true);
-        var orgTxt = $(elm).attr("data-txt");
-        var loadingTxt = $(elm).attr("data-loadingtxt");
-        showLoader(elmId,loadingTxt);
-
-        var requrl = "admin/deleteApplication";
-        var postdata = {
-            "applicationId":applicationId
-        };
-        
-        callajax(requrl, postdata, function(resp){
-            
-            $(elm).removeAttr("disabled");
-            hideLoader(elmId,orgTxt); 
-            
-            if(resp.C == 100){
-                var err = 0;
-                var msg = 'Record has been deleted successfully.';
-                showToast(err,msg);
-                window.location.reload();
-
-            }else{
-                var err = 1;
-                var msg = resp.M;
-                showToast(err,msg);
-
-            }
-            
-        });
-
         var myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
         myModal.hide();
+
+        // Show the modal
+        var sakModal = new bootstrap.Modal(document.getElementById('SAKeyModal'));
+        sakModal.show();
+
+        var title = 'Delete Record';
+        var message = 'Please enter your special access key to perform this action';
+        var confirmText = 'Ok';
+        var cancelText = 'Cancel';
+        
+        // Update modal content dynamically
+        document.getElementById('SAKeyModalLabel').textContent = title;
+        document.getElementById('SAKeyMessage').textContent = message;
+        document.getElementById('SAKeyConfirmBtn').textContent = confirmText;
+        document.getElementById('SAKeyCancelBtn').textContent = cancelText;
+
+        // Reset event listeners
+        const sakconfirmButton = document.getElementById('SAKeyConfirmBtn');
+        const sakcancelButton = document.getElementById('SAKeyCancelBtn');
+
+        // Add event listener for confirmation action
+        sakconfirmButton.onclick = function() {
+            // Place your confirmation action here
+            
+            var SAKeyInput = document.getElementById('SAKeyInput').value;
+            if(!isRealValue(SAKeyInput)){
+                var err = 1;
+                var msg = "Please enter your Special Access Key.";
+                showToast(err,msg);
+                return false;
+            }else{
+
+                sakModal.hide();
+                document.getElementById('SAKeyInput').value = '';
+
+                var elmId = $(elm).attr("id");
+        
+                $(elm).attr("disabled",true);
+                var orgTxt = $(elm).attr("data-txt");
+                var loadingTxt = $(elm).attr("data-loadingtxt");
+                showLoader(elmId,loadingTxt);
+
+                var requrl = "admin/deleteApplication";
+                var postdata = {
+                    "sakey":SAKeyInput,
+                    "applicationId":applicationId
+                };
+                
+                callajax(requrl, postdata, function(resp){
+                    
+                    $(elm).removeAttr("disabled");
+                    hideLoader(elmId,orgTxt); 
+                    
+                    if(resp.C == 100){
+                        var err = 0;
+                        var msg = resp.M;
+                        showToast(err,msg);
+                        window.location.reload();
+
+                    }else{
+                        var err = 1;
+                        var msg = resp.M;
+                        showToast(err,msg);
+
+                    }
+                    
+                });
+
+            }
+        };
+
+        // Add event listener for cancel action
+        sakcancelButton.onclick = function() {
+            sakModal.hide();
+        };
+
     };
 
     // Add event listener for cancel action
@@ -197,10 +246,6 @@ function deleteApplication(elm){
         var myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
         myModal.hide();
     };
-
-    // Show the modal
-    var myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-    myModal.show();
 
 }
 </script>

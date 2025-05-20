@@ -118,6 +118,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/addNewApplicant',[Notifications::class, 'addNewApplicant']);
     
     Route::post('/sendTestEmail', [Admin::class, 'sendTestEmail']);
+    Route::post('/generateaccesskey', [Admin::class, 'generateaccesskey']);
     
 });
 
