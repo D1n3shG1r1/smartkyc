@@ -160,7 +160,7 @@ $uploadCount = 0;
                         <!--<label for="description" class="form-label">Description<span class="required">*</span></label>
                         <textarea class="form-control" id="description" name="description" style="resize:none;" rows="8" placeholder="Description..."></textarea>-->
                         <label class="form-label">Upload Document<span class="required">*</span></label>
-                        <label class="form-label" style="font-size: 10px; color: #721c24;">If your document has more than one page or contains multiple pages, please upload it as a PDF. Only JPEG, JPG, PNG, or PDF files are allowed to be uploaded.</label>   
+                        <label class="form-label" style="font-size: 10px; color: #721c24;">If your document has more than one page or contains multiple pages, please upload it as a PDF. Only JPEG, JPG, PNG, or PDF files are allowed to be uploaded, and the file should not be more than 10 MB in size.</label>   
                         <div class="border rounded text-center">
                             <label id="labeluploadDocument_{{$k+1}}" for="uploadDocument_{{$k+1}}" class="form-label dd-block uploadButton">
                                 <i class="bi bi-cloud-upload display-4"></i>

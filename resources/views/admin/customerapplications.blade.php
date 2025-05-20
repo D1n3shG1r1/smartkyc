@@ -20,7 +20,7 @@ $applicationsData = $applications["data"];
                 <div class="heading1 margin_0"><h2>Applications List</h2></div>
             </div>
             <div class="table_section padding_infor_info">
-                <div class="table-responsive-sm">
+                <div class="table-responsive-sm" style="min-height:250px;">
                 <table class="table">
                     <thead>
                         <tr>
