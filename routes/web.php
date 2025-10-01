@@ -50,7 +50,8 @@ Route::post('/register',[Register::class, 'register']);
 Route::get('/forgotpassword',[Register::class, 'forgotpassword']);
 Route::post('/forgotpassword',[Register::class, 'forgotpassword']);
 
-Route::get('/resetpassword',[Register::class, 'resetpassword']);
+//Route::get('/resetpassword',[Register::class, 'resetpassword']);
+Route::get('/resetpassword',[Home::class, 'homepage']);
 Route::post('/resetpassword',[Register::class, 'resetpassword']);
 
 

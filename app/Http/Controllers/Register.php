@@ -71,9 +71,10 @@ class Register extends Controller
                 //redirect to dashboard
                 return Redirect::to(url('admin/dashboard'));
             }else{
-                $data = array();
+                /*$data = array();
                 $data["pageTitle"] = "Login";
-                return View("login",$data);
+                return View("login",$data);*/
+                return Redirect::to(url('/'));
             }
 
         }
@@ -169,9 +170,10 @@ class Register extends Controller
             }
 
         }else{
-            $data = array();
+            /*$data = array();
             $data["pageTitle"] = "Create Account";
-            return View("register",$data);
+            return View("register",$data);*/
+            return Redirect::to(url('/'));
         }
         
     }
@@ -355,7 +357,7 @@ class Register extends Controller
                 $response = array(
                     "C" => 102,
                     "R" => $postBackData,
-                    "M" => "Something went wrong. Please try again."
+                    "M" => "Reset password link is expired."
                 );
 
             }

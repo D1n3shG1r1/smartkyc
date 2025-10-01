@@ -6,15 +6,6 @@
       <title>SmartKYC | {{$pageTitle}}</title>
       <link rel="shortcut icon" href="{{ url('assets/img/smartverify-32x32.png'); }}">
 
-      <!--
-      <meta name="description" content="Compare inspection quotes quickly with the largest network of inspection professionals worldwide. Access over 165,000 quality control experts today">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta property="og:description" content="Compare inspection quotes quickly with the largest network of inspection professionals worldwide. Access over 165,000 quality control experts today">
-      <meta property="og:title" content="Global Inspection Marketplace | Worldwide Network of Inspectors">
-      <meta name="twitter:description" content="Compare inspection quotes quickly with the largest network of inspection professionals worldwide. Access over 165,000 quality control experts today">
-      <meta name="twitter:title" content="Global Inspection Marketplace | Worldwide Network of Inspectors">
-      -->
-
       @if(request()->is('admin/*'))
          <link rel="stylesheet" href="{{ url('assets/admin/css/bootstrap.min.css'); }}">
          <link rel="stylesheet" href="{{ url('assets/admin/css/bootstrap-icons.css'); }}"></link>
@@ -41,6 +32,20 @@
          <link rel="stylesheet" href="{{ url('assets/portal/css/perfect-scrollbar.css'); }}">
          <link rel="stylesheet" href="{{ url('assets/portal/css/custom.css'); }}">
       @else
+         <!-- Google Font -->
+         <link href="https://fonts.googleapis.com/css2?family=Lato&family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
+
+         <!-- CSS Libraries -->
+         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+         <link href="{{ url('assets/lib/animate/animate.min.css')}}" rel="stylesheet">
+         <link href="{{ url('assets/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+
+         <!-- Template Stylesheet -->
+         <link rel="stylesheet" href="{{ url('assets/css/style.css'); }}">   
+         
+         
+         <!-- old css
          <link class="hs-async-css dd" rel="stylesheet" href="{{ url('assets/css/main.min.css'); }}" as="style">
          <link class="hs-async-css" rel="stylesheet" href="{{ url('assets/css/_aos.min.css'); }}" as="style">
          <link class="hs-async-css" rel="stylesheet" href="{{ url('assets/css/child.min.css'); }}" as="style">
@@ -54,23 +59,9 @@
          <link rel="stylesheet" href="{{ url('assets/css/module_51600793540_pricing.min.css'); }}">
          <link rel="stylesheet" href="{{ url('assets/css/module_51600771777_global-footer.min.css'); }}">
          <link rel="stylesheet" href="{{ url('assets/css/style.css'); }}">
-         
+         -->
       @endif
       
-      <!--
-      <link rel="canonical" href="{{ url('/'); }}">
-      <link rel="apple-touch-icon" href="https://inspexion.com/hubfs/0.Charte%20graphique/App.jpg">
-      <meta name="facebook-domain-verification" content="iymegdh2v7fh0hja7u4fjbxadmhvew">
-      <meta property="og:image" content="https://inspexion.com/hubfs/The%20Worlds%20Largest%20Inspection%20Marketplace.png">
-      <meta property="og:image:width" content="300">
-      <meta property="og:image:height" content="175">
-      <meta name="twitter:image" content="https://inspexion.com/hubfs/The%20Worlds%20Largest%20Inspection%20Marketplace.png">
-      <meta property="og:url" content="{{ url('/'); }}">
-      <meta name="twitter:card" content="summary_large_image">
-      <meta http-equiv="content-language" content="en">
-      <link rel="alternate" hreflang="en" href="{{ url('/'); }}">
-      <link rel="alternate" hreflang="fr" href="{{ url('/'); }}">
-      -->
       <script>
          var CSRFTOKEN = "{{ csrf_token() }}";
          var SERVICEURL = "{{ url('') }}";
@@ -143,10 +134,14 @@
 
          @else
          <script src="{{ url('assets/js/script.js'); }}"></script>
+         <!-- old-js
+         <script src="{{ url('assets/js/script.js'); }}"></script>
          <script src="{{ url('assets/js/aos.min.js'); }}"></script>  
+         -->
       @endif
    </head>
-   <body class="dashboard dashboard_2" data-aos-easingd="custom" data-aos-durationd="900" data-aos-delayd="0">
+   <!--<body class="dashboard dashboard_2" data-aos-easingd="custom" data-aos-durationd="900" data-aos-delayd="0">-->
+      <body>
    
       @if(request()->is('admin/*'))
          @include("admin.header")
@@ -166,6 +161,6 @@
          @include("footer")
       @endif
       
-      <div id="toastMessage" class="alert alert-danger" role="alert">This is a danger alert—check it out!</div>
+      <div id="toastMessage" class="toastMessage alert alert-danger" role="alert">This is a danger alert—check it out!</div>
    </body>
 </html>

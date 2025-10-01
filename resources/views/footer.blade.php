@@ -1,109 +1,589 @@
-<div id="hs_cos_wrapper_footer_main" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
-   <footer class="footer dnd-section " id="">
-      <!---
-      <div class="footer-container content-wrapper flex-container">
-         <div class="footer__main">
-            <p class="footer__logo">
-               <a class="footer__logo-link" href="{{url('/');}}">
-               <img class="lazy" src="{{ url('assets/img/walls-logo-web2-bottom.png') }}" data-src="{{ url('assets/img/walls-logo-web2-bottom.png') }}" alt="walls-logo-web2-bottom.png" width="101" style="max-width: 101px; max-height: 101px">
-               </a>
-            </p>
-            <div class="footer__text">
-               <div style="font-size: 8px; text-align: left;"><span><span dir="ltr"><span style="font-size: 12px;">USA | UAE | INDIA | AFRICA | INDIAN OCEAN | ASIA</span><br></span></span><span><span dir="ltr"><br><span style="font-size: 12px;"><br></span></span></span><span><span dir="ltr"><a href="https://play.google.com/" rel="noopener" target="_blank"></a><br><br></span></span></div>
-            </div>
-            <div class="footer__social-link">
-               <a href="https://www.linkedin.com/" rel="noreferrer" class="linkedin-in">
-                  <span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon">
-                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
-                        <g id="linkedin-in1_layer">
-                           <path d="M100.3 480H7.4V180.9h92.9V480zM53.8 140.1C24.1 140.1 0 115.5 0 85.8 0 56.1 24.1 32 53.8 32c29.7 0 53.8 24.1 53.8 53.8 0 29.7-24.1 54.3-53.8 54.3zM448 480h-92.7V334.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V480h-92.8V180.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V480z"></path>
-                        </g>
-                     </svg>
-                  </span>
-                  <span class="hide-text">linkedin-in</span>
-               </a>
-               <a href="https://www.facebook.com/" rel="noreferrer" class="facebook-f">
-                  <span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon">
-                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512" aria-hidden="true">
-                        <g id="facebook-f2_layer">
-                           <path d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"></path>
-                        </g>
-                     </svg>
-                  </span>
-                  <span class="hide-text">facebook-f</span>
-               </a>
-               <a href="https://www.youtube.com/" rel="noreferrer" class="youtube">
-                  <span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon">
-                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" aria-hidden="true">
-                        <g id="youtube3_layer">
-                           <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path>
-                        </g>
-                     </svg>
-                  </span>
-                  <span class="hide-text">youtube</span>
-               </a>
-               <a href="https://www.instagram.com/" rel="noreferrer" class="instagram">
-                  <span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon">
-                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
-                        <g id="instagram4_layer">
-                           <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
-                        </g>
-                     </svg>
-                  </span>
-                  <span class="hide-text">instagram</span>
-               </a>
-            </div>
-         </div>
-      </div> --->
-      
-      <div class="copy_right_head">
-         <div class="footer-container content-wrapper ">
-            <div class="footer__copyright">
-               <div class="copy_right">
-                  <p class="footer__copyright-text">© {{date("Y")}} SMART KYC</p>
-               </div>
-               <div class="footer__legal-menu" role="menu">
-                  <p><span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="menu"></span></p>
-                  <div id="hs_menu_wrapper_footer_main_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="default" data-menu-id="51449774528" aria-label="Navigation Menu">
-                     <ul role="menu">
-                        
-                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/track-your-application')}}" role="menuitem">Track Application</a></li>
+<!-- Footer Start -->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!--<div class="footer-contact">
+                            <h2>Our Head Office</h2>
+                            <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
+                            <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
+                            <p><i class="fa fa-envelope"></i>info@example.com</p>
+                            <div class="footer-social">
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href=""><i class="fab fa-youtube"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>-->
 
-                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/pricing')}}" role="menuitem">Pricing</a></li>
+                        <div class="footer-newsletter footer-linkd">
+                            <h2>Smart KYC</h2>
+                            <a href="{{url('/')}}"><img style="max-width:100%; height:40px;" src="{{url('assets/img/smartkyc-logo-header.png')}}"></a>
+                            <a href="javascript:void(0);" class="navbar-brand" onclick="openAdmLoginModal();"><img src="{{url('assets/img/NDPC.png')}}" style="max-width: 100%;height: auto;width: 200px;margin-left: -15px;"></a>
+                        </div>
 
-                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/how-it-works')}}" role="menuitem">How It Works</a></li>
-                     
-                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="{{url('/faq')}}" role="menuitem">FAQ</a></li>
-                     
-                     <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:void(0);" role="menuitem">Contact: support@smartkyc.ng</a></li>
-                        
-                     </ul>
-                  </div>
-                  <p></p>
-               </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!--    
+                        <div class="footer-link">
+                            <h2>Quick Links</h2>
+                            <a href="{{url('/track-your-application')}}">Track Application</a>
+                            <a href="{{url('/pricing')}}">Pricing</a>
+                            <a href="{{url('/how-it-works')}}">How It Works</a>
+                            <a href="{{url('/faq')}}">FAQs</a>
+                        </div>
+                        -->
+                    </div>
+                </div>
             </div>
-         </div>
+            <div class="col-lg-5">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer-link">
+                            <h2>Quick Links</h2>
+                            <a href="{{url('/track-your-application')}}">Track Application</a>
+                            <a href="{{url('/pricing')}}">Pricing</a>
+                            <a href="{{url('/how-it-works')}}">How It Works</a>
+                            <a href="{{url('/faq')}}">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="footer-newsletter">
+                    <h2>Newsletter</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet elit. Quisque eu lectus a leo dictum nec non quam. Tortor eu placerat rhoncus, lorem quam iaculis felis, sed lacus neque id eros.
+                    </p>
+                    <div class="form">
+                        <input class="form-control" placeholder="Email goes here">
+                        <button class="btn">Submit</button>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="container copyright">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; <a href="#">{{date("Y")}} Smart Technology Services Ltd,</a> All Right Reserved.</p>
+            </div>
+            <div class="col-md-6">
+                <p>Contact <a mailto="mailto:{{ config('custom.support_email') }}">{{ config('custom.support_email') }}</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+
+<!-- Register Modal Start-->
+<style>
+
+  .hide{
+    display: none;
+  }
+
+  .modal .row {
+    margin-top: unset;
+  }
+  
+  .modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .fade.show {
+    opacity: 1;
+    display: block;
+  }
+
+  .modal {
+    position: fixed;
+    top: 3rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+ }
+
+  .fade {
+    opacity: 0;
+    transition: opacity .15s linear;
+  }
+
+  
+
+  .modal.fade .modal-dialog {
+    transition: -webkit-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+    -webkit-transform: translate(0,-25%);
+    transform: translate(0,-25%);
+  }
+  
+  .modal.show .modal-dialog {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  .modal-dialog {
+    max-width: 625px;
+    max-height: calc(100vh - 4rem);
+    margin: 1.75rem auto;
+    position: relative;
+    width: auto;
+    pointer-events: none;
+  }
+
+  .modal-content {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+  }
+
+  .modal-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  .modal-header h4.modal-title {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+    color: #3d63dd;
+    font-size: 1.25rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+.modal-header .btn-close {
+    margin: -1rem -1rem -1rem auto;
+    font-size: 1.5rem;
+}
+
+  button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+  }
+
+  .modal-body {
+    position: relative;
+    /*-webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;*/
+    padding: 1rem;
+    padding-bottom: 2rem;
+    text-align: center;
+
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+
+  .modal-footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
+  }
+
+  .modal-backdrop.show {
+    opacity: .5;
+    display: block;
+  }
+
+  .modal-backdrop.fade {
+    opacity: 0;
+    display: none;
+  }
+
+  .fade.show {
+    opacity: 1;
+    display: block;
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+    display: none;
+  }
+
+  .fade {
+    opacity: 0;
+    transition: opacity .15s linear;
+  }
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 1rem auto;
+  }
+
+  .text-right, .text-left {
+    text-align: center !important;
+  }
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.toastMessage {
+    display:none;
+    position: fixed;
+    width: fit-content;
+    right: 10px;
+    bottom: 10px;
+    z-index: 1100;
+}
+
+/*Loading spinners*/
+@keyframes spinner-border {
+  to { transform: rotate(360deg); }
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: text-bottom;
+  border: 0.20em solid #fff;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border .75s linear infinite;
+}
+
+.spinner-border-sm {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 0.20em;
+}
+
+
+@keyframes spinner-grow {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.spinner-grow {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: text-bottom;
+  background-color: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  animation: spinner-grow .75s linear infinite;
+}
+
+.spinner-grow-sm {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.passwordIcon {
+    right: 27px;
+    margin-top: 13px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: absolute;
+    color: #092a49;
+}
+</style>
+
+<div class="modal fade" id="registerModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="staticBackdropLabel" class="mb-0">Get Started</h4>
+        <button type="button" class="btn-close btn btn-link" onclick="closeGetStartedModal();" aria-label="Close">&times;</button>
       </div>
-   </footer>
+      <div class="modal-body pt-0">
+        <div class="row"> 
+          <div id="registerLoginSection" class="loginSection text-body-dark-1 sm:col-12 mt-unset px-3 py-3">
+            <div class="text-center max-w-[550px] mx-auto">
+                  <h5>LogIn</h5>
+            </div>
+            <form class="flex flex-col gap-6">
+                <div class="row">
+                  <div class="col-12 md:col-12 mb-3">
+                    <input id="loginemail" type="email" name="loginemail" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Email" required="">
+                  </div>
+                  
+                  <div class="col-12 md:col-12 mb-3">
+                    <input id="loginpassword" type="password" name="loginpassword" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Password" required="">
+                    <i toggle="loginpassword" class="passwordIcon fa fa-eye-slash"></i>
+                    <a href="javascript:void(0);" class="forgotPasswordBtn float-right" onclick="openforgotpasswordModal()">Forgot password?</a>
+                    
+                  </div>
+                
+                  <div class="col-6 md:col-6 mb-3">
+                  New to SmartKYC? <a href="javascript:void(0);" onclick="notHaveAccountregister();">Join Now</a>
+                  </div>
+                  <div class="col-6 md:col-6 text-right mb-3">
+                    <button id="registerLoginBtn" type="button" class="btn btn-primary" data-txt="Login" data-loadingtxt="Logging In..." onclick="login(this)">
+                      Login
+                    </button>
+                  </div>
+                </div>
+            </form>
+          </div>
+          
+
+          <div id="forgotPasswordSection" class="forgotPasswordSection text-body-dark-1 sm:col-12 mt-unset px-3 py-3 hide">
+            <div class="text-center max-w-[550px] mx-auto">
+                  <h5>Forgot Password ?</h5>
+            </div>
+            <form class="flex flex-col gap-6">
+                <div class="row">
+                  <div class="col-12 md:col-12 mb-3">
+                    <input id="fpemail" type="email" name="fpemail" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Email" required="">
+                  </div>
+                
+                  <div class="col-6 md:col-6 mb-3">
+                  New to SmartKYC? <a href="javascript:void(0);" onclick="notHaveAccountregister();">Join Now</a>
+                  </div>
+                  <div class="col-6 md:col-6 text-right mb-3">
+                    <button id="resetPsswdBtn" type="button" class="btn btn-primary" data-txt="Reset Password" data-loadingtxt="Reset Password..." onclick="resetPassword(this)">
+                      Reset Password
+                    </button>
+                  </div>
+                </div>
+            </form>
+          </div>
+
+          <div id="registerRegisterSection" class="registerSection text-body-dark-1 sm:col-12 mt-unset px-3 py-3 hide">
+            <div class="text-center max-w-[550px] mx-auto">
+              <h5>Register</h5>
+            </div>
+            <form class="flex flex-col gap-6">
+              <div class="row">
+                <div class="col-12 md:col-6 mb-3">
+                  <input id="fname" type="text" name="fname" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="First name" required="">
+                </div>
+                
+                <div class="col-12 md:col-6 mb-3">
+                  <input id="lname" type="text" name="lname" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Last name" required="">
+                </div>
+
+                <div class="col-12 md:col-12 mb-3">
+                  <input id="email" type="email" name="email" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Email" required="">
+                </div>
+                
+                <div class="col-12 md:col-12 mb-3">
+                  <input id="password" type="password" name="password" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Password" required="">
+                  <i toggle="password" class="passwordIcon fa fa-eye-slash"></i>
+                </div>
+
+                <div class="col-12 md:col-12 mb-3">
+                  <input id="re_password" type="password" name="re_password" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Confirm password" required="">
+                  <i toggle="re_password" class="passwordIcon fa fa-eye-slash"></i>
+                </div>
+                
+                <div class="col-12 md:col-12 mb-3">
+                  <input type="checkbox" name="agree_term" id="agree_term" class="agree-term" />
+                  <label for="agree_term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="{{url('termsofservice')}}" target="_blank" class="term-service">Terms & Conditions</a> and <a href="{{url('privacypolicy')}}" target="_blank" class="term-service">Privacy Policy</a></label>
+                </div> 
+
+                  <div class="col-6 md:col-6 mb-3"> Already have an account? <a href="javascript:void(0);" onclick="haveAnAccountregister();">Login here</a>
+                  </div>
+                  <div class="col-6 md:col-6 text-right  mb-3">
+                    <button id="registerRegBtn" type="button" class="btn btn-primary" data-txt="Register" data-loadingtxt="Registering..." onclick="register(this)">
+                      Register
+                    </button>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!--
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+      -->
+    </div>
+  </div>
 </div>
+<!-- Register Modal End -->
+
+<!-- Create New Password Modal -->
+@if (request()->has('token'))
+<div class="modal fade" id="changePasswordModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="staticBackdropLabel" class="mb-0">Reset Password</h4>
+        <button type="button" class="btn-close btn btn-link" onclick="closeChangePasswordModal();" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body pt-0">
+        <div class="row"> 
+          <div id="changePasswordSection" class="changePasswordSection text-body-dark-1 sm:col-12 mt-unset px-3 py-3">
+            <div class="text-center max-w-[550px] mx-auto">
+                  <h5>Create New Password</h5>
+            </div>
+            <form class="flex flex-col gap-6">
+                <div class="row">
+                  <div class="col-12 md:col-12 mb-3">
+                  
+                    <input type="hidden" id="linktoken" name="linktoken" value="{{ request()->get('token') }}">
+
+                    <input id="newpassword" type="password" name="newpassword" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Password" required="">
+                    <i toggle="newpassword" class="passwordIcon fa fa-eye-slash"></i>
+                  </div>
+
+                  <div class="col-12 md:col-12 mb-3">
+                    <input id="newre_password" type="password" name="newre_password" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Confirm password" required="">
+                    <i toggle="newre_password" class="passwordIcon fa fa-eye-slash"></i>
+                  </div>
+                
+                  <div class="col-12 md:col-12 text-right mb-3">
+                    <button id="setPasswdBtn" type="button" class="btn btn-primary" data-txt="Set Password" data-loadingtxt="Setting Password..." onclick="setPassword(this)">
+                      Set Password
+                    </button>
+                  </div>
+                </div>
+            </form>
+          </div>
+          </div>
+      </div>
+
+      <!--
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+      -->
+    </div>
+  </div>
 </div>
+@endif
+<!-- Create New Password Modal End -->
 
-<script async="" src="{{ url('assets/js/bootstrap.min.js'); }}"></script>
 
-<script defer="" src="{{ url('assets/js/main.min.js'); }}"></script>
-<script defer="" src="{{ url('assets/js/child.min.js'); }}"></script>
-<script defer="" src="{{ url('assets/js/tp.widget.bootstrap.min.js'); }}"></script>
-<script>
-   var hsVars = hsVars || {}; hsVars['language'] = 'en';
-</script>
+<!--- System Admin Modal --->
+<div class="modal fade" id="admLoginModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="staticBackdropLabel" class="mb-0">System Administrator</h4>
+        <button type="button" class="btn-close btn btn-link" onclick="closeAdmLoginModal();" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body pt-0">
+        <div class="row"> 
+          <div id="admLoginSection" class="admLoginSection text-body-dark-1 sm:col-12 mt-unset px-3 py-3">
+            <div class="text-center max-w-[550px] mx-auto">
+                  <h5>LogIn</h5>
+            </div>
+            <form class="flex flex-col gap-6">
+                <div class="row">
+                  <div class="col-12 md:col-12 mb-3">
+                    <input id="admemail" type="email" name="admemail" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Email" required="">
+                  </div>
+                  
+                  <div class="col-12 md:col-12 mb-3">
+                    <input id="admpassword" type="password" name="admpassword" class="w-full px-2 py-2 border border-solid border-alpha-light" placeholder="Password" required="">
+                    <i toggle="admpassword" class="passwordIcon fa fa-eye-slash"></i>
+                  </div>
+                  
+                  <div class="col-6 md:col-6 text-right mb-3">
+                    <button id="registerLoginBtn" type="button" class="btn btn-primary" data-txt="Login" data-loadingtxt="Logging In..." onclick="admLogin(this)">
+                      Login
+                    </button>
+                  </div>
+                </div>
+            </form>
+          </div>
+          </div>
+      </div>
+      <!--
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+      -->
+    </div>
+  </div>
+</div>
+<!--- System Admin Modal End --->
+<div class="modal-backdrop"></div>
 
-<script src="{{ url('assets/js/module_79685541057_new-global-header.min.js'); }}"></script>
+<!-- JavaScript Libraries -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url('/assets/lib/easing/easing.min.js')}}"></script>
+<script src="{{ url('/assets/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+<script src="{{ url('/assets/lib/waypoints/waypoints.min.js')}}"></script>
+<script src="{{ url('/assets/lib/counterup/counterup.min.js')}}"></script>
 
-<script src="{{ url('assets/js/module_51600793540_pricing.min.js'); }}"></script>
-<script src="{{ url('assets/js/slick.min.js'); }}"></script>
-<script src="{{ url('assets/js/script.js'); }}"></script>
+<!-- Contact Javascript File -->
+<!--<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>-->
 
-<!-- Other HTML content -->
+<!-- Template Javascript -->
+<script src="{{ url('/assets/js/main.js')}}"></script>
 
 <!-- Zoho SalesIQ Live Chat Script -->
 <style>
@@ -117,82 +597,477 @@
 </style>
 <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq2f563662f6b8f6926b0f7eb892d700d5169cedcfcc2bdf839cdedb97f5c3c4e4" defer></script>
 
-<script>
-   $(document).ready(function(){
-      $('.logo-slide-row').slick({
-         rows: 1,
-         dots: true,
-         autoplay: true,
-         autoplaySpeed: 2000,
-         arrows: false,
-         infinite: true,
-         speed: 300,
-         slidesToShow: 4,
-         slidesToScroll: 4,
-         /*responsive: [
-            {
-                  breakpoint: 1024,
-                  settings: {
-                     slidesToShow: 3,
-                     slidesToScroll: 3,
-                  
-                  }
-            },
-            {
-                  breakpoint: 600,
-                  settings: {
-                     slidesToShow: 2,
-                     slidesToScroll: 2
-                  }
-            },
-            {
-                  breakpoint: 480,
-                  settings: {
-                     slidesToShow: 2,
-                     slidesToScroll: 2
-                  }
-            }
-            // You can unslick at a given breakpoint now by adding:
-            // settings: "unslick"
-            // instead of a settings object
-         ]*/
-      });
-   });
-</script>
+@if (request()->has('token'))
+    <script>
+        // Call your JS function when the token is present
+        window.onload = function() {
+            handleToken("{{ request()->get('token') }}");
+        };
 
-<script type="text/javascript" defer="">
-   function getCookie(cname) {
-   let name = cname + "=";
-   let ca = document.cookie.split(';');
-   for(let i = 0; i < ca.length; i++) {
-     let c = ca[i];
-     while (c.charAt(0) == ' ') {
-       c = c.substring(1);
-     }
-     if (c.indexOf(name) == 0) {
-       return c.substring(name.length, c.length);
-     }
-   }
-   return "";
-   }
+        function handleToken(token) {
+            // Add your logic here
+            openChangePasswordModal();
+        }
+    </script>
+@endif
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".passwordIcon").forEach(function (toggle) {
+        toggle.addEventListener("click", function () {
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+
+            const selector = this.getAttribute("toggle");
+            const input = document.getElementById(selector);
+            if (input) {
+                if (input.type === "password") {
+                    input.type = "text";
+                } else {
+                    input.type = "password";
+                }
+            }
+        });
+    });
+
+    
+});
+
+function getStarted() {
+    // Show the Get Started modal
+    document.getElementById("registerModal").classList.add("show");
+    document.querySelector(".modal-backdrop").classList.add("show");
+}
+
+function closeGetStartedModal() {
+    // Close the Get Started modal
+    document.getElementById("registerModal").classList.remove("show");
+    document.querySelector(".modal-backdrop").classList.remove("show");
+
+    //reset to login
+    haveAnAccountregister();
+}
+
+function notHaveAccountregister(){
+  document.getElementById("registerLoginSection").classList.add("hide");
+  document.getElementById("forgotPasswordSection").classList.add("hide");
+  document.getElementById("registerRegisterSection").classList.remove("hide");
+} 
+
+function haveAnAccountregister(){
+  document.getElementById("registerLoginSection").classList.remove("hide");
+  document.getElementById("forgotPasswordSection").classList.add("hide");
+  document.getElementById("registerRegisterSection").classList.add("hide");
+}
+
+function openforgotpasswordModal(){
+  document.getElementById("forgotPasswordSection").classList.remove("hide");
+  document.getElementById("registerLoginSection").classList.add("hide");
+  document.getElementById("registerRegisterSection").classList.add("hide");
+} 
+
+function login(elm){
+     
+    var type = $(elm).attr("data-type");
+    var txt = $(elm).attr("data-txt");
+    var loadingtxt = $(elm).attr("data-loadingtxt");
+
+    var email = $("#loginemail").val();
+    var password = $("#loginpassword").val();
+    var requrl = 'login';
+  
+    if (!isRealValue(email)) {
+        var err = 1;
+        var msg = 'Please enter your email.';
+        showToast(err,msg);
+        return false;
+    } else if (isRealValue(email) && !validateEmail(email)) {
+        var err = 1;
+        var msg = 'Please enter a valid email.';
+        showToast(err,msg);
+        return false;
+    } else if (!isRealValue(password)) {
+        var err = 1;
+        var msg = 'Please enter the password.';
+        showToast(err,msg);
+        return false;
+    }else{
+
+        var elmId = $(elm).attr("id");
+        $(elm).attr("disabled",true);
+        var orgTxt = $(elm).attr("data-txt");
+        var loadingTxt = $(elm).attr("data-loadingtxt");
+        showLoader(elmId,loadingTxt); 
+
+        var postData = {
+            "_token":CSRFTOKEN,
+            "email":email,
+            "password":password
+        };
+
+        callajax(requrl, postData, function(resp){
+            
+            var err = 0;
+            var msg = resp.M;
+            
+            $(elm).removeAttr("disabled");
+            hideLoader(elmId,orgTxt);
+            
+            if(resp.C == 100){
+                err = 0;
+                window.location.href="admin/dashboard";
+            }else{
+                err = 1;
+            }
+
+            showToast(err,msg);
+
+        });
+
+    }
+
+}
+                
+function register(elm){
+
+    var type = $(elm).attr("data-type");
+    var txt = $(elm).attr("data-txt");
+    var loadingtxt = $(elm).attr("data-loadingtxt");
+
+    //fname lname email password re_password
+  
+    var fname = $("#fname").val();
+    var lname = $("#lname").val();
+    var email = $("#email").val();
+    var password = $("#password").val();
+    var confirmPassword = $("#re_password").val();
+    var agreeTerm = $("#agree_term").is(":checked");
+    var requrl = 'register';
+  
+
+    var fnameObj = validateName(fname);
+    var lnameObj = validateName(lname);
+    var psswdValidObj = validatePassword(password);
+    var cpsswdValidObj =validatePassword(confirmPassword);
+
+    var psswdErr = psswdValidObj.err;
+    var psswdMsg = psswdValidObj.msg;
+    var cpsswdErr = cpsswdValidObj.err;
+    var cpsswdMsg = cpsswdValidObj.msg;
+
+    if (!isRealValue(fname)) {
+        var err = 1;
+        var msg = 'Please enter your first name.';
+        showToast(err,msg);
+        return false;
+    } else if (isRealValue(fname) && fnameObj.err == 1) {
+        var err = 1;
+        var msg = fnameObj.msg;
+        showToast(err,msg);
+        return false;
+    } else if (!isRealValue(lname)) {
+        var err = 1;
+        var msg = 'Please enter your last name.';
+        showToast(err,msg);
+        return false;
+    } else if (isRealValue(lname) && lnameObj.err == 1) {
+        var err = 1;
+        var msg = lnameObj.msg;
+        showToast(err,msg);
+        return false;
+    } else if (!isRealValue(email)) {
+        var err = 1;
+        var msg = 'Please enter your email.';
+        showToast(err,msg);
+        return false;
+    } else if (isRealValue(email) && !validateEmail(email)) {
+        var err = 1;
+        var msg = 'Please enter a valid email.';
+        showToast(err,msg);
+        return false;
+    } else if (!isRealValue(password)) {
+        var err = 1;
+        var msg = 'Please enter the password.';
+        showToast(err,msg);
+        return false;
+    } else if (isRealValue(password) && psswdErr == 1) {
+        var err = 1;
+        var msg = psswdMsg;
+        showToast(err,msg);
+        return false;
+    } else if (!isRealValue(confirmPassword)) {
+        var err = 1;
+        var msg = 'Please enter the confirm password.';
+        showToast(err,msg);
+        return false;
+    } else if (isRealValue(confirmPassword) && cpsswdErr == 1) {
+        var err = 1;
+        var msg = cpsswdMsg;
+        showToast(err,msg);
+        return false;
+    } else if (isRealValue(password) && isRealValue(confirmPassword) && password !== confirmPassword) {
+        var err = 1;
+        var msg = 'Confirm password does not match.';
+        showToast(err,msg);
+        return false;
+    } else if (!agreeTerm) {
+        // Validate Terms of Service Checkbox
+        var err = 1;
+        var msg = 'You must agree to the Terms of Service.';
+        showToast(err,msg);
+        return false;
+    }else {
+
+        var elmId = $(elm).attr("id");
+        $(elm).attr("disabled",true);
+        var orgTxt = $(elm).attr("data-txt");
+        var loadingTxt = $(elm).attr("data-loadingtxt");
+        showLoader(elmId,loadingTxt); 
+
+        var postData = {
+            "_token":CSRFTOKEN,
+            "fname":fname,
+            "lname":lname,
+            "email":email,
+            "password":password,
+            "re_password":confirmPassword,
+            "agree_term":agreeTerm
+        };
+
+        callajax(requrl, postData, function(resp){
+            
+            $(elm).removeAttr("disabled");
+            hideLoader(elmId,orgTxt);
+            var err = 0;
+            var msg = resp.M;
+            if(resp.C == 100){
+                err = 0;
+                
+                setTimeout(function(){
+                    haveAnAccountregister();
+                }, 1000);
+
+            }else{
+                err = 1;
+            }
+            showToast(err,msg);
+        });
+
+    }
+
+}
+
+function resetPassword(elm) {
+
+  var email = $("#fpemail").val();
+  
+  if (!isRealValue(email)) {
+    
+    var err = 1;
+    var msg = 'Please enter your email.';
+    showToast(err,msg);
+    return false;
+    
+  }else if (isRealValue(email) && !validateEmail(email)) {
+    
+    var err = 1;
+    var msg = 'Please enter a valid email.';
+    showToast(err,msg);
+    return false;
+    
+  }else {
+    var elmId = $(elm).attr("id");
+    
+    $(elm).attr("disabled",true);
+    var orgTxt = $(elm).attr("data-txt");
+    var loadingTxt = $(elm).attr("data-loadingtxt");
+    showLoader(elmId,loadingTxt); 
+
+    var requrl = 'forgotpassword';
+    var postData = {
+      "_token":CSRFTOKEN,
+      "email":email
+    };
+    
+    callajax(requrl, postData, function(resp){
+      
+      $(".errorMessage").html(resp.M);
+      $(elm).removeAttr("disabled");
+      hideLoader(elmId,orgTxt);
+      
+      var err = 0;
+      var msg = resp.M;
+      if(resp.C == 100){
+        err = 0;
+        
+      }else{
+        err = 1;
+      }
+      showToast(err,msg);
+    });
+    
+  }
+}
+
+function openChangePasswordModal(){
+  document.getElementById("changePasswordModal").classList.add("show");
+  document.querySelector(".modal-backdrop").classList.add("show");
+}
+
+function closeChangePasswordModal(){
+  document.getElementById("changePasswordModal").classList.remove("show");
+  document.querySelector(".modal-backdrop").classList.remove("show");
+
+  window.location.href = "{{url('/')}}";
+
+}
+
+function openAdmLoginModal(){
+  document.getElementById("admLoginModal").classList.add("show");
+  document.querySelector(".modal-backdrop").classList.add("show");
+}
+
+function closeAdmLoginModal(){
+  document.getElementById("admLoginModal").classList.remove("show");
+  document.querySelector(".modal-backdrop").classList.remove("show");
+
+  window.location.href = "{{url('/')}}";
+
+}
+
+function setPassword(elm){
+  
+  var linktoken = $("#linktoken").val();
+  var password = $("#newpassword").val();
+  var re_password = $("#newre_password").val();
+
+  var psswdValidObj = validatePassword(password);
+  var cpsswdValidObj = validatePassword(re_password);
+  var psswdErr = psswdValidObj.err;
+  var psswdMsg = psswdValidObj.msg;
+  var cpsswdErr = cpsswdValidObj.err;
+  var cpsswdMsg = cpsswdValidObj.msg;
    
-   function checkCookie() {
-   let isLogged = getCookie("isLogged");
-   if (isLogged == "1") {
-     const login = document.getElementsByClassName("header-main__cta login");
-     for (let i = 0; i < login.length; i++) {
-       login[i].innerHTML = "Go to my Dashboard";
-     }
-     const create_your_account = document.getElementsByClassName("header-main__cta create_your_account");
-     for (let i = 0; i < create_your_account.length; i++) {
-       create_your_account[i].style.display = "none";
-     }
-     console.log("logged");
-   } else {
-     console.log("not logged in");
-   }
-   }
-   window.onload = function(e){ 
-   checkCookie();
-   }
+  
+  if (!isRealValue(password)) {
+    var err = 1;
+    var msg = 'Please enter the password.';
+    showToast(err,msg);
+    return false;
+  } else if (isRealValue(password) && psswdErr == 1) {
+    var err = 1;
+    var msg = psswdMsg;
+    showToast(err,msg);
+    return false;
+  } else if (!isRealValue(re_password)) {
+    var err = 1;
+    var msg = "Please enter the confirm password.";
+    showToast(err,msg);
+    return false;
+  } else if (isRealValue(re_password) && cpsswdErr == 1) {
+    var err = 1;
+    var msg = cpsswdMsg;
+    showToast(err,msg);
+    return false;
+  } else if (isRealValue(password) && isRealValue(re_password) && password !== re_password) {
+    var err = 1;
+    var msg = "Confirm password does not match.";
+    showToast(err,msg);
+    return false;
+  }else {
+    var elmId = $(elm).attr("id");
+    
+    $(elm).attr("disabled",true);
+    var orgTxt = $(elm).attr("data-txt");
+    var loadingTxt = $(elm).attr("data-loadingtxt");
+    showLoader(elmId,loadingTxt); 
+
+    var requrl = 'resetpassword';
+    var postData = {
+      "_token":CSRFTOKEN,
+      "linktoken":linktoken,
+      "password":password,
+      "re_password":re_password,
+    };
+    
+    callajax(requrl, postData, function(resp){
+
+      var err = 0;    
+      var msg = resp.M;
+      $(elm).removeAttr("disabled");
+      hideLoader(elmId,orgTxt);
+      
+      if(resp.C == 100){
+        err = 0;
+        setTimeout(function(){
+          window.location.href= "{{url('/')}}";
+        }, 3000);
+        
+      }else{
+        err = 1;
+      }
+  
+      showToast(err,msg);
+    });
+    
+  }
+
+}
+
+function admLogin(elm) {
+   
+    var email = $("#admemail").val();
+    var password = $("#admpassword").val();
+    
+    if (!isRealValue(email)) {
+        var err = 1;
+        var msg = "Please enter your email.";
+        showToast(err, msg);
+        return false;
+    } else if (!validateEmail(email)) {
+        var err = 1;
+        var msg = "Please enter valid email.";
+        showToast(err, msg);
+        return false;
+    } else if (!isRealValue(password)) {
+        var err = 1;
+        var msg = "Please enter your password.";
+        showToast(err, msg);
+        return false;
+    } else {
+        
+        var elmId = $(elm).attr("id");
+
+        $(elm).attr("disabled",true);
+        var orgTxt = $(elm).attr("data-txt");
+        var loadingTxt = $(elm).attr("data-loadingtxt");
+        showLoader(elmId,loadingTxt); 
+
+        const requrl = "admin/sysadmlogin";
+        const postdata = {
+            "email": email,
+            "password":password
+        };
+
+        callajax(requrl, postdata, function (resp) {
+            
+            $(elm).removeAttr("disabled");
+            hideLoader(elmId,orgTxt);
+
+            if (resp.C == 100) {
+                var err = 0;
+                var msg = "You have logged in successfully.";
+                
+                showToast(err, msg);
+                window.location.href = "admin-dashboard";
+                
+            } else {
+                var err = 1;
+                var msg = "You have entered an invalid email or password.";
+                showToast(err, msg);
+            }
+        });
+    }
+}
 </script>
