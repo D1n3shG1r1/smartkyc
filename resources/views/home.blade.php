@@ -38,10 +38,10 @@
             <div class="col-md-6">
                 <div class="about-img">
                     <div class="about-img-1">
-                        <img src="{{url('assets/img/about-1.jpg')}}" alt="Image">    
+                        <img style="transform: scaleX(-1);" src="{{url('assets/img/about-1.jpg')}}" alt="Image">
                     </div>
-                    <div class="about-img-2">
-                        <img src="{{url('assets/img/about-2.jpg')}}" alt="Image">    
+                    <div class="about-img-2 hide">
+                        <img src="{{url('assets/img/about-2.jpg')}}" alt="Image">
                     </div>
                 </div>
             </div>
@@ -91,7 +91,8 @@
         <div class="row align-items-end">
             <div class="col-md-6">
                 <div class="feature-img">
-                    <img src="{{url('assets/img/business-man.png')}}" alt="Image">
+                    <!--<img src="{{url('assets/img/business-man.png')}}" alt="Image">-->
+                    <img src="{{url('assets/img/trackapplication-man.png')}}" alt="Image">
                 </div>
             </div>
             <div class="col-md-6">

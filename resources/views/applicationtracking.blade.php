@@ -61,7 +61,7 @@
         <div class="row align-items-end">
             <div class="col-md-6">
                 <div class="feature-img">
-                    <img src="{{url('assets/img/business-man.png')}}" alt="Image">
+                    <img src="{{url('assets/img/idcard.png')}}" alt="Image">
                 </div>
             </div>
             <div class="col-md-6">

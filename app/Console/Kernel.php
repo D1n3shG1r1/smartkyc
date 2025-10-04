@@ -27,8 +27,10 @@ class Kernel extends ConsoleKernel
         //Open your crontab by running:
         //crontab -e
         //* * * * * php /path_to_your_project/artisan schedule:run >> /dev/null 2>&1
-        
-        
+       // /usr/bin/php /home/yourusername/public_html/path_to_laravel_project/artisan schedule:run >> /home/yourusername/cron.log 2>&1
+
+       // /usr/local/bin/php /home2/smartky1/public_html/artisan schedule:run >> /home2/smartky1/cron.log 2>&1
+
         // The notation * * * * * is a standard cron expression used in Unix-like systems to define when a cron job should run. It represents a schedule for running the task. Each asterisk corresponds to a different time unit (minute, hour, day of the month, month, and day of the week).
 
         //Here’s what each field represents:
@@ -49,7 +51,7 @@ class Kernel extends ConsoleKernel
 
              
         // Define when the cron job will run here
-        $schedule->command('mycronjob:run')->hourly(); // Example: run every minute
+        $schedule->command('mycronjob:run')->daily(); // Example: run every minute
     }   
 
     /**

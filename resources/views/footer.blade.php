@@ -1,71 +1,29 @@
 <!-- Footer Start -->
 <div class="footer">
-    <div class="container">
+
+<div class="container">
         <div class="row">
-            <div class="col-lg-7">
-                <div class="row">
-                    <div class="col-md-6">
-                        <!--<div class="footer-contact">
-                            <h2>Our Head Office</h2>
-                            <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
-                            <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
-                            <p><i class="fa fa-envelope"></i>info@example.com</p>
-                            <div class="footer-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-youtube"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>-->
-
-                        <div class="footer-newsletter footer-linkd">
-                            <h2>Smart KYC</h2>
-                            <a href="{{url('/')}}"><img style="max-width:100%; height:40px;" src="{{url('assets/img/smartkyc-logo-header.png')}}"></a>
-                            <a href="javascript:void(0);" class="navbar-brand" onclick="openAdmLoginModal();"><img src="{{url('assets/img/NDPC.png')}}" style="max-width: 100%;height: auto;width: 200px;margin-left: -15px;"></a>
-                        </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <!--    
-                        <div class="footer-link">
-                            <h2>Quick Links</h2>
-                            <a href="{{url('/track-your-application')}}">Track Application</a>
-                            <a href="{{url('/pricing')}}">Pricing</a>
-                            <a href="{{url('/how-it-works')}}">How It Works</a>
-                            <a href="{{url('/faq')}}">FAQs</a>
-                        </div>
-                        -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="row">
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="footer-link">
-                            <h2>Quick Links</h2>
-                            <a href="{{url('/track-your-application')}}">Track Application</a>
-                            <a href="{{url('/pricing')}}">Pricing</a>
-                            <a href="{{url('/how-it-works')}}">How It Works</a>
-                            <a href="{{url('/faq')}}">FAQs</a>
-                        </div>
-                    </div>
-                </div>
-                <!--<div class="footer-newsletter">
-                    <h2>Newsletter</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet elit. Quisque eu lectus a leo dictum nec non quam. Tortor eu placerat rhoncus, lorem quam iaculis felis, sed lacus neque id eros.
-                    </p>
-                    <div class="form">
-                        <input class="form-control" placeholder="Email goes here">
-                        <button class="btn">Submit</button>
-                    </div>
-                </div>-->
+            <div class="col-lg-12">
+                
+                <a href="{{url('/')}}" class="navbar-brand float-left"><img style="max-width:100%; height:50px;" src="{{url('assets/img/smartkyc-logo-header.png')}}"></a>
+                <a href="javascript:void(0);" class="navbar-brand float-right" onclick="openAdmLoginModal();"><img src="{{url('assets/img/NDPC.png')}}" style="/* max-width: 100%; *//* height: auto; */width: 275px;margin-left: 0px;margin-top: -27px;"></a>
             </div>
         </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="footer-link">
+      <h2>Quick Links</h2>
+          
+          <a href="{{url('/track-your-application')}}">Track Application</a>
+          <a href="{{url('/pricing')}}">Pricing</a>
+          <a href="{{url('/how-it-works')}}">How It Works</a>
+          <a href="{{url('/faq')}}">FAQs</a>
+      </div>
     </div>
+  </div>
+</div>
+
     <div class="container copyright">
         <div class="row">
             <div class="col-md-6">
