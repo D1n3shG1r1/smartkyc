@@ -492,7 +492,7 @@
       </div>
       <div class="modal-body pt-0">
         <div class="row"> 
-          <div id="admLoginSection" class="admLoginSection text-body-dark-1 sm:col-12 mt-unset px-3 py-3">
+          <div id="admLoginSection" class="admLoginSection text-body-dark-1 col-md-12 sm:col-12 mt-unset px-3 py-3">
             <div class="text-center max-w-[550px] mx-auto">
                   <h5>LogIn</h5>
             </div>
@@ -507,7 +507,7 @@
                     <i toggle="admpassword" class="passwordIcon fa fa-eye-slash"></i>
                   </div>
                   
-                  <div class="col-6 md:col-6 text-right mb-3">
+                  <div class="col-12 md:col-12 text-right mb-3">
                     <button id="registerLoginBtn" type="button" class="btn btn-primary" data-txt="Login" data-loadingtxt="Logging In..." onclick="admLogin(this)">
                       Login
                     </button>
