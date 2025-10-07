@@ -674,7 +674,7 @@ function login(elm){
             
             if(resp.C == 100){
                 err = 0;
-                window.location.href="admin/dashboard";
+                window.location.href= "{{ url('admin/dashboard')}}";
             }else{
                 err = 1;
             }
@@ -1018,7 +1018,7 @@ function admLogin(elm) {
                 var msg = "You have logged in successfully.";
                 
                 showToast(err, msg);
-                window.location.href = "admin-dashboard";
+                window.location.href = "{{ url('admin/admin-dashboard')}}";
                 
             } else {
                 var err = 1;
