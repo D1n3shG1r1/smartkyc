@@ -44,17 +44,24 @@ class Register extends Controller
                 $adminId = $adminObj["id"];
                 if ($adminId > 0) {
                     
-                    $adminFName = $adminObj["fname"];
-                    $adminLName = $adminObj["lname"];
-                    $adminEmail = $adminObj["email"];
-                    
-                    $this->setSession('adminFName', $adminFName);
-                    $this->setSession('adminLName', $adminLName);
-                    $this->setSession('adminEmail', $adminEmail);
-                    $this->setSession('adminId', $adminId);
-                    $this->setSession('systemAdmin', 0);
-                    
-                    $response = array("C" => 100, "R" => array("adminId" => $adminId), "M" => "Login successful! Redirecting...");
+                    $emailVerified = $adminObj["emailVerified"];
+
+                    if($emailVerified > 0){
+                        $adminFName = $adminObj["fname"];
+                        $adminLName = $adminObj["lname"];
+                        $adminEmail = $adminObj["email"];
+                        
+                        $this->setSession('adminFName', $adminFName);
+                        $this->setSession('adminLName', $adminLName);
+                        $this->setSession('adminEmail', $adminEmail);
+                        $this->setSession('adminId', $adminId);
+                        $this->setSession('systemAdmin', 0);
+                        
+                        $response = array("C" => 100, "R" => array("adminId" => $adminId), "M" => "Login successful! Redirecting...");
+                    }else{
+                        $response = array("C" => 101, "R" => array(), "M" => "It seems you have not verified your account yet. Please check your registered email inbox for a verification link and verify your account.");
+                    }
+
                 }else{
                     $response = array("C" => 101, "R" => array(), "M" => "Invalid email or password. Please try again.");
                 }   
@@ -121,6 +128,11 @@ class Register extends Controller
                 $currentDateTime = date("Y-m-d H:m:i");
                 $updateDateTime = date("Y-m-d H:m:i");
 
+                $textString = $email;
+                $enckey = env('MY_ENCRYPTION_KEY');
+                $verifyToken = $this->encrypt($textString, $enckey);
+                $verifyLink = url('verifyme?t='.$verifyToken);
+                
                 $adminObj = new Admin_model();
                 $adminObj->id = db_randnumber();
                 $adminObj->fname = $fname;
@@ -138,6 +150,8 @@ class Register extends Controller
                 $adminObj->website = '';
                 $adminObj->createDateTime = $currentDateTime;
                 $adminObj->updateDateTime = $updateDateTime;
+                $adminObj->emailVerifyToken = $verifyToken;
+                $adminObj->emailVerified = 0;
                 
                 $saved = $adminObj->save();
 
@@ -148,6 +162,49 @@ class Register extends Controller
                     $portalObj->portalEnable = 1; //
                     $portalObj->portalId = sha1($adminObj->id); 
                     $portalsaved = $portalObj->save();
+
+
+                    //generate and send link to admin
+                    
+                    $name = ucwords($adminObj->fname." ".$adminObj->lname);
+
+                    $subject = "Welcome to SmartKYC!";
+                    $templateBlade = "emails.welcomeEmail";
+                    
+                    $sysAdmId = 1;
+                    $sysAdm = SuperAdmin_model::where("id", $sysAdmId)->first();
+
+                    $smtp = json_decode($sysAdm["smtp"], true);
+                    
+                    $host = $smtp["host"];
+                    $port = $smtp["port"];
+                    $username = $smtp["username"];
+                    $password = $smtp["password"];
+                    $encryption = $smtp["encryption"];
+                    $from_email = $smtp["from_email"];
+                    $from_name = $smtp["from_name"];
+                    $replyTo_email = $smtp["replyTo_email"];
+                    $replyTo_name = $smtp["replyTo_name"];
+
+                    $smtpDetails = array();
+                    $smtpDetails['host'] = $host;
+                    $smtpDetails['port'] = $port;
+                    $smtpDetails['username'] = $username;
+                    $smtpDetails['password'] = $password;
+                    $smtpDetails['encryption'] = $encryption;
+                    $smtpDetails['from_email'] = $from_email;
+                    $smtpDetails['from_name'] = $from_name;
+                    $smtpDetails['replyTo_email'] = $replyTo_email;
+                    $smtpDetails['replyTo_name'] = $replyTo_name;
+                
+                    $recipient = ['name' => $name, 'email' => $adminObj->email];
+                    
+                    $bladeData = [
+                        'name' => ucwords($name),
+                        'verifyLink' => $verifyLink,
+                    ];
+                    
+                    $result = $this->MYSMTP($smtpDetails, $recipient, $subject, $templateBlade, $bladeData);
                 }
 
                 
@@ -162,7 +219,7 @@ class Register extends Controller
                 $response = array(
                     "C" => $saved ? 100 : 101,
                     "R" => $postBackData,
-                    "M" => $saved ? "Your account has been successfully registered." : "Something went wrong. Please try again."
+                    "M" => $saved ? "Your account has been successfully registered.  Please check your email to verify your account." : "Something went wrong. Please try again."
                 );
         
                 return response()->json($response); die;
@@ -415,6 +472,45 @@ class Register extends Controller
             }
             
         }
+    }
+
+    function verifyme(Request $request){
+        
+        
+        $token = $request->input("t");
+        
+        if($token){
+            $key = env('MY_ENCRYPTION_KEY');
+            $email = $this->decrypt($token, $key);
+            
+            $customerObj = Admin_model::where('email', $email)->where('emailVerifyToken', $token)->where('emailVerified', 0)->first();
+            
+            if($customerObj){
+                //updateDateTime emailVerifyToken emailVerified
+                //verified
+                $verified = 1;
+                $updatedDateTime = date("Y-m-d H:i:s");
+                
+                $updated = Admin_model::where('email', $email)->where('emailVerifyToken', $token)->update(array("emailVerified" => $verified, "updateDateTime" => $updatedDateTime));
+
+                $data = array();
+                $data["pageTitle"] = "Thank You for Verifying!";
+                $data["role"] = $customerObj->role;
+                return View("thankyouverify",$data);
+
+            }else{
+                //invalid link
+                $data = array();
+                $data["pageTitle"] = "Page not found";
+                return View("page404", array("url" => url()));
+            }
+        }else{
+            //invalid link
+            $data = array();
+            $data["pageTitle"] = "Page not found";
+            return View("page404", array("url" => url()));
+        }
+
     }
 
     function logout(Request $request){

@@ -31,11 +31,12 @@ use App\Http\Controllers\ApplicationTracking;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/*
+
 Route::get('/larvelwelcome', function () {
-    return view('welcome');
+    //return view('welcome');
+    return view('thankyouverify', ["pageTitle" => "test"]);
 });
-*/
+
 
 Route::get('/',[Home::class, 'homepage']);
 Route::get('/about-us',[Home::class, 'homepage']);
@@ -47,6 +48,7 @@ Route::get('/login',[Register::class, 'login']);
 Route::post('/login',[Register::class, 'login']);
 Route::get('/register',[Register::class, 'register']);
 Route::post('/register',[Register::class, 'register']);
+Route::get('/verifyme',[Register::class, 'verifyme']); 
 Route::get('/forgotpassword',[Register::class, 'forgotpassword']);
 Route::post('/forgotpassword',[Register::class, 'forgotpassword']);
 
