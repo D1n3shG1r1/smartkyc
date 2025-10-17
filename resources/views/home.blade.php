@@ -76,6 +76,12 @@
                         <li>Our Vision - To be the leading global platform for document verification, ensuring trust and transparency in business and government transactions.</li>
                         <li>Our Mission - To provide fast, accurate, and secure verification services that help businesses and individuals reduce risks and ensure compliance in an ever-evolving digital world.</li>
                     </ul>
+
+                    <p>
+                        <a href="http://smarttechnology.ng/" target="_blank" style="
+    color: #0796fe;">Read about Smart Technology Board of Directors</a>
+                    </p>
+
                 </div>
             </div>
         </div>
